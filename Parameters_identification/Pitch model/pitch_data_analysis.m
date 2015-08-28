@@ -15,7 +15,244 @@ conv = pi/180;
 %Test B: delta = 1300, wlow = 0.1, whigh = 0.9;
 %Test C: delta = 1000, wlow = 0.1, whigh = 0.7;
 
-RAW = dlmread('log_15b.txt');
+for l = 1:3
+    for j = 1:30
+        s1 = 'log_';
+        s2 = num2str(j);
+        switch l
+            case 1
+                s3 = 'a';
+            case 2
+                s3 = 'b';
+            otherwise
+                s3 = 'c';
+        end
+        
+        s4 = '.txt';
+        name = [s1 s2 s3 s4];
+        
+        RAW = dlmread(name);
+        delta = 1000;
+        phi_t = RAW(:,1)*conv;        %[rad]
+        theta_t = RAW(:,2)*conv;      %[rad]
+        psi_t = RAW(:,3)*conv;        %[rad]
+        p_t = RAW(:,4)*conv;          %[rad/s]
+        q_t = RAW(:,5)*conv;          %[rad/s]
+        r_t = RAW(:,6)*conv;          %[rad/s]
+        th_t = RAW(:,7);              %[%]
+        
+        %% Getting information from logged data
+        val = 53.47779;
+        fsample = 25;                 %[Hz]
+        ts = 1/fsample;
+        
+        for i = 1:length(th_t)
+            if (th_t(i) ==  val) && (th_t(i+1) ~= val)
+                sstart = i - 2;
+            end
+            if (th_t(i) ~=  0) && (th_t(i+1) == 0)
+                sstop = i;
+            end
+            
+        end
+        
+        th_tt = th_t(sstart:sstop);
+        th = delta*(th_tt - (max(th_tt) + min(th_tt))/2)/((max(th_tt) - min(th_tt))/2);
+        
+        q = q_t(sstart:sstop);
+        theta = theta_t(sstart:sstop);
+        
+        time = 0 : ts : (length(th)-1)*ts;
+        
+        %% Filtering acquired data
+        LPF = designfilt('lowpassfir','PassbandFrequency',0.2, ...
+            'StopbandFrequency',0.35,'PassbandRipple',0.5, ...
+            'StopbandAttenuation',65,'DesignMethod','kaiserwin');
+        %fvtool(LPF)
+        
+        qf = filtfilt(LPF,q);
+        % thetaf = filtfilt(LPF, theta);
+        
+        %% Model identification
+        u = th;
+        y = qf;
+        Ts = ts;
+        
+        data = iddata(y, u, Ts, 'Name', 'Pitch');
+        data.InputName = 'deltaOmega';
+        data.InputUnit = '[rad/s]';
+        data.OutputName = {'Angular velocity'};
+        data.OutputUnit = {'[rad/s]'};
+        data.Tstart = time(1);
+        data.TimeUnit = 's';
+        
+        odefun = 'Pitch';
+        
+        dMdq_g = -0.03;
+        dMdu_g = 2e-05;
+        Iyy_g = 0.01;
+        parameters = {dMdq_g, ...
+            dMdu_g, ...
+            Iyy_g};
+        
+        fcn_type = 'c';
+        init_sys = idgrey(odefun,parameters,fcn_type);
+        
+        opt = greyestOptions;
+        opt.InitialState = 'zero';
+        opt.DisturbanceModel = 'none';
+        opt.Focus = 'simulation';
+        opt.SearchMethod = 'auto';
+        
+        sys = greyest(data,init_sys,opt);
+        
+        G = ss(sys);
+        ye = lsim(G, u, time);
+        
+        pvec = getpvec(sys);
+        dMdq_e(j,l) = pvec(1);
+        dMdu_e(j,l) = pvec(2);
+        Iyy_e(j,l) = pvec(3);
+        
+%         error_dMdq = 100*(dMdq_e - dMdq)/dMdq;
+%         error_dMdu = 100*(dMdu_e - dMdu)/dMdu;
+%         error_Iyy = 100*(Iyy_e - Iyy)/Iyy;
+%         error_rel = [error_dMdq error_dMdu error_Iyy];
+        
+%         guess = [dMdq dMdu Iyy];
+%         obt = [dMdq_e dMdu_e Iyy_e];
+    end
+end
+
+%% Mean and standard deviation
+dMdq_a_mean = mean(dMdq_e(:,1));
+dMdq_b_mean = mean(dMdq_e(:,2));
+dMdq_c_mean = mean(dMdq_e(:,3));
+
+dMdu_a_mean = mean(dMdu_e(:,1));
+dMdu_b_mean = mean(dMdu_e(:,2));
+dMdu_c_mean = mean(dMdu_e(:,3));
+
+Iyy_a_mean = mean(Iyy_e(:,1));
+Iyy_b_mean = mean(Iyy_e(:,2));
+Iyy_c_mean = mean(Iyy_e(:,3));
+
+dMdq_a_std = std(dMdq_e(:,1));
+dMdq_b_std = std(dMdq_e(:,2));
+dMdq_c_std = std(dMdq_e(:,3));
+
+dMdu_a_std = std(dMdu_e(:,1));
+dMdu_b_std = std(dMdu_e(:,2));
+dMdu_c_std = std(dMdu_e(:,3));
+
+Iyy_a_std = std(Iyy_e(:,1));
+Iyy_b_std = std(Iyy_e(:,2));
+Iyy_c_std = std(Iyy_e(:,3));
+
+%% Best estimation
+%Compatibility between test A and test B
+%dM/dq:
+k1 = abs(dMdq_a_mean - dMdq_b_mean)/sqrt(dMdq_a_std^2 + dMdq_b_std^2);
+%dM/du:
+k2 = abs(dMdu_a_mean - dMdu_b_mean)/sqrt(dMdu_a_std^2 + dMdu_b_std^2);
+%Iyy:
+k3 = abs(Iyy_a_mean - Iyy_b_mean)/sqrt(Iyy_a_std^2 + Iyy_b_std^2);
+
+%Compatibility between test A and test C
+%dM/dq:
+k4 = abs(dMdq_a_mean - dMdq_c_mean)/sqrt(dMdq_a_std^2 + dMdq_c_std^2);
+%dM/du:
+k5 = abs(dMdu_a_mean - dMdu_c_mean)/sqrt(dMdu_a_std^2 + dMdu_c_std^2);
+%Iyy:
+k6 = abs(Iyy_a_mean - Iyy_c_mean)/sqrt(Iyy_a_std^2 + Iyy_c_std^2);
+
+%Compatibility between test B and test C
+%dM/dq:
+k7 = abs(dMdq_b_mean - dMdq_c_mean)/sqrt(dMdq_b_std^2 + dMdq_c_std^2);
+%dM/du:
+k8 = abs(dMdu_b_mean - dMdu_c_mean)/sqrt(dMdu_b_std^2 + dMdu_c_std^2);
+%Iyy:
+k9 = abs(Iyy_b_mean - Iyy_c_mean)/sqrt(Iyy_b_std^2 + Iyy_c_std^2);
+
+%All of the measures have a coverage factor smaller than 1, I can choose 
+%k=1, this means all of the measures are compatible
+%Now I have to find the best estimation of my parameters
+
+dMdq_e = (dMdq_a_mean/dMdq_a_std^2 + dMdq_b_mean/dMdq_b_std^2 + dMdq_c_mean/dMdq_c_std^2)/(1/dMdq_a_std^2 + 1/dMdq_b_std^2 + 1/dMdq_c_std^2);
+
+dMdu_e = (dMdu_a_mean/dMdu_a_std^2 + dMdu_b_mean/dMdu_b_std^2 + dMdu_c_mean/dMdu_c_std^2)/(1/dMdu_a_std^2 + 1/dMdu_b_std^2 + 1/dMdu_c_std^2);
+
+Iyy_e = (Iyy_a_mean/Iyy_a_std^2 + Iyy_b_mean/Iyy_b_std^2 + Iyy_c_mean/Iyy_c_std^2)/(1/Iyy_a_std^2 + 1/Iyy_b_std^2 + 1/Iyy_c_std^2);
+
+%With an uncertanty of
+dMdq_u = sqrt(1/(1/dMdq_a_std^2 + 1/dMdq_b_std^2 + 1/dMdq_c_std^2));
+
+dMdu_u = sqrt(1/(1/dMdu_a_std^2 + 1/dMdu_b_std^2 + 1/dMdu_c_std^2));
+
+Iyy_u = sqrt(1/(1/Iyy_a_std^2 + 1/Iyy_b_std^2 + 1/Iyy_c_std^2));
+
+%% Plot Output
+disp('The estimated stability derivative of the vehicle pitch moment (dM/dq) equals:')
+disp(['    ', num2str(dMdq_e),' ± ', num2str(dMdq_u),'  [Nm*s]'])
+disp('The estimated control derivative (dM/du) equals:')
+disp(['    ', num2str(dMdu_e),' ± ', num2str(dMdu_u),'  [Nm*s]'])
+disp('The estimated inertia around y-body axes:')
+disp(['    ', num2str(Iyy_e),' ± ', num2str(Iyy_u),'  [kg*m^2]'])
+
+dMdq_x = (dMdq_e-6*dMdq_u):(12*dMdq_u)/100:(dMdq_e+6*dMdq_u);
+norm_dMdq_a = normpdf(dMdq_x,dMdq_a_mean,dMdq_a_std);
+norm_dMdq_b = normpdf(dMdq_x,dMdq_b_mean,dMdq_b_std);
+norm_dMdq_c = normpdf(dMdq_x,dMdq_c_mean,dMdq_c_std);
+
+dMdu_x = (dMdu_e-6*dMdu_u):(12*dMdu_u)/100:(dMdu_e+6*dMdu_u);
+norm_dMdu_a = normpdf(dMdu_x,dMdu_a_mean,dMdu_a_std);
+norm_dMdu_b = normpdf(dMdu_x,dMdu_b_mean,dMdu_b_std);
+norm_dMdu_c = normpdf(dMdu_x,dMdu_c_mean,dMdu_c_std);
+
+Iyy_x = (Iyy_e-6*Iyy_u):(12*Iyy_u)/100:(Iyy_e+6*Iyy_u);
+norm_Iyy_a = normpdf(Iyy_x,Iyy_a_mean,Iyy_a_std);
+norm_Iyy_b = normpdf(Iyy_x,Iyy_b_mean,Iyy_b_std);
+norm_Iyy_c = normpdf(Iyy_x,Iyy_c_mean,Iyy_c_std);
+
+figure('name', 'dMdq')
+plot(dMdq_x, norm_dMdq_a)
+hold on
+plot(dMdq_x, norm_dMdq_b)
+plot(dMdq_x, norm_dMdq_c)
+grid minor
+xlabel('[Nm*s]')
+ylabel('')
+title('dMdq')
+legend('Test A', 'Test B', 'Test C')
+hold off
+
+figure('name', 'dMdu')
+plot(dMdu_x, norm_dMdu_a)
+hold on
+plot(dMdu_x, norm_dMdu_b)
+plot(dMdu_x, norm_dMdu_c)
+grid minor
+xlabel('[Nm*s]')
+ylabel('')
+title('dMdu')
+legend('Test A', 'Test B', 'Test C')
+hold off
+
+figure('name', 'Iyy')
+plot(Iyy_x, norm_Iyy_a)
+hold on
+plot(Iyy_x, norm_Iyy_b)
+plot(Iyy_x, norm_Iyy_c)
+grid minor
+xlabel('[kg*m^2]')
+ylabel('')
+title('I_{yy}')
+legend('Test A', 'Test B', 'Test C')
+hold off
+
+%% Plot results for report
+
+RAW = dlmread('log_17b.txt');
 delta = 1000;
 phi_t = RAW(:,1)*conv;        %[rad]
 theta_t = RAW(:,2)*conv;      %[rad]
@@ -25,9 +262,9 @@ q_t = RAW(:,5)*conv;          %[rad/s]
 r_t = RAW(:,6)*conv;          %[rad/s]
 th_t = RAW(:,7);              %[%]
 
-%% Getting information from logged data
+% Getting information from logged data
 val = 53.47779;
-fsample = 50;                 %[Hz]
+fsample = 25;                 %[Hz]
 ts = 1/fsample;
 
 for i = 1:length(th_t)
@@ -48,33 +285,16 @@ theta = theta_t(sstart:sstop);
 
 time = 0 : ts : (length(th)-1)*ts;
 
-%% Filtering acquired data
+% Filtering acquired data
 LPF = designfilt('lowpassfir','PassbandFrequency',0.2, ...
-      'StopbandFrequency',0.35,'PassbandRipple',0.5, ...
-      'StopbandAttenuation',65,'DesignMethod','kaiserwin');
+    'StopbandFrequency',0.35,'PassbandRipple',0.5, ...
+    'StopbandAttenuation',65,'DesignMethod','kaiserwin');
 %fvtool(LPF)
 
 qf = filtfilt(LPF,q);
-%thetaf = filtfilt(LPF, theta);
+% thetaf = filtfilt(LPF, theta);
 
-%% Print data logged
-% figure('name', 'Output: q')
-% [AX,H1,H2] = plotyy(time,q,time,qf,'plot');
-% set(get(AX(1),'Ylabel'),'String','throttle [%]')
-% set(get(AX(2),'Ylabel'),'String','q [rad/s]')
-% xlabel('time [s]')
-% grid minor
-% title('Multistep input signal: RBS')
-
-% figure('name', 'Output: theta')
-% [AX,H1,H2] = plotyy(time,thf,time,theta,'plot');
-% set(get(AX(1),'Ylabel'),'String','throttle [%]')
-% set(get(AX(2),'Ylabel'),'String','theta [rad]')
-% xlabel('time [s]')
-% grid minor
-% title('Multistep input signal: RBS')
-
-%% Model identification
+% Model identification
 u = th;
 y = qf;
 Ts = ts;
@@ -91,10 +311,10 @@ odefun = 'Pitch';
 
 dMdq_g = -0.03;
 dMdu_g = 2e-05;
-Iyy_g = 0.002;
+Iyy_g = 0.01;
 parameters = {dMdq_g, ...
-              dMdu_g, ...
-              Iyy_g};
+    dMdu_g, ...
+    Iyy_g};
 
 fcn_type = 'c';
 init_sys = idgrey(odefun,parameters,fcn_type);
@@ -110,20 +330,6 @@ sys = greyest(data,init_sys,opt);
 G = ss(sys);
 ye = lsim(G, u, time);
 
-pvec = getpvec(sys);
-dMdq_e = pvec(1);
-dMdu_e = pvec(2);
-Iyy_e = pvec(3);
-
-error_dMdq = 100*(dMdq_e - dMdq)/dMdq;
-error_dMdu = 100*(dMdu_e - dMdu)/dMdu;
-error_Iyy = 100*(Iyy_e - Iyy)/Iyy;
-error_rel = [error_dMdq error_dMdu error_Iyy];
-
-guess = [dMdq dMdu Iyy];
-obt = [dMdq_e dMdu_e Iyy_e];
-
-%% Plot results
 figure('name', 'Grey Estimation')
 subplot(2,1,1)
 plot(time, u,'b', 'linewidth', 2)
@@ -142,12 +348,5 @@ legend('Identified model', 'Data aquired', 'location', 'southeast')
 ylabel('[rad/s]')
 xlabel('Time [s]')
 title('q')
-
-disp('Stability derivative of the vehicle pitch moment (dM/dq) equals:')
-disp(['    ', num2str(dMdq_e), '  [Nm*s]'])
-disp('Control derivative (dM/du) equals:')
-disp(['    ', num2str(dMdu_e), '  [Nm*s]'])
-disp('Inertia around y-body axes:')
-disp(['    ', num2str(Iyy_e), '  [kg*m^2]'])
 
 %% End of code

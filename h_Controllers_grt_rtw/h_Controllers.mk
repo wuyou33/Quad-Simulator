@@ -2,7 +2,7 @@
 ## Makefile generated for Simulink model 'h_Controllers'. 
 ## 
 ## Makefile     : h_Controllers.mk
-## Generated on : Sun Jul 12 17:12:30 2015
+## Generated on : Thu Aug 27 18:23:51 2015
 ## MATLAB Coder version: 2.8 (R2015a)
 ## 
 ## Build Info:
@@ -29,7 +29,7 @@ MATLAB_ROOT               = /usr/local/MATLAB/R2015a
 MATLAB_BIN                = /usr/local/MATLAB/R2015a/bin
 MATLAB_ARCH_BIN           = /usr/local/MATLAB/R2015a/bin/glnxa64
 MASTER_ANCHOR_DIR         = 
-START_DIR                 = /home/pela/Documents/MATLAB/Quad
+START_DIR                 = /home/pela/Documents/MATLAB/Quad-Simulator
 ARCH                      = glnxa64
 SOLVER                    = 
 SOLVER_OBJ                = 
