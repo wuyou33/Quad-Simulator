@@ -11,8 +11,8 @@ m = 1.5;                         %[kg] Body mass
 Mb = diag([m m m]);              %[Kg] Mass matrix
 MbInv = Mb\eye(3);               %[Kg^-1] Inverse of mass matrix
 b = 0.55/2;                      %[m] Arm lenght
-Ixx = 0.019825;% ± 0.0020906     %[kg*m^2] Inertia around Xbody axes
-Iyy = 0.019825;% ± 0.0020906     %[kg*m^2] Inertia around Ybody axes
+Ixx = 0.019825;% ± 0.00038169    %[kg*m^2] Inertia around Xbody axes
+Iyy = 0.019825;% ± 0.00038169    %[kg*m^2] Inertia around Ybody axes
 Izz = 0.004;                     %[kg*m^2] Inertia around Zbody axes
 In = diag([Ixx Iyy Izz]);        %[kg*m^2] Inertia tensor
 InInv = In\eye(3);               %[kg^-1*m^-2] Inverse of inertia tensor
@@ -33,10 +33,10 @@ x1 = [6.0312 80.4859];           %RPM vs THROTTLE: Y = m*X + q; x1 = [m q]
 Kt = Ct*ro*A*R^2;
 Kq = Cq*ro*A*R^3;
 %dMdu = 2*sqrt(2)*Kt*b;
-dMdu = 1.2864e-05;% ± 1.978e-06  %[Nm*s] Control derivative
+dMdu = 1.2864e-05;% ± 3.6114e-07 %[Nm*s] Control derivative
 
 %Aerodynamic damping
-dMdq = -0.027052;% ± 0.00070748  %[Nm*s] Stability derivative of the vehicle pitch
+dMdq = -0.027052;% ± 0.00012917  %[Nm*s] Stability derivative of the vehicle pitch
 dLdp = dMdq;
 dLMN = [dLdp  0   0  ;
          0   dMdq 0  ;

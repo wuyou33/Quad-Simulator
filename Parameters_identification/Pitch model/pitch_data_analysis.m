@@ -2,7 +2,7 @@
 % Author: Mattia Giurato     %
 % Last review: 2015/07/24    %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-clear all
+clear 
 close all 
 clc
 
@@ -123,6 +123,12 @@ for l = 1:3
 %         obt = [dMdq_e dMdu_e Iyy_e];
     end
 end
+% Save data from the previous computation
+save output.mat dMdq_e dMdu_e Iyy_e
+clear
+
+%% Reload only usefull data
+load output.mat
 
 %% Mean and standard deviation
 dMdq_a_mean = mean(dMdq_e(:,1));
@@ -149,67 +155,82 @@ Iyy_a_std = std(Iyy_e(:,1));
 Iyy_b_std = std(Iyy_e(:,2));
 Iyy_c_std = std(Iyy_e(:,3));
 
+%% Uncertainty of category A
+dMdq_a_ua = dMdq_a_std/sqrt(30);
+dMdq_b_ua = dMdq_b_std/sqrt(30);
+dMdq_c_ua = dMdq_c_std/sqrt(30);
+
+dMdu_a_ua = dMdu_a_std/sqrt(30);
+dMdu_b_ua = dMdu_b_std/sqrt(30);
+dMdu_c_ua = dMdu_c_std/sqrt(30);
+
+Iyy_a_ua = Iyy_a_std/sqrt(30);
+Iyy_b_ua = Iyy_b_std/sqrt(30);
+Iyy_c_ua = Iyy_c_std/sqrt(30);
+
 %% Best estimation
 %Compatibility between test A and test B
 %dM/dq:
-k1 = abs(dMdq_a_mean - dMdq_b_mean)/sqrt(dMdq_a_std^2 + dMdq_b_std^2);
+k1 = abs(dMdq_a_mean - dMdq_b_mean)/sqrt(dMdq_a_ua^2 + dMdq_b_ua^2);
 %dM/du:
-k2 = abs(dMdu_a_mean - dMdu_b_mean)/sqrt(dMdu_a_std^2 + dMdu_b_std^2);
+k4 = abs(dMdu_a_mean - dMdu_b_mean)/sqrt(dMdu_a_ua^2 + dMdu_b_ua^2);
 %Iyy:
-k3 = abs(Iyy_a_mean - Iyy_b_mean)/sqrt(Iyy_a_std^2 + Iyy_b_std^2);
+k7 = abs(Iyy_a_mean - Iyy_b_mean)/sqrt(Iyy_a_ua^2 + Iyy_b_ua^2);
 
 %Compatibility between test A and test C
 %dM/dq:
-k4 = abs(dMdq_a_mean - dMdq_c_mean)/sqrt(dMdq_a_std^2 + dMdq_c_std^2);
+k2 = abs(dMdq_a_mean - dMdq_c_mean)/sqrt(dMdq_a_ua^2 + dMdq_c_ua^2);
 %dM/du:
-k5 = abs(dMdu_a_mean - dMdu_c_mean)/sqrt(dMdu_a_std^2 + dMdu_c_std^2);
+k5 = abs(dMdu_a_mean - dMdu_c_mean)/sqrt(dMdu_a_ua^2 + dMdu_c_ua^2);
 %Iyy:
-k6 = abs(Iyy_a_mean - Iyy_c_mean)/sqrt(Iyy_a_std^2 + Iyy_c_std^2);
+k8 = abs(Iyy_a_mean - Iyy_c_mean)/sqrt(Iyy_a_ua^2 + Iyy_c_ua^2);
 
 %Compatibility between test B and test C
 %dM/dq:
-k7 = abs(dMdq_b_mean - dMdq_c_mean)/sqrt(dMdq_b_std^2 + dMdq_c_std^2);
+k3 = abs(dMdq_b_mean - dMdq_c_mean)/sqrt(dMdq_b_ua^2 + dMdq_c_ua^2);
 %dM/du:
-k8 = abs(dMdu_b_mean - dMdu_c_mean)/sqrt(dMdu_b_std^2 + dMdu_c_std^2);
+k6 = abs(dMdu_b_mean - dMdu_c_mean)/sqrt(dMdu_b_ua^2 + dMdu_c_ua^2);
 %Iyy:
-k9 = abs(Iyy_b_mean - Iyy_c_mean)/sqrt(Iyy_b_std^2 + Iyy_c_std^2);
+k9 = abs(Iyy_b_mean - Iyy_c_mean)/sqrt(Iyy_b_ua^2 + Iyy_c_ua^2);
+
+KK = [k1 k2 k3 k4 k5 k6 k7 k8 k9];
 
 %All of the measures have a coverage factor smaller than 1, I can choose 
-%k=1, this means all of the measures are compatible
+%k=1, this means all of the measures are compatible (NOT SURE ANYMORE)
 %Now I have to find the best estimation of my parameters
 
-dMdq_e = (dMdq_a_mean/dMdq_a_std^2 + dMdq_b_mean/dMdq_b_std^2 + dMdq_c_mean/dMdq_c_std^2)/(1/dMdq_a_std^2 + 1/dMdq_b_std^2 + 1/dMdq_c_std^2);
+dMdq_est = (dMdq_a_mean/dMdq_a_ua^2 + dMdq_b_mean/dMdq_b_ua^2 + dMdq_c_mean/dMdq_c_ua^2)/(1/dMdq_a_ua^2 + 1/dMdq_b_ua^2 + 1/dMdq_c_ua^2);
 
-dMdu_e = (dMdu_a_mean/dMdu_a_std^2 + dMdu_b_mean/dMdu_b_std^2 + dMdu_c_mean/dMdu_c_std^2)/(1/dMdu_a_std^2 + 1/dMdu_b_std^2 + 1/dMdu_c_std^2);
+dMdu_est = (dMdu_a_mean/dMdu_a_ua^2 + dMdu_b_mean/dMdu_b_ua^2 + dMdu_c_mean/dMdu_c_ua^2)/(1/dMdu_a_ua^2 + 1/dMdu_b_ua^2 + 1/dMdu_c_ua^2);
 
-Iyy_e = (Iyy_a_mean/Iyy_a_std^2 + Iyy_b_mean/Iyy_b_std^2 + Iyy_c_mean/Iyy_c_std^2)/(1/Iyy_a_std^2 + 1/Iyy_b_std^2 + 1/Iyy_c_std^2);
+Iyy_est = (Iyy_a_mean/Iyy_a_ua^2 + Iyy_b_mean/Iyy_b_ua^2 + Iyy_c_mean/Iyy_c_ua^2)/(1/Iyy_a_ua^2 + 1/Iyy_b_ua^2 + 1/Iyy_c_ua^2);
 
-%With an uncertanty of
-dMdq_u = sqrt(1/(1/dMdq_a_std^2 + 1/dMdq_b_std^2 + 1/dMdq_c_std^2));
+%With an uncertainty of
+dMdq_u = sqrt(1/(1/dMdq_a_ua^2 + 1/dMdq_b_ua^2 + 1/dMdq_c_ua^2));
 
-dMdu_u = sqrt(1/(1/dMdu_a_std^2 + 1/dMdu_b_std^2 + 1/dMdu_c_std^2));
+dMdu_u = sqrt(1/(1/dMdu_a_ua^2 + 1/dMdu_b_ua^2 + 1/dMdu_c_ua^2));
 
-Iyy_u = sqrt(1/(1/Iyy_a_std^2 + 1/Iyy_b_std^2 + 1/Iyy_c_std^2));
+Iyy_u = sqrt(1/(1/Iyy_a_ua^2 + 1/Iyy_b_ua^2 + 1/Iyy_c_ua^2));
 
 %% Plot Output
 disp('The estimated stability derivative of the vehicle pitch moment (dM/dq) equals:')
-disp(['    ', num2str(dMdq_e),' ± ', num2str(dMdq_u),'  [Nm*s]'])
+disp(['    ', num2str(dMdq_est),' ± ', num2str(dMdq_u),'  [Nm*s]'])
 disp('The estimated control derivative (dM/du) equals:')
-disp(['    ', num2str(dMdu_e),' ± ', num2str(dMdu_u),'  [Nm*s]'])
+disp(['    ', num2str(dMdu_est),' ± ', num2str(dMdu_u),'  [Nm*s]'])
 disp('The estimated inertia around y-body axes:')
-disp(['    ', num2str(Iyy_e),' ± ', num2str(Iyy_u),'  [kg*m^2]'])
+disp(['    ', num2str(Iyy_est),' ± ', num2str(Iyy_u),'  [kg*m^2]'])
 
-dMdq_x = (dMdq_e-6*dMdq_u):(12*dMdq_u)/100:(dMdq_e+6*dMdq_u);
+dMdq_x = (dMdq_est-24*dMdq_u):(48*dMdq_u)/100:(dMdq_est+24*dMdq_u);
 norm_dMdq_a = normpdf(dMdq_x,dMdq_a_mean,dMdq_a_std);
 norm_dMdq_b = normpdf(dMdq_x,dMdq_b_mean,dMdq_b_std);
 norm_dMdq_c = normpdf(dMdq_x,dMdq_c_mean,dMdq_c_std);
 
-dMdu_x = (dMdu_e-6*dMdu_u):(12*dMdu_u)/100:(dMdu_e+6*dMdu_u);
+dMdu_x = (dMdu_est-36*dMdu_u):(64*dMdu_u)/100:(dMdu_est+36*dMdu_u);
 norm_dMdu_a = normpdf(dMdu_x,dMdu_a_mean,dMdu_a_std);
 norm_dMdu_b = normpdf(dMdu_x,dMdu_b_mean,dMdu_b_std);
 norm_dMdu_c = normpdf(dMdu_x,dMdu_c_mean,dMdu_c_std);
 
-Iyy_x = (Iyy_e-6*Iyy_u):(12*Iyy_u)/100:(Iyy_e+6*Iyy_u);
+Iyy_x = (Iyy_est-24*Iyy_u):(48*Iyy_u)/100:(Iyy_est+24*Iyy_u);
 norm_Iyy_a = normpdf(Iyy_x,Iyy_a_mean,Iyy_a_std);
 norm_Iyy_b = normpdf(Iyy_x,Iyy_b_mean,Iyy_b_std);
 norm_Iyy_c = normpdf(Iyy_x,Iyy_c_mean,Iyy_c_std);
@@ -222,7 +243,7 @@ plot(dMdq_x, norm_dMdq_c)
 grid minor
 xlabel('[Nm*s]')
 ylabel('')
-title('dMdq')
+title('$\displaystyle\frac{dM}{dq}$','interpreter','latex')
 legend('Test A', 'Test B', 'Test C')
 hold off
 
@@ -234,7 +255,7 @@ plot(dMdu_x, norm_dMdu_c)
 grid minor
 xlabel('[Nm*s]')
 ylabel('')
-title('dMdu')
+title('$\displaystyle\frac{dM}{du}$','interpreter','latex')
 legend('Test A', 'Test B', 'Test C')
 hold off
 
