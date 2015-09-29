@@ -5,15 +5,16 @@
 
 %% Parameters definition
 g = 9.81;                        %[m/s^2] Gravitational Acceleration
+degtorad = pi/180;
 
 %Mass and structural informations
 m = 1.5;                         %[kg] Body mass
 Mb = diag([m m m]);              %[Kg] Mass matrix
 MbInv = Mb\eye(3);               %[Kg^-1] Inverse of mass matrix
 b = 0.55/2;                      %[m] Arm lenght
-Ixx = 0.019825;% ± 0.00038169    %[kg*m^2] Inertia around Xbody axes
-Iyy = 0.019825;% ± 0.00038169    %[kg*m^2] Inertia around Ybody axes
-Izz = 0.004;                     %[kg*m^2] Inertia around Zbody axes
+Ixx = 0.021223;% ± 0.00040352    %[kg*m^2] Inertia around Xbody axes
+Iyy = 0.021223;% ± 0.00040352    %[kg*m^2] Inertia around Ybody axes
+Izz = 0.04 ;                     %[kg*m^2] Inertia around Zbody axes
 In = diag([Ixx Iyy Izz]);        %[kg*m^2] Inertia tensor
 InInv = In\eye(3);               %[kg^-1*m^-2] Inverse of inertia tensor
 
@@ -32,17 +33,17 @@ tau = 0.055257;                  %[s] Motor+Propeller time constant
 x1 = [6.0312 80.4859];           %RPM vs THROTTLE: Y = m*X + q; x1 = [m q]
 Kt = Ct*ro*A*R^2;
 Kq = Cq*ro*A*R^3;
-%dMdu = 2*sqrt(2)*Kt*b;
-dMdu = 1.2864e-05;% ± 3.6114e-07 %[Nm*s] Control derivative
+OMEhov = sqrt((m*g/Kt)/4);
+%dMdu = 4*sqrt(2)*Kt*b*OMEhov;
+dMdu = 0.0093117;% ± 0.00023028 %[Nm*s] Control derivative
 
 %Aerodynamic damping
-dMdq = -0.027052;% ± 0.00012917  %[Nm*s] Stability derivative of the vehicle pitch
+dMdq = -0.029492;% ± 0.00020031  %[Nm*s] Stability derivative of the vehicle pitch
 dLdp = dMdq;
 dLMN = [dLdp  0   0  ;
          0   dMdq 0  ;
          0    0   0 ];
 %OLD
-OMEhov = sqrt((m*g/Kt)/4);
 % Clalpha = 2*pi;
 % dCtdp = Clalpha*sigma*b/(8*R*OMEhov*sqrt(2));
 % dLdp = -4*ro*A*R^2*OMEhov^2*dCtdp*b/sqrt(2);

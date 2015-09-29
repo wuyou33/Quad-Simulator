@@ -8,12 +8,11 @@ clc
 
 %% Parameters definition
 Parameters
-conv = pi/180;
 
 %% Import logged data
-%Test A: delta = 1500, wlow = 0.1, whigh = 1.0;
-%Test B: delta = 1300, wlow = 0.1, whigh = 0.9;
-%Test C: delta = 1000, wlow = 0.1, whigh = 0.7;
+%Test A: delta = 1.9, wlow = 0.1, whigh = 1.0;
+%Test B: delta = 1.7, wlow = 0.1, whigh = 0.9;
+%Test C: delta = 1.3, wlow = 0.1, whigh = 0.7;
 
 for l = 1:3
     for j = 1:30
@@ -22,28 +21,30 @@ for l = 1:3
         switch l
             case 1
                 s3 = 'a';
+                delta = 1.9;
             case 2
                 s3 = 'b';
+                delta = 1.7;
             otherwise
                 s3 = 'c';
+                delta = 1.3;
         end
         
         s4 = '.txt';
         name = [s1 s2 s3 s4];
         
         RAW = dlmread(name);
-        delta = 1000;
-        phi_t = RAW(:,1)*conv;        %[rad]
-        theta_t = RAW(:,2)*conv;      %[rad]
-        psi_t = RAW(:,3)*conv;        %[rad]
-        p_t = RAW(:,4)*conv;          %[rad/s]
-        q_t = RAW(:,5)*conv;          %[rad/s]
-        r_t = RAW(:,6)*conv;          %[rad/s]
-        th_t = RAW(:,7);              %[%]
+        phi_t = RAW(:,1)*degtorad;        %[rad]
+        theta_t = RAW(:,2)*degtorad;      %[rad]
+        psi_t = RAW(:,3)*degtorad;        %[rad]
+        p_t = RAW(:,4)*degtorad;          %[rad/s]
+        q_t = RAW(:,5)*degtorad;          %[rad/s]
+        r_t = RAW(:,6)*degtorad;          %[rad/s]
+        th_t = RAW(:,7);                  %[%]
         
         %% Getting information from logged data
         val = 53.47779;
-        fsample = 25;                 %[Hz]
+        fsample = 25;                     %[Hz]
         ts = 1/fsample;
         
         for i = 1:length(th_t)
@@ -89,7 +90,7 @@ for l = 1:3
         odefun = 'Pitch';
         
         dMdq_g = -0.03;
-        dMdu_g = 2e-05;
+        dMdu_g = 0.015;
         Iyy_g = 0.01;
         parameters = {dMdq_g, ...
             dMdu_g, ...
@@ -128,6 +129,7 @@ save output.mat dMdq_e dMdu_e Iyy_e
 clear
 
 %% Reload only usefull data
+Parameters
 load output.mat
 
 %% Mean and standard deviation
@@ -225,7 +227,7 @@ norm_dMdq_a = normpdf(dMdq_x,dMdq_a_mean,dMdq_a_std);
 norm_dMdq_b = normpdf(dMdq_x,dMdq_b_mean,dMdq_b_std);
 norm_dMdq_c = normpdf(dMdq_x,dMdq_c_mean,dMdq_c_std);
 
-dMdu_x = (dMdu_est-36*dMdu_u):(64*dMdu_u)/100:(dMdu_est+36*dMdu_u);
+dMdu_x = (dMdu_est-24*dMdu_u):(48*dMdu_u)/100:(dMdu_est+24*dMdu_u);
 norm_dMdu_a = normpdf(dMdu_x,dMdu_a_mean,dMdu_a_std);
 norm_dMdu_b = normpdf(dMdu_x,dMdu_b_mean,dMdu_b_std);
 norm_dMdu_c = normpdf(dMdu_x,dMdu_c_mean,dMdu_c_std);
@@ -243,7 +245,7 @@ plot(dMdq_x, norm_dMdq_c)
 grid minor
 xlabel('[Nm*s]')
 ylabel('')
-title('$\displaystyle\frac{dM}{dq}$','interpreter','latex')
+title('$\displaystyle\frac{\partial M}{\partial q}$','interpreter','latex')
 legend('Test A', 'Test B', 'Test C')
 hold off
 
@@ -255,7 +257,7 @@ plot(dMdu_x, norm_dMdu_c)
 grid minor
 xlabel('[Nm*s]')
 ylabel('')
-title('$\displaystyle\frac{dM}{du}$','interpreter','latex')
+title('$\displaystyle\frac{\partial M}{\partial u}$','interpreter','latex')
 legend('Test A', 'Test B', 'Test C')
 hold off
 
@@ -274,18 +276,18 @@ hold off
 %% Plot results for report
 
 RAW = dlmread('log_17b.txt');
-delta = 1000;
-phi_t = RAW(:,1)*conv;        %[rad]
-theta_t = RAW(:,2)*conv;      %[rad]
-psi_t = RAW(:,3)*conv;        %[rad]
-p_t = RAW(:,4)*conv;          %[rad/s]
-q_t = RAW(:,5)*conv;          %[rad/s]
-r_t = RAW(:,6)*conv;          %[rad/s]
-th_t = RAW(:,7);              %[%]
+delta = 1.7;
+phi_t = RAW(:,1)*degtorad;        %[rad]
+theta_t = RAW(:,2)*degtorad;      %[rad]
+psi_t = RAW(:,3)*degtorad;        %[rad]
+p_t = RAW(:,4)*degtorad;          %[rad/s]
+q_t = RAW(:,5)*degtorad;          %[rad/s]
+r_t = RAW(:,6)*degtorad;          %[rad/s]
+th_t = RAW(:,7);                  %[%]
 
 % Getting information from logged data
 val = 53.47779;
-fsample = 25;                 %[Hz]
+fsample = 25;                   %[Hz]
 ts = 1/fsample;
 
 for i = 1:length(th_t)
@@ -331,7 +333,7 @@ data.TimeUnit = 's';
 odefun = 'Pitch';
 
 dMdq_g = -0.03;
-dMdu_g = 2e-05;
+dMdu_g = 0.015;
 Iyy_g = 0.01;
 parameters = {dMdq_g, ...
     dMdu_g, ...
@@ -355,7 +357,7 @@ figure('name', 'Grey Estimation')
 subplot(2,1,1)
 plot(time, u,'b', 'linewidth', 2)
 grid minor
-ylim([-delta-100 delta+100])
+ylim([-delta-2 delta+2])
 ylabel('[rad/s]')
 xlabel('Time [s]')
 title('deltaOmega')

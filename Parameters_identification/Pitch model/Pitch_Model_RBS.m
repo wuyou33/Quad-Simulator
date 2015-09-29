@@ -10,17 +10,7 @@ clc
 Parameters_OLD;
 
 %% Pitch dynamical model
-%The analytical model is the following:
-%   Iyy*qdot + (Ixx - Izz)*p*r = Mprops + Mdamp
-%Assuming only 1 DOF (rotation around Y) we have p = r = 0
-%   Iyy*qdot = Mprops + Mdamp 
-%   Mprops = Kt*b/sqrt(2)*(Ome1^2 + Ome2^2 - Ome3^2 - Ome4^2)
-%          = Kt*b*sqrt(2)*(OmeF^2 - OmeR^2)=
-%          = Kt*b*2*sqrt(2)*deltaOme = dM/du*deltaOme
-%          -> Ome1^2 = Ome2^2 = OmeHover^2 + deltaOme
-%          -> Ome3^2 = Ome4^2 = OmeHover^2 - deltaOme
-%   Mdamp = dM/dq*qdot
-%We can now write it in state space model with x = [q theta]'
+%The state of the model is x = [q theta]'
 
 AA = [dMdq/Iyy 0 ; 
         1      0];
@@ -44,12 +34,12 @@ pit_tf_theta = pit_tf(2);
 [zeros_q, poles_q] = zpkdata(pit_tf_q,'v');
 [zeros_theta, poles_theta] = zpkdata(pit_tf_theta,'v');
 fb_q = bandwidth(pit_tf_q);
-%fb_theta = bandwidth(pit_tf_theta);
+% fb_theta = bandwidth(pit_tf_theta);
 
-% figure('name','Pitch model')
-% bode(pit_tf_q)
-% title('Pitch model - Transfer function')
-% grid minor
+figure('name','Pitch model')
+bode(pit_tf_q)
+title('Pitch model - Transfer function')
+grid minor
  
 % figure('name','Pitch model')
 % bode(pit_tf_theta)
@@ -69,8 +59,8 @@ wlow = .1;
 whigh = 1;
 band = [wlow, whigh];
 
-minu = -1000;
-maxu = 1000;
+minu = -1.9;
+maxu = 1.9;
 levels = [minu, maxu];
 u_ident = idinput(N,type,band,levels);
 
@@ -79,7 +69,7 @@ ts = 1/f0;
 
 time = (0:ts:N*ts-ts)';
 
-plot(time, u_ident);
+% plot(time, u_ident);
 
 %%
 q_e = lsim(pit_tf_q, u_ident, time);
@@ -120,7 +110,7 @@ data.TimeUnit = 's';
 odefun = 'Pitch';
 
 dMdq_g = -0.03;
-dMdu_g = 2e-05;
+dMdu_g = 0.015;
 Iyy_g = 0.002;
 parameters = {dMdq_g, ...
               dMdu_g, ...
@@ -155,26 +145,23 @@ figure('name', 'Grey Estimation')
 subplot(2,1,1)
 plot(time, u_ident,'b', 'linewidth', 2)
 grid minor
-ylim([-1100 1100])
-ylabel('[]')
+ylim([minu-2 maxu+2])
+ylabel('[rad/s]')
 xlabel('Time [s]')
 title('deltaOmega')
 subplot(2,1,2)
 plot(time, ye,'r', 'linewidth', 2)
-hold on
-subplot(2,1,2)
-plot(time, y,'b--')
 grid minor
-legend('Identified model', 'Data estimated', 'location', 'southeast')
+ylim([-2 +2])
 ylabel('[rad/s]')
 xlabel('Time [s]')
 title('q')
 
-% disp('Stability derivative of the vehicle pitch moment (dM/dq) equals:')
-% disp(['    ', num2str(dMdq_e), '  [Nm*s]'])
-% disp('Control derivative (dM/du) equals:')
-% disp(['    ', num2str(dMdu_e), '  [Nm*s]'])
-% disp('Inertia around y-body axes:')
-% disp(['    ', num2str(Iyy_e), '  [kg*m^2]'])
+disp('Stability derivative of the vehicle pitch moment (dM/dq) equals:')
+disp(['    ', num2str(dMdq_e), '  [Nm*s]'])
+disp('Control derivative (dM/du) equals:')
+disp(['    ', num2str(dMdu_e), '  [Nm*s]'])
+disp('Inertia around y-body axes:')
+disp(['    ', num2str(Iyy_e), '  [kg*m^2]'])
 
  %% End of code

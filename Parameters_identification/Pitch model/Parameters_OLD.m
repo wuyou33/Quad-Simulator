@@ -32,10 +32,11 @@ tau = 0.055257;                  %[s] Motor+Propeller time constant
 x1 = [6.0312 80.4859];           %RPM vs THROTTLE: Y = m*X + q; x1 = [m q]
 Kt = Ct*ro*A*R^2;
 Kq = Cq*ro*A*R^3;
-dMdu = 2*sqrt(2)*Kt*b;           %[Nm*s] Control derivative
+OMEhov = sqrt((m*g/Kt)/4);
+dMdu = 4*sqrt(2)*Kt*b*OMEhov;           %[Nm*s] Control derivative
 
 %OLD
-OMEhov = sqrt((m*g/Kt)/4);
+
 Clalpha = 2*pi;
 dCtdp = Clalpha*sigma*b/(8*R*OMEhov*sqrt(2));
 dLdp = -4*ro*A*R^2*OMEhov^2*dCtdp*b/sqrt(2);
