@@ -148,7 +148,7 @@ grid minor
 ylim([minu-2 maxu+2])
 ylabel('[rad/s]')
 xlabel('Time [s]')
-title('deltaOmega')
+title('\delta\Omega')
 subplot(2,1,2)
 plot(time, ye,'r', 'linewidth', 2)
 grid minor

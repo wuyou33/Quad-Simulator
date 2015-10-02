@@ -360,7 +360,7 @@ grid minor
 ylim([-delta-2 delta+2])
 ylabel('[rad/s]')
 xlabel('Time [s]')
-title('deltaOmega')
+title('\delta\Omega')
 subplot(2,1,2)
 plot(time, ye,'r', 'linewidth', 2)
 hold on
