@@ -22,9 +22,13 @@ Parameters;
 %   Mdamp = dM/dq*qdot
 %We can now write it in state space model with x = [q theta]'
 
-AA = [dMdq/Iyy 0 ; 
+par1 = ureal('dMdq',dMdq,'Percent',25);
+par2 = ureal('dMdu',dMdu,'Percent',25);
+par3 = ureal('Iyy',Iyy,'Percent',25);
+
+AA = [par1/par3 0 ; 
         1      0];
-BB = [dMdu/Iyy ;
+BB = [par2/par3 ;
           0   ];
 CC = [1 0 ;
       0 1];
@@ -44,13 +48,16 @@ pit_tf_theta = pit_tf(2);
 [zeros_q, poles_q] = zpkdata(pit_tf_q,'v');
 [zeros_theta, poles_theta] = zpkdata(pit_tf_theta,'v');
 
+rng('default')
+bode(pit_ss,'b',pit_ss.NominalValue,'r+',{1e-2,1e2})
+
 % figure('name','Pitch model')
-% bode(pit_tf_q)
+% bode(pit_tf_q,{1e-2,1e2})
 % title('Pitch model - Transfer function')
 % grid minor
 % 
 % figure('name','Pitch model')
-% bode(pit_tf_theta)
+% bode(pit_tf_theta,{1e-2,1e2})
 % title('Pitch model - Transfer function')
 % grid minor
 

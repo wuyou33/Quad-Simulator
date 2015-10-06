@@ -12,8 +12,10 @@ m = 1.5;                         %[kg] Body mass
 Mb = diag([m m m]);              %[Kg] Mass matrix
 MbInv = Mb\eye(3);               %[Kg^-1] Inverse of mass matrix
 b = 0.55/2;                      %[m] Arm lenght
-Ixx = 0.021223;% ± 0.00040352    %[kg*m^2] Inertia around Xbody axes
-Iyy = 0.021223;% ± 0.00040352    %[kg*m^2] Inertia around Ybody axes
+Ixx = 0.021223;                  %[kg*m^2] Inertia around Xbody axes
+u_Ixx = 0.00040352;              %[kg*m^2] Uncertainty of Inertia around Xbody axes
+Iyy = 0.021223;                  %[kg*m^2] Inertia around Ybody axes
+u_Iyy = 0.00040352;              %[kg*m^2] Uncertainty of Inertia around Ybody axes
 Izz = 0.04 ;                     %[kg*m^2] Inertia around Zbody axes
 In = diag([Ixx Iyy Izz]);        %[kg*m^2] Inertia tensor
 InInv = In\eye(3);               %[kg^-1*m^-2] Inverse of inertia tensor
@@ -35,10 +37,12 @@ Kt = Ct*ro*A*R^2;
 Kq = Cq*ro*A*R^3;
 OMEhov = sqrt((m*g/Kt)/4);
 %dMdu = 4*sqrt(2)*Kt*b*OMEhov;
-dMdu = 0.0093117;% ± 0.00023028 %[Nm*s] Control derivative
+dMdu = 0.0093117;                %[Nm*s] Control derivative
+u_dMdu = 0.00023028;             %[Nm*s] Uncertainty of control derivative
 
 %Aerodynamic damping
-dMdq = -0.029492;% ± 0.00020031  %[Nm*s] Stability derivative of the vehicle pitch
+dMdq = -0.029492;                %[Nm*s] Stability derivative of the vehicle pitch
+u_dMdq = 0.00020031;             %[Nm*s] Uncertainty of stability derivative of the vehicle pitch
 dLdp = dMdq;
 dLMN = [dLdp  0   0  ;
          0   dMdq 0  ;
