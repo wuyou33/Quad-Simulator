@@ -63,8 +63,14 @@ sign = [1  1  1  1 ;
 K = param*sign;
 Kinv = K\eye(4);
 
+%% Saturations
+rollMax = pi/6;
+rollMin = -pi/6;
+pitchMax = pi/6;
+pitchMin = -pi/6;
+
 %% Angular-rate regulators
-Tf = .02;
+Tf = .01;
 N = 1/Tf;
 
 %p PID
@@ -73,23 +79,23 @@ Kip = .2;
 Kdp = .01;
 
 %q PID
-Kpq = .2;
-Kiq = .2;
-Kdq = .01;
+Kpq = 0*.2;
+Kiq = 0*.2;
+Kdq = 0*.01;
 
 %r PID
-Kpr = .1;
+Kpr = 0*.1;
 Kir = 0;
 Kdr = 0;
 
 %% Attitude regulators
 %phi PD
-KRP = 0;
-KRD = 0;
+KRP = 10;
+KRD = 1;
 
 %theta PD
-KPP = 0;
-KPD = 0;
+KPP = 0*1;
+KPD = 0*.1;
 
 %psi PD
 KYr = 0;

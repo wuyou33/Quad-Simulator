@@ -79,8 +79,22 @@ Wa = InfoPa.W1;
 sysmul = sysnom*(1 + Wm*unc);
 sysadd = sysnom + Wa*unc;
 
-%% Structured H- Infinity - SYSTUNE
+%% Structured H-Infinity - LOOP SHAPING
 s = tf('s');
+
+%LOOP SHAPING DESIGN
+wc = 10;   % Target crossover [rad/s]
+lf = 500;  % Low frequency gain [dB]
+hf = -500;  % High frequency gain [dB]
+LS = (1+10^(hf/20/2)*s/wc)^2/(10^(-lf/20/2)+s/wc)^2;
+
+Wn = 1/LS;  Wn.u = 'nw';  Wn.y = 'n';
+We = LS;    We.u = 'e_{Theta}';   We.y = 'ew';
+
+% figure('name','Shaping function')
+% bodemag(LS,{1e-10,1e10})
+% title('Target loop shape')
+% grid minor
 
 %Plant model
 Gq = pit_tf_q;
@@ -107,48 +121,48 @@ Ctheta0.u = 'e_{Theta}'; Ctheta0.y = 'q_0';
 
 %Connect these components to build a model of the entire closed-loop 
 %control system
+Sum1 = sumblk('e_q = q_0 - q');
+Sum2 = sumblk('e_{Theta} = Theta_0 - Theta_n');
+Sum3 = sumblk('Theta_n = Theta + n');
+
 InnerLoop = feedback(X2*Gq*Cq0,1);
 CL0 = feedback(Gtheta*InnerLoop*Ctheta0,X1);
-CL0.InputName = 'Theta_0';
-CL0.OutputName = 'Theta';
+CL0.u = 'Theta_0'; CL0.y = 'Theta';
 
-%Specify tuning requirements
-responsetime = 0.5;       %[s]
-dcerror = 0.001;          %[%]
-peakerror = 1;            
-Rtrack = TuningGoal.Tracking('Theta_0','Theta',responsetime,dcerror,peakerror);
+% Connect the blocks together
+T0 = connect(Gq,Gtheta,Cq0,Ctheta0,Wn,We,Sum1,Sum2,Sum3,{'Theta_0','nw'},{'Theta','ew'});
 
-Lfreq =  100;
-Lgain = .1;
-Rgain = TuningGoal.MaxLoopGain('Theta',Lfreq,Lgain);
-
-%Tune the control system
-[CL,fSoft,gHard] = systune(CL0,Rgain,Rtrack);
+%TUNING THE CONTROLLER GAINS
+rng('default')
+opt = hinfstructOptions('Display','final');
+T = hinfstruct(T0,opt);
+showTunable(T)
 
 %%
-Cq = getBlockValue(CL,'Cq0')
-Ctheta = getBlockValue(CL,'Ctheta0')
+Cq = getBlockValue(T,'Cq0');
+Ctheta = getBlockValue(T,'Ctheta0');
+
+L = Gtheta*InnerLoop*Ctheta;
+L.u = 'e_{Theta}'; L.y = 'Theta';
+
+figure('name','Open-loop response')
+title('Open-loop response')
+bode(LS,'r--',L,'b',{1e-8,1e+8})
+legend('Target','Actual')
+grid minor
+
+TF = getIOTransfer(T,'Theta_0','Theta');
 
 figure('name','Closed-loop response')
-step(CL)
+step(TF)
 grid minor
 title('Closed-loop response')
 
-CLdist = getIOTransfer(CL,'q','Theta');
-figure
-stepplot(CLdist)
-grid minor
-title('Closed-loop response')
-
-figure
-viewSpec([Rtrack Rgain],CL)
-
-% Loop function and sensitivity functions
+%% Loop function and sensitivity functions
 figure
 loops = loopsens(Gtheta*InnerLoop, Ctheta);
 bode(loops.Si,'r',loops.Ti,'b',loops.Li,'g',{1e-3,1e+3})
 legend('S','T','L')
 grid minor
 
-
- %% End of code
+%% End of code

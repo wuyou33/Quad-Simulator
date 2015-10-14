@@ -29,11 +29,11 @@
 <tr name="9" id="9">
 <td>9</td><td><span class="ct"> *</span></td></tr>
 <tr name="10" id="10">
-<td>10</td><td><span class="ct"> * Model version              : 1.39</span></td></tr>
+<td>10</td><td><span class="ct"> * Model version              : 1.41</span></td></tr>
 <tr name="11" id="11">
 <td>11</td><td><span class="ct"> * Simulink Coder version : 8.8 (R2015a) 09-Feb-2015</span></td></tr>
 <tr name="12" id="12">
-<td>12</td><td><span class="ct"> * C++ source code generated on : Thu Aug 27 18:23:37 2015</span></td></tr>
+<td>12</td><td><span class="ct"> * C++ source code generated on : Wed Oct 14 11:46:05 2015</span></td></tr>
 <tr name="13" id="13">
 <td>13</td><td><span class="ct"> *</span></td></tr>
 <tr name="14" id="14">
@@ -219,13 +219,13 @@
 <tr name="104" id="104">
 <td>104</td><td><span class="ct">   */</span></td></tr>
 <tr name="105" id="105">
-<td>105</td><td>  <span class="kw">if</span> (<a id="105c7" class="tk">h_Controllers_U</a>.<a id="105c23" class="tk">Stick</a>[0] &gt; <a id="105c34" class="tk">h_Controllers_P</a>.<a id="105c50" class="tk">Saturation_UpperSat</a>) <span class="br">{</span></td></tr>
+<td>105</td><td>  <span class="kw">if</span> (<a id="105c7" class="tk">h_Controllers_U</a>.<a id="105c23" class="tk">Stick</a>[0] &gt; <a id="105c34" class="tk">h_Controllers_P</a>.<a id="105c50" class="tk">rollMax</a>) <span class="br">{</span></td></tr>
 <tr name="106" id="106">
-<td>106</td><td>    <a id="106c5" class="tk">Sphi</a> = <a id="106c12" class="tk">h_Controllers_P</a>.<a id="106c28" class="tk">Saturation_UpperSat</a>;</td></tr>
+<td>106</td><td>    <a id="106c5" class="tk">Sphi</a> = <a id="106c12" class="tk">h_Controllers_P</a>.<a id="106c28" class="tk">rollMax</a>;</td></tr>
 <tr name="107" id="107">
-<td>107</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="kw">if</span> (<a id="107c14" class="tk">h_Controllers_U</a>.<a id="107c30" class="tk">Stick</a>[0] &lt; <a id="107c41" class="tk">h_Controllers_P</a>.<a id="107c57" class="tk">Saturation_LowerSat</a>) <span class="br">{</span></td></tr>
+<td>107</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="kw">if</span> (<a id="107c14" class="tk">h_Controllers_U</a>.<a id="107c30" class="tk">Stick</a>[0] &lt; <a id="107c41" class="tk">h_Controllers_P</a>.<a id="107c57" class="tk">rollMin</a>) <span class="br">{</span></td></tr>
 <tr name="108" id="108">
-<td>108</td><td>    <a id="108c5" class="tk">Sphi</a> = <a id="108c12" class="tk">h_Controllers_P</a>.<a id="108c28" class="tk">Saturation_LowerSat</a>;</td></tr>
+<td>108</td><td>    <a id="108c5" class="tk">Sphi</a> = <a id="108c12" class="tk">h_Controllers_P</a>.<a id="108c28" class="tk">rollMin</a>;</td></tr>
 <tr name="109" id="109">
 <td>109</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
 <tr name="110" id="110">
@@ -275,13 +275,13 @@
 <tr name="132" id="132">
 <td>132</td><td><span class="ct">   */</span></td></tr>
 <tr name="133" id="133">
-<td>133</td><td>  <span class="kw">if</span> (<a id="133c7" class="tk">h_Controllers_U</a>.<a id="133c23" class="tk">Stick</a>[1] &gt; <a id="133c34" class="tk">h_Controllers_P</a>.<a id="133c50" class="tk">Saturation1_UpperSat</a>) <span class="br">{</span></td></tr>
+<td>133</td><td>  <span class="kw">if</span> (<a id="133c7" class="tk">h_Controllers_U</a>.<a id="133c23" class="tk">Stick</a>[1] &gt; <a id="133c34" class="tk">h_Controllers_P</a>.<a id="133c50" class="tk">pitchMax</a>) <span class="br">{</span></td></tr>
 <tr name="134" id="134">
-<td>134</td><td>    <a id="134c5" class="tk">Sphi</a> = <a id="134c12" class="tk">h_Controllers_P</a>.<a id="134c28" class="tk">Saturation1_UpperSat</a>;</td></tr>
+<td>134</td><td>    <a id="134c5" class="tk">Sphi</a> = <a id="134c12" class="tk">h_Controllers_P</a>.<a id="134c28" class="tk">pitchMax</a>;</td></tr>
 <tr name="135" id="135">
-<td>135</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="kw">if</span> (<a id="135c14" class="tk">h_Controllers_U</a>.<a id="135c30" class="tk">Stick</a>[1] &lt; <a id="135c41" class="tk">h_Controllers_P</a>.<a id="135c57" class="tk">Saturation1_LowerSat</a>) <span class="br">{</span></td></tr>
+<td>135</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="kw">if</span> (<a id="135c14" class="tk">h_Controllers_U</a>.<a id="135c30" class="tk">Stick</a>[1] &lt; <a id="135c41" class="tk">h_Controllers_P</a>.<a id="135c57" class="tk">pitchMin</a>) <span class="br">{</span></td></tr>
 <tr name="136" id="136">
-<td>136</td><td>    <a id="136c5" class="tk">Sphi</a> = <a id="136c12" class="tk">h_Controllers_P</a>.<a id="136c28" class="tk">Saturation1_LowerSat</a>;</td></tr>
+<td>136</td><td>    <a id="136c5" class="tk">Sphi</a> = <a id="136c12" class="tk">h_Controllers_P</a>.<a id="136c28" class="tk">pitchMin</a>;</td></tr>
 <tr name="137" id="137">
 <td>137</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
 <tr name="138" id="138">
@@ -365,7 +365,7 @@
 <tr name="177" id="177">
 <td>177</td><td>  <span class="ct">/* MATLAB Function: '&lt;S1&gt;/To body from Earth_rates' incorporates:</span></td></tr>
 <tr name="178" id="178">
-<td>178</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/IMU_Attitude'</span></td></tr>
+<td>178</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/Rates'</span></td></tr>
 <tr name="179" id="179">
 <td>179</td><td><span class="ct">   */</span></td></tr>
 <tr name="180" id="180">
@@ -377,13 +377,13 @@
 <tr name="183" id="183">
 <td>183</td><td>  <span class="ct">/* '&lt;S8&gt;:1:6' */</span></td></tr>
 <tr name="184" id="184">
-<td>184</td><td>  <a id="184c3" class="tk">Sphi</a> = <a id="184c10" class="tk">sin</a>(<a id="184c14" class="tk">h_Controllers_U</a>.<a id="184c30" class="tk">IMU_Attitude</a>[0]);</td></tr>
+<td>184</td><td>  <a id="184c3" class="tk">Sphi</a> = <a id="184c10" class="tk">sin</a>(<a id="184c14" class="tk">h_Controllers_U</a>.<a id="184c30" class="tk">Rates</a>[0]);</td></tr>
 <tr name="185" id="185">
 <td>185</td><td></td></tr>
 <tr name="186" id="186">
 <td>186</td><td>  <span class="ct">/* '&lt;S8&gt;:1:7' */</span></td></tr>
 <tr name="187" id="187">
-<td>187</td><td>  <a id="187c3" class="tk">Cphi</a> = <a id="187c10" class="tk">cos</a>(<a id="187c14" class="tk">h_Controllers_U</a>.<a id="187c30" class="tk">IMU_Attitude</a>[0]);</td></tr>
+<td>187</td><td>  <a id="187c3" class="tk">Cphi</a> = <a id="187c10" class="tk">cos</a>(<a id="187c14" class="tk">h_Controllers_U</a>.<a id="187c30" class="tk">Rates</a>[0]);</td></tr>
 <tr name="188" id="188">
 <td>188</td><td></td></tr>
 <tr name="189" id="189">
@@ -391,7 +391,7 @@
 <tr name="190" id="190">
 <td>190</td><td>  <span class="ct">/* '&lt;S8&gt;:1:9' */</span></td></tr>
 <tr name="191" id="191">
-<td>191</td><td>  <a id="191c3" class="tk">Ctheta</a> = <a id="191c12" class="tk">cos</a>(<a id="191c16" class="tk">h_Controllers_U</a>.<a id="191c32" class="tk">IMU_Attitude</a>[1]);</td></tr>
+<td>191</td><td>  <a id="191c3" class="tk">Ctheta</a> = <a id="191c12" class="tk">cos</a>(<a id="191c16" class="tk">h_Controllers_U</a>.<a id="191c32" class="tk">Rates</a>[1]);</td></tr>
 <tr name="192" id="192">
 <td>192</td><td></td></tr>
 <tr name="193" id="193">
@@ -403,7 +403,7 @@
 <tr name="196" id="196">
 <td>196</td><td>  <a id="196c3" class="tk">tmp</a>[3] = 0.0;</td></tr>
 <tr name="197" id="197">
-<td>197</td><td>  <a id="197c3" class="tk">tmp</a>[6] = -<a id="197c13" class="tk">sin</a>(<a id="197c17" class="tk">h_Controllers_U</a>.<a id="197c33" class="tk">IMU_Attitude</a>[1]);</td></tr>
+<td>197</td><td>  <a id="197c3" class="tk">tmp</a>[6] = -<a id="197c13" class="tk">sin</a>(<a id="197c17" class="tk">h_Controllers_U</a>.<a id="197c33" class="tk">Rates</a>[1]);</td></tr>
 <tr name="198" id="198">
 <td>198</td><td>  <a id="198c3" class="tk">tmp</a>[1] = 0.0;</td></tr>
 <tr name="199" id="199">
@@ -419,7 +419,7 @@
 <tr name="204" id="204">
 <td>204</td><td></td></tr>
 <tr name="205" id="205">
-<td>205</td><td>  <span class="ct">/* SignalConversion: '&lt;S8&gt;/TmpSignal ConversionAt SFunction Inport1' incorporates:</span></td></tr>
+<td>205</td><td>  <span class="ct">/* SignalConversion: '&lt;S8&gt;/TmpSignal ConversionAt SFunction Inport2' incorporates:</span></td></tr>
 <tr name="206" id="206">
 <td>206</td><td><span class="ct">   *  Gain: '&lt;S4&gt;/Proportional Gain'</span></td></tr>
 <tr name="207" id="207">
@@ -959,13 +959,13 @@
 <tr name="474" id="474">
 <td>474</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="475" id="475">
-<td>475</td><td>    0.0,                               <span class="ct">/* Variable: KRD</span></td></tr>
+<td>475</td><td>    1.0,                               <span class="ct">/* Variable: KRD</span></td></tr>
 <tr name="476" id="476">
 <td>476</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Derivative Gain'</span></td></tr>
 <tr name="477" id="477">
 <td>477</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="478" id="478">
-<td>478</td><td>    0.0,                               <span class="ct">/* Variable: KRP</span></td></tr>
+<td>478</td><td>    10.0,                              <span class="ct">/* Variable: KRP</span></td></tr>
 <tr name="479" id="479">
 <td>479</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Proportional Gain'</span></td></tr>
 <tr name="480" id="480">
@@ -995,7 +995,7 @@
 <tr name="492" id="492">
 <td>492</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="493" id="493">
-<td>493</td><td>    0.01,                              <span class="ct">/* Variable: Kdq</span></td></tr>
+<td>493</td><td>    0.0,                               <span class="ct">/* Variable: Kdq</span></td></tr>
 <tr name="494" id="494">
 <td>494</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Derivative Gain'</span></td></tr>
 <tr name="495" id="495">
@@ -1013,7 +1013,7 @@
 <tr name="501" id="501">
 <td>501</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="502" id="502">
-<td>502</td><td>    0.2,                               <span class="ct">/* Variable: Kiq</span></td></tr>
+<td>502</td><td>    0.0,                               <span class="ct">/* Variable: Kiq</span></td></tr>
 <tr name="503" id="503">
 <td>503</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Integral Gain'</span></td></tr>
 <tr name="504" id="504">
@@ -1031,19 +1031,19 @@
 <tr name="510" id="510">
 <td>510</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="511" id="511">
-<td>511</td><td>    0.2,                               <span class="ct">/* Variable: Kpq</span></td></tr>
+<td>511</td><td>    0.0,                               <span class="ct">/* Variable: Kpq</span></td></tr>
 <tr name="512" id="512">
 <td>512</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Proportional Gain'</span></td></tr>
 <tr name="513" id="513">
 <td>513</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="514" id="514">
-<td>514</td><td>    0.1,                               <span class="ct">/* Variable: Kpr</span></td></tr>
+<td>514</td><td>    0.0,                               <span class="ct">/* Variable: Kpr</span></td></tr>
 <tr name="515" id="515">
 <td>515</td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/Proportional Gain'</span></td></tr>
 <tr name="516" id="516">
 <td>516</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="517" id="517">
-<td>517</td><td>    50.0,                              <span class="ct">/* Variable: N</span></td></tr>
+<td>517</td><td>    100.0,                             <span class="ct">/* Variable: N</span></td></tr>
 <tr name="518" id="518">
 <td>518</td><td><span class="ct">                                        * Referenced by:</span></td></tr>
 <tr name="519" id="519">
@@ -1061,33 +1061,33 @@
 <tr name="525" id="525">
 <td>525</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="526" id="526">
-<td>526</td><td>    0.52359877559829882,               <span class="ct">/* Expression: pi/6</span></td></tr>
+<td>526</td><td>    0.52359877559829882,               <span class="ct">/* Variable: pitchMax</span></td></tr>
 <tr name="527" id="527">
-<td>527</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation'</span></td></tr>
+<td>527</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation1'</span></td></tr>
 <tr name="528" id="528">
 <td>528</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="529" id="529">
-<td>529</td><td>    -0.52359877559829882,              <span class="ct">/* Expression: -pi/6</span></td></tr>
+<td>529</td><td>    -0.52359877559829882,              <span class="ct">/* Variable: pitchMin</span></td></tr>
 <tr name="530" id="530">
-<td>530</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation'</span></td></tr>
+<td>530</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation1'</span></td></tr>
 <tr name="531" id="531">
 <td>531</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="532" id="532">
-<td>532</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
+<td>532</td><td>    0.52359877559829882,               <span class="ct">/* Variable: rollMax</span></td></tr>
 <tr name="533" id="533">
-<td>533</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Filter'</span></td></tr>
+<td>533</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation'</span></td></tr>
 <tr name="534" id="534">
 <td>534</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="535" id="535">
-<td>535</td><td>    0.52359877559829882,               <span class="ct">/* Expression: pi/6</span></td></tr>
+<td>535</td><td>    -0.52359877559829882,              <span class="ct">/* Variable: rollMin</span></td></tr>
 <tr name="536" id="536">
-<td>536</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation1'</span></td></tr>
+<td>536</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation'</span></td></tr>
 <tr name="537" id="537">
 <td>537</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="538" id="538">
-<td>538</td><td>    -0.52359877559829882,              <span class="ct">/* Expression: -pi/6</span></td></tr>
+<td>538</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
 <tr name="539" id="539">
-<td>539</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation1'</span></td></tr>
+<td>539</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Filter'</span></td></tr>
 <tr name="540" id="540">
 <td>540</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="541" id="541">

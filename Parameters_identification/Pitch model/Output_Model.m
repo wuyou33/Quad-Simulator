@@ -37,42 +37,46 @@ pit_tf_theta = pit_tf(2);
 [zeros_q, poles_q] = zpkdata(pit_tf_q,'v');
 [zeros_theta, poles_theta] = zpkdata(pit_tf_theta,'v');
 
-sysnom = pit_ss.NominalValue;
-parray = usample(pit_ss,5);
-om = logspace(-2,2,100);
+%% Error parametrization
+
+%Define the nominal behaviour of the system
+sysnom = pit_ss(1).NominalValue;
+
+%Given the uncertainty, I can define a vector of possible system
+parray = usample(pit_ss(1),5);
+om = logspace(-2,2);
 parrayg = frd(parray,om);
-figure
-bode(parray(1),'b',sysnom(1),'r+',{1e-2,1e2}); grid
-figure
-bode(parray(2),'b',sysnom(2),'r+',{1e-2,1e2}); grid
 
-relerror1 = (sysnom(1)-parray(1))/sysnom(1);
-relerror2 = (sysnom(2)-parray(2))/sysnom(2);
-
-[Pm1,InfoPm1] = ucover(parrayg(1),sysnom(1));
-wtm1 = InfoPm1.W1;   
+%Plot the nominal behaviour plus a "cloud" of possible bode diagram
 figure
-bodemag(relerror1,'b--',wtm1,'r',om); grid
-title('Relative Gaps vs. Magnitude of Wt')
+bode(parray,'b',sysnom,'r+',om); grid
 
-[Pm2,InfoPm2] = ucover(parrayg(2),sysnom(2));
-wtm2 = InfoPm2.W1; 
-figure
-bodemag(relerror2,'b--',wtm2,'r',om); grid
-title('Relative Gaps vs. Magnitude of Wt')
+%Creates an uncertain linear, time-invariant objects are used to represent 
+%unknown dynamic objects whose only known attributes are bounds on their frequency response
+unc = ultidyn('unc',[1 1]);
 
-[Pa1,InfoPa1] = ucover(parrayg(1),sysnom(1),1,'additive');
-wta1 = InfoPa1.W1; 
-figure
-bodemag(wta1,'b--',InfoPa1.W1opt,'r',om); grid
-title('Scalar Additive Uncertainty Model')
-legend('First-order w','Min. uncertainty amount','Location','SouthWest')
+%Define error and relative error
+error = (sysnom-parray);
+relerror = error/sysnom;
 
-[Pa2,InfoPa2] = ucover(parrayg(2),sysnom(2),1,'additive');
-wta2 = InfoPa2.W1; 
+%Find the multiplicative uncertainty form
+[Pm,InfoPm] = ucover(parrayg,sysnom);
+Wm = InfoPm.W1;   
 figure
-bodemag(wta2,'b--',InfoPa2.W1opt,'r',om); grid
-title('Scalar Additive Uncertainty Model')
-legend('First-order w','Min. uncertainty amount','Location','SouthWest')
+bodemag(relerror,'b--',Wm,'r',om); grid
+title('Multiplicative Uncertainty')
+legend('Relative errors', 'Magnitude of W','location','southwest')
+
+%Find the additive uncertainty form
+[Pa,InfoPa] = ucover(parrayg,sysnom,1,'additive');
+Wa = InfoPa.W1; 
+figure
+bodemag(error, 'b--',Wa,'r',om); grid
+title('Additive Uncertainty')
+legend('Errors', 'Magnitude of W','location','southwest')
+
+%Final definition of the system with both uncertainty form
+sysmul = sysnom*(1 + Wm*unc);
+sysadd = sysnom + Wa*unc;
 
 %% END OF CODE

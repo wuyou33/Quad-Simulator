@@ -23,33 +23,33 @@ Ome_b = yout(: ,7:9);
 Alpha_e = yout(: ,10:12);
 
 %% Plot OUTPUT
-% figure('name','POSITION_EARTH')
-% plot(tout, P_e*diag([1 1 -1]));
-% grid minor
-% xlabel('[s]')
-% ylabel('[m]')
-% legend('N', 'E', 'Height')
+figure('name','POSITION_EARTH')
+plot(tout, P_e*diag([1 1 -1]));
+grid minor
+xlabel('[s]')
+ylabel('[m]')
+legend('N', 'E', 'Height')
 
-% figure('name','VELOCITY_BODY')
-% plot(tout, V_b);
-% grid minor
-% xlabel('[s]')
-% ylabel('[m/s]')
-% legend('u', 'v', 'w')
+figure('name','VELOCITY_BODY')
+plot(tout, V_b);
+grid minor
+xlabel('[s]')
+ylabel('[m/s]')
+legend('u', 'v', 'w')
 
-% figure('name','ANGULAR SPEED_BODY')
-% plot(tout, Ome_b);
-% grid minor
-% xlabel('[s]')
-% ylabel('[rad/s]')
-% legend('p', 'q', 'r')
+figure('name','ANGULAR SPEED_BODY')
+plot(tout, Ome_b);
+grid minor
+xlabel('[s]')
+ylabel('[rad/s]')
+legend('p', 'q', 'r')
 
-% figure('name','ATTITUDE_EARTH')
-% plot(tout, Alpha_e);
-% grid minor
-% xlabel('[s]')
-% ylabel('[rad]')
-% legend('phi', 'theta', 'psi')
+figure('name','ATTITUDE_EARTH')
+plot(tout, Alpha_e);
+grid minor
+xlabel('[s]')
+ylabel('[rad]')
+legend('phi', 'theta', 'psi')
 
 %% 3D Animation
 

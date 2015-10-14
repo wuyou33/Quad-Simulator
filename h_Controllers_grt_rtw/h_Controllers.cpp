@@ -7,9 +7,9 @@
  *
  * Code generation for model "h_Controllers".
  *
- * Model version              : 1.39
+ * Model version              : 1.41
  * Simulink Coder version : 8.8 (R2015a) 09-Feb-2015
- * C++ source code generated on : Thu Aug 27 18:23:37 2015
+ * C++ source code generated on : Wed Oct 14 11:46:05 2015
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -102,10 +102,10 @@ void h_ControllersModelClass::step()
   /* Saturate: '<S1>/Saturation' incorporates:
    *  Inport: '<Root>/Stick'
    */
-  if (h_Controllers_U.Stick[0] > h_Controllers_P.Saturation_UpperSat) {
-    Sphi = h_Controllers_P.Saturation_UpperSat;
-  } else if (h_Controllers_U.Stick[0] < h_Controllers_P.Saturation_LowerSat) {
-    Sphi = h_Controllers_P.Saturation_LowerSat;
+  if (h_Controllers_U.Stick[0] > h_Controllers_P.rollMax) {
+    Sphi = h_Controllers_P.rollMax;
+  } else if (h_Controllers_U.Stick[0] < h_Controllers_P.rollMin) {
+    Sphi = h_Controllers_P.rollMin;
   } else {
     Sphi = h_Controllers_U.Stick[0];
   }
@@ -130,10 +130,10 @@ void h_ControllersModelClass::step()
   /* Saturate: '<S1>/Saturation1' incorporates:
    *  Inport: '<Root>/Stick'
    */
-  if (h_Controllers_U.Stick[1] > h_Controllers_P.Saturation1_UpperSat) {
-    Sphi = h_Controllers_P.Saturation1_UpperSat;
-  } else if (h_Controllers_U.Stick[1] < h_Controllers_P.Saturation1_LowerSat) {
-    Sphi = h_Controllers_P.Saturation1_LowerSat;
+  if (h_Controllers_U.Stick[1] > h_Controllers_P.pitchMax) {
+    Sphi = h_Controllers_P.pitchMax;
+  } else if (h_Controllers_U.Stick[1] < h_Controllers_P.pitchMin) {
+    Sphi = h_Controllers_P.pitchMin;
   } else {
     Sphi = h_Controllers_U.Stick[1];
   }
@@ -175,26 +175,26 @@ void h_ControllersModelClass::step()
     h_Controllers_X.Filter_CSTATE_g) * h_Controllers_P.N;
 
   /* MATLAB Function: '<S1>/To body from Earth_rates' incorporates:
-   *  Inport: '<Root>/IMU_Attitude'
+   *  Inport: '<Root>/Rates'
    */
   /* MATLAB Function 'Attitude Controller/To body from Earth_rates': '<S8>:1' */
   /* '<S8>:1:3' */
   /* '<S8>:1:4' */
   /* '<S8>:1:6' */
-  Sphi = sin(h_Controllers_U.IMU_Attitude[0]);
+  Sphi = sin(h_Controllers_U.Rates[0]);
 
   /* '<S8>:1:7' */
-  Cphi = cos(h_Controllers_U.IMU_Attitude[0]);
+  Cphi = cos(h_Controllers_U.Rates[0]);
 
   /* '<S8>:1:8' */
   /* '<S8>:1:9' */
-  Ctheta = cos(h_Controllers_U.IMU_Attitude[1]);
+  Ctheta = cos(h_Controllers_U.Rates[1]);
 
   /* '<S8>:1:11' */
   /* '<S8>:1:15' */
   tmp[0] = 1.0;
   tmp[3] = 0.0;
-  tmp[6] = -sin(h_Controllers_U.IMU_Attitude[1]);
+  tmp[6] = -sin(h_Controllers_U.Rates[1]);
   tmp[1] = 0.0;
   tmp[4] = Cphi;
   tmp[7] = Sphi * Ctheta;
@@ -202,7 +202,7 @@ void h_ControllersModelClass::step()
   tmp[5] = -Sphi;
   tmp[8] = Cphi * Ctheta;
 
-  /* SignalConversion: '<S8>/TmpSignal ConversionAt SFunction Inport1' incorporates:
+  /* SignalConversion: '<S8>/TmpSignal ConversionAt SFunction Inport2' incorporates:
    *  Gain: '<S4>/Proportional Gain'
    *  MATLAB Function: '<S1>/To body from Earth_rates'
    *  Sum: '<S1>/Sum3'
@@ -472,10 +472,10 @@ h_ControllersModelClass::h_ControllersModelClass()
     0.0,                               /* Variable: KPP
                                         * Referenced by: '<S2>/Proportional Gain'
                                         */
-    0.0,                               /* Variable: KRD
+    1.0,                               /* Variable: KRD
                                         * Referenced by: '<S3>/Derivative Gain'
                                         */
-    0.0,                               /* Variable: KRP
+    10.0,                              /* Variable: KRP
                                         * Referenced by: '<S3>/Proportional Gain'
                                         */
     0.0,                               /* Variable: KYD
@@ -490,7 +490,7 @@ h_ControllersModelClass::h_ControllersModelClass()
     0.01,                              /* Variable: Kdp
                                         * Referenced by: '<S5>/Derivative Gain'
                                         */
-    0.01,                              /* Variable: Kdq
+    0.0,                               /* Variable: Kdq
                                         * Referenced by: '<S6>/Derivative Gain'
                                         */
     0.0,                               /* Variable: Kdr
@@ -499,7 +499,7 @@ h_ControllersModelClass::h_ControllersModelClass()
     0.2,                               /* Variable: Kip
                                         * Referenced by: '<S5>/Integral Gain'
                                         */
-    0.2,                               /* Variable: Kiq
+    0.0,                               /* Variable: Kiq
                                         * Referenced by: '<S6>/Integral Gain'
                                         */
     0.0,                               /* Variable: Kir
@@ -508,13 +508,13 @@ h_ControllersModelClass::h_ControllersModelClass()
     0.2,                               /* Variable: Kpp
                                         * Referenced by: '<S5>/Proportional Gain'
                                         */
-    0.2,                               /* Variable: Kpq
+    0.0,                               /* Variable: Kpq
                                         * Referenced by: '<S6>/Proportional Gain'
                                         */
-    0.1,                               /* Variable: Kpr
+    0.0,                               /* Variable: Kpr
                                         * Referenced by: '<S7>/Proportional Gain'
                                         */
-    50.0,                              /* Variable: N
+    100.0,                             /* Variable: N
                                         * Referenced by:
                                         *   '<S2>/Filter Coefficient'
                                         *   '<S3>/Filter Coefficient'
@@ -523,20 +523,20 @@ h_ControllersModelClass::h_ControllersModelClass()
                                         *   '<S6>/Filter Coefficient'
                                         *   '<S7>/Filter Coefficient'
                                         */
-    0.52359877559829882,               /* Expression: pi/6
+    0.52359877559829882,               /* Variable: pitchMax
+                                        * Referenced by: '<S1>/Saturation1'
+                                        */
+    -0.52359877559829882,              /* Variable: pitchMin
+                                        * Referenced by: '<S1>/Saturation1'
+                                        */
+    0.52359877559829882,               /* Variable: rollMax
                                         * Referenced by: '<S1>/Saturation'
                                         */
-    -0.52359877559829882,              /* Expression: -pi/6
+    -0.52359877559829882,              /* Variable: rollMin
                                         * Referenced by: '<S1>/Saturation'
                                         */
     0.0,                               /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S3>/Filter'
-                                        */
-    0.52359877559829882,               /* Expression: pi/6
-                                        * Referenced by: '<S1>/Saturation1'
-                                        */
-    -0.52359877559829882,              /* Expression: -pi/6
-                                        * Referenced by: '<S1>/Saturation1'
                                         */
     0.0,                               /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S2>/Filter'

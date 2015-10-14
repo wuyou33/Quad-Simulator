@@ -7,9 +7,9 @@
  *
  * Code generation for model "h_Controllers".
  *
- * Model version              : 1.39
+ * Model version              : 1.41
  * Simulink Coder version : 8.8 (R2015a) 09-Feb-2015
- * C++ source code generated on : Thu Aug 27 18:23:37 2015
+ * C++ source code generated on : Wed Oct 14 11:46:05 2015
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -286,20 +286,20 @@ struct P_h_Controllers_T_ {
                                         *   '<S6>/Filter Coefficient'
                                         *   '<S7>/Filter Coefficient'
                                         */
-  real_T Saturation_UpperSat;          /* Expression: pi/6
+  real_T pitchMax;                     /* Variable: pitchMax
+                                        * Referenced by: '<S1>/Saturation1'
+                                        */
+  real_T pitchMin;                     /* Variable: pitchMin
+                                        * Referenced by: '<S1>/Saturation1'
+                                        */
+  real_T rollMax;                      /* Variable: rollMax
                                         * Referenced by: '<S1>/Saturation'
                                         */
-  real_T Saturation_LowerSat;          /* Expression: -pi/6
+  real_T rollMin;                      /* Variable: rollMin
                                         * Referenced by: '<S1>/Saturation'
                                         */
   real_T Filter_IC;                    /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S3>/Filter'
-                                        */
-  real_T Saturation1_UpperSat;         /* Expression: pi/6
-                                        * Referenced by: '<S1>/Saturation1'
-                                        */
-  real_T Saturation1_LowerSat;         /* Expression: -pi/6
-                                        * Referenced by: '<S1>/Saturation1'
                                         */
   real_T Filter_IC_i;                  /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S2>/Filter'
