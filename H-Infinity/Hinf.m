@@ -16,7 +16,7 @@ par2 = ureal('dMdu',dMdu,'PlusMinus',u_dMdu);
 par3 = ureal('Iyy',Iyy,'PlusMinus',u_Iyy);
 
 AA = [par1/par3 0 ; 
-        1      0];
+         1      0];
 BB = [par2/par3 ;
           0   ];
 CC = [1 0 ;
@@ -79,21 +79,22 @@ Wa = InfoPa.W1;
 sysmul = sysnom*(1 + Wm*unc);
 sysadd = sysnom + Wa*unc;
 
-%% Structured H- Infinity - SYSTUNE
+%% Structured H-Infinity - SYSTUNE
 s = tf('s');
 
 %Plant model
 Gq = pit_tf_q;
 Gtheta = 1/s;
 Gtheta.u = 'q'; Gtheta.y = 'Theta';
-X1 = AnalysisPoint('Theta');
+X1 = AnalysisPoint('deltaOmega');
 X2 = AnalysisPoint('q');
+X3 = AnalysisPoint('Theta');
 
 %Tunable regulators
 Cq0 = ltiblock.pid('Cq0','pid');  % tunable PID
-Cq0.Kp.Value = .2;        % initialize Kp
-Cq0.Ki.Value = .2;        % initialize Ki
-Cq0.Kd.Value = 0.01;      % initialize Kd
+Cq0.Kp.Value = 10;        % initialize Kp
+Cq0.Ki.Value = 1;        % initialize Ki
+Cq0.Kd.Value = 0.1;      % initialize Kd
 Cq0.Tf.Value = 0.01;      % set parameter Tf
 Cq0.Tf.Free = false;      % fix parameter Tf to this value
 Cq0.u = 'e_q'; Cq0.y = 'deltaOmega';
@@ -107,23 +108,33 @@ Ctheta0.u = 'e_{Theta}'; Ctheta0.y = 'q_0';
 
 %Connect these components to build a model of the entire closed-loop 
 %control system
-InnerLoop = feedback(X2*Gq*Cq0,1);
-CL0 = feedback(Gtheta*InnerLoop*Ctheta0,X1);
-CL0.InputName = 'Theta_0';
-CL0.OutputName = 'Theta';
+InnerLoop = feedback(X2*Gq*X1*Cq0,1);
+CL0 = feedback(Gtheta*InnerLoop*Ctheta0,X3);
+CL0.u = 'Theta_0';
+CL0.y = 'Theta';
 
-%Specify tuning requirements
-responsetime = 0.5;       %[s]
+% Tracking requirements
+wc = 10;                  %[rad/s] target crossover frequency
+responsetime = 2/wc;      %[s]
 dcerror = 0.001;          %[%]
 peakerror = 1;            
-Rtrack = TuningGoal.Tracking('Theta_0','Theta',responsetime,dcerror,peakerror);
+R1 = TuningGoal.Tracking('Theta_0','Theta',responsetime,dcerror,peakerror);
+% Bandwidth and roll-off requirements
+R2 = TuningGoal.MaxLoopGain('deltaOmega',10*(wc/s)^2);
+R2.Focus = [10*wc inf];
+% % Disturbance rejection requirements
+% R3 = TuningGoal.MinLoopGain('deltaOmega',10*(wc/s)^2);
+% R3.Focus = [0 wc/10];
 
-Lfreq =  100;
-Lgain = .1;
-Rgain = TuningGoal.MaxLoopGain('Theta',Lfreq,Lgain);
+attfact = frd([100 1 1],[0 wc 100]);
+R4 = TuningGoal.Rejection('deltaOmega',attfact);
+
+% Lfreq =  100;
+% Lgain = .1;
+% Rgain = TuningGoal.MaxLoopGain('deltaOmega',Lfreq,Lgain);
 
 %Tune the control system
-[CL,fSoft,gHard] = systune(CL0,Rgain,Rtrack);
+[CL,fSoft,gHard] = systune(CL0,[],[R1 R2 R4]);
 
 %%
 Cq = getBlockValue(CL,'Cq0')
@@ -134,21 +145,23 @@ step(CL)
 grid minor
 title('Closed-loop response')
 
-CLdist = getIOTransfer(CL,'q','Theta');
+CLin = getIOTransfer(CL,'Theta_0','q');
 figure
-stepplot(CLdist)
+stepplot(CLin)
 grid minor
 title('Closed-loop response')
 
 figure
-viewSpec([Rtrack Rgain],CL)
+viewSpec([R1 R2 R4],CL)
+
+fb = bandwidth(CL)
 
 % Loop function and sensitivity functions
+InnerLoop = feedback(X2*Gq*X1*Cq,1);
 figure
 loops = loopsens(Gtheta*InnerLoop, Ctheta);
-bode(loops.Si,'r',loops.Ti,'b',loops.Li,'g',{1e-3,1e+3})
+bodemag(loops.Si,'r',loops.Ti,'b',loops.Li,'g',{1e-3,1e+3})
 legend('S','T','L')
 grid minor
-
 
  %% End of code

@@ -2,7 +2,7 @@
 ## Makefile generated for Simulink model 'g_Inverse_Dynamic'. 
 ## 
 ## Makefile     : g_Inverse_Dynamic.mk
-## Generated on : Sun Jul 12 17:12:08 2015
+## Generated on : Thu Oct 15 14:20:08 2015
 ## MATLAB Coder version: 2.8 (R2015a)
 ## 
 ## Build Info:
@@ -29,7 +29,7 @@ MATLAB_ROOT               = /usr/local/MATLAB/R2015a
 MATLAB_BIN                = /usr/local/MATLAB/R2015a/bin
 MATLAB_ARCH_BIN           = /usr/local/MATLAB/R2015a/bin/glnxa64
 MASTER_ANCHOR_DIR         = 
-START_DIR                 = /home/pela/Documents/MATLAB/Quad
+START_DIR                 = /home/pela/Documents/MATLAB/Quad-Simulator
 ARCH                      = glnxa64
 SOLVER                    = 
 SOLVER_OBJ                = 
