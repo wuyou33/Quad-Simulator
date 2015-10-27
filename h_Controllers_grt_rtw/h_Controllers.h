@@ -9,7 +9,7 @@
  *
  * Model version              : 1.41
  * Simulink Coder version : 8.8 (R2015a) 09-Feb-2015
- * C++ source code generated on : Thu Oct 15 14:11:03 2015
+ * C++ source code generated on : Fri Oct 23 19:04:59 2015
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -149,13 +149,10 @@
 
 /* Block signals (auto storage) */
 typedef struct {
-  real_T FilterCoefficient;            /* '<S3>/Filter Coefficient' */
-  real_T FilterCoefficient_c;          /* '<S2>/Filter Coefficient' */
   real_T Yawrate;                      /* '<S1>/Yaw-rate' */
-  real_T FilterCoefficient_j;          /* '<S4>/Filter Coefficient' */
-  real_T FilterCoefficient_d;          /* '<S5>/Filter Coefficient' */
+  real_T FilterCoefficient;            /* '<S5>/Filter Coefficient' */
   real_T FilterCoefficient_p;          /* '<S6>/Filter Coefficient' */
-  real_T FilterCoefficient_jq;         /* '<S7>/Filter Coefficient' */
+  real_T FilterCoefficient_j;          /* '<S7>/Filter Coefficient' */
   real_T IntegralGain;                 /* '<S5>/Integral Gain' */
   real_T IntegralGain_o;               /* '<S6>/Integral Gain' */
   real_T IntegralGain_n;               /* '<S7>/Integral Gain' */
@@ -163,12 +160,9 @@ typedef struct {
 
 /* Continuous states (auto storage) */
 typedef struct {
-  real_T Filter_CSTATE;                /* '<S3>/Filter' */
-  real_T Filter_CSTATE_a;              /* '<S2>/Filter' */
   real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
-  real_T Filter_CSTATE_g;              /* '<S4>/Filter' */
   real_T Integrator_CSTATE_j;          /* '<S5>/Integrator' */
-  real_T Filter_CSTATE_o;              /* '<S5>/Filter' */
+  real_T Filter_CSTATE;                /* '<S5>/Filter' */
   real_T Integrator_CSTATE_f;          /* '<S6>/Integrator' */
   real_T Filter_CSTATE_d;              /* '<S6>/Filter' */
   real_T Integrator_CSTATE_a;          /* '<S7>/Integrator' */
@@ -177,12 +171,9 @@ typedef struct {
 
 /* State derivatives (auto storage) */
 typedef struct {
-  real_T Filter_CSTATE;                /* '<S3>/Filter' */
-  real_T Filter_CSTATE_a;              /* '<S2>/Filter' */
   real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
-  real_T Filter_CSTATE_g;              /* '<S4>/Filter' */
   real_T Integrator_CSTATE_j;          /* '<S5>/Integrator' */
-  real_T Filter_CSTATE_o;              /* '<S5>/Filter' */
+  real_T Filter_CSTATE;                /* '<S5>/Filter' */
   real_T Integrator_CSTATE_f;          /* '<S6>/Integrator' */
   real_T Filter_CSTATE_d;              /* '<S6>/Filter' */
   real_T Integrator_CSTATE_a;          /* '<S7>/Integrator' */
@@ -191,12 +182,9 @@ typedef struct {
 
 /* State disabled  */
 typedef struct {
-  boolean_T Filter_CSTATE;             /* '<S3>/Filter' */
-  boolean_T Filter_CSTATE_a;           /* '<S2>/Filter' */
   boolean_T Integrator_CSTATE;         /* '<S1>/Integrator' */
-  boolean_T Filter_CSTATE_g;           /* '<S4>/Filter' */
   boolean_T Integrator_CSTATE_j;       /* '<S5>/Integrator' */
-  boolean_T Filter_CSTATE_o;           /* '<S5>/Filter' */
+  boolean_T Filter_CSTATE;             /* '<S5>/Filter' */
   boolean_T Integrator_CSTATE_f;       /* '<S6>/Integrator' */
   boolean_T Filter_CSTATE_d;           /* '<S6>/Filter' */
   boolean_T Integrator_CSTATE_a;       /* '<S7>/Integrator' */
@@ -229,20 +217,11 @@ typedef struct {
 
 /* Parameters (auto storage) */
 struct P_h_Controllers_T_ {
-  real_T KPD;                          /* Variable: KPD
-                                        * Referenced by: '<S2>/Derivative Gain'
-                                        */
   real_T KPP;                          /* Variable: KPP
                                         * Referenced by: '<S2>/Proportional Gain'
                                         */
-  real_T KRD;                          /* Variable: KRD
-                                        * Referenced by: '<S3>/Derivative Gain'
-                                        */
   real_T KRP;                          /* Variable: KRP
                                         * Referenced by: '<S3>/Proportional Gain'
-                                        */
-  real_T KYD;                          /* Variable: KYD
-                                        * Referenced by: '<S4>/Derivative Gain'
                                         */
   real_T KYP;                          /* Variable: KYP
                                         * Referenced by: '<S4>/Proportional Gain'
@@ -279,9 +258,6 @@ struct P_h_Controllers_T_ {
                                         */
   real_T N;                            /* Variable: N
                                         * Referenced by:
-                                        *   '<S2>/Filter Coefficient'
-                                        *   '<S3>/Filter Coefficient'
-                                        *   '<S4>/Filter Coefficient'
                                         *   '<S5>/Filter Coefficient'
                                         *   '<S6>/Filter Coefficient'
                                         *   '<S7>/Filter Coefficient'
@@ -298,22 +274,13 @@ struct P_h_Controllers_T_ {
   real_T rollMin;                      /* Variable: rollMin
                                         * Referenced by: '<S1>/Saturation'
                                         */
-  real_T Filter_IC;                    /* Expression: InitialConditionForFilter
-                                        * Referenced by: '<S3>/Filter'
-                                        */
-  real_T Filter_IC_i;                  /* Expression: InitialConditionForFilter
-                                        * Referenced by: '<S2>/Filter'
-                                        */
   real_T Integrator_IC;                /* Expression: 0
                                         * Referenced by: '<S1>/Integrator'
-                                        */
-  real_T Filter_IC_o;                  /* Expression: InitialConditionForFilter
-                                        * Referenced by: '<S4>/Filter'
                                         */
   real_T Integrator_IC_c;              /* Expression: InitialConditionForIntegrator
                                         * Referenced by: '<S5>/Integrator'
                                         */
-  real_T Filter_IC_a;                  /* Expression: InitialConditionForFilter
+  real_T Filter_IC;                    /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S5>/Filter'
                                         */
   real_T Integrator_IC_l;              /* Expression: InitialConditionForIntegrator
@@ -349,8 +316,8 @@ struct tag_RTM_h_Controllers_T {
     boolean_T zCCacheNeedsReset;
     boolean_T derivCacheNeedsReset;
     boolean_T blkStateChange;
-    real_T odeY[10];
-    real_T odeF[2][10];
+    real_T odeY[7];
+    real_T odeF[2][7];
     ODE2_IntgData intgData;
   } ModelData;
 
@@ -460,9 +427,9 @@ class h_ControllersModelClass {
  *
  * '<Root>' : 'h_Controllers'
  * '<S1>'   : 'h_Controllers/Attitude Controller'
- * '<S2>'   : 'h_Controllers/Attitude Controller/PID Pitch'
- * '<S3>'   : 'h_Controllers/Attitude Controller/PID Roll'
- * '<S4>'   : 'h_Controllers/Attitude Controller/PID Yaw'
+ * '<S2>'   : 'h_Controllers/Attitude Controller/P Pitch'
+ * '<S3>'   : 'h_Controllers/Attitude Controller/P Roll'
+ * '<S4>'   : 'h_Controllers/Attitude Controller/P Yaw'
  * '<S5>'   : 'h_Controllers/Attitude Controller/PID p'
  * '<S6>'   : 'h_Controllers/Attitude Controller/PID q'
  * '<S7>'   : 'h_Controllers/Attitude Controller/PID r'

@@ -92,18 +92,17 @@ X3 = AnalysisPoint('Theta');
 
 %Tunable regulators
 Cq0 = ltiblock.pid('Cq0','pid');  % tunable PID
-Cq0.Kp.Value = 10;       % initialize Kp
-Cq0.Ki.Value = 1;        % initialize Ki
-Cq0.Kd.Value = 0.1;      % initialize Kd
+Cq0.Kp.Value = 0.3;      % initialize Kp
+Cq0.Ki.Value = 0.3;      % initialize Ki
+Cq0.Kd.Value = 0.05;     % initialize Kd
 Cq0.Tf.Value = 0.01;     % set parameter Tf
 Cq0.Tf.Free = false;     % fix parameter Tf to this value
 Cq0.u = 'e_q'; Cq0.y = 'deltaOmega';
 
-Ctheta0 = ltiblock.pid('Ctheta0','pd');
-Ctheta0.Kp.Value = 10;    % initialize Kp
-Ctheta0.Kd.Value = 1;     % initialize Kd
-Ctheta0.Tf.Value = 0.01;  % set parameter Tf
-Ctheta0.Tf.Free = false;  % fix parameter Tf to this value
+Ctheta0 = ltiblock.pid('Ctheta0','p');
+Ctheta0.Kp.Value = 1.1;  % initialize Kp
+Ctheta0.Tf.Value = 0.01; % set parameter Tf
+Ctheta0.Tf.Free = false; % fix parameter Tf to this value
 Ctheta0.u = 'e_{Theta}'; Ctheta0.y = 'q_0';
 
 %Connect these components to build a model of the entire closed-loop 
@@ -113,7 +112,7 @@ CL0 = feedback(Gtheta*InnerLoop0*Ctheta0,X3);
 CL0.u = 'Theta_0';
 CL0.y = 'Theta';
 
-% % Loop function and sensitivity functions
+% Loop function and sensitivity functions
 % loops = loopsens(Gtheta*InnerLoop0, Ctheta0);
 % figure
 % bodemag(loops.Si,'r',loops.Ti,'b',loops.Li,'g',{1e-1,1e3})
@@ -121,27 +120,16 @@ CL0.y = 'Theta';
 % grid minor
 
 % Tracking requirements
-wc = 10;                  %[rad/s] target crossover frequency
+wc = 0.1;                 %[rad/s] target crossover frequency
 responsetime = 2/wc;      %[s]
-dcerror = 0.001;          %[%]
-peakerror = 1;            
+dcerror = 0.0001;         %[%]
+peakerror = 1.2;            
 R1 = TuningGoal.Tracking('Theta_0','Theta',responsetime,dcerror,peakerror);
 % Bandwidth and roll-off requirements
-R2 = TuningGoal.MaxLoopGain('deltaOmega',10*(wc/s)^2);
-R2.Focus = [wc 1e3];
+R2 = TuningGoal.MaxLoopGain('deltaOmega',5*wc/s);
+R2.Focus = [wc 10*wc];
 % Disturbance rejection requirements
-attfact = frd([100 1 1],[0 wc 100]);% Tracking requirements
-wc = 10;                  %[rad/s] target crossover frequency
-responsetime = 2/wc;      %[s]
-dcerror = 0.001;          %[%]
-peakerror = 1;            
-R1 = TuningGoal.Tracking('Theta_0','Theta',responsetime,dcerror,peakerror);
-% Bandwidth and roll-off requirements
-R2 = TuningGoal.MaxLoopGain('deltaOmega',10*(wc/s)^2);
-R2.Focus = [wc 1e3];
-% Disturbance rejection requirements
-attfact = frd([100 1 1],[0 wc 100]);
-R3 = TuningGoal.Rejection('deltaOmega',attfact);
+attfact = frd([1000 1 1],[0.1*wc wc 10*wc]);
 R3 = TuningGoal.Rejection('deltaOmega',attfact);
 
 %Tune the control system
@@ -153,30 +141,26 @@ fb = bandwidth(CL);
 Cq = getBlockValue(CL,'Cq0')
 Ctheta = getBlockValue(CL,'Ctheta0')
 
-figure('name','Closed-loop response')
-step(CL)
-grid minor
-title('Closed-loop response')
-
-CLin = getIOTransfer(CL,'Theta_0','q');
-figure
-stepplot(CLin)
-grid minor
-title('Closed-loop response')
+% figure('name','Closed-loop response')
+% step(CL)
+% grid minor
+% title('Closed-loop response')
+% 
+% CLin = getIOTransfer(CL,'Theta_0','q');
+% figure
+% stepplot(CLin)
+% grid minor
+% title('Closed-loop response')
 
 figure('name', 'Tracking Requirement')
-viewSpec(R1, CL)
-figure('name', 'Bandwidth and roll-off requirements')
-viewSpec(R2, CL)
-figure('name', 'Disturbance rejection requirements')
-viewSpec(R3, CL)
+viewSpec([R1 R2 R3],CL)
 
 % Loop function and sensitivity functions
-InnerLoop = feedback(X2*Gq*X1*Cq,1);
-loops = loopsens(Gtheta*InnerLoop, Ctheta);
-figure
-bodemag(loops.Si,'r',loops.Ti,'b',loops.Li,'g',{1e-1,1e3})
-legend('S','T','L')
-grid minor
+% InnerLoop = feedback(X2*Gq*X1*Cq,1);
+% loops = loopsens(Gtheta*InnerLoop, Ctheta);
+% figure
+% bodemag(loops.Si,'r',loops.Ti,'b',loops.Li,'g',{1e-1,1e3})
+% legend('S','T','L')
+% grid minor
 
  %% End of code

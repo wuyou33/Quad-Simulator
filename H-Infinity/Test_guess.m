@@ -46,16 +46,16 @@ X3 = AnalysisPoint('Theta');
 
 %Tunable regulators
 Cq = ltiblock.pid('Cq0','pid');  % tunable PID
-Cq.Kp.Value = 10;        % initialize Kp
-Cq.Ki.Value = 1;        % initialize Ki
-Cq.Kd.Value = 0.1;      % initialize Kd
+Cq.Kp.Value = 0.2;       % initialize Kp
+Cq.Ki.Value = 0.2;       % initialize Ki
+Cq.Kd.Value = 0.01;      % initialize Kd
 Cq.Tf.Value = 0.01;      % set parameter Tf
 Cq.Tf.Free = false;      % fix parameter Tf to this value
 pid(Cq)
 Cq.u = 'e_q'; Cq.y = 'deltaOmega';
 Ctheta = ltiblock.pid('Ctheta0','pd');
-Ctheta.Kp.Value = 10;    % initialize Kp
-Ctheta.Kd.Value = 1;     % initialize Kd
+Ctheta.Kp.Value = 1.5;   % initialize Kp
+Ctheta.Kd.Value = 0.01;  % initialize Kd
 Ctheta.Tf.Value = 0.01;  % set parameter Tf
 Ctheta.Tf.Free = false;  % fix parameter Tf to this value
 pid(Ctheta)

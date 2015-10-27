@@ -74,28 +74,30 @@ Tf = .01;
 N = 1/Tf;
 
 %p PID
-Kpp = .2;
-Kip = .2;
-Kdp = .01;
+Kpp = 0;
+Kip = 0;
+Kdp = 0;
 
 %q PID
-Kpq = 0*.2;
-Kiq = 0*.2;
-Kdq = 0*.01;
+% Kpq = 0.3;
+% Kiq = 0.3;
+% Kdq = 0.05;
+Kpq = 0.588;
+Kiq = 0.0394;
+Kdq = 0.0703;
 
 %r PID
-Kpr = 0*.1;
+Kpr = 0;
 Kir = 0;
 Kdr = 0;
 
 %% Attitude regulators
 %phi PD
-KRP = 10;
-KRD = 1;
+KRP = 0;
 
 %theta PD
-KPP = 0*1;
-KPD = 0*.1;
+%KPP = 1.1;
+KPP = 1.47;
 
 %psi PD
 KYr = 0;

@@ -12,7 +12,7 @@ close all;
 fclose(instrfind);
 
 % Open serial COM
-s = serial('/dev/ttyUSB0','BaudRate',115200,'DataBits',8,'Terminator','CR/LF');
+s = serial('/dev/ttyACM0','BaudRate',115200,'DataBits',8,'Terminator','CR/LF');
 
 fopen(s);
 
