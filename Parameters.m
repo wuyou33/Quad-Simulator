@@ -55,10 +55,10 @@ dLMN = [dLdp  0   0  ;
 %% Control variables
 %U = K * OMEsq
 param = diag([Kt b/sqrt(2)*Kt b/sqrt(2)*Kt Kq]);
-sign = [1  1  1  1 ;
-        1 -1 -1  1 ;
-        1  1 -1 -1 ;
-        1 -1  1 -1];
+sign = [ 1  1  1  1 ;
+         1 -1 -1  1 ;
+         1  1 -1 -1 ;
+        -1  1 -1  1];
     
 K = param*sign;
 Kinv = K\eye(4);
@@ -74,34 +74,32 @@ Tf = .01;
 N = 1/Tf;
 
 %p PID
-Kpp = 0;
-Kip = 0;
-Kdp = 0;
+Kpp = 0*0.3;
+Kip = 0*0.3;
+Kdp = 0*0.05;
 
 %q PID
-% Kpq = 0.3;
-% Kiq = 0.3;
-% Kdq = 0.05;
-Kpq = 0.588;
-Kiq = 0.0394;
-Kdq = 0.0703;
+Kpq = 0*0.3;
+Kiq = 0*0.3;
+Kdq = 0*0.05;
+% Kpq = 0.588;
+% Kiq = 0.0394;
+% Kdq = 0.0703;
 
 %r PID
-Kpr = 0;
-Kir = 0;
-Kdr = 0;
+Kpr = 0.05;
+Kir = 0.1;
+Kdr = 0.0001;
 
 %% Attitude regulators
 %phi PD
-KRP = 0;
+KRP = 0*1.1;
 
 %theta PD
-%KPP = 1.1;
-KPP = 1.47;
+KPP = 0*1.1;
+% KPP = 1.47;
 
 %psi PD
-KYr = 0;
-KYP = 0;
-KYD = 0;
+KYr = 3;
 
  %% End of code

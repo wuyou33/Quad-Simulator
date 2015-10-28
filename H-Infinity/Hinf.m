@@ -95,8 +95,8 @@ Cq0 = ltiblock.pid('Cq0','pid');  % tunable PID
 Cq0.Kp.Value = 0.3;      % initialize Kp
 Cq0.Ki.Value = 0.3;      % initialize Ki
 Cq0.Kd.Value = 0.05;     % initialize Kd
-Cq0.Tf.Value = 0.01;     % set parameter Tf
-Cq0.Tf.Free = false;     % fix parameter Tf to this value
+Cq0.Tf.Value = 0.001;     % set parameter Tf
+Cq0.Tf.Free = true;     % fix parameter Tf to this value
 Cq0.u = 'e_q'; Cq0.y = 'deltaOmega';
 
 Ctheta0 = ltiblock.pid('Ctheta0','p');
@@ -126,7 +126,7 @@ dcerror = 0.0001;         %[%]
 peakerror = 1.2;            
 R1 = TuningGoal.Tracking('Theta_0','Theta',responsetime,dcerror,peakerror);
 % Bandwidth and roll-off requirements
-R2 = TuningGoal.MaxLoopGain('deltaOmega',5*wc/s);
+R2 = TuningGoal.MaxLoopGain('deltaOmega',10*wc/s);
 R2.Focus = [wc 10*wc];
 % Disturbance rejection requirements
 attfact = frd([1000 1 1],[0.1*wc wc 10*wc]);
@@ -135,7 +135,7 @@ R3 = TuningGoal.Rejection('deltaOmega',attfact);
 %Tune the control system
 [CL,fSoft,gHard] = systune(CL0,[],[R1 R2 R3]);
 
-fb = bandwidth(CL);
+fb = bandwidth(CL);false
 
 %%
 Cq = getBlockValue(CL,'Cq0')

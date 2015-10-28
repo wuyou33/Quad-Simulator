@@ -7,9 +7,9 @@
  *
  * Code generation for model "h_Controllers".
  *
- * Model version              : 1.41
+ * Model version              : 1.47
  * Simulink Coder version : 8.8 (R2015a) 09-Feb-2015
- * C++ source code generated on : Fri Oct 23 19:04:59 2015
+ * C++ source code generated on : Wed Oct 28 20:12:34 2015
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -36,7 +36,7 @@ void h_ControllersModelClass::rt_ertODEUpdateContinuousStates(RTWSolverInfo *si 
   real_T *f1 = id->f[1];
   real_T temp;
   int_T i;
-  int_T nXc = 7;
+  int_T nXc = 5;
   rtsiSetSimTimeStep(si,MINOR_TIME_STEP);
 
   /* Save the state values at time t in y, we'll use x as ynew. */
@@ -96,29 +96,24 @@ void h_ControllersModelClass::step()
     (&h_Controllers_M)->Timing.t[0] = rtsiGetT(&(&h_Controllers_M)->solverInfo);
   }
 
-  /* Gain: '<S1>/Yaw-rate' incorporates:
-   *  Inport: '<Root>/Stick'
-   */
-  h_Controllers_B.Yawrate = h_Controllers_P.KYr * h_Controllers_U.Stick[2];
-
   /* MATLAB Function: '<S1>/To body from Earth_rates' incorporates:
    *  Inport: '<Root>/Rates'
    */
-  /* MATLAB Function 'Attitude Controller/To body from Earth_rates': '<S8>:1' */
-  /* '<S8>:1:3' */
-  /* '<S8>:1:4' */
-  /* '<S8>:1:6' */
+  /* MATLAB Function 'Attitude Controller/To body from Earth_rates': '<S7>:1' */
+  /* '<S7>:1:3' */
+  /* '<S7>:1:4' */
+  /* '<S7>:1:6' */
   Sphi = sin(h_Controllers_U.Rates[0]);
 
-  /* '<S8>:1:7' */
+  /* '<S7>:1:7' */
   Cphi = cos(h_Controllers_U.Rates[0]);
 
-  /* '<S8>:1:8' */
-  /* '<S8>:1:9' */
+  /* '<S7>:1:8' */
+  /* '<S7>:1:9' */
   Ctheta = cos(h_Controllers_U.Rates[1]);
 
-  /* '<S8>:1:11' */
-  /* '<S8>:1:15' */
+  /* '<S7>:1:11' */
+  /* '<S7>:1:15' */
   tmp[0] = 1.0;
   tmp[3] = 0.0;
   tmp[6] = -sin(h_Controllers_U.Rates[1]);
@@ -141,7 +136,7 @@ void h_ControllersModelClass::step()
     Sphi = h_Controllers_U.Stick[0];
   }
 
-  /* SignalConversion: '<S8>/TmpSignal ConversionAt SFunction Inport2' incorporates:
+  /* SignalConversion: '<S7>/TmpSignal ConversionAt SFunction Inport2' incorporates:
    *  Gain: '<S3>/Proportional Gain'
    *  Inport: '<Root>/IMU_Attitude'
    *  MATLAB Function: '<S1>/To body from Earth_rates'
@@ -162,20 +157,17 @@ void h_ControllersModelClass::step()
     Sphi = h_Controllers_U.Stick[1];
   }
 
-  /* SignalConversion: '<S8>/TmpSignal ConversionAt SFunction Inport2' incorporates:
+  /* SignalConversion: '<S7>/TmpSignal ConversionAt SFunction Inport2' incorporates:
+   *  Gain: '<S1>/Yaw-rate'
    *  Gain: '<S2>/Proportional Gain'
-   *  Gain: '<S4>/Proportional Gain'
    *  Inport: '<Root>/IMU_Attitude'
-   *  Integrator: '<S1>/Integrator'
+   *  Inport: '<Root>/Stick'
    *  MATLAB Function: '<S1>/To body from Earth_rates'
    *  Saturate: '<S1>/Saturation1'
    *  Sum: '<S1>/Sum1'
-   *  Sum: '<S1>/Sum2'
-   *  Sum: '<S1>/Sum3'
    */
   Sphi = (Sphi - h_Controllers_U.IMU_Attitude[1]) * h_Controllers_P.KPP;
-  Cphi = (h_Controllers_X.Integrator_CSTATE - h_Controllers_U.IMU_Attitude[2]) *
-    h_Controllers_P.KYP + h_Controllers_B.Yawrate;
+  Cphi = h_Controllers_P.KYr * h_Controllers_U.Stick[2];
 
   /* MATLAB Function: '<S1>/To body from Earth_rates' */
   for (i = 0; i < 3; i++) {
@@ -189,10 +181,10 @@ void h_ControllersModelClass::step()
   Sphi = (h_Controllers_U.Rates[0] + rtb_Rates_B[0]) -
     h_Controllers_U.IMU_Rates[0];
 
-  /* Gain: '<S5>/Filter Coefficient' incorporates:
-   *  Gain: '<S5>/Derivative Gain'
-   *  Integrator: '<S5>/Filter'
-   *  Sum: '<S5>/SumD'
+  /* Gain: '<S4>/Filter Coefficient' incorporates:
+   *  Gain: '<S4>/Derivative Gain'
+   *  Integrator: '<S4>/Filter'
+   *  Sum: '<S4>/SumD'
    */
   h_Controllers_B.FilterCoefficient = (h_Controllers_P.Kdp * Sphi -
     h_Controllers_X.Filter_CSTATE) * h_Controllers_P.N;
@@ -204,10 +196,10 @@ void h_ControllersModelClass::step()
   Cphi = (h_Controllers_U.Rates[1] + rtb_Rates_B[1]) -
     h_Controllers_U.IMU_Rates[1];
 
-  /* Gain: '<S6>/Filter Coefficient' incorporates:
-   *  Gain: '<S6>/Derivative Gain'
-   *  Integrator: '<S6>/Filter'
-   *  Sum: '<S6>/SumD'
+  /* Gain: '<S5>/Filter Coefficient' incorporates:
+   *  Gain: '<S5>/Derivative Gain'
+   *  Integrator: '<S5>/Filter'
+   *  Sum: '<S5>/SumD'
    */
   h_Controllers_B.FilterCoefficient_p = (h_Controllers_P.Kdq * Cphi -
     h_Controllers_X.Filter_CSTATE_d) * h_Controllers_P.N;
@@ -219,39 +211,31 @@ void h_ControllersModelClass::step()
   Ctheta = (h_Controllers_U.Rates[2] + rtb_Rates_B[2]) -
     h_Controllers_U.IMU_Rates[2];
 
-  /* Gain: '<S7>/Filter Coefficient' incorporates:
-   *  Gain: '<S7>/Derivative Gain'
-   *  Integrator: '<S7>/Filter'
-   *  Sum: '<S7>/SumD'
-   */
-  h_Controllers_B.FilterCoefficient_j = (h_Controllers_P.Kdr * Ctheta -
-    h_Controllers_X.Filter_CSTATE_e) * h_Controllers_P.N;
-
   /* Outport: '<Root>/Moments' incorporates:
+   *  Gain: '<S4>/Proportional Gain'
    *  Gain: '<S5>/Proportional Gain'
    *  Gain: '<S6>/Proportional Gain'
-   *  Gain: '<S7>/Proportional Gain'
+   *  Integrator: '<S4>/Integrator'
    *  Integrator: '<S5>/Integrator'
    *  Integrator: '<S6>/Integrator'
-   *  Integrator: '<S7>/Integrator'
+   *  Sum: '<S4>/Sum'
    *  Sum: '<S5>/Sum'
    *  Sum: '<S6>/Sum'
-   *  Sum: '<S7>/Sum'
    */
   h_Controllers_Y.Moments[0] = (h_Controllers_P.Kpp * Sphi +
-    h_Controllers_X.Integrator_CSTATE_j) + h_Controllers_B.FilterCoefficient;
+    h_Controllers_X.Integrator_CSTATE) + h_Controllers_B.FilterCoefficient;
   h_Controllers_Y.Moments[1] = (h_Controllers_P.Kpq * Cphi +
     h_Controllers_X.Integrator_CSTATE_f) + h_Controllers_B.FilterCoefficient_p;
-  h_Controllers_Y.Moments[2] = (h_Controllers_P.Kpr * Ctheta +
-    h_Controllers_X.Integrator_CSTATE_a) + h_Controllers_B.FilterCoefficient_j;
+  h_Controllers_Y.Moments[2] = h_Controllers_P.Kpr * Ctheta +
+    h_Controllers_X.Integrator_CSTATE_a;
 
-  /* Gain: '<S5>/Integral Gain' */
+  /* Gain: '<S4>/Integral Gain' */
   h_Controllers_B.IntegralGain = h_Controllers_P.Kip * Sphi;
 
-  /* Gain: '<S6>/Integral Gain' */
+  /* Gain: '<S5>/Integral Gain' */
   h_Controllers_B.IntegralGain_o = h_Controllers_P.Kiq * Cphi;
 
-  /* Gain: '<S7>/Integral Gain' */
+  /* Gain: '<S6>/Integral Gain' */
   h_Controllers_B.IntegralGain_n = h_Controllers_P.Kir * Ctheta;
   if (rtmIsMajorTimeStep((&h_Controllers_M))) {
     rt_ertODEUpdateContinuousStates(&(&h_Controllers_M)->solverInfo);
@@ -296,26 +280,20 @@ void h_ControllersModelClass::h_Controllers_derivatives()
   XDot_h_Controllers_T *_rtXdot;
   _rtXdot = ((XDot_h_Controllers_T *) (&h_Controllers_M)->ModelData.derivs);
 
-  /* Derivatives for Integrator: '<S1>/Integrator' */
-  _rtXdot->Integrator_CSTATE = h_Controllers_B.Yawrate;
+  /* Derivatives for Integrator: '<S4>/Integrator' */
+  _rtXdot->Integrator_CSTATE = h_Controllers_B.IntegralGain;
 
-  /* Derivatives for Integrator: '<S5>/Integrator' */
-  _rtXdot->Integrator_CSTATE_j = h_Controllers_B.IntegralGain;
-
-  /* Derivatives for Integrator: '<S5>/Filter' */
+  /* Derivatives for Integrator: '<S4>/Filter' */
   _rtXdot->Filter_CSTATE = h_Controllers_B.FilterCoefficient;
 
-  /* Derivatives for Integrator: '<S6>/Integrator' */
+  /* Derivatives for Integrator: '<S5>/Integrator' */
   _rtXdot->Integrator_CSTATE_f = h_Controllers_B.IntegralGain_o;
 
-  /* Derivatives for Integrator: '<S6>/Filter' */
+  /* Derivatives for Integrator: '<S5>/Filter' */
   _rtXdot->Filter_CSTATE_d = h_Controllers_B.FilterCoefficient_p;
 
-  /* Derivatives for Integrator: '<S7>/Integrator' */
+  /* Derivatives for Integrator: '<S6>/Integrator' */
   _rtXdot->Integrator_CSTATE_a = h_Controllers_B.IntegralGain_n;
-
-  /* Derivatives for Integrator: '<S7>/Filter' */
-  _rtXdot->Filter_CSTATE_e = h_Controllers_B.FilterCoefficient_j;
 }
 
 /* Model initialize function */
@@ -377,26 +355,20 @@ void h_ControllersModelClass::initialize()
   (void) memset(&h_Controllers_Y.Moments[0], 0,
                 3U*sizeof(real_T));
 
-  /* InitializeConditions for Integrator: '<S1>/Integrator' */
+  /* InitializeConditions for Integrator: '<S4>/Integrator' */
   h_Controllers_X.Integrator_CSTATE = h_Controllers_P.Integrator_IC;
 
-  /* InitializeConditions for Integrator: '<S5>/Integrator' */
-  h_Controllers_X.Integrator_CSTATE_j = h_Controllers_P.Integrator_IC_c;
-
-  /* InitializeConditions for Integrator: '<S5>/Filter' */
+  /* InitializeConditions for Integrator: '<S4>/Filter' */
   h_Controllers_X.Filter_CSTATE = h_Controllers_P.Filter_IC;
 
-  /* InitializeConditions for Integrator: '<S6>/Integrator' */
+  /* InitializeConditions for Integrator: '<S5>/Integrator' */
   h_Controllers_X.Integrator_CSTATE_f = h_Controllers_P.Integrator_IC_l;
 
-  /* InitializeConditions for Integrator: '<S6>/Filter' */
+  /* InitializeConditions for Integrator: '<S5>/Filter' */
   h_Controllers_X.Filter_CSTATE_d = h_Controllers_P.Filter_IC_l;
 
-  /* InitializeConditions for Integrator: '<S7>/Integrator' */
+  /* InitializeConditions for Integrator: '<S6>/Integrator' */
   h_Controllers_X.Integrator_CSTATE_a = h_Controllers_P.Integrator_IC_o;
-
-  /* InitializeConditions for Integrator: '<S7>/Filter' */
-  h_Controllers_X.Filter_CSTATE_e = h_Controllers_P.Filter_IC_c;
 }
 
 /* Model terminate function */
@@ -409,50 +381,43 @@ void h_ControllersModelClass::terminate()
 h_ControllersModelClass::h_ControllersModelClass()
 {
   static const P_h_Controllers_T h_Controllers_P_temp = {
-    1.47,                              /* Variable: KPP
+    0.0,                               /* Variable: KPP
                                         * Referenced by: '<S2>/Proportional Gain'
                                         */
     0.0,                               /* Variable: KRP
                                         * Referenced by: '<S3>/Proportional Gain'
                                         */
-    0.0,                               /* Variable: KYP
-                                        * Referenced by: '<S4>/Proportional Gain'
-                                        */
-    0.0,                               /* Variable: KYr
+    3.0,                               /* Variable: KYr
                                         * Referenced by: '<S1>/Yaw-rate'
                                         */
     0.0,                               /* Variable: Kdp
+                                        * Referenced by: '<S4>/Derivative Gain'
+                                        */
+    0.0,                               /* Variable: Kdq
                                         * Referenced by: '<S5>/Derivative Gain'
                                         */
-    0.0703,                            /* Variable: Kdq
-                                        * Referenced by: '<S6>/Derivative Gain'
-                                        */
-    0.0,                               /* Variable: Kdr
-                                        * Referenced by: '<S7>/Derivative Gain'
-                                        */
     0.0,                               /* Variable: Kip
+                                        * Referenced by: '<S4>/Integral Gain'
+                                        */
+    0.0,                               /* Variable: Kiq
                                         * Referenced by: '<S5>/Integral Gain'
                                         */
-    0.0394,                            /* Variable: Kiq
+    0.1,                               /* Variable: Kir
                                         * Referenced by: '<S6>/Integral Gain'
                                         */
-    0.0,                               /* Variable: Kir
-                                        * Referenced by: '<S7>/Integral Gain'
-                                        */
     0.0,                               /* Variable: Kpp
+                                        * Referenced by: '<S4>/Proportional Gain'
+                                        */
+    0.0,                               /* Variable: Kpq
                                         * Referenced by: '<S5>/Proportional Gain'
                                         */
-    0.588,                             /* Variable: Kpq
+    0.05,                              /* Variable: Kpr
                                         * Referenced by: '<S6>/Proportional Gain'
-                                        */
-    0.0,                               /* Variable: Kpr
-                                        * Referenced by: '<S7>/Proportional Gain'
                                         */
     100.0,                             /* Variable: N
                                         * Referenced by:
+                                        *   '<S4>/Filter Coefficient'
                                         *   '<S5>/Filter Coefficient'
-                                        *   '<S6>/Filter Coefficient'
-                                        *   '<S7>/Filter Coefficient'
                                         */
     0.52359877559829882,               /* Variable: pitchMax
                                         * Referenced by: '<S1>/Saturation1'
@@ -466,8 +431,11 @@ h_ControllersModelClass::h_ControllersModelClass()
     -0.52359877559829882,              /* Variable: rollMin
                                         * Referenced by: '<S1>/Saturation'
                                         */
-    0.0,                               /* Expression: 0
-                                        * Referenced by: '<S1>/Integrator'
+    0.0,                               /* Expression: InitialConditionForIntegrator
+                                        * Referenced by: '<S4>/Integrator'
+                                        */
+    0.0,                               /* Expression: InitialConditionForFilter
+                                        * Referenced by: '<S4>/Filter'
                                         */
     0.0,                               /* Expression: InitialConditionForIntegrator
                                         * Referenced by: '<S5>/Integrator'
@@ -475,17 +443,8 @@ h_ControllersModelClass::h_ControllersModelClass()
     0.0,                               /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S5>/Filter'
                                         */
-    0.0,                               /* Expression: InitialConditionForIntegrator
+    0.0                                /* Expression: InitialConditionForIntegrator
                                         * Referenced by: '<S6>/Integrator'
-                                        */
-    0.0,                               /* Expression: InitialConditionForFilter
-                                        * Referenced by: '<S6>/Filter'
-                                        */
-    0.0,                               /* Expression: InitialConditionForIntegrator
-                                        * Referenced by: '<S7>/Integrator'
-                                        */
-    0.0                                /* Expression: InitialConditionForFilter
-                                        * Referenced by: '<S7>/Filter'
                                         */
   };                                   /* Modifiable parameters */
 

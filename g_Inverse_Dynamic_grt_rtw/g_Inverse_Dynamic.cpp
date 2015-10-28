@@ -7,9 +7,9 @@
  *
  * Code generation for model "g_Inverse_Dynamic".
  *
- * Model version              : 1.9
+ * Model version              : 1.10
  * Simulink Coder version : 8.8 (R2015a) 09-Feb-2015
- * C++ source code generated on : Thu Oct 15 14:21:28 2015
+ * C++ source code generated on : Wed Oct 28 19:33:46 2015
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -181,8 +181,8 @@ g_Inverse_DynamicModelClass::g_Inverse_DynamicModelClass()
       10154.676913023779, 52221.388406964274, -52221.388406964274,
       -52221.3884069643, 52221.388406964295, 52221.38840696431,
       52221.388406964274, -52221.388406964274, -52221.388406964295,
-      865274.28680549667, -865274.28680549655, 865274.28680549655,
-      -865274.28680549655 },
+      -865274.28680549667, 865274.28680549655, -865274.28680549655,
+      865274.28680549655 },
 
     /*  Variable: x1
      * Referenced by:
