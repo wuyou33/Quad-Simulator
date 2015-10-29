@@ -82,10 +82,10 @@ Kpq = 0.3;
 Kiq = 0.3;
 Kdq = 0.05;
 
-%r PID
-Kpr = 0.05;
-Kir = 0.1;
-Kdr = 0.0001;
+%r PI
+Kpr = 0.08;
+Kir = 0.2;
+Kir = 0.01;
 
 %% Attitude regulators
 %phi PD
