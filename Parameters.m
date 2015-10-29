@@ -65,26 +65,22 @@ Kinv = K\eye(4);
 
 %% Saturations
 rollMax = pi/6;
-rollMin = -pi/6;
 pitchMax = pi/6;
-pitchMin = -pi/6;
+yawRateMax = 3;
 
 %% Angular-rate regulators
 Tf = .01;
 N = 1/Tf;
 
 %p PID
-Kpp = 0*0.3;
-Kip = 0*0.3;
-Kdp = 0*0.05;
+Kpp = 0.3;
+Kip = 0.3;
+Kdp = 0.05;
 
 %q PID
-Kpq = 0*0.3;
-Kiq = 0*0.3;
-Kdq = 0*0.05;
-% Kpq = 0.588;
-% Kiq = 0.0394;
-% Kdq = 0.0703;
+Kpq = 0.3;
+Kiq = 0.3;
+Kdq = 0.05;
 
 %r PID
 Kpr = 0.05;
@@ -93,13 +89,9 @@ Kdr = 0.0001;
 
 %% Attitude regulators
 %phi PD
-KRP = 0*1.1;
+KRP = 1.1;
 
 %theta PD
-KPP = 0*1.1;
-% KPP = 1.47;
-
-%psi PD
-KYr = 3;
+KPP = 1.1;
 
  %% End of code

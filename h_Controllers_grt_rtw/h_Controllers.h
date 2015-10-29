@@ -7,9 +7,9 @@
  *
  * Code generation for model "h_Controllers".
  *
- * Model version              : 1.47
+ * Model version              : 1.49
  * Simulink Coder version : 8.8 (R2015a) 09-Feb-2015
- * C++ source code generated on : Wed Oct 28 20:12:34 2015
+ * C++ source code generated on : Thu Oct 29 13:25:42 2015
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -215,9 +215,6 @@ struct P_h_Controllers_T_ {
   real_T KRP;                          /* Variable: KRP
                                         * Referenced by: '<S3>/Proportional Gain'
                                         */
-  real_T KYr;                          /* Variable: KYr
-                                        * Referenced by: '<S1>/Yaw-rate'
-                                        */
   real_T Kdp;                          /* Variable: Kdp
                                         * Referenced by: '<S4>/Derivative Gain'
                                         */
@@ -248,16 +245,31 @@ struct P_h_Controllers_T_ {
                                         *   '<S5>/Filter Coefficient'
                                         */
   real_T pitchMax;                     /* Variable: pitchMax
-                                        * Referenced by: '<S1>/Saturation1'
-                                        */
-  real_T pitchMin;                     /* Variable: pitchMin
-                                        * Referenced by: '<S1>/Saturation1'
+                                        * Referenced by: '<S1>/Yaw-rate2'
                                         */
   real_T rollMax;                      /* Variable: rollMax
+                                        * Referenced by: '<S1>/Yaw-rate1'
+                                        */
+  real_T yawRateMax;                   /* Variable: yawRateMax
+                                        * Referenced by: '<S1>/Yaw-rate'
+                                        */
+  real_T Saturation_UpperSat;          /* Expression: 1
                                         * Referenced by: '<S1>/Saturation'
                                         */
-  real_T rollMin;                      /* Variable: rollMin
+  real_T Saturation_LowerSat;          /* Expression: -1
                                         * Referenced by: '<S1>/Saturation'
+                                        */
+  real_T Saturation1_UpperSat;         /* Expression: 1
+                                        * Referenced by: '<S1>/Saturation1'
+                                        */
+  real_T Saturation1_LowerSat;         /* Expression: -1
+                                        * Referenced by: '<S1>/Saturation1'
+                                        */
+  real_T Saturation2_UpperSat;         /* Expression: 1
+                                        * Referenced by: '<S1>/Saturation2'
+                                        */
+  real_T Saturation2_LowerSat;         /* Expression: -1
+                                        * Referenced by: '<S1>/Saturation2'
                                         */
   real_T Integrator_IC;                /* Expression: InitialConditionForIntegrator
                                         * Referenced by: '<S4>/Integrator'

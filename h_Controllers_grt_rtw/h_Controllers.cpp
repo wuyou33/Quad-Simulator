@@ -7,9 +7,9 @@
  *
  * Code generation for model "h_Controllers".
  *
- * Model version              : 1.47
+ * Model version              : 1.49
  * Simulink Coder version : 8.8 (R2015a) 09-Feb-2015
- * C++ source code generated on : Wed Oct 28 20:12:34 2015
+ * C++ source code generated on : Thu Oct 29 13:25:42 2015
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -128,50 +128,70 @@ void h_ControllersModelClass::step()
    *  Inport: '<Root>/Stick'
    *  Saturate: '<S1>/Saturation'
    */
-  if (h_Controllers_U.Stick[0] > h_Controllers_P.rollMax) {
-    Sphi = h_Controllers_P.rollMax;
-  } else if (h_Controllers_U.Stick[0] < h_Controllers_P.rollMin) {
-    Sphi = h_Controllers_P.rollMin;
+  if (h_Controllers_U.Stick[0] > h_Controllers_P.Saturation_UpperSat) {
+    Sphi = h_Controllers_P.Saturation_UpperSat;
+  } else if (h_Controllers_U.Stick[0] < h_Controllers_P.Saturation_LowerSat) {
+    Sphi = h_Controllers_P.Saturation_LowerSat;
   } else {
     Sphi = h_Controllers_U.Stick[0];
   }
 
   /* SignalConversion: '<S7>/TmpSignal ConversionAt SFunction Inport2' incorporates:
+   *  Gain: '<S1>/Yaw-rate1'
    *  Gain: '<S3>/Proportional Gain'
    *  Inport: '<Root>/IMU_Attitude'
    *  MATLAB Function: '<S1>/To body from Earth_rates'
    *  Saturate: '<S1>/Saturation'
    *  Sum: '<S1>/Sum'
    */
-  Ctheta = (Sphi - h_Controllers_U.IMU_Attitude[0]) * h_Controllers_P.KRP;
+  Cphi = (h_Controllers_P.rollMax * Sphi - h_Controllers_U.IMU_Attitude[0]) *
+    h_Controllers_P.KRP;
 
   /* Gain: '<S2>/Proportional Gain' incorporates:
    *  Inport: '<Root>/Stick'
    *  Saturate: '<S1>/Saturation1'
    */
-  if (h_Controllers_U.Stick[1] > h_Controllers_P.pitchMax) {
-    Sphi = h_Controllers_P.pitchMax;
-  } else if (h_Controllers_U.Stick[1] < h_Controllers_P.pitchMin) {
-    Sphi = h_Controllers_P.pitchMin;
+  if (h_Controllers_U.Stick[1] > h_Controllers_P.Saturation1_UpperSat) {
+    Sphi = h_Controllers_P.Saturation1_UpperSat;
+  } else if (h_Controllers_U.Stick[1] < h_Controllers_P.Saturation1_LowerSat) {
+    Sphi = h_Controllers_P.Saturation1_LowerSat;
   } else {
     Sphi = h_Controllers_U.Stick[1];
   }
 
   /* SignalConversion: '<S7>/TmpSignal ConversionAt SFunction Inport2' incorporates:
-   *  Gain: '<S1>/Yaw-rate'
+   *  Gain: '<S1>/Yaw-rate2'
    *  Gain: '<S2>/Proportional Gain'
    *  Inport: '<Root>/IMU_Attitude'
-   *  Inport: '<Root>/Stick'
    *  MATLAB Function: '<S1>/To body from Earth_rates'
    *  Saturate: '<S1>/Saturation1'
    *  Sum: '<S1>/Sum1'
    */
-  Sphi = (Sphi - h_Controllers_U.IMU_Attitude[1]) * h_Controllers_P.KPP;
-  Cphi = h_Controllers_P.KYr * h_Controllers_U.Stick[2];
+  Ctheta = (h_Controllers_P.pitchMax * Sphi - h_Controllers_U.IMU_Attitude[1]) *
+    h_Controllers_P.KPP;
+
+  /* Gain: '<S1>/Yaw-rate' incorporates:
+   *  Inport: '<Root>/Stick'
+   *  Saturate: '<S1>/Saturation2'
+   */
+  if (h_Controllers_U.Stick[2] > h_Controllers_P.Saturation2_UpperSat) {
+    Sphi = h_Controllers_P.Saturation2_UpperSat;
+  } else if (h_Controllers_U.Stick[2] < h_Controllers_P.Saturation2_LowerSat) {
+    Sphi = h_Controllers_P.Saturation2_LowerSat;
+  } else {
+    Sphi = h_Controllers_U.Stick[2];
+  }
+
+  /* SignalConversion: '<S7>/TmpSignal ConversionAt SFunction Inport2' incorporates:
+   *  Gain: '<S1>/Yaw-rate'
+   *  MATLAB Function: '<S1>/To body from Earth_rates'
+   *  Saturate: '<S1>/Saturation2'
+   */
+  Sphi *= h_Controllers_P.yawRateMax;
 
   /* MATLAB Function: '<S1>/To body from Earth_rates' */
   for (i = 0; i < 3; i++) {
-    rtb_Rates_B[i] = tmp[i + 6] * Cphi + (tmp[i + 3] * Sphi + tmp[i] * Ctheta);
+    rtb_Rates_B[i] = tmp[i + 6] * Sphi + (tmp[i + 3] * Ctheta + tmp[i] * Cphi);
   }
 
   /* Sum: '<S1>/Sum4' incorporates:
@@ -387,9 +407,6 @@ h_ControllersModelClass::h_ControllersModelClass()
     0.0,                               /* Variable: KRP
                                         * Referenced by: '<S3>/Proportional Gain'
                                         */
-    3.0,                               /* Variable: KYr
-                                        * Referenced by: '<S1>/Yaw-rate'
-                                        */
     0.0,                               /* Variable: Kdp
                                         * Referenced by: '<S4>/Derivative Gain'
                                         */
@@ -420,16 +437,31 @@ h_ControllersModelClass::h_ControllersModelClass()
                                         *   '<S5>/Filter Coefficient'
                                         */
     0.52359877559829882,               /* Variable: pitchMax
-                                        * Referenced by: '<S1>/Saturation1'
-                                        */
-    -0.52359877559829882,              /* Variable: pitchMin
-                                        * Referenced by: '<S1>/Saturation1'
+                                        * Referenced by: '<S1>/Yaw-rate2'
                                         */
     0.52359877559829882,               /* Variable: rollMax
+                                        * Referenced by: '<S1>/Yaw-rate1'
+                                        */
+    3.0,                               /* Variable: yawRateMax
+                                        * Referenced by: '<S1>/Yaw-rate'
+                                        */
+    1.0,                               /* Expression: 1
                                         * Referenced by: '<S1>/Saturation'
                                         */
-    -0.52359877559829882,              /* Variable: rollMin
+    -1.0,                              /* Expression: -1
                                         * Referenced by: '<S1>/Saturation'
+                                        */
+    1.0,                               /* Expression: 1
+                                        * Referenced by: '<S1>/Saturation1'
+                                        */
+    -1.0,                              /* Expression: -1
+                                        * Referenced by: '<S1>/Saturation1'
+                                        */
+    1.0,                               /* Expression: 1
+                                        * Referenced by: '<S1>/Saturation2'
+                                        */
+    -1.0,                              /* Expression: -1
+                                        * Referenced by: '<S1>/Saturation2'
                                         */
     0.0,                               /* Expression: InitialConditionForIntegrator
                                         * Referenced by: '<S4>/Integrator'
