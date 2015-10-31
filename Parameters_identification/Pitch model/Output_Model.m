@@ -43,13 +43,14 @@ pit_tf_theta = pit_tf(2);
 sysnom = pit_ss(1).NominalValue;
 
 %Given the uncertainty, I can define a vector of possible system
-parray = usample(pit_ss(1),5);
+parray = usample(pit_ss(1),7);
 om = logspace(-2,2);
 parrayg = frd(parray,om);
 
 %Plot the nominal behaviour plus a "cloud" of possible bode diagram
 figure
 bode(parray,'b',sysnom,'r+',om); grid
+legend('Cloud of possible models','Nominal Model','location','southwest')
 
 %Creates an uncertain linear, time-invariant objects are used to represent 
 %unknown dynamic objects whose only known attributes are bounds on their frequency response
