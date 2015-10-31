@@ -43,7 +43,7 @@ Alpha_e = yout(: ,10:12);
 % xlabel('[s]')
 % ylabel('[rad/s]')
 % legend('p', 'q', 'r')
-% 
+ 
 % figure('name','ATTITUDE_EARTH')
 % plot(tout, Alpha_e);
 % grid minor

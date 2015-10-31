@@ -29,11 +29,11 @@
 <tr name="9" id="9">
 <td>9</td><td><span class="ct"> *</span></td></tr>
 <tr name="10" id="10">
-<td>10</td><td><span class="ct"> * Model version              : 1.50</span></td></tr>
+<td>10</td><td><span class="ct"> * Model version              : 1.52</span></td></tr>
 <tr name="11" id="11">
 <td>11</td><td><span class="ct"> * Simulink Coder version : 8.8 (R2015a) 09-Feb-2015</span></td></tr>
 <tr name="12" id="12">
-<td>12</td><td><span class="ct"> * C++ source code generated on : Sat Oct 31 18:42:43 2015</span></td></tr>
+<td>12</td><td><span class="ct"> * C++ source code generated on : Sat Oct 31 20:46:16 2015</span></td></tr>
 <tr name="13" id="13">
 <td>13</td><td><span class="ct"> *</span></td></tr>
 <tr name="14" id="14">
@@ -453,9 +453,9 @@
 <tr name="221" id="221">
 <td>221</td><td><span class="ct">   */</span></td></tr>
 <tr name="222" id="222">
-<td>222</td><td>  <a id="222c3" class="tk">Controllers_B</a>.<a id="222c17" class="tk">FilterCoefficient_p</a> = (<a id="222c40" class="tk">Controllers_P</a>.<a id="222c54" class="tk">Kdq</a> * <a id="222c60" class="tk">Cphi</a> -</td></tr>
+<td>222</td><td>  <a id="222c3" class="tk">Controllers_B</a>.<a id="222c17" class="tk">FilterCoefficient_h</a> = (<a id="222c40" class="tk">Controllers_P</a>.<a id="222c54" class="tk">Kdq</a> * <a id="222c60" class="tk">Cphi</a> -</td></tr>
 <tr name="223" id="223">
-<td>223</td><td>    <a id="223c5" class="tk">Controllers_X</a>.<a id="223c19" class="tk">Filter_CSTATE_d</a>) * <a id="223c38" class="tk">Controllers_P</a>.<a id="223c52" class="tk">N</a>;</td></tr>
+<td>223</td><td>    <a id="223c5" class="tk">Controllers_X</a>.<a id="223c19" class="tk">Filter_CSTATE_a</a>) * <a id="223c38" class="tk">Controllers_P</a>.<a id="223c52" class="tk">N</a>;</td></tr>
 <tr name="224" id="224">
 <td>224</td><td></td></tr>
 <tr name="225" id="225">
@@ -499,11 +499,11 @@
 <tr name="244" id="244">
 <td>244</td><td>  <a id="244c3" class="tk">Controllers_Y</a>.<a id="244c17" class="tk">Moments</a>[1] = (<a id="244c31" class="tk">Controllers_P</a>.<a id="244c45" class="tk">Kpq</a> * <a id="244c51" class="tk">Cphi</a> +</td></tr>
 <tr name="245" id="245">
-<td>245</td><td>    <a id="245c5" class="tk">Controllers_X</a>.<a id="245c19" class="tk">Integrator_CSTATE_f</a>) + <a id="245c42" class="tk">Controllers_B</a>.<a id="245c56" class="tk">FilterCoefficient_p</a>;</td></tr>
+<td>245</td><td>    <a id="245c5" class="tk">Controllers_X</a>.<a id="245c19" class="tk">Integrator_CSTATE_l</a>) + <a id="245c42" class="tk">Controllers_B</a>.<a id="245c56" class="tk">FilterCoefficient_h</a>;</td></tr>
 <tr name="246" id="246">
 <td>246</td><td>  <a id="246c3" class="tk">Controllers_Y</a>.<a id="246c17" class="tk">Moments</a>[2] = <a id="246c30" class="tk">Controllers_P</a>.<a id="246c44" class="tk">Kpr</a> * <a id="246c50" class="tk">Ctheta</a> +</td></tr>
 <tr name="247" id="247">
-<td>247</td><td>    <a id="247c5" class="tk">Controllers_X</a>.<a id="247c19" class="tk">Integrator_CSTATE_a</a>;</td></tr>
+<td>247</td><td>    <a id="247c5" class="tk">Controllers_X</a>.<a id="247c19" class="tk">Integrator_CSTATE_c</a>;</td></tr>
 <tr name="248" id="248">
 <td>248</td><td></td></tr>
 <tr name="249" id="249">
@@ -515,13 +515,13 @@
 <tr name="252" id="252">
 <td>252</td><td>  <span class="ct">/* Gain: '&lt;S5&gt;/Integral Gain' */</span></td></tr>
 <tr name="253" id="253">
-<td>253</td><td>  <a id="253c3" class="tk">Controllers_B</a>.<a id="253c17" class="tk">IntegralGain_o</a> = <a id="253c34" class="tk">Controllers_P</a>.<a id="253c48" class="tk">Kiq</a> * <a id="253c54" class="tk">Cphi</a>;</td></tr>
+<td>253</td><td>  <a id="253c3" class="tk">Controllers_B</a>.<a id="253c17" class="tk">IntegralGain_l</a> = <a id="253c34" class="tk">Controllers_P</a>.<a id="253c48" class="tk">Kiq</a> * <a id="253c54" class="tk">Cphi</a>;</td></tr>
 <tr name="254" id="254">
 <td>254</td><td></td></tr>
 <tr name="255" id="255">
 <td>255</td><td>  <span class="ct">/* Gain: '&lt;S6&gt;/Integral Gain' */</span></td></tr>
 <tr name="256" id="256">
-<td>256</td><td>  <a id="256c3" class="tk">Controllers_B</a>.<a id="256c17" class="tk">IntegralGain_n</a> = <a id="256c34" class="tk">Controllers_P</a>.<a id="256c48" class="tk">Kir</a> * <a id="256c54" class="tk">Ctheta</a>;</td></tr>
+<td>256</td><td>  <a id="256c3" class="tk">Controllers_B</a>.<a id="256c17" class="tk">IntegralGain_m</a> = <a id="256c34" class="tk">Controllers_P</a>.<a id="256c48" class="tk">Kir</a> * <a id="256c54" class="tk">Ctheta</a>;</td></tr>
 <tr name="257" id="257">
 <td>257</td><td>  <span class="kw">if</span> (<a id="257c7" class="tk">rtmIsMajorTimeStep</a>((&amp;<a id="257c28" class="tk">Controllers_M</a>))) <span class="br">{</span></td></tr>
 <tr name="258" id="258">
@@ -623,19 +623,19 @@
 <tr name="306" id="306">
 <td>306</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S5&gt;/Integrator' */</span></td></tr>
 <tr name="307" id="307">
-<td>307</td><td>  <a id="307c3" class="tk">_rtXdot</a>-&gt;<a id="307c12" class="tk">Integrator_CSTATE_f</a> = <a id="307c34" class="tk">Controllers_B</a>.<a id="307c48" class="tk">IntegralGain_o</a>;</td></tr>
+<td>307</td><td>  <a id="307c3" class="tk">_rtXdot</a>-&gt;<a id="307c12" class="tk">Integrator_CSTATE_l</a> = <a id="307c34" class="tk">Controllers_B</a>.<a id="307c48" class="tk">IntegralGain_l</a>;</td></tr>
 <tr name="308" id="308">
 <td>308</td><td></td></tr>
 <tr name="309" id="309">
 <td>309</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S5&gt;/Filter' */</span></td></tr>
 <tr name="310" id="310">
-<td>310</td><td>  <a id="310c3" class="tk">_rtXdot</a>-&gt;<a id="310c12" class="tk">Filter_CSTATE_d</a> = <a id="310c30" class="tk">Controllers_B</a>.<a id="310c44" class="tk">FilterCoefficient_p</a>;</td></tr>
+<td>310</td><td>  <a id="310c3" class="tk">_rtXdot</a>-&gt;<a id="310c12" class="tk">Filter_CSTATE_a</a> = <a id="310c30" class="tk">Controllers_B</a>.<a id="310c44" class="tk">FilterCoefficient_h</a>;</td></tr>
 <tr name="311" id="311">
 <td>311</td><td></td></tr>
 <tr name="312" id="312">
 <td>312</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S6&gt;/Integrator' */</span></td></tr>
 <tr name="313" id="313">
-<td>313</td><td>  <a id="313c3" class="tk">_rtXdot</a>-&gt;<a id="313c12" class="tk">Integrator_CSTATE_a</a> = <a id="313c34" class="tk">Controllers_B</a>.<a id="313c48" class="tk">IntegralGain_n</a>;</td></tr>
+<td>313</td><td>  <a id="313c3" class="tk">_rtXdot</a>-&gt;<a id="313c12" class="tk">Integrator_CSTATE_c</a> = <a id="313c34" class="tk">Controllers_B</a>.<a id="313c48" class="tk">IntegralGain_m</a>;</td></tr>
 <tr name="314" id="314">
 <td>314</td><td><span class="br">}</span></td></tr>
 <tr name="315" id="315">
@@ -767,19 +767,19 @@
 <tr name="378" id="378">
 <td>378</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S5&gt;/Integrator' */</span></td></tr>
 <tr name="379" id="379">
-<td>379</td><td>  <a id="379c3" class="tk">Controllers_X</a>.<a id="379c17" class="tk">Integrator_CSTATE_f</a> = <a id="379c39" class="tk">Controllers_P</a>.<a id="379c53" class="tk">Integrator_IC_l</a>;</td></tr>
+<td>379</td><td>  <a id="379c3" class="tk">Controllers_X</a>.<a id="379c17" class="tk">Integrator_CSTATE_l</a> = <a id="379c39" class="tk">Controllers_P</a>.<a id="379c53" class="tk">Integrator_IC_l</a>;</td></tr>
 <tr name="380" id="380">
 <td>380</td><td></td></tr>
 <tr name="381" id="381">
 <td>381</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S5&gt;/Filter' */</span></td></tr>
 <tr name="382" id="382">
-<td>382</td><td>  <a id="382c3" class="tk">Controllers_X</a>.<a id="382c17" class="tk">Filter_CSTATE_d</a> = <a id="382c35" class="tk">Controllers_P</a>.<a id="382c49" class="tk">Filter_IC_l</a>;</td></tr>
+<td>382</td><td>  <a id="382c3" class="tk">Controllers_X</a>.<a id="382c17" class="tk">Filter_CSTATE_a</a> = <a id="382c35" class="tk">Controllers_P</a>.<a id="382c49" class="tk">Filter_IC_h</a>;</td></tr>
 <tr name="383" id="383">
 <td>383</td><td></td></tr>
 <tr name="384" id="384">
 <td>384</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S6&gt;/Integrator' */</span></td></tr>
 <tr name="385" id="385">
-<td>385</td><td>  <a id="385c3" class="tk">Controllers_X</a>.<a id="385c17" class="tk">Integrator_CSTATE_a</a> = <a id="385c39" class="tk">Controllers_P</a>.<a id="385c53" class="tk">Integrator_IC_o</a>;</td></tr>
+<td>385</td><td>  <a id="385c3" class="tk">Controllers_X</a>.<a id="385c17" class="tk">Integrator_CSTATE_c</a> = <a id="385c39" class="tk">Controllers_P</a>.<a id="385c53" class="tk">Integrator_IC_f</a>;</td></tr>
 <tr name="386" id="386">
 <td>386</td><td><span class="br">}</span></td></tr>
 <tr name="387" id="387">

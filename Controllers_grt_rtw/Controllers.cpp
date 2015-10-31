@@ -7,9 +7,9 @@
  *
  * Code generation for model "Controllers".
  *
- * Model version              : 1.50
+ * Model version              : 1.52
  * Simulink Coder version : 8.8 (R2015a) 09-Feb-2015
- * C++ source code generated on : Sat Oct 31 18:42:43 2015
+ * C++ source code generated on : Sat Oct 31 20:46:16 2015
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -219,8 +219,8 @@ void ControllersModelClass::step()
    *  Integrator: '<S5>/Filter'
    *  Sum: '<S5>/SumD'
    */
-  Controllers_B.FilterCoefficient_p = (Controllers_P.Kdq * Cphi -
-    Controllers_X.Filter_CSTATE_d) * Controllers_P.N;
+  Controllers_B.FilterCoefficient_h = (Controllers_P.Kdq * Cphi -
+    Controllers_X.Filter_CSTATE_a) * Controllers_P.N;
 
   /* Sum: '<S1>/Sum6' incorporates:
    *  Inport: '<Root>/IMU_Rates'
@@ -242,18 +242,18 @@ void ControllersModelClass::step()
   Controllers_Y.Moments[0] = (Controllers_P.Kpp * Sphi +
     Controllers_X.Integrator_CSTATE) + Controllers_B.FilterCoefficient;
   Controllers_Y.Moments[1] = (Controllers_P.Kpq * Cphi +
-    Controllers_X.Integrator_CSTATE_f) + Controllers_B.FilterCoefficient_p;
+    Controllers_X.Integrator_CSTATE_l) + Controllers_B.FilterCoefficient_h;
   Controllers_Y.Moments[2] = Controllers_P.Kpr * Ctheta +
-    Controllers_X.Integrator_CSTATE_a;
+    Controllers_X.Integrator_CSTATE_c;
 
   /* Gain: '<S4>/Integral Gain' */
   Controllers_B.IntegralGain = Controllers_P.Kip * Sphi;
 
   /* Gain: '<S5>/Integral Gain' */
-  Controllers_B.IntegralGain_o = Controllers_P.Kiq * Cphi;
+  Controllers_B.IntegralGain_l = Controllers_P.Kiq * Cphi;
 
   /* Gain: '<S6>/Integral Gain' */
-  Controllers_B.IntegralGain_n = Controllers_P.Kir * Ctheta;
+  Controllers_B.IntegralGain_m = Controllers_P.Kir * Ctheta;
   if (rtmIsMajorTimeStep((&Controllers_M))) {
     rt_ertODEUpdateContinuousStates(&(&Controllers_M)->solverInfo);
 
@@ -304,13 +304,13 @@ void ControllersModelClass::Controllers_derivatives()
   _rtXdot->Filter_CSTATE = Controllers_B.FilterCoefficient;
 
   /* Derivatives for Integrator: '<S5>/Integrator' */
-  _rtXdot->Integrator_CSTATE_f = Controllers_B.IntegralGain_o;
+  _rtXdot->Integrator_CSTATE_l = Controllers_B.IntegralGain_l;
 
   /* Derivatives for Integrator: '<S5>/Filter' */
-  _rtXdot->Filter_CSTATE_d = Controllers_B.FilterCoefficient_p;
+  _rtXdot->Filter_CSTATE_a = Controllers_B.FilterCoefficient_h;
 
   /* Derivatives for Integrator: '<S6>/Integrator' */
-  _rtXdot->Integrator_CSTATE_a = Controllers_B.IntegralGain_n;
+  _rtXdot->Integrator_CSTATE_c = Controllers_B.IntegralGain_m;
 }
 
 /* Model initialize function */
@@ -376,13 +376,13 @@ void ControllersModelClass::initialize()
   Controllers_X.Filter_CSTATE = Controllers_P.Filter_IC;
 
   /* InitializeConditions for Integrator: '<S5>/Integrator' */
-  Controllers_X.Integrator_CSTATE_f = Controllers_P.Integrator_IC_l;
+  Controllers_X.Integrator_CSTATE_l = Controllers_P.Integrator_IC_l;
 
   /* InitializeConditions for Integrator: '<S5>/Filter' */
-  Controllers_X.Filter_CSTATE_d = Controllers_P.Filter_IC_l;
+  Controllers_X.Filter_CSTATE_a = Controllers_P.Filter_IC_h;
 
   /* InitializeConditions for Integrator: '<S6>/Integrator' */
-  Controllers_X.Integrator_CSTATE_a = Controllers_P.Integrator_IC_o;
+  Controllers_X.Integrator_CSTATE_c = Controllers_P.Integrator_IC_f;
 }
 
 /* Model terminate function */

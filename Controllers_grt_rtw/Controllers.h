@@ -7,9 +7,9 @@
  *
  * Code generation for model "Controllers".
  *
- * Model version              : 1.50
+ * Model version              : 1.52
  * Simulink Coder version : 8.8 (R2015a) 09-Feb-2015
- * C++ source code generated on : Sat Oct 31 18:42:43 2015
+ * C++ source code generated on : Sat Oct 31 20:46:16 2015
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -150,37 +150,37 @@
 /* Block signals (auto storage) */
 typedef struct {
   real_T FilterCoefficient;            /* '<S4>/Filter Coefficient' */
-  real_T FilterCoefficient_p;          /* '<S5>/Filter Coefficient' */
+  real_T FilterCoefficient_h;          /* '<S5>/Filter Coefficient' */
   real_T IntegralGain;                 /* '<S4>/Integral Gain' */
-  real_T IntegralGain_o;               /* '<S5>/Integral Gain' */
-  real_T IntegralGain_n;               /* '<S6>/Integral Gain' */
+  real_T IntegralGain_l;               /* '<S5>/Integral Gain' */
+  real_T IntegralGain_m;               /* '<S6>/Integral Gain' */
 } B_Controllers_T;
 
 /* Continuous states (auto storage) */
 typedef struct {
   real_T Integrator_CSTATE;            /* '<S4>/Integrator' */
   real_T Filter_CSTATE;                /* '<S4>/Filter' */
-  real_T Integrator_CSTATE_f;          /* '<S5>/Integrator' */
-  real_T Filter_CSTATE_d;              /* '<S5>/Filter' */
-  real_T Integrator_CSTATE_a;          /* '<S6>/Integrator' */
+  real_T Integrator_CSTATE_l;          /* '<S5>/Integrator' */
+  real_T Filter_CSTATE_a;              /* '<S5>/Filter' */
+  real_T Integrator_CSTATE_c;          /* '<S6>/Integrator' */
 } X_Controllers_T;
 
 /* State derivatives (auto storage) */
 typedef struct {
   real_T Integrator_CSTATE;            /* '<S4>/Integrator' */
   real_T Filter_CSTATE;                /* '<S4>/Filter' */
-  real_T Integrator_CSTATE_f;          /* '<S5>/Integrator' */
-  real_T Filter_CSTATE_d;              /* '<S5>/Filter' */
-  real_T Integrator_CSTATE_a;          /* '<S6>/Integrator' */
+  real_T Integrator_CSTATE_l;          /* '<S5>/Integrator' */
+  real_T Filter_CSTATE_a;              /* '<S5>/Filter' */
+  real_T Integrator_CSTATE_c;          /* '<S6>/Integrator' */
 } XDot_Controllers_T;
 
 /* State disabled  */
 typedef struct {
   boolean_T Integrator_CSTATE;         /* '<S4>/Integrator' */
   boolean_T Filter_CSTATE;             /* '<S4>/Filter' */
-  boolean_T Integrator_CSTATE_f;       /* '<S5>/Integrator' */
-  boolean_T Filter_CSTATE_d;           /* '<S5>/Filter' */
-  boolean_T Integrator_CSTATE_a;       /* '<S6>/Integrator' */
+  boolean_T Integrator_CSTATE_l;       /* '<S5>/Integrator' */
+  boolean_T Filter_CSTATE_a;           /* '<S5>/Filter' */
+  boolean_T Integrator_CSTATE_c;       /* '<S6>/Integrator' */
 } XDis_Controllers_T;
 
 #ifndef ODE2_INTG
@@ -280,10 +280,10 @@ struct P_Controllers_T_ {
   real_T Integrator_IC_l;              /* Expression: InitialConditionForIntegrator
                                         * Referenced by: '<S5>/Integrator'
                                         */
-  real_T Filter_IC_l;                  /* Expression: InitialConditionForFilter
+  real_T Filter_IC_h;                  /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S5>/Filter'
                                         */
-  real_T Integrator_IC_o;              /* Expression: InitialConditionForIntegrator
+  real_T Integrator_IC_f;              /* Expression: InitialConditionForIntegrator
                                         * Referenced by: '<S6>/Integrator'
                                         */
 };
