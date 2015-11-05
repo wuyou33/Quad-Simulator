@@ -85,32 +85,36 @@ s = tf('s');
 %Plant model
 Gq = pit_tf_q;
 Gtheta = 1/s;
+mixer = 1/(Kt*b*sqrt(2));
 Gtheta.u = 'q'; Gtheta.y = 'Theta';
-X1 = AnalysisPoint('deltaOmega');
-X2 = AnalysisPoint('q');
-X3 = AnalysisPoint('Theta');
+X1 = AnalysisPoint('deltaM');
+X2 = AnalysisPoint('deltaOmega');
+X3 = AnalysisPoint('q');
+X4 = AnalysisPoint('Theta');
 
 %Tunable regulators
-Cq0 = ltiblock.pid('Cq0','pid');  % tunable PID
-Cq0.Kp.Value = 0.3;      % initialize Kp
-Cq0.Ki.Value = 0.3;      % initialize Ki
-Cq0.Kd.Value = 0.05;     % initialize Kd
-Cq0.Tf.Value = 0.001;     % set parameter Tf
-Cq0.Tf.Free = true;     % fix parameter Tf to this value
-Cq0.u = 'e_q'; Cq0.y = 'deltaOmega';
-
-Ctheta0 = ltiblock.pid('Ctheta0','p');
-Ctheta0.Kp.Value = 1.1;  % initialize Kp
-Ctheta0.Tf.Value = 0.01; % set parameter Tf
-Ctheta0.Tf.Free = false; % fix parameter Tf to this value
-Ctheta0.u = 'e_{Theta}'; Ctheta0.y = 'q_0';
+CqO = ltiblock.pid('Cq0','pid');  % tunable PID
+CqO.Kp.Value = 0.3;       % initialize Kp
+CqO.Ki.Value = 0.3;       % initialize Ki
+CqO.Kd.Value = 0.05;      % initialize Kd
+CqO.Tf.Value = 0.01;      % set parameter Tf
+CqO.Tf.Free = false;      % fix parameter Tf to this value
+pid(CqO);
+CqO.u = 'e_q'; CqO.y = 'deltaOmega';
+CthetaO = ltiblock.pid('Ctheta0','pd');
+CthetaO.Kp.Value = 1.3;   % initialize Kp
+CthetaO.Kd.Value = 0.005;  % initialize Kd
+CthetaO.Tf.Value = 0.01;  % set parameter Tf
+CthetaO.Tf.Free = false;  % fix parameter Tf to this value
+pid(CthetaO);
+CthetaO.u = 'e_{Theta}'; CthetaO.y = 'q_0';
 
 %Connect these components to build a model of the entire closed-loop 
 %control system
-InnerLoop0 = feedback(X2*Gq*X1*Cq0,1);
-CL0 = feedback(Gtheta*InnerLoop0*Ctheta0,X3);
-CL0.u = 'Theta_0';
-CL0.y = 'Theta';
+InnerLoop = feedback(X3*Gq*X2*mixer*X1*CqO,1);
+CL0 = feedback(Gtheta*InnerLoop*CthetaO,X4);
+CL0.InputName = 'Theta_0';
+CL0.OutputName = 'Theta';
 
 % Loop function and sensitivity functions
 % loops = loopsens(Gtheta*InnerLoop0, Ctheta0);
@@ -120,7 +124,7 @@ CL0.y = 'Theta';
 % grid minor
 
 % Tracking requirements
-wc = 0.1;                 %[rad/s] target crossover frequency
+wc = 2;                   %[rad/s] target crossover frequency
 responsetime = 2/wc;      %[s]
 dcerror = 0.0001;         %[%]
 peakerror = 1.2;            
@@ -129,17 +133,22 @@ R1 = TuningGoal.Tracking('Theta_0','Theta',responsetime,dcerror,peakerror);
 R2 = TuningGoal.MaxLoopGain('deltaOmega',10*wc/s);
 R2.Focus = [wc 10*wc];
 % Disturbance rejection requirements
-attfact = frd([1000 1 1],[0.1*wc wc 10*wc]);
+attfact = frd([1000 9 1],[wc 10*wc 100*wc]);
 R3 = TuningGoal.Rejection('deltaOmega',attfact);
 
-%Tune the control system
-[CL,fSoft,gHard] = systune(CL0,[],[R1 R2 R3]);
+SoftReqs = [];
+HardReqs = [R1 R2 R3];
 
-fb = bandwidth(CL);false
+%Tune the control system
+[CL,fSoft,gHard] = systune(CL0,SoftReqs,HardReqs);
+
+fb = bandwidth(CL);
 
 %%
 Cq = getBlockValue(CL,'Cq0')
 Ctheta = getBlockValue(CL,'Ctheta0')
+
+L = Gtheta*feedback(X3*Gq*X2*mixer*X1*Cq,1)*Ctheta;
 
 % figure('name','Closed-loop response')
 % step(CL)

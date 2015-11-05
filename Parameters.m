@@ -8,7 +8,7 @@ g = 9.81;                        %[m/s^2] Gravitational Acceleration
 degtorad = pi/180;
 
 %Mass and structural informations
-m = 1.5;                         %[kg] Body mass
+m = 1.478;                       %[kg] Body mass
 Mb = diag([m m m]);              %[Kg] Mass matrix
 MbInv = Mb\eye(3);               %[Kg^-1] Inverse of mass matrix
 b = 0.55/2;                      %[m] Arm lenght
@@ -61,7 +61,11 @@ sign = [ 1  1  1  1 ;
         -1  1 -1  1];
     
 K = param*sign;
-Kinv = K\eye(4);
+% Kinv = K\eye(4);
+Kinv = [ 1/(4*Kt)  2^(1/2)/(4*Kt*b)  2^(1/2)/(4*Kt*b) -1/(4*Kq) ;
+         1/(4*Kt) -2^(1/2)/(4*Kt*b)  2^(1/2)/(4*Kt*b)  1/(4*Kq) ;
+         1/(4*Kt) -2^(1/2)/(4*Kt*b) -2^(1/2)/(4*Kt*b) -1/(4*Kq) ;
+         1/(4*Kt)  2^(1/2)/(4*Kt*b) -2^(1/2)/(4*Kt*b)  1/(4*Kq)];
 
 %% Saturations
 rollMax = pi/6;
@@ -73,25 +77,36 @@ Tf = .01;
 N = 1/Tf;
 
 %p PID
-Kpp = 0.3;
+% Kpp = 0.3;
+% Kip = 0.3;
+% Kdp = 0.05;
+Kpp = 0.299;
 Kip = 0.3;
-Kdp = 0.05;
+Kdp = 0.034;
 
 %q PID
-Kpq = 0.3;
+% Kpq = 0.3;
+% Kiq = 0.3;
+% Kdq = 0.05;
+Kpq = 0.299;
 Kiq = 0.3;
-Kdq = 0.05;
+Kdq = 0.034;
 
 %r PI
 Kpr = 0.08;
 Kir = 0.2;
-Kir = 0.01;
 
 %% Attitude regulators
 %phi PD
-KRP = 1.1;
+% KRP = 1.3;
+% KRD = 0.005;
+KRP = 1.75;
+KRD = 0.00408;
 
 %theta PD
-KPP = 1.1;
+% KPP = 1.3;
+% KPD = 0.005;
+KPP = 1.75;
+KPD = 0.00794;
 
  %% End of code

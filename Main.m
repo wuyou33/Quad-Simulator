@@ -1,4 +1,4 @@
-%% Quadcopter Simulator   %
+ %% Quadcopter Simulator   %
 % Author: Mattia Giurato  %
 % Last review: 2015/07/12 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%

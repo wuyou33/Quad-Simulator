@@ -39,10 +39,12 @@ s = tf('s');
 %Plant model
 Gq = pit_tf_q;
 Gtheta = 1/s;
+mixer = 1/(Kt*b*sqrt(2));
 Gtheta.u = 'q'; Gtheta.y = 'Theta';
-X1 = AnalysisPoint('deltaOmega');
-X2 = AnalysisPoint('q');
-X3 = AnalysisPoint('Theta');
+X1 = AnalysisPoint('deltaM');
+X2 = AnalysisPoint('deltaOmega');
+X3 = AnalysisPoint('q');
+X4 = AnalysisPoint('Theta');
 
 %Tunable regulators
 Cq = ltiblock.pid('Cq0','pid');  % tunable PID
@@ -64,8 +66,8 @@ Ctheta.u = 'e_{Theta}'; Ctheta.y = 'q_0';
 
 %Connect these components to build a model of the entire closed-loop 
 %control system
-InnerLoop = feedback(X2*Gq*X1*Cq,1);
-CL = feedback(Gtheta*InnerLoop*Ctheta,X3);
+InnerLoop = feedback(X3*Gq*X2*mixer*X1*Cq,1);
+CL = feedback(Gtheta*InnerLoop*Ctheta,X4);
 CL.InputName = 'Theta_0';
 CL.OutputName = 'Theta';
 
