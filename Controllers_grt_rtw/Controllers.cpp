@@ -9,7 +9,7 @@
  *
  * Model version              : 1.60
  * Simulink Coder version : 8.8 (R2015a) 09-Feb-2015
- * C++ source code generated on : Mon Nov  9 10:42:33 2015
+ * C++ source code generated on : Mon Nov  9 14:01:44 2015
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -424,16 +424,16 @@ void ControllersModelClass::terminate()
 ControllersModelClass::ControllersModelClass()
 {
   static const P_Controllers_T Controllers_P_temp = {
-    0.00686,                           /* Variable: KPD
+    0.00516,                           /* Variable: KPD
                                         * Referenced by: '<S2>/Derivative Gain'
                                         */
-    1.83,                              /* Variable: KPP
+    1.75,                              /* Variable: KPP
                                         * Referenced by: '<S2>/Proportional Gain'
                                         */
-    0.00686,                           /* Variable: KRD
+    0.00516,                           /* Variable: KRD
                                         * Referenced by: '<S3>/Derivative Gain'
                                         */
-    1.83,                              /* Variable: KRP
+    1.75,                              /* Variable: KRP
                                         * Referenced by: '<S3>/Proportional Gain'
                                         */
     0.05,                              /* Variable: Kdp

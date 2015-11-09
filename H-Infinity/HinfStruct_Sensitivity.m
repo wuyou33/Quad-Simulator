@@ -127,8 +127,8 @@ CL0.u = 'Theta_0'; CL0.y = 'Theta';
 % Tracking requirements
 wc = 2;                   %[rad/s] target crossover frequency
 responsetime = 2/wc;      %[s]
-dcerror = 0.001;          %[%]
-peakerror = 1.1;            
+dcerror = 0.0001;          %[%]
+peakerror = 1.15;            
 R1 = TuningGoal.Tracking('Theta_0','Theta',responsetime,dcerror,peakerror);
 % Roll-off requirements
 R2 = TuningGoal.MaxLoopGain('Theta',wc/s);
@@ -166,12 +166,12 @@ F.u = 'Theta_0';
 % grid minor
 % title('Closed-loop response')
 
-figure('name', 'Tracking Requirement')
-viewSpec(R1,CL)
-figure('name', 'Roll-off requirements')
-viewSpec(R2,CL)
-figure('name', 'Disturbance rejection requirements')
-viewSpec(R3,CL)
+% figure('name', 'Tracking Requirement')
+% viewSpec(R1,CL)
+% figure('name', 'Roll-off requirements')
+% viewSpec(R2,CL)
+% figure('name', 'Disturbance rejection requirements')
+% viewSpec(R3,CL)
  
 % %Loop function and sensitivity functions
 % InnerLoop = feedback(X3*Gq*X2*mixer*X1*Cq,1);

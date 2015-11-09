@@ -110,15 +110,15 @@ Kir = 0.2;
 % KRP = 1.3;
 % KRD = 0.005;
 %H-Infinity
-KRP = 1.83;
-KRD = 0.00686;
+KRP = 1.75;
+KRD = 0.00516;
 
 %theta PD
 %Guess
 % KPP = 1.3;
 % KPD = 0.005;
 %H-Infinity
-KPP = 1.83;
-KPD = 0.00686;
+KPP = 1.75;
+KPD = 0.00516;
 
  %% End of code
