@@ -72,25 +72,33 @@ rollMax = pi/6;
 pitchMax = pi/6;
 yawRateMax = 3;
 
+%% FCU characteristics
+fc = 100;   %[Hz]
+tc = 1/fc;  %[s]
+
 %% Angular-rate regulators
 Tf = .01;
 N = 1/Tf;
 
 %p PID
+%Guess
 % Kpp = 0.3;
 % Kip = 0.3;
 % Kdp = 0.05;
-Kpp = 0.299;
+%H-Infinity
+Kpp = 0.3;
 Kip = 0.3;
-Kdp = 0.034;
+Kdp = 0.05;
 
 %q PID
+%Guess
 % Kpq = 0.3;
 % Kiq = 0.3;
 % Kdq = 0.05;
-Kpq = 0.299;
+%H-Infinity
+Kpq = 0.3;
 Kiq = 0.3;
-Kdq = 0.034;
+Kdq = 0.05;
 
 %r PI
 Kpr = 0.08;
@@ -98,15 +106,19 @@ Kir = 0.2;
 
 %% Attitude regulators
 %phi PD
+%Guess
 % KRP = 1.3;
 % KRD = 0.005;
-KRP = 1.75;
-KRD = 0.00408;
+%H-Infinity
+KRP = 1.83;
+KRD = 0.00686;
 
 %theta PD
+%Guess
 % KPP = 1.3;
 % KPD = 0.005;
-KPP = 1.75;
-KPD = 0.00794;
+%H-Infinity
+KPP = 1.83;
+KPD = 0.00686;
 
  %% End of code

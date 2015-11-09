@@ -43,7 +43,7 @@ pit_tf_theta = pit_tf(2);
 sysnom = pit_ss(1).NominalValue;
 
 %Given the uncertainty, I can define a vector of possible system
-parray = usample(pit_ss(1),5);
+parray = usample(pit_ss(1),50);
 om = logspace(-2,2);
 parrayg = frd(parray,om);
 
@@ -142,12 +142,12 @@ HardReqs = [R1 R2 R3];
 %Tune the control system
 [CL,fSoft,gHard] = systune(CL0,SoftReqs,HardReqs);
 
-fb = bandwidth(CL)
+fb = bandwidth(CL);
 
 %%
-Cq = getBlockValue(CL,'Cq0')
+Cq = getBlockValue(CL,'Cq0');
 Cq.u = 'e_q'; Cq.y = 'deltaM';
-Ctheta = getBlockValue(CL,'Ctheta0')
+Ctheta = getBlockValue(CL,'Ctheta0');
 Ctheta.u = 'e_{Theta}'; Ctheta.y = 'q_0';
 
 InnerLoop = feedback(Gq*mixer*Cq,1);
@@ -165,14 +165,14 @@ F.u = 'Theta_0';
 % stepplot(CLin)
 % grid minor
 % title('Closed-loop response')
-
-figure('name', 'Tracking Requirement')
-viewSpec(R1,CL)
-figure('name', 'Roll-off requirements')
-viewSpec(R2,CL)
-figure('name', 'Disturbance rejection requirements')
-viewSpec(R3,CL)
- 
+% 
+% figure('name', 'Tracking Requirement')
+% viewSpec(R1,CL)
+% figure('name', 'Roll-off requirements')
+% viewSpec(R2,CL)
+% figure('name', 'Disturbance rejection requirements')
+% viewSpec(R3,CL)
+% 
 % %Loop function and sensitivity functions
 % InnerLoop = feedback(X3*Gq*X2*mixer*X1*Cq,1);
 % loops = loopsens(Gtheta*InnerLoop, Ctheta);
@@ -180,5 +180,27 @@ viewSpec(R3,CL)
 % bodemag(CL,'r',loops.Si,'b',Ctheta/(1+L),'g',{1e-3,1e3})
 % legend('F','S','V')
 % grid minor
+
+%% Robustness to model uncertainty
+%Plant model
+Gq_u = sysmul;
+Gtheta = 1/s;
+mixer = 1/(Kt*b*sqrt(2));
+Gtheta.u = 'q'; Gtheta.y = 'Theta';
+
+%Regulators
+Cq = getBlockValue(CL,'Cq0');
+Cq.u = 'e_q'; Cq.y = 'deltaOmega';
+Ctheta = getBlockValue(CL,'Ctheta0');
+Ctheta.u = 'e_{Theta}'; Ctheta.y = 'q_0';
+
+%Connect these components to build a model of the entire closed-loop 
+%control system
+InnerLoop = feedback(Gq_u*mixer*Cq,1);
+InnerLoop.y = 'q_0';
+CLU = feedback(Gtheta*InnerLoop*Ctheta,1);
+CLU.u = 'Theta_0'; CLU.y = 'Theta';
+
+[stabmarg,destabu,report] = robuststab(CLU);
 
  %% End of code

@@ -40,7 +40,7 @@ fb_q = bandwidth(pit_tf_q);
 % bode(pit_tf_q)
 % title('Pitch model - Transfer function')
 % grid minor
-
+ 
 % figure('name','Pitch model')
 % bode(pit_tf_theta)
 % title('Pitch model - Transfer function')
@@ -53,10 +53,6 @@ fb_q = bandwidth(pit_tf_q);
 
 N = 30;
 
-B = ceil(fb_q);   %[rad/s]
-
-fecc = B/(2*pi);  %[Hz]
-tk = 1/(2*fecc);  %[s]
 type = 'rbs';
 
 wlow = .1;
@@ -66,38 +62,40 @@ band = [wlow, whigh];
 minu = -1.9;
 maxu = 1.9;
 levels = [minu, maxu];
-
 u_ident = idinput(N,type,band,levels);
+
+f0 = 2;
+ts = 1/f0;
+
+time = (0:ts:N*ts-ts)';
 
 % plot(time, u_ident);
 
 %%
-n = 100;
-[u_sim,time]=rsw(u_ident,tk,N,n);
-q_e = lsim(pit_tf_q, u_sim, time);
-theta_e = lsim(pit_tf_theta, u_sim, time); 
+q_e = lsim(pit_tf_q, u_ident, time);
+theta_e = lsim(pit_tf_theta, u_ident, time); 
 
-% figure('name', 'Output: q')
-% [AX,H1,H2] = plotyy(time,u_sim,time,q_e,'plot');
-% set(get(AX(1),'Ylabel'),'String','u []')
-% set(get(AX(2),'Ylabel'),'String','q [rad/s]')
-% xlabel('time [s]')
-% grid minor
-% title('Multistep input signal: RBS')
+figure('name', 'Output: q')
+[AX,H1,H2] = plotyy(time,u_ident,time,q_e,'plot');
+set(get(AX(1),'Ylabel'),'String','u []')
+set(get(AX(2),'Ylabel'),'String','q [rad/s]')
+xlabel('time [s]')
+grid minor
+title('Multistep input signal: RBS')
 
-% figure('name', 'Output: Theta')
-% [AX,H1,H2] = plotyy(time,u_sim,time,theta_e,'plot');
-% set(get(AX(1),'Ylabel'),'String','u []')
-% set(get(AX(2),'Ylabel'),'String','Theta [rad]')
-% xlabel('time [s]')
-% grid minor
-% title('Multistep input signal: RBS')
+figure('name', 'Output: Theta')
+[AX,H1,H2] = plotyy(time,u_ident,time,theta_e,'plot');
+set(get(AX(1),'Ylabel'),'String','u []')
+set(get(AX(2),'Ylabel'),'String','Theta [rad]')
+xlabel('time [s]')
+grid minor
+title('Multistep input signal: RBS')
 
 %% Model identification
-u = u_sim;
+u = u_ident;
 y = q_e;
 % y = theta_e;
-Ts = tk/n;
+Ts = ts;
 
 data = iddata(y, u, Ts, 'Name', 'Pitch');
 data.InputName = 'deltaOmega';
@@ -145,7 +143,7 @@ Iyy_e = pvec(3);
 %% Plot results
 figure('name', 'Grey Estimation')
 subplot(2,1,1)
-plot(time, u_sim,'b', 'linewidth', 2)
+plot(time, u_ident,'b', 'linewidth', 2)
 grid minor
 ylim([minu-2 maxu+2])
 ylabel('[rad/s]')
@@ -154,7 +152,7 @@ title('\delta\Omega')
 subplot(2,1,2)
 plot(time, ye,'r', 'linewidth', 2)
 grid minor
-ylim([-1.5 +1.5])
+ylim([-2 +2])
 ylabel('[rad/s]')
 xlabel('Time [s]')
 title('q')

@@ -48,20 +48,19 @@ X4 = AnalysisPoint('Theta');
 
 %Tunable regulators
 Cq = ltiblock.pid('Cq0','pid');  % tunable PID
-Cq.Kp.Value = 0.2;       % initialize Kp
-Cq.Ki.Value = 0.2;       % initialize Ki
-Cq.Kd.Value = 0.01;      % initialize Kd
+Cq.Kp.Value = 0.3;       % initialize Kp
+Cq.Ki.Value = 0.3;       % initialize Ki
+Cq.Kd.Value = 0.05;      % initialize Kd
 Cq.Tf.Value = 0.01;      % set parameter Tf
 Cq.Tf.Free = false;      % fix parameter Tf to this value
-pid(Cq)
+pid(Cq);
 Cq.u = 'e_q'; Cq.y = 'deltaOmega';
 Ctheta = ltiblock.pid('Ctheta0','pd');
-Ctheta.Kp.Value = 1.5;   % initialize Kp
-Ctheta.Kd.Value = 0.01;  % initialize Kd
+Ctheta.Kp.Value = 1.3;   % initialize Kp
+Ctheta.Kd.Value = 0.005;  % initialize Kd
 Ctheta.Tf.Value = 0.01;  % set parameter Tf
 Ctheta.Tf.Free = false;  % fix parameter Tf to this value
-pid(Ctheta)
-
+pid(Ctheta);
 Ctheta.u = 'e_{Theta}'; Ctheta.y = 'q_0';
 
 %Connect these components to build a model of the entire closed-loop 
