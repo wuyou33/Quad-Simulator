@@ -1,6 +1,6 @@
 %% Structured H-Infinity synthesis %
 % Author: Mattia Giurato           %
-% Last review: 2015/07/29          %
+% Last review: 2015/11/09          %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear all
 close all 
@@ -103,7 +103,7 @@ Cq0.Tf.Free = false;      % fix parameter Tf to this value
 pid(Cq0);
 Cq0.u = 'e_q'; Cq0.y = 'deltaM';
 Ctheta0 = ltiblock.pid('Ctheta0','pd');
-Ctheta0.Kp.Value = 1.3;   % initialize Kp
+Ctheta0.Kp.Value = 1.2;   % initialize Kp
 Ctheta0.Kd.Value = 0.005; % initialize Kd
 Ctheta0.Tf.Value = 0.01;  % set parameter Tf
 Ctheta0.Tf.Free = false;  % fix parameter Tf to this value
@@ -127,19 +127,19 @@ CL0.u = 'Theta_0'; CL0.y = 'Theta';
 % Tracking requirements
 wc = 2;                   %[rad/s] target crossover frequency
 responsetime = 2/wc;      %[s]
-dcerror = 0.0001;          %[%]
-peakerror = 1.15;            
+dcerror = 0.0001;         %[%]
+peakerror = 1.3;            
 R1 = TuningGoal.Tracking('Theta_0','Theta',responsetime,dcerror,peakerror);
 % Roll-off requirements
 R2 = TuningGoal.MaxLoopGain('Theta',wc/s);
 R2.Focus = [0.1*wc,10*wc];
 % Disturbance rejection requirements
-attfact = frd([100 6 1 1],[0.1*wc wc 10*wc 100*wc]);
+attfact = frd([100 10 1 1],[10^3*wc 10^4*wc 10^5*wc 10^6*wc]);
 R3 = TuningGoal.Rejection('deltaOmega',attfact);
-SoftReqs = [];
-HardReqs = [R1 R2 R3];
 
 %Tune the control system
+SoftReqs = [];
+HardReqs = [R1 R2 R3];
 [CL,fSoft,gHard] = systune(CL0,SoftReqs,HardReqs);
 
 fb = bandwidth(CL)
@@ -166,19 +166,19 @@ F.u = 'Theta_0';
 % grid minor
 % title('Closed-loop response')
 
-% figure('name', 'Tracking Requirement')
-% viewSpec(R1,CL)
-% figure('name', 'Roll-off requirements')
-% viewSpec(R2,CL)
-% figure('name', 'Disturbance rejection requirements')
-% viewSpec(R3,CL)
+figure('name', 'Tracking Requirement')
+viewSpec(R1,CL)
+figure('name', 'Roll-off requirements')
+viewSpec(R2,CL)
+figure('name', 'Disturbance rejection requirements')
+viewSpec(R3,CL)
  
-% %Loop function and sensitivity functions
-% InnerLoop = feedback(X3*Gq*X2*mixer*X1*Cq,1);
-% loops = loopsens(Gtheta*InnerLoop, Ctheta);
-% figure
-% bodemag(CL,'r',loops.Si,'b',Ctheta/(1+L),'g',{1e-3,1e3})
-% legend('F','S','V')
-% grid minor
+%Loop function and sensitivity functions
+InnerLoop = feedback(Gq*mixer*Cq,1);
+loops = loopsens(Gtheta*InnerLoop, Ctheta);
+figure
+bodemag(CL,'r',loops.Si,'b',Ctheta/(1+L),'g',{1e-3,1e3})
+legend('F','S','V')
+grid minor
 
  %% End of code

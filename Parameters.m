@@ -107,18 +107,18 @@ Kir = 0.2;
 %% Attitude regulators
 %phi PD
 %Guess
-% KRP = 1.3;
+% KRP = 1.2;
 % KRD = 0.005;
 %H-Infinity
-KRP = 1.75;
-KRD = 0.00516;
+KRP = 1.61;
+KRD = 0.00512;
 
 %theta PD
 %Guess
-% KPP = 1.3;
+% KPP = 1.2;
 % KPD = 0.005;
 %H-Infinity
-KPP = 1.75;
-KPD = 0.00516;
+KPP = 1.61;
+KPD = 0.00512;
 
  %% End of code
