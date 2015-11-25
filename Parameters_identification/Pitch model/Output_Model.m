@@ -11,9 +11,9 @@ Parameters;
 
 %% Pitch dynamical model
 
-par1 = ureal('dMdq',dMdq,'PlusMinus',u_dMdq);
-par2 = ureal('dMdu',dMdu,'PlusMinus',u_dMdu);
-par3 = ureal('Iyy',Iyy,'PlusMinus',u_Iyy);
+par1 = ureal('dMdq',dMdq,'PlusMinus',dMdq_sigma);
+par2 = ureal('dMdu',dMdu,'PlusMinus',dMdu_sigma);
+par3 = ureal('Iyy',Iyy,'PlusMinus',Iyy_sigma);
 
 AA = [par1/par3 0 ; 
         1      0];
@@ -43,7 +43,7 @@ pit_tf_theta = pit_tf(2);
 sysnom = pit_ss(1).NominalValue;
 
 %Given the uncertainty, I can define a vector of possible system
-parray = usample(pit_ss(1),7);
+parray = usample(pit_ss(1),25);
 om = logspace(-2,2);
 parrayg = frd(parray,om);
 

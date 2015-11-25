@@ -91,11 +91,14 @@ x25 = (A25'*A25)\A25'*y25;
 P25 = x25(1)*Omega5.^2;
 
 mv = [x11(1) x12(1) x13(1) x14(1) x15(1)];
-m = mean(mv);
+m_e = mean(mv);
+m_sd = std(mv);
 qv = [x11(2) x12(2) x13(2) x14(2) x15(2)];
-q = mean(qv);
+q_e = mean(qv);
+q_sd = std(qv);
 ktv = [x21(1) x22(1) x23(1) x24(1) x25(1)];
-kt = mean(ktv);
+kt_e = mean(ktv);
+kt_sd = std(ktv);
 
 %% Plot results
 % figure('name', 'TEST 1')
@@ -209,27 +212,27 @@ kt = mean(ktv);
 % xlabel('[rad/s]')
 
 %% Report plot
-figure('name', 'OmegaVsThrottle')
-plot(Throttle2, Omega2, 'ro','linewidth',2)
-hold on
-plot(Throttle2, P12,'b','linewidth',2)
-grid minor
-axis([10 100 100 700])
-legend('Data', 'LS', 'location','southoutside', 'orientation', 'horizontal')
-title('Omega vs Throttle')
-ylabel('[rad/s]')
-xlabel('[%]')
-
-figure('name', 'ThrustVsOmega')
-plot(Omega2, Thrust2, 'ro','linewidth',2)
-hold on
-plot(Omega2, P22,'b','linewidth',2)
-grid minor
-axis([100 700 0 12])
-legend('Data', 'LS', 'location','southoutside', 'orientation', 'horizontal')
-title('Thrust vs Omega')
-ylabel('[N]')
-xlabel('[rad/s]')
+% figure('name', 'OmegaVsThrottle')
+% plot(Throttle2, Omega2, 'ro','linewidth',2)
+% hold on
+% plot(Throttle2, P12,'b','linewidth',2)
+% grid minor
+% axis([10 100 100 700])
+% legend('Data', 'LS', 'location','southoutside', 'orientation', 'horizontal')
+% title('Omega vs Throttle')
+% ylabel('[rad/s]')
+% xlabel('[%]')
+% 
+% figure('name', 'ThrustVsOmega')
+% plot(Omega2, Thrust2, 'ro','linewidth',2)
+% hold on
+% plot(Omega2, P22,'b','linewidth',2)
+% grid minor
+% axis([100 700 0 12])
+% legend('Data', 'LS', 'location','southoutside', 'orientation', 'horizontal')
+% title('Thrust vs Omega')
+% ylabel('[N]')
+% xlabel('[rad/s]')
 
 %% Parameters identification
 %Thrust: T = Ct * ro * A * Omega^2 * R^2
@@ -237,7 +240,7 @@ xlabel('[rad/s]')
 %Power:  P = Cp * ro * A * Omega^3 * R^3
 %Cp = (Ct^(3/2))/sqrt(2) and Cp = Cq
 
-Ct = kt / (ro * A * R^2);
+Ct = kt_e / (ro * A * R^2);
 Cp = (Ct^(3/2))/sqrt(2);
 Cq = Cp;
 
@@ -252,9 +255,16 @@ disp(PARAM3);
 disp(' ');
 
 disp('RPM vs THROTTLE: Y = m*X + q');
-PARAM4 = ['m = ', num2str(m)];
+PARAM4 = ['m = ', num2str(m_e)];
 disp(PARAM4);
-PARAM5 = ['q = ', num2str(q)];
+PARAM5 = ['q = ', num2str(q_e)];
 disp(PARAM5);
+
+disp(' ');
+
+PARAM6 = ['Kt = ', num2str(kt_e)];
+disp(PARAM6);
+PARAM7 = ['Kt_sigma = ', num2str(kt_sd)];
+disp(PARAM7);
 
  %% End of code

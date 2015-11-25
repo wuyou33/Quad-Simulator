@@ -16,7 +16,7 @@ close all;
 fclose(instrfind);
 
 % Open serial COM
-s = serial('/dev/ttyUSB1','BaudRate',115200,'DataBits',8,'Terminator','CR/LF');
+s = serial('/dev/ttyUSB0','BaudRate',115200,'DataBits',8,'Terminator','CR/LF');
 
 fopen(s);
 
@@ -24,7 +24,7 @@ fprintf(s,'set 0 0 0 0');
 
 %% RBS control input
 u_ident = [0 -5 0 5 0];
-s1 = 'set 17 0 ';
+s1 = 'set 19 0 ';
 s2 = ' 0';
 ts = 20;
 
@@ -34,7 +34,7 @@ pause(5);
 fprintf(s,'set 10 0 0 0');
 pause(5);
 
-fprintf(s,'set 17 0 0 0');
+fprintf(s,'set 19 0 0 0');
 pause(5);
 
 for i = 1:length(u_ident)

@@ -10,7 +10,7 @@ clc
 Parameters;
 
 %% Launch SIMULATOR
-tsim = 2;
+tsim = 1.3;
 
 %Set point u = [height[m] roll_a[rad] pitch_a[rad] yaw_r[rad/s]]
 U = [1 0 -pi/15 0]';

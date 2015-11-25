@@ -1,6 +1,6 @@
 %% Load Disturbance Rejection Test %
 % Author: Mattia Giurato           %
-% Last review: 2015/11/10          %
+% Last review: 2015/11/09          %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear all
 close all 
@@ -9,8 +9,13 @@ clc
 %% Import parameters
 Parameters
 
-start = 1500;
-span = 6000;
+%Test 0
+% start = 2500;
+% span = 7500;
+% finebias = 100;
+%Test 1
+start = 3000;
+span = 7500;
 finebias = 100;
 
 s = tf('s');
@@ -18,15 +23,12 @@ s = tf('s');
 %% Import data
 
 RAW = dlmread('test_load_1.txt');
-phi_t = RAW(start:start+span,1)*degtorad;        %[rad]
-theta_t = RAW(start:start+span,2)*degtorad;      %[rad]
-psi_t = RAW(start:start+span,3)*degtorad;        %[rad]
-p_t = RAW(start:start+span,4)*degtorad;          %[rad/s]
-q_t = RAW(start:start+span,5)*degtorad;          %[rad/s]
-r_t = RAW(start:start+span,6)*degtorad;          %[rad/s]
-sp_t = RAW(start:start+span,7);                  %[%]
+dist_t = RAW(start:start+span,1);               %[rad]
+dm_t = RAW(start:start+span,2)-0.15;            %[Nm]
+theta_t = RAW(start:start+span,3);              %[rad]
+q_t = RAW(start:start+span,4);                  %[rad/s]
 
-dome = sp_t*(x1(1)) + x1(2);
+dome = dist_t*(x1(1)) + x1(2);
 
 bias = mean(q_t(1:finebias));
 
@@ -39,8 +41,9 @@ LPF = designfilt('lowpassfir','PassbandFrequency',0.008, ...
       'StopbandAttenuation',10,'DesignMethod','kaiserwin');
 % fvtool(LPF)
 
-q_f = filtfilt(LPF,q_t);
+q_f = filtfilt(LPF,q_t-bias);
 theta_f = filtfilt(LPF,theta_t);
+dm_f = filtfilt(LPF,dm_t);
 
 % plot(q_t)sp_t
 % hold on
@@ -97,20 +100,56 @@ q_e = lsim(Gqd, dome, time);
 
 %% Plot results
 
-figure('name', 'Rejection - q')
-[AX,H1,H2] = plotyy(time,q_f,time,sp_t,'plot');
-set(get(AX(1),'Ylabel'),'String','q_{test} [rad/s]')
-set(get(AX(2),'Ylabel'),'String','d_{motor} [%]')
-xlabel('time [s]')
-grid minor
-title('Load Disturbance Rejection - q')
+% figure('name', 'Rejection - q')
+% [AX,H1,H2] = plotyy(time,q_f,time,sp_t,'plot');
+% set(get(AX(1),'Ylabel'),'String','q_{test} [rad/s]')
+% set(get(AX(2),'Ylabel'),'String','d_{motor} [%]')
+% xlabel('time [s]')
+% grid minor
+% title('Load Disturbance Rejection - q')
+% 
+% figure('name', 'Rejection - Theta')
+% [AX,H1,H2] = plotyy(time,theta_f,time,sp_t,'plot');
+% set(get(AX(1),'Ylabel'),'String','\Theta_{test} [rad]')
+% set(get(AX(2),'Ylabel'),'String','d_{motor} [%]')
+% xlabel('time [s]')
+% grid minor
+% title('Load Disturbance Rejection - \theta')
 
-figure('name', 'Rejection - Theta')
-[AX,H1,H2] = plotyy(time,theta_f,time,sp_t,'plot');
-set(get(AX(1),'Ylabel'),'String','\Theta_{test} [rad]')
-set(get(AX(2),'Ylabel'),'String','d_{motor} [%]')
-xlabel('time [s]')
+figure('name','inputoutput1')
+plot(time,dist_t,'r','linewidth',1)
+ylim([-6 6])
+title('Disturbance')
+xlabel('Time [s]')
+ylabel('[%]')
 grid minor
-title('Load Disturbance Rejection - \theta')
+
+figure('name','inputoutput2')
+plot(time,dm_f,'b','linewidth',1)
+ylim([-0.4 0.4])
+title('dM')
+xlabel('Time [s]')
+ylabel('[Nm]')
+grid minor
+
+figure('name','inputoutput3')
+hold on
+plot(time,q_f,'b','linewidth',1)
+title('q')
+ylim([-1.0 1.0])
+hold off
+grid minor
+xlabel('Time [s]')
+ylabel('[rad/s]')
+
+figure('name','inputoutput4')
+hold on
+plot(time,theta_f,'b','linewidth',1)
+hold off
+title('\theta')
+ylim([-0.26 0.26])
+grid minor
+xlabel('Time [s]')
+ylabel('[rad]')
 
 %% END OF CODE

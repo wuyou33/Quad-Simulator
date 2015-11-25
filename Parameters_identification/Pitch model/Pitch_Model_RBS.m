@@ -1,21 +1,27 @@
-%% Pitch Model - RBS      %
+% Pitch Model - RBS      %
 % Author: Mattia Giurato  %
 % Last review: 2015/07/12 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear all
 close all 
-% clc
+clc
 
 %% Import parameters
-Parameters_OLD;
+Parameters;
+Clalpha = 2*pi;
+dCtdp = Clalpha*sigma*b/(8*R*OMEhov*sqrt(2));
+
+dMdq_g = -4*ro*A*R^2*OMEhov^2*dCtdp*b/sqrt(2);
+dMdu_g = 4*sqrt(2)*Kt*b*OMEhov;
+Iyy_g = 0.02;
 
 %% Pitch dynamical model
 %The state of the model is x = [q theta]'
 
-AA = [dMdq/Iyy 0 ; 
-        1      0];
-BB = [dMdu/Iyy ;
-          0   ];
+AA = [dMdq_g/Iyy_g 0 ; 
+        1          0];
+BB = [dMdu_g/Iyy_g ;
+          0       ];
 CC = [1 0 ;
       0 1];
 DD = [0 0]';
@@ -69,11 +75,10 @@ levels = [minu, maxu];
 
 u_ident = idinput(N,type,band,levels);
 
-% plot(time, u_ident);
-
 %%
-n = 100;
-[u_sim,time]=rsw(u_ident,tk,N,n);
+res = 100;
+[u_sim,time] = rsw(u_ident,tk,res);
+
 q_e = lsim(pit_tf_q, u_sim, time);
 theta_e = lsim(pit_tf_theta, u_sim, time); 
 
@@ -97,7 +102,7 @@ theta_e = lsim(pit_tf_theta, u_sim, time);
 u = u_sim;
 y = q_e;
 % y = theta_e;
-Ts = tk/n;
+Ts = tk/100;
 
 data = iddata(y, u, Ts, 'Name', 'Pitch');
 data.InputName = 'deltaOmega';
@@ -111,20 +116,18 @@ data.TimeUnit = 's';
 
 odefun = 'Pitch';
 
-dMdq_g = -0.03;
-dMdu_g = 0.015;
-Iyy_g = 0.002;
 parameters = {dMdq_g, ...
               dMdu_g, ...
               Iyy_g};
 
 fcn_type = 'c';
 init_sys = idgrey(odefun,parameters,fcn_type);
+init_sys.Structure.Parameters(2).Free = false;
 
 opt = greyestOptions;
-opt.InitialState = 'zero';
-opt.DisturbanceModel = 'none';
-opt.Focus = 'simulation';
+opt.InitialState = 'auto';
+opt.DisturbanceModel = 'auto';
+opt.Focus = 'prediction';
 opt.SearchMethod = 'auto';
 
 sys = greyest(data,init_sys,opt);
@@ -132,10 +135,13 @@ sys = greyest(data,init_sys,opt);
 G = ss(sys);
 ye = lsim(G, u, time);
 
-pvec = getpvec(sys);
+[pvec, pvec_sd] = getpvec(sys);
 dMdq_e = pvec(1);
-dMdu_e = pvec(2);
 Iyy_e = pvec(3);
+dMdq_sd = pvec_sd(1);
+Iyy_sd = pvec_sd(3);
+        
+cov_data = getcov(sys);
 
 % error_dMdq = 100*(dMdq_e - dMdq)/dMdq;
 % error_dMdu = 100*(dMdu_e - dMdu)/dMdu;
@@ -161,9 +167,11 @@ title('q')
 
 disp('Stability derivative of the vehicle pitch moment (dM/dq) equals:')
 disp(['    ', num2str(dMdq_e), '  [Nm*s]'])
-disp('Control derivative (dM/du) equals:')
-disp(['    ', num2str(dMdu_e), '  [Nm*s]'])
-disp('Inertia around y-body axes:')
-disp(['    ', num2str(Iyy_e), '  [kg*m^2]'])
+disp('With a standard deviation equals to:')
+disp(['    ', num2str(dMdq_sd)])
+disp('Inertia around pitch axis (Iyy) equals:')
+disp(['    ', num2str(Iyy_e), '  [Kgm^2]'])
+disp('With a standard deviation equals to:')
+disp(['    ', num2str(Iyy_sd),])
 
  %% End of code
