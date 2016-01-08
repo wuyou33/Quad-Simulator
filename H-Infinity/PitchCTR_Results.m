@@ -56,9 +56,9 @@ dm_f = filtfilt(LPF,dm_t);
 
 %% Simulate the model
 %System model
-par1 = ureal('dMdq',dMdq,'PlusMinus',u_dMdq);
-par2 = ureal('dMdu',dMdu,'PlusMinus',u_dMdu);
-par3 = ureal('Iyy',Iyy,'PlusMinus',u_Iyy);
+par1 = ureal('dMdq',dMdq,'PlusMinus',dMdq_sigma);
+par2 = ureal('dMdu',dMdu,'PlusMinus',dMdu_sigma);
+par3 = ureal('Iyy',Iyy,'PlusMinus',Iyy_sigma);
 AA = [par1/par3 0 ; 
          1      0];
 BB = [par2/par3 ;
@@ -120,7 +120,7 @@ xlabel('Time [s]')
 ylabel('[rad]')
 hold on
 plot(time,theta_f,'b','linewidth',1)
-% plot(time,theta_e,'b--','linewidth',1)
+plot(time,theta_e,'b--','linewidth',1)
 ylim([-0.6 0.6])
 title('\theta')
 legend('set-point','test','simulated','location','southwest')
@@ -134,7 +134,7 @@ hold on
 plot(time,q_f,'b','linewidth',1)
 % plot(time,q_e,'b--','linewidth',1)
 title('q')
-% legend('test','simulated','location','southwest')
+legend('test','simulated','location','southwest')
 ylim([-1.1 1.1])
 hold off
 grid minor

@@ -11,9 +11,9 @@ Parameters;
 
 %% Pitch dynamical model
 
-par1 = ureal('dMdq',dMdq,'PlusMinus',u_dMdq);
-par2 = ureal('dMdu',dMdu,'PlusMinus',u_dMdu);
-par3 = ureal('Iyy',Iyy,'PlusMinus',u_Iyy);
+par1 = ureal('dMdq',dMdq,'PlusMinus',dMdq_sigma);
+par2 = ureal('dMdu',dMdu,'PlusMinus',dMdu_sigma);
+par3 = ureal('Iyy',Iyy,'PlusMinus',Iyy_sigma);
 
 AA = [par1/par3 0 ; 
          1      0];
@@ -86,7 +86,7 @@ s = tf('s');
 Gq = pit_tf_q;
 Gtheta = 1/s;
 Gtheta.u = 'q'; Gtheta.y = 'Theta';
-mixer = tf(1/(Kt*b*sqrt(2)));
+mixer = ss(1/(Kt*b*4*sqrt(2)*OMEhov));
 mixer.u = 'deltaM'; mixer.y = 'deltaOmega';
 X1 = AnalysisPoint('deltaM');
 X2 = AnalysisPoint('deltaOmega');
@@ -125,16 +125,16 @@ CL0.u = 'Theta_0'; CL0.y = 'Theta';
 % grid minor
 
 % Tracking requirements
-wc = 2;                   %[rad/s] target crossover frequency
+wc = 1.98;                 %[rad/s] target crossover frequency
 responsetime = 2/wc;      %[s]
 dcerror = 0.0001;         %[%]
-peakerror = 1.3;            
+peakerror = 1.5;            
 R1 = TuningGoal.Tracking('Theta_0','Theta',responsetime,dcerror,peakerror);
 % Roll-off requirements
 R2 = TuningGoal.MaxLoopGain('Theta',wc/s);
-R2.Focus = [0.1*wc,10*wc];
+R2.Focus = [0.1*wc,1000*wc];
 % Disturbance rejection requirements
-attfact = frd([100 10 1 1],[10^3*wc 10^4*wc 10^5*wc 10^6*wc]);
+attfact = frd([100 1 1],[10^-1*wc wc 10^1*wc]);
 R3 = TuningGoal.Rejection('deltaOmega',attfact);
 
 %Tune the control system
@@ -168,6 +168,7 @@ F.u = 'Theta_0';
 
 figure('name', 'Tracking Requirement')
 viewSpec(R1,CL)
+legend('L','F')
 figure('name', 'Roll-off requirements')
 viewSpec(R2,CL)
 figure('name', 'Disturbance rejection requirements')
@@ -178,7 +179,7 @@ InnerLoop = feedback(Gq*mixer*Cq,1);
 loops = loopsens(Gtheta*InnerLoop, Ctheta);
 figure
 bodemag(CL,'r',loops.Si,'b',Ctheta/(1+L),'g',{1e-3,1e3})
-legend('F','S','V')
+legend('F','S','Q')
 grid minor
 
  %% End of code

@@ -134,7 +134,7 @@ save output.mat dMdq_e dMdu_e Iyy_e dMdq_sd dMdu_sd Iyy_sd cov_megamatrice
 clear
 
 %% Reload only usefull data
-degtorad = pi/180;
+Parameters;
 load output.mat
 
 %% Mean and standard deviation
@@ -302,45 +302,27 @@ LPF = designfilt('lowpassfir','PassbandFrequency',0.2, ...
 qf = filtfilt(LPF,q);
 thetaf = filtfilt(LPF, theta);
 
-% Model identification
-u = th;
-y = qf;
-Ts = ts;
-
-data = iddata(y, u, Ts, 'Name', 'Pitch');
-data.InputName = 'deltaOmega';
-data.InputUnit = '[rad/s]';
-data.OutputName = {'Angular velocity'};
-data.OutputUnit = {'[rad/s]'};
-data.Tstart = time(1);
-data.TimeUnit = 's';
-
-odefun = 'Pitch';
-
-dMdq_g = -0.03;
-dMdu_g = 0.015;
-Iyy_g = 0.01;
-parameters = {dMdq_g, ...
-    dMdu_g, ...
-    Iyy_g};
-
-fcn_type = 'c';
-init_sys = idgrey(odefun,parameters,fcn_type);
-
-opt = greyestOptions;
-opt.InitialState = 'zero';
-opt.DisturbanceModel = 'none';
-opt.Focus = 'simulation';
-opt.SearchMethod = 'auto';
-
-sys = greyest(data,init_sys,opt);
-
-G = ss(sys);
-ye = lsim(G, u, time);
+par1 = ureal('dMdq',dMdq,'PlusMinus',dMdq_sigma);
+par2 = ureal('dMdu',dMdu,'PlusMinus',dMdu_sigma);
+par3 = ureal('Iyy',Iyy,'PlusMinus',Iyy_sigma);
+AA = [par1/par3 0 ; 
+        1      0];
+BB = [par2/par3 ;
+          0   ];
+CC = [1 0 ;
+      0 1];
+DD = [0 0]';
+states = {'q' 'theta'};
+inputs = {'deltaOmega'};
+outputs = {'q' 'theta'};
+pit_ss = ss(AA,BB,CC,DD,'statename',states,'inputname',inputs,'outputname',outputs);
+pit_tf = tf(pit_ss);
+pit_tf_q = pit_tf(1);
+ye = lsim(pit_tf_q, th, time);
 
 figure('name', 'Grey Estimation')
 subplot(2,1,1)
-plot(time, u,'b', 'linewidth', 2)
+plot(time, th,'b', 'linewidth', 2)
 grid minor
 ylim([-delta-2 delta+2])
 ylabel('[rad/s]')
@@ -350,7 +332,7 @@ subplot(2,1,2)
 plot(time, ye,'r', 'linewidth', 2)
 hold on
 subplot(2,1,2)
-plot(time, y,'b--')
+plot(time, qf,'b--')
 grid minor
 legend('Identified model', 'Data aquired', 'location', 'southeast')
 ylabel('[rad/s]')

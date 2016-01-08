@@ -9,7 +9,7 @@
  *
  * Model version              : 1.63
  * Simulink Coder version : 8.8 (R2015a) 09-Feb-2015
- * C++ source code generated on : Tue Nov 24 15:24:47 2015
+ * C++ source code generated on : Thu Dec 17 14:19:21 2015
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -430,34 +430,34 @@ ControllersModelClass::ControllersModelClass()
     1.61,                              /* Variable: KPP
                                         * Referenced by: '<S2>/Proportional Gain'
                                         */
-    0.0,                               /* Variable: KRD
+    0.00512,                           /* Variable: KRD
                                         * Referenced by: '<S3>/Derivative Gain'
                                         */
-    0.0,                               /* Variable: KRP
+    1.61,                              /* Variable: KRP
                                         * Referenced by: '<S3>/Proportional Gain'
                                         */
-    0.0,                               /* Variable: Kdp
+    0.0499,                            /* Variable: Kdp
                                         * Referenced by: '<S5>/Derivative Gain'
                                         */
-    0.05,                              /* Variable: Kdq
+    0.0499,                            /* Variable: Kdq
                                         * Referenced by: '<S6>/Derivative Gain'
                                         */
-    0.0,                               /* Variable: Kip
+    0.304,                             /* Variable: Kip
                                         * Referenced by: '<S5>/Integral Gain'
                                         */
-    0.3,                               /* Variable: Kiq
+    0.304,                             /* Variable: Kiq
                                         * Referenced by: '<S6>/Integral Gain'
                                         */
-    0.0,                               /* Variable: Kir
+    0.2,                               /* Variable: Kir
                                         * Referenced by: '<S4>/Integral Gain'
                                         */
-    0.0,                               /* Variable: Kpp
+    0.298,                             /* Variable: Kpp
                                         * Referenced by: '<S5>/Proportional Gain'
                                         */
-    0.3,                               /* Variable: Kpq
+    0.298,                             /* Variable: Kpq
                                         * Referenced by: '<S6>/Proportional Gain'
                                         */
-    0.0,                               /* Variable: Kpr
+    0.08,                              /* Variable: Kpr
                                         * Referenced by: '<S4>/Proportional Gain'
                                         */
     100.0,                             /* Variable: N

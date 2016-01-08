@@ -50,7 +50,7 @@ parrayg = frd(parray,om);
 %Plot the nominal behaviour plus a "cloud" of possible bode diagram
 figure
 bode(parray,'b',sysnom,'r+',om); grid
-legend('Cloud of possible models','Nominal Model','location','southwest')
+legend('Uncertain Models','Nominal Model','location','southwest')
 
 %Creates an uncertain linear, time-invariant objects are used to represent 
 %unknown dynamic objects whose only known attributes are bounds on their frequency response
