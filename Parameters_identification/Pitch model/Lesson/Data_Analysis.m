@@ -137,12 +137,16 @@ ylabel('[rad/s]')
 xlabel('Time [s]')
 title('q')
 
-disp('The estimated stability derivative of the vehicle pitch moment (dM/dq) equals:')
-disp(['    ', num2str(dMdq_e),'[Nm*s]'])
-disp('The estimated inertia around y-body axes:')
-disp(['    ', num2str(Iyy_e),'[kg*m^2]'])
+disp('The estimated stability derivative of the vehicle pitch moment (dM/dq) equals to:')
+disp(['    ', num2str(dMdq_e),' [Nm*s]'])
+disp('with a standard deviation of:')
+disp(['    ', num2str(sqrt(cov_data(1,1))),' [Nm*s]'])
+disp('The estimated inertia around y-body axes equals to:')
+disp(['    ', num2str(Iyy_e),' [kg*m^2]'])
+disp('with a standard deviation of:')
+disp(['    ', num2str(sqrt(cov_data(3,3))),' [kg*m^2]'])
 disp('The estimation has a V.A.F. equals to')
-disp(['    ', num2str(vaf),'[%]'])
+disp(['    ', num2str(vaf),' [%]'])
 
 
 %% End of code
