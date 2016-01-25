@@ -2,7 +2,7 @@
 % Author: Mattia Giurato  %
 % Last review: 2016/01/19 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-clear all
+clear 
 close all 
 clc
 
@@ -19,6 +19,7 @@ dMdu_sigma = 6.4658e-05;
 
 par1 = ureal('dMdq',dMdq,'PlusMinus',dMdq_sigma);
 par2 = ureal('dMdu',dMdu,'PlusMinus',dMdu_sigma);
+% par2 = dMdu;
 par3 = ureal('Iyy',Iyy,'PlusMinus',Iyy_sigma);
 
 AA = [par1/par3 0 ; 

@@ -2,7 +2,7 @@
 % Author: Mattia Giurato  %
 % Last review: 2016/01/19 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-clear all
+clear 
 close all 
 clc
 
