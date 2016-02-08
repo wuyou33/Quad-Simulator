@@ -1,10 +1,22 @@
 %% Quadcopter Simulator: Main Definitions %
 % Author: Mattia Giurato                  %
-% Last review: 2015/07/09                 %
+% Last review: 2016/02/03                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Parameters definition
-g = 9.81;                        %[m/s^2] Gravitational Acceleration
+global g; % Gravitational acceleration
+global mag_field; % Magnetic field vector
+global P0; % Pressure at ground level [Pa].
+global Ra; % Gas constant of the air [J/(Kg*K)].
+global T0; % Temperature at ground level [K].
+
+mag = [cos(deg2rad(61)); -0.0001; -sin(deg2rad(61))];
+mag_field = mag / norm(mag);
+g = 9.81;
+P0 = 101325; % Mean value at sea level.
+Ra = 286.9;
+T0 = 293.15;
+
 degtorad = pi/180;
 
 %Mass and structural informations
@@ -64,9 +76,9 @@ Kinv = [ 1/(4*Kt)  2^(1/2)/(4*Kt*b)  2^(1/2)/(4*Kt*b) -1/(4*Kq) ;
          1/(4*Kt)  2^(1/2)/(4*Kt*b) -2^(1/2)/(4*Kt*b)  1/(4*Kq)];
 
 %% Saturations
-rollMax = pi/6;
-pitchMax = pi/6;
-yawRateMax = 3;
+rollMax = pi/6;     %[rad]
+pitchMax = pi/6;    %[rad]
+yawRateMax = pi/2;  %[rad/s]
 
 %% FCU characteristics
 fc = 100;   %[Hz]
@@ -96,9 +108,15 @@ Kpq = 0.298;
 Kiq = 0.304;
 Kdq = 0.0499;
 
-%r PI
-Kpr = 0.08;
-Kir = 0.2;
+%r PID
+%Guess
+% Kpr = 0.08;
+% Kir = 0.2;
+% Kdr = 0.1;
+%H-Infinity
+Kpr = 0.135;
+Kir = 0.125;
+Kdr = 0.0153;
 
 %% Attitude regulators
 %phi PD
@@ -118,5 +136,112 @@ KPP = 1.61;
 KPD = 0.00512;
 % KPP = 1.33;
 % KPD = 0.00696;
+
+%psi PD
+%Guess
+% KYP = 1;
+% KYD = 0.1;
+%H-Infinity
+KYP = 0.957;
+KYD = 0.12;
+
+
+% ----------------------------------------------------
+% Initial conditions
+% ----------------------------------------------------
+global x0;
+global y0;
+global z0;
+global phi0;
+global theta0;
+global psi0;
+global dx0;
+global dy0;
+global dz0;
+global dphi0;
+global dtheta0;
+global dpsi0;
+
+x0=0;
+y0=0;
+z0=0;
+phi0=0;
+theta0=0;
+psi0=0;
+dx0=0;
+dy0=0;
+dz0=0;
+dphi0=0;
+dtheta0=0;
+dpsi0=0;
+
+% ----------------------------------------------------
+% KALMAN FILTER PARAMETERS
+% The following parameters are used by the blocks
+% related to the Kalman filter. Many of them reproduce
+% the parameters used in the system simulation, but
+% are distinguished by the suffix _e.
+% ----------------------------------------------------
+% Physical and environmental parameters
+g_e = g;
+m_e = m; % + random('normal',0,m/2000);
+mf_e = mag_field;
+mf_e = mf_e /norm(mf_e);
+P0_e = P0;
+T0_e = T0;
+Ra_e = Ra;
+Ix_e = Ixx;
+Iy_e = Iyy;
+Iz_e = Izz;
+
+% Sensor parameters
+Ma_e = eye(3); % + random('normal',0,0.01,3,3);
+ba_e = zeros(3,1); % + random('normal',0,0.01,3,1);
+Mg_e = eye(3); % + random('normal',0,0.01,3,3);
+bg_e = zeros(3,1); % + random('normal',0,0.01,3,1);
+G_e = eye(3);  % + random('normal',0,0.01,3,3);
+bm_e = zeros(3,1); % + random('normal',0,0.01,3,1);
+kb_e = 1;
+bb_e = 0;
+
+% Plant and measurement noise covariances
+% R_e = 0.01*eye(10); % Measurement noise
+% R_e(10,10) = 10;
+
+% con i dati reali dei sensori
+R_e = [ 0.0001   0 0 0 0 0 0 0 0 0;
+        0  0.0001  0 0 0 0 0 0 0 0;
+        0  0 0.0001  0 0 0 0 0 0 0;
+        0 0 0 0.000008 0 0 0 0 0 0;
+        0 0 0 0 0.000008 0 0 0 0 0;
+        0 0 0 0 0 0.000008 0 0 0 0;
+        0 0 0 0 0 0   0.0001 0 0 0;
+        0 0 0 0 0 0   0 0.0001 0 0;
+        0 0 0 0 0 0   0 0 0.0001 0;
+        0 0 0 0 0 0    0 0 0   10];
+        
+
+Q_e = 0.005*eye(10);   % 0.005*eye(10); % Process noise
+
+% Initial expected value and variance of the state vector.
+Ex = zeros(10,1);
+Varx = 0.001*eye(10);
+
+% Lowpass filter parameters
+% originale [b_filt, a_filt] = butter(4, 50, 's');
+[b_filt, a_filt] = butter(4, 60, 's');
+
+% ----------------------------------------------------
+% Parameters for the discrete time EKF
+% ----------------------------------------------------
+% Samplig time.
+
+Ts = 1/200;     % Ts = 0.05;
+
+% Sensor anti-aliasing filter parameters
+[zeros_aa, poles_aa, gain_aa] = butter(1, 0.4/Ts, 's'); % Butterworth order 1, cutoff 8 Hz
+
+% Ts_K = 1/200
+% [zeros_aa_K, poles_aa_K, gain_aa_K] = butter(1, 0.4/Ts_K, 's'); % Butterworth order 1, cutoff 8 Hz
 
  %% End of code

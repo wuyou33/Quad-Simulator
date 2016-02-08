@@ -97,11 +97,11 @@ s2 = '0 0';
 
 fprintf(s,'set 11 11 10 10')
 pause(tk);
-fprintf(s,'set 21.5 21.5 20 20')
+fprintf(s,'set 22 22 20 20')
 pause(tk);
-fprintf(s,'set 32 32 30 30')
+fprintf(s,'set 32.5 32.5 30 30')
 pause(tk);
-fprintf(s,'set 42.2 42.2 40 40')
+fprintf(s,'set 42.8 42.8 40 40')
 pause(tk);
 
 offset = 3;

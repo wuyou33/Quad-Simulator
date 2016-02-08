@@ -7,9 +7,9 @@
  *
  * Code generation for model "Controllers".
  *
- * Model version              : 1.63
- * Simulink Coder version : 8.8 (R2015a) 09-Feb-2015
- * C++ source code generated on : Thu Dec 17 14:19:21 2015
+ * Model version              : 1.66
+ * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
+ * C++ source code generated on : Wed Feb 03 13:19:27 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping

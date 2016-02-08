@@ -7,9 +7,9 @@
  *
  * Code generation for model "Mixer".
  *
- * Model version              : 1.12
- * Simulink Coder version : 8.8 (R2015a) 09-Feb-2015
- * C++ source code generated on : Sat Oct 31 20:45:02 2015
+ * Model version              : 1.13
+ * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
+ * C++ source code generated on : Wed Feb 03 15:20:21 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
