@@ -7,22 +7,13 @@ close all
 clc
 
 %% Import parameters
-Parameters;
-<<<<<<< HEAD
+Parameters
  
 %% Launch SIMULATOR
 tsim = 10;
 
 %Set point u = [height[m] roll_a[rad] pitch_a[rad] yaw_r[rad/s]]
 U = [0 pi/15 0 0]';
-=======
-  
-%% Launch SIMULATOR
-tsim = 5;
-
-%Set point u = [height[m] roll_a[rad] pitch_a[rad] yaw_r[rad/s]]
-U = [1 0 0 pi/2]';
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
 
 sim Simulator
 

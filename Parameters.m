@@ -95,9 +95,9 @@ N = 1/Tf;
 % Kip = 0.3;
 % Kdp = 0.05;
 %H-Infinity
-Kpp = 0*0.298;
-Kip = 0*0.304;
-Kdp = 0*0.0499;
+Kpp = 0.298;
+Kip = 0.304;
+Kdp = 0.0499;
 
 %q PID
 %Guess
@@ -105,9 +105,9 @@ Kdp = 0*0.0499;
 % Kiq = 0.3;
 % Kdq = 0.05;
 %H-Infinity
-Kpq = 0*0.298;
-Kiq = 0*0.304;
-Kdq = 0*0.0499;
+Kpq = 0.298;
+Kiq = 0.304;
+Kdq = 0.0499;
 
 %r PID
 %Guess
@@ -115,15 +115,9 @@ Kdq = 0*0.0499;
 % Kir = 0.2;
 % Kdr = 0.1;
 %H-Infinity
-<<<<<<< HEAD
 Kpr = 0.135;
 Kir = 0.125;
 Kdr = 0.0153;
-=======
-Kpr = 0.113;
-Kir = 0.112;
-Kdr = 0.0178;
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
 
 %% Attitude regulators
 %phi PD
@@ -131,28 +125,26 @@ Kdr = 0.0178;
 % KRP = 1.2;
 % KRD = 0.005;
 %H-Infinity
-KRP = 0*1.61;
-KRD = 0*0.00512;
+KRP = 1.61;
+KRD = 0.00512;
 
 %theta PD
 %Guess
 % KPP = 1.2;
 % KPD = 0.005;
 %H-Infinity
-KPP = 0*1.61;
-KPD = 0*0.00512;
+KPP = 1.61;
+KPD = 0.00512;
 % KPP = 1.33;
 % KPD = 0.00696;
 
 %psi PD
 %Guess
 % KYP = 1;
-<<<<<<< HEAD
-% KYD = 0.1;
+% KYD = 0.01;
 %H-Infinity
-KYP = 0.957;
-KYD = 0.12;
-
+KYP = 0.972;
+KYD = 0.0125;
 
 % ----------------------------------------------------
 % Initial conditions
@@ -244,18 +236,12 @@ Varx = 0.001*eye(10);
 % ----------------------------------------------------
 % Samplig time.
 
-Ts = 1/200;     % Ts = 0.05;
+Ts = 1/100;     % Ts = 0.05;
 
 % Sensor anti-aliasing filter parameters
 [zeros_aa, poles_aa, gain_aa] = butter(1, 0.4/Ts, 's'); % Butterworth order 1, cutoff 8 Hz
 
 % Ts_K = 1/200
 % [zeros_aa_K, poles_aa_K, gain_aa_K] = butter(1, 0.4/Ts_K, 's'); % Butterworth order 1, cutoff 8 Hz
-=======
-% KYD = 0.01;
-%H-Infinity
-KYP = 0.972;
-KYD = 0.0125;
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
 
  %% End of code
