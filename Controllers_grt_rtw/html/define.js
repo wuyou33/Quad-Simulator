@@ -2,6 +2,7 @@ function CodeDefine() {
 this.def = new Array();
 this.def["rt_ertODEUpdateContinuousStates"] = {file: "Controllers_cpp.html",line:28,type:"fcn"};
 this.def["step"] = {file: "Controllers_cpp.html",line:72,type:"fcn"};
+<<<<<<< HEAD
 this.def["Controllers_derivatives"] = {file: "Controllers_cpp.html",line:339,type:"fcn"};
 this.def["initialize"] = {file: "Controllers_cpp.html",line:376,type:"fcn"};
 this.def["terminate"] = {file: "Controllers_cpp.html",line:463,type:"fcn"};
@@ -14,6 +15,20 @@ this.def["ODE2_IntgData"] = {file: "Controllers_h.html",line:213,type:"type"};
 this.def["ExtU_Controllers_T"] = {file: "Controllers_h.html",line:222,type:"type"};
 this.def["ExtY_Controllers_T"] = {file: "Controllers_h.html",line:227,type:"type"};
 this.def["Controllers_U"] = {file: "Controllers_h.html",line:414,type:"var"};
+=======
+this.def["Controllers_derivatives"] = {file: "Controllers_cpp.html",line:321,type:"fcn"};
+this.def["initialize"] = {file: "Controllers_cpp.html",line:355,type:"fcn"};
+this.def["terminate"] = {file: "Controllers_cpp.html",line:439,type:"fcn"};
+this.def["getRTM"] = {file: "Controllers_cpp.html",line:560,type:"fcn"};
+this.def["B_Controllers_T"] = {file: "Controllers_h.html",line:161,type:"type"};
+this.def["X_Controllers_T"] = {file: "Controllers_h.html",line:174,type:"type"};
+this.def["XDot_Controllers_T"] = {file: "Controllers_h.html",line:187,type:"type"};
+this.def["XDis_Controllers_T"] = {file: "Controllers_h.html",line:200,type:"type"};
+this.def["ODE2_IntgData"] = {file: "Controllers_h.html",line:209,type:"type"};
+this.def["ExtU_Controllers_T"] = {file: "Controllers_h.html",line:218,type:"type"};
+this.def["ExtY_Controllers_T"] = {file: "Controllers_h.html",line:223,type:"type"};
+this.def["Controllers_U"] = {file: "Controllers_h.html",line:398,type:"var"};
+>>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
 this.def["P_Controllers_T"] = {file: "Controllers_types_h.html",line:27,type:"type"};
 this.def["RT_MODEL_Controllers_T"] = {file: "Controllers_types_h.html",line:30,type:"type"};
 this.def["long_T"] = {file: "multiword_types_h.html",line:28,type:"type"};
