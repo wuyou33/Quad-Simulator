@@ -29,15 +29,11 @@
 <tr name="9" id="9">
 <td>9</td><td><span class="ct"> *</span></td></tr>
 <tr name="10" id="10">
-<td>10</td><td><span class="ct"> * Model version              : 1.66</span></td></tr>
+<td>10</td><td><span class="ct"> * Model version              : 1.69</span></td></tr>
 <tr name="11" id="11">
 <td>11</td><td><span class="ct"> * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015</span></td></tr>
 <tr name="12" id="12">
-<<<<<<< HEAD
-<td>12</td><td><span class="ct"> * C++ source code generated on : Wed Feb 03 13:19:27 2016</span></td></tr>
-=======
-<td>12</td><td><span class="ct"> * C++ source code generated on : Wed Jan 27 10:18:05 2016</span></td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
+<td>12</td><td><span class="ct"> * C++ source code generated on : Thu Feb 11 09:10:45 2016</span></td></tr>
 <tr name="13" id="13">
 <td>13</td><td><span class="ct"> *</span></td></tr>
 <tr name="14" id="14">
@@ -91,11 +87,7 @@
 <tr name="38" id="38">
 <td>38</td><td>  <a id="38c3" class="tk">int_T</a> <a id="38c9" class="tk">i</a>;</td></tr>
 <tr name="39" id="39">
-<<<<<<< HEAD
-<td>39</td><td>  <a id="39c3" class="tk">int_T</a> <a id="39c9" class="tk">nXc</a> = 10;</td></tr>
-=======
-<td>39</td><td>  <a id="39c3" class="tk">int_T</a> <a id="39c9" class="tk">nXc</a> = 9;</td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
+<td>39</td><td>  <a id="39c3" class="tk">int_T</a> <a id="39c9" class="tk">nXc</a> = 8;</td></tr>
 <tr name="40" id="40">
 <td>40</td><td>  <a id="40c3" class="tk">rtsiSetSimTimeStep</a>(<a id="40c22" class="tk">si</a>,<a id="40c25" class="tk">MINOR_TIME_STEP</a>);</td></tr>
 <tr name="41" id="41">
@@ -175,442 +167,271 @@
 <tr name="78" id="78">
 <td>78</td><td>  <a id="78c3" class="tk">real_T</a> <a id="78c10" class="tk">rtb_ProportionalGain</a>;</td></tr>
 <tr name="79" id="79">
-<td>79</td><td>  <a id="79c3" class="tk">real_T</a> <a id="79c10" class="tk">rtb_ProportionalGain_n</a>;</td></tr>
+<td>79</td><td>  <a id="79c3" class="tk">real_T</a> <a id="79c10" class="tk">rtb_Rates_B</a>[3];</td></tr>
 <tr name="80" id="80">
-<td>80</td><td>  <a id="80c3" class="tk">real_T</a> <a id="80c10" class="tk">rtb_Rates_B</a>[3];</td></tr>
+<td>80</td><td>  <a id="80c3" class="tk">real_T</a> <a id="80c10" class="tk">tmp</a>[9];</td></tr>
 <tr name="81" id="81">
-<td>81</td><td>  <a id="81c3" class="tk">real_T</a> <a id="81c10" class="tk">tmp</a>[9];</td></tr>
+<td>81</td><td>  <a id="81c3" class="tk">int32_T</a> <a id="81c11" class="tk">i</a>;</td></tr>
 <tr name="82" id="82">
-<td>82</td><td>  <a id="82c3" class="tk">int32_T</a> <a id="82c11" class="tk">i</a>;</td></tr>
+<td>82</td><td>  <span class="kw">if</span> (<a id="82c7" class="tk">rtmIsMajorTimeStep</a>((&amp;<a id="82c28" class="tk">Controllers_M</a>))) <span class="br">{</span></td></tr>
 <tr name="83" id="83">
-<td>83</td><td>  <span class="kw">if</span> (<a id="83c7" class="tk">rtmIsMajorTimeStep</a>((&amp;<a id="83c28" class="tk">Controllers_M</a>))) <span class="br">{</span></td></tr>
+<td>83</td><td>    <span class="ct">/* set solver stop time */</span></td></tr>
 <tr name="84" id="84">
-<td>84</td><td>    <span class="ct">/* set solver stop time */</span></td></tr>
+<td>84</td><td>    <span class="kw">if</span> (!((&amp;<a id="84c13" class="tk">Controllers_M</a>)-&gt;<a id="84c29" class="tk">Timing</a>.<a id="84c36" class="tk">clockTick0</a>+1)) <span class="br">{</span></td></tr>
 <tr name="85" id="85">
-<td>85</td><td>    <span class="kw">if</span> (!((&amp;<a id="85c13" class="tk">Controllers_M</a>)-&gt;<a id="85c29" class="tk">Timing</a>.<a id="85c36" class="tk">clockTick0</a>+1)) <span class="br">{</span></td></tr>
+<td>85</td><td>      <a id="85c7" class="tk">rtsiSetSolverStopTime</a>(&amp;(&amp;<a id="85c32" class="tk">Controllers_M</a>)-&gt;<a id="85c48" class="tk">solverInfo</a>, (((&amp;<a id="85c64" class="tk">Controllers_M</a>)</td></tr>
 <tr name="86" id="86">
-<td>86</td><td>      <a id="86c7" class="tk">rtsiSetSolverStopTime</a>(&amp;(&amp;<a id="86c32" class="tk">Controllers_M</a>)-&gt;<a id="86c48" class="tk">solverInfo</a>, (((&amp;<a id="86c64" class="tk">Controllers_M</a>)</td></tr>
+<td>86</td><td>        -&gt;<a id="86c11" class="tk">Timing</a>.<a id="86c18" class="tk">clockTickH0</a> + 1) * (&amp;<a id="86c39" class="tk">Controllers_M</a>)-&gt;<a id="86c55" class="tk">Timing</a>.<a id="86c62" class="tk">stepSize0</a> *</td></tr>
 <tr name="87" id="87">
-<td>87</td><td>        -&gt;<a id="87c11" class="tk">Timing</a>.<a id="87c18" class="tk">clockTickH0</a> + 1) * (&amp;<a id="87c39" class="tk">Controllers_M</a>)-&gt;<a id="87c55" class="tk">Timing</a>.<a id="87c62" class="tk">stepSize0</a> *</td></tr>
+<td>87</td><td>        4294967296.0));</td></tr>
 <tr name="88" id="88">
-<td>88</td><td>        4294967296.0));</td></tr>
+<td>88</td><td>    <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
 <tr name="89" id="89">
-<td>89</td><td>    <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<td>89</td><td>      <a id="89c7" class="tk">rtsiSetSolverStopTime</a>(&amp;(&amp;<a id="89c32" class="tk">Controllers_M</a>)-&gt;<a id="89c48" class="tk">solverInfo</a>, (((&amp;<a id="89c64" class="tk">Controllers_M</a>)</td></tr>
 <tr name="90" id="90">
-<td>90</td><td>      <a id="90c7" class="tk">rtsiSetSolverStopTime</a>(&amp;(&amp;<a id="90c32" class="tk">Controllers_M</a>)-&gt;<a id="90c48" class="tk">solverInfo</a>, (((&amp;<a id="90c64" class="tk">Controllers_M</a>)</td></tr>
+<td>90</td><td>        -&gt;<a id="90c11" class="tk">Timing</a>.<a id="90c18" class="tk">clockTick0</a> + 1) * (&amp;<a id="90c38" class="tk">Controllers_M</a>)-&gt;<a id="90c54" class="tk">Timing</a>.<a id="90c61" class="tk">stepSize0</a> +</td></tr>
 <tr name="91" id="91">
-<td>91</td><td>        -&gt;<a id="91c11" class="tk">Timing</a>.<a id="91c18" class="tk">clockTick0</a> + 1) * (&amp;<a id="91c38" class="tk">Controllers_M</a>)-&gt;<a id="91c54" class="tk">Timing</a>.<a id="91c61" class="tk">stepSize0</a> +</td></tr>
+<td>91</td><td>        (&amp;<a id="91c11" class="tk">Controllers_M</a>)-&gt;<a id="91c27" class="tk">Timing</a>.<a id="91c34" class="tk">clockTickH0</a> * (&amp;<a id="91c50" class="tk">Controllers_M</a>)</td></tr>
 <tr name="92" id="92">
-<td>92</td><td>        (&amp;<a id="92c11" class="tk">Controllers_M</a>)-&gt;<a id="92c27" class="tk">Timing</a>.<a id="92c34" class="tk">clockTickH0</a> * (&amp;<a id="92c50" class="tk">Controllers_M</a>)</td></tr>
+<td>92</td><td>        -&gt;<a id="92c11" class="tk">Timing</a>.<a id="92c18" class="tk">stepSize0</a> * 4294967296.0));</td></tr>
 <tr name="93" id="93">
-<td>93</td><td>        -&gt;<a id="93c11" class="tk">Timing</a>.<a id="93c18" class="tk">stepSize0</a> * 4294967296.0));</td></tr>
+<td>93</td><td>    <span class="br">}</span></td></tr>
 <tr name="94" id="94">
-<td>94</td><td>    <span class="br">}</span></td></tr>
+<td>94</td><td>  <span class="br">}</span>                                    <span class="ct">/* end MajorTimeStep */</span></td></tr>
 <tr name="95" id="95">
-<td>95</td><td>  <span class="br">}</span>                                    <span class="ct">/* end MajorTimeStep */</span></td></tr>
+<td>95</td><td></td></tr>
 <tr name="96" id="96">
-<td>96</td><td></td></tr>
+<td>96</td><td>  <span class="ct">/* Update absolute time of base rate at minor time step */</span></td></tr>
 <tr name="97" id="97">
-<td>97</td><td>  <span class="ct">/* Update absolute time of base rate at minor time step */</span></td></tr>
+<td>97</td><td>  <span class="kw">if</span> (<a id="97c7" class="tk">rtmIsMinorTimeStep</a>((&amp;<a id="97c28" class="tk">Controllers_M</a>))) <span class="br">{</span></td></tr>
 <tr name="98" id="98">
-<td>98</td><td>  <span class="kw">if</span> (<a id="98c7" class="tk">rtmIsMinorTimeStep</a>((&amp;<a id="98c28" class="tk">Controllers_M</a>))) <span class="br">{</span></td></tr>
+<td>98</td><td>    (&amp;<a id="98c7" class="tk">Controllers_M</a>)-&gt;<a id="98c23" class="tk">Timing</a>.<a id="98c30" class="tk">t</a>[0] = <a id="98c37" class="tk">rtsiGetT</a>(&amp;(&amp;<a id="98c49" class="tk">Controllers_M</a>)-&gt;<a id="98c65" class="tk">solverInfo</a>);</td></tr>
 <tr name="99" id="99">
-<td>99</td><td>    (&amp;<a id="99c7" class="tk">Controllers_M</a>)-&gt;<a id="99c23" class="tk">Timing</a>.<a id="99c30" class="tk">t</a>[0] = <a id="99c37" class="tk">rtsiGetT</a>(&amp;(&amp;<a id="99c49" class="tk">Controllers_M</a>)-&gt;<a id="99c65" class="tk">solverInfo</a>);</td></tr>
+<td>99</td><td>  <span class="br">}</span></td></tr>
 <tr name="100" id="100">
-<td>100</td><td>  <span class="br">}</span></td></tr>
+<td>100</td><td></td></tr>
 <tr name="101" id="101">
-<td>101</td><td></td></tr>
+<td>101</td><td>  <span class="ct">/* Saturate: '&lt;S1&gt;/Saturation' incorporates:</span></td></tr>
 <tr name="102" id="102">
-<td>102</td><td>  <span class="ct">/* Saturate: '&lt;S1&gt;/Saturation' incorporates:</span></td></tr>
+<td>102</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/Stick'</span></td></tr>
 <tr name="103" id="103">
-<td>103</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/Stick'</span></td></tr>
+<td>103</td><td><span class="ct">   */</span></td></tr>
 <tr name="104" id="104">
-<td>104</td><td><span class="ct">   */</span></td></tr>
+<td>104</td><td>  <span class="kw">if</span> (<a id="104c7" class="tk">Controllers_U</a>.<a id="104c21" class="tk">Stick</a>[0] &gt; <a id="104c32" class="tk">Controllers_P</a>.<a id="104c46" class="tk">Saturation_UpperSat</a>) <span class="br">{</span></td></tr>
 <tr name="105" id="105">
-<td>105</td><td>  <span class="kw">if</span> (<a id="105c7" class="tk">Controllers_U</a>.<a id="105c21" class="tk">Stick</a>[0] &gt; <a id="105c32" class="tk">Controllers_P</a>.<a id="105c46" class="tk">Saturation_UpperSat</a>) <span class="br">{</span></td></tr>
+<td>105</td><td>    <a id="105c5" class="tk">Sphi</a> = <a id="105c12" class="tk">Controllers_P</a>.<a id="105c26" class="tk">Saturation_UpperSat</a>;</td></tr>
 <tr name="106" id="106">
-<td>106</td><td>    <a id="106c5" class="tk">Sphi</a> = <a id="106c12" class="tk">Controllers_P</a>.<a id="106c26" class="tk">Saturation_UpperSat</a>;</td></tr>
+<td>106</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="kw">if</span> (<a id="106c14" class="tk">Controllers_U</a>.<a id="106c28" class="tk">Stick</a>[0] &lt; <a id="106c39" class="tk">Controllers_P</a>.<a id="106c53" class="tk">Saturation_LowerSat</a>) <span class="br">{</span></td></tr>
 <tr name="107" id="107">
-<td>107</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="kw">if</span> (<a id="107c14" class="tk">Controllers_U</a>.<a id="107c28" class="tk">Stick</a>[0] &lt; <a id="107c39" class="tk">Controllers_P</a>.<a id="107c53" class="tk">Saturation_LowerSat</a>) <span class="br">{</span></td></tr>
+<td>107</td><td>    <a id="107c5" class="tk">Sphi</a> = <a id="107c12" class="tk">Controllers_P</a>.<a id="107c26" class="tk">Saturation_LowerSat</a>;</td></tr>
 <tr name="108" id="108">
-<td>108</td><td>    <a id="108c5" class="tk">Sphi</a> = <a id="108c12" class="tk">Controllers_P</a>.<a id="108c26" class="tk">Saturation_LowerSat</a>;</td></tr>
+<td>108</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
 <tr name="109" id="109">
-<td>109</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<td>109</td><td>    <a id="109c5" class="tk">Sphi</a> = <a id="109c12" class="tk">Controllers_U</a>.<a id="109c26" class="tk">Stick</a>[0];</td></tr>
 <tr name="110" id="110">
-<td>110</td><td>    <a id="110c5" class="tk">Sphi</a> = <a id="110c12" class="tk">Controllers_U</a>.<a id="110c26" class="tk">Stick</a>[0];</td></tr>
+<td>110</td><td>  <span class="br">}</span></td></tr>
 <tr name="111" id="111">
-<td>111</td><td>  <span class="br">}</span></td></tr>
+<td>111</td><td></td></tr>
 <tr name="112" id="112">
-<td>112</td><td></td></tr>
+<td>112</td><td>  <span class="ct">/* Sum: '&lt;S1&gt;/Sum' incorporates:</span></td></tr>
 <tr name="113" id="113">
-<td>113</td><td>  <span class="ct">/* Sum: '&lt;S1&gt;/Sum' incorporates:</span></td></tr>
+<td>113</td><td><span class="ct">   *  Gain: '&lt;S1&gt;/Yaw-rate1'</span></td></tr>
 <tr name="114" id="114">
-<td>114</td><td><span class="ct">   *  Gain: '&lt;S1&gt;/Yaw-rate1'</span></td></tr>
+<td>114</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/IMU_Attitude'</span></td></tr>
 <tr name="115" id="115">
-<td>115</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/IMU_Attitude'</span></td></tr>
+<td>115</td><td><span class="ct">   *  Saturate: '&lt;S1&gt;/Saturation'</span></td></tr>
 <tr name="116" id="116">
-<td>116</td><td><span class="ct">   *  Saturate: '&lt;S1&gt;/Saturation'</span></td></tr>
+<td>116</td><td><span class="ct">   */</span></td></tr>
 <tr name="117" id="117">
-<td>117</td><td><span class="ct">   */</span></td></tr>
+<td>117</td><td>  <a id="117c3" class="tk">rtb_Sum4</a> = <a id="117c14" class="tk">Controllers_P</a>.<a id="117c28" class="tk">rollMax</a> * <a id="117c38" class="tk">Sphi</a> - <a id="117c45" class="tk">Controllers_U</a>.<a id="117c59" class="tk">IMU_Attitude</a>[0];</td></tr>
 <tr name="118" id="118">
-<td>118</td><td>  <a id="118c3" class="tk">rtb_Sum4</a> = <a id="118c14" class="tk">Controllers_P</a>.<a id="118c28" class="tk">rollMax</a> * <a id="118c38" class="tk">Sphi</a> - <a id="118c45" class="tk">Controllers_U</a>.<a id="118c59" class="tk">IMU_Attitude</a>[0];</td></tr>
+<td>118</td><td></td></tr>
 <tr name="119" id="119">
-<td>119</td><td></td></tr>
+<td>119</td><td>  <span class="ct">/* Gain: '&lt;S4&gt;/Proportional Gain' */</span></td></tr>
 <tr name="120" id="120">
-<td>120</td><td>  <span class="ct">/* Gain: '&lt;S3&gt;/Proportional Gain' */</span></td></tr>
+<td>120</td><td>  <a id="120c3" class="tk">rtb_ProportionalGain</a> = <a id="120c26" class="tk">Controllers_P</a>.<a id="120c40" class="tk">KRP</a> * <a id="120c46" class="tk">rtb_Sum4</a>;</td></tr>
 <tr name="121" id="121">
-<td>121</td><td>  <a id="121c3" class="tk">rtb_ProportionalGain</a> = <a id="121c26" class="tk">Controllers_P</a>.<a id="121c40" class="tk">KRP</a> * <a id="121c46" class="tk">rtb_Sum4</a>;</td></tr>
+<td>121</td><td></td></tr>
 <tr name="122" id="122">
-<td>122</td><td></td></tr>
+<td>122</td><td>  <span class="ct">/* Gain: '&lt;S4&gt;/Filter Coefficient' incorporates:</span></td></tr>
 <tr name="123" id="123">
-<td>123</td><td>  <span class="ct">/* Gain: '&lt;S3&gt;/Filter Coefficient' incorporates:</span></td></tr>
+<td>123</td><td><span class="ct">   *  Gain: '&lt;S4&gt;/Derivative Gain'</span></td></tr>
 <tr name="124" id="124">
-<td>124</td><td><span class="ct">   *  Gain: '&lt;S3&gt;/Derivative Gain'</span></td></tr>
+<td>124</td><td><span class="ct">   *  Integrator: '&lt;S4&gt;/Filter'</span></td></tr>
 <tr name="125" id="125">
-<td>125</td><td><span class="ct">   *  Integrator: '&lt;S3&gt;/Filter'</span></td></tr>
+<td>125</td><td><span class="ct">   *  Sum: '&lt;S4&gt;/SumD'</span></td></tr>
 <tr name="126" id="126">
-<td>126</td><td><span class="ct">   *  Sum: '&lt;S3&gt;/SumD'</span></td></tr>
+<td>126</td><td><span class="ct">   */</span></td></tr>
 <tr name="127" id="127">
-<td>127</td><td><span class="ct">   */</span></td></tr>
+<td>127</td><td>  <a id="127c3" class="tk">Controllers_B</a>.<a id="127c17" class="tk">FilterCoefficient</a> = (<a id="127c38" class="tk">Controllers_P</a>.<a id="127c52" class="tk">KRD</a> * <a id="127c58" class="tk">rtb_Sum4</a> -</td></tr>
 <tr name="128" id="128">
-<td>128</td><td>  <a id="128c3" class="tk">Controllers_B</a>.<a id="128c17" class="tk">FilterCoefficient</a> = (<a id="128c38" class="tk">Controllers_P</a>.<a id="128c52" class="tk">KRD</a> * <a id="128c58" class="tk">rtb_Sum4</a> -</td></tr>
+<td>128</td><td>    <a id="128c5" class="tk">Controllers_X</a>.<a id="128c19" class="tk">Filter_CSTATE</a>) * <a id="128c36" class="tk">Controllers_P</a>.<a id="128c50" class="tk">N</a>;</td></tr>
 <tr name="129" id="129">
-<td>129</td><td>    <a id="129c5" class="tk">Controllers_X</a>.<a id="129c19" class="tk">Filter_CSTATE</a>) * <a id="129c36" class="tk">Controllers_P</a>.<a id="129c50" class="tk">N</a>;</td></tr>
+<td>129</td><td></td></tr>
 <tr name="130" id="130">
-<td>130</td><td></td></tr>
+<td>130</td><td>  <span class="ct">/* Saturate: '&lt;S1&gt;/Saturation1' incorporates:</span></td></tr>
 <tr name="131" id="131">
-<td>131</td><td>  <span class="ct">/* Saturate: '&lt;S1&gt;/Saturation1' incorporates:</span></td></tr>
+<td>131</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/Stick'</span></td></tr>
 <tr name="132" id="132">
-<td>132</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/Stick'</span></td></tr>
+<td>132</td><td><span class="ct">   */</span></td></tr>
 <tr name="133" id="133">
-<td>133</td><td><span class="ct">   */</span></td></tr>
+<td>133</td><td>  <span class="kw">if</span> (<a id="133c7" class="tk">Controllers_U</a>.<a id="133c21" class="tk">Stick</a>[1] &gt; <a id="133c32" class="tk">Controllers_P</a>.<a id="133c46" class="tk">Saturation1_UpperSat</a>) <span class="br">{</span></td></tr>
 <tr name="134" id="134">
-<td>134</td><td>  <span class="kw">if</span> (<a id="134c7" class="tk">Controllers_U</a>.<a id="134c21" class="tk">Stick</a>[1] &gt; <a id="134c32" class="tk">Controllers_P</a>.<a id="134c46" class="tk">Saturation1_UpperSat</a>) <span class="br">{</span></td></tr>
+<td>134</td><td>    <a id="134c5" class="tk">Sphi</a> = <a id="134c12" class="tk">Controllers_P</a>.<a id="134c26" class="tk">Saturation1_UpperSat</a>;</td></tr>
 <tr name="135" id="135">
-<td>135</td><td>    <a id="135c5" class="tk">Sphi</a> = <a id="135c12" class="tk">Controllers_P</a>.<a id="135c26" class="tk">Saturation1_UpperSat</a>;</td></tr>
+<td>135</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="kw">if</span> (<a id="135c14" class="tk">Controllers_U</a>.<a id="135c28" class="tk">Stick</a>[1] &lt; <a id="135c39" class="tk">Controllers_P</a>.<a id="135c53" class="tk">Saturation1_LowerSat</a>) <span class="br">{</span></td></tr>
 <tr name="136" id="136">
-<td>136</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="kw">if</span> (<a id="136c14" class="tk">Controllers_U</a>.<a id="136c28" class="tk">Stick</a>[1] &lt; <a id="136c39" class="tk">Controllers_P</a>.<a id="136c53" class="tk">Saturation1_LowerSat</a>) <span class="br">{</span></td></tr>
+<td>136</td><td>    <a id="136c5" class="tk">Sphi</a> = <a id="136c12" class="tk">Controllers_P</a>.<a id="136c26" class="tk">Saturation1_LowerSat</a>;</td></tr>
 <tr name="137" id="137">
-<td>137</td><td>    <a id="137c5" class="tk">Sphi</a> = <a id="137c12" class="tk">Controllers_P</a>.<a id="137c26" class="tk">Saturation1_LowerSat</a>;</td></tr>
+<td>137</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
 <tr name="138" id="138">
-<td>138</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<td>138</td><td>    <a id="138c5" class="tk">Sphi</a> = <a id="138c12" class="tk">Controllers_U</a>.<a id="138c26" class="tk">Stick</a>[1];</td></tr>
 <tr name="139" id="139">
-<td>139</td><td>    <a id="139c5" class="tk">Sphi</a> = <a id="139c12" class="tk">Controllers_U</a>.<a id="139c26" class="tk">Stick</a>[1];</td></tr>
+<td>139</td><td>  <span class="br">}</span></td></tr>
 <tr name="140" id="140">
-<td>140</td><td>  <span class="br">}</span></td></tr>
+<td>140</td><td></td></tr>
 <tr name="141" id="141">
-<td>141</td><td></td></tr>
+<td>141</td><td>  <span class="ct">/* Sum: '&lt;S1&gt;/Sum1' incorporates:</span></td></tr>
 <tr name="142" id="142">
-<td>142</td><td>  <span class="ct">/* Sum: '&lt;S1&gt;/Sum1' incorporates:</span></td></tr>
+<td>142</td><td><span class="ct">   *  Gain: '&lt;S1&gt;/Yaw-rate2'</span></td></tr>
 <tr name="143" id="143">
-<td>143</td><td><span class="ct">   *  Gain: '&lt;S1&gt;/Yaw-rate2'</span></td></tr>
+<td>143</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/IMU_Attitude'</span></td></tr>
 <tr name="144" id="144">
-<td>144</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/IMU_Attitude'</span></td></tr>
+<td>144</td><td><span class="ct">   *  Saturate: '&lt;S1&gt;/Saturation1'</span></td></tr>
 <tr name="145" id="145">
-<td>145</td><td><span class="ct">   *  Saturate: '&lt;S1&gt;/Saturation1'</span></td></tr>
+<td>145</td><td><span class="ct">   */</span></td></tr>
 <tr name="146" id="146">
-<td>146</td><td><span class="ct">   */</span></td></tr>
+<td>146</td><td>  <a id="146c3" class="tk">rtb_Sum4</a> = <a id="146c14" class="tk">Controllers_P</a>.<a id="146c28" class="tk">pitchMax</a> * <a id="146c39" class="tk">Sphi</a> - <a id="146c46" class="tk">Controllers_U</a>.<a id="146c60" class="tk">IMU_Attitude</a>[1];</td></tr>
 <tr name="147" id="147">
-<td>147</td><td>  <a id="147c3" class="tk">rtb_Sum4</a> = <a id="147c14" class="tk">Controllers_P</a>.<a id="147c28" class="tk">pitchMax</a> * <a id="147c39" class="tk">Sphi</a> - <a id="147c46" class="tk">Controllers_U</a>.<a id="147c60" class="tk">IMU_Attitude</a>[1];</td></tr>
+<td>147</td><td></td></tr>
 <tr name="148" id="148">
-<td>148</td><td></td></tr>
+<td>148</td><td>  <span class="ct">/* Gain: '&lt;S3&gt;/Filter Coefficient' incorporates:</span></td></tr>
 <tr name="149" id="149">
-<td>149</td><td>  <span class="ct">/* Gain: '&lt;S2&gt;/Proportional Gain' */</span></td></tr>
+<td>149</td><td><span class="ct">   *  Gain: '&lt;S3&gt;/Derivative Gain'</span></td></tr>
 <tr name="150" id="150">
-<td>150</td><td>  <a id="150c3" class="tk">rtb_ProportionalGain_n</a> = <a id="150c28" class="tk">Controllers_P</a>.<a id="150c42" class="tk">KPP</a> * <a id="150c48" class="tk">rtb_Sum4</a>;</td></tr>
+<td>150</td><td><span class="ct">   *  Integrator: '&lt;S3&gt;/Filter'</span></td></tr>
 <tr name="151" id="151">
-<td>151</td><td></td></tr>
+<td>151</td><td><span class="ct">   *  Sum: '&lt;S3&gt;/SumD'</span></td></tr>
 <tr name="152" id="152">
-<td>152</td><td>  <span class="ct">/* Gain: '&lt;S2&gt;/Filter Coefficient' incorporates:</span></td></tr>
+<td>152</td><td><span class="ct">   */</span></td></tr>
 <tr name="153" id="153">
-<td>153</td><td><span class="ct">   *  Gain: '&lt;S2&gt;/Derivative Gain'</span></td></tr>
+<td>153</td><td>  <a id="153c3" class="tk">Controllers_B</a>.<a id="153c17" class="tk">FilterCoefficient_o</a> = (<a id="153c40" class="tk">Controllers_P</a>.<a id="153c54" class="tk">KPD</a> * <a id="153c60" class="tk">rtb_Sum4</a> -</td></tr>
 <tr name="154" id="154">
-<td>154</td><td><span class="ct">   *  Integrator: '&lt;S2&gt;/Filter'</span></td></tr>
+<td>154</td><td>    <a id="154c5" class="tk">Controllers_X</a>.<a id="154c19" class="tk">Filter_CSTATE_m</a>) * <a id="154c38" class="tk">Controllers_P</a>.<a id="154c52" class="tk">N</a>;</td></tr>
 <tr name="155" id="155">
-<td>155</td><td><span class="ct">   *  Sum: '&lt;S2&gt;/SumD'</span></td></tr>
+<td>155</td><td></td></tr>
 <tr name="156" id="156">
-<td>156</td><td><span class="ct">   */</span></td></tr>
+<td>156</td><td>  <span class="ct">/* MATLAB Function: '&lt;S1&gt;/To body from Earth_rates' incorporates:</span></td></tr>
 <tr name="157" id="157">
-<td>157</td><td>  <a id="157c3" class="tk">Controllers_B</a>.<a id="157c17" class="tk">FilterCoefficient_o</a> = (<a id="157c40" class="tk">Controllers_P</a>.<a id="157c54" class="tk">KPD</a> * <a id="157c60" class="tk">rtb_Sum4</a> -</td></tr>
+<td>157</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/IMU_Attitude'</span></td></tr>
 <tr name="158" id="158">
-<td>158</td><td>    <a id="158c5" class="tk">Controllers_X</a>.<a id="158c19" class="tk">Filter_CSTATE_m</a>) * <a id="158c38" class="tk">Controllers_P</a>.<a id="158c52" class="tk">N</a>;</td></tr>
+<td>158</td><td><span class="ct">   */</span></td></tr>
 <tr name="159" id="159">
-<td>159</td><td></td></tr>
+<td>159</td><td>  <span class="ct">/* MATLAB Function 'Attitude Controller/To body from Earth_rates': '&lt;S8&gt;:1' */</span></td></tr>
 <tr name="160" id="160">
-<<<<<<< HEAD
-<td>160</td><td>  <span class="ct">/* Saturate: '&lt;S1&gt;/Saturation2' incorporates:</span></td></tr>
+<td>160</td><td>  <span class="ct">/* '&lt;S8&gt;:1:3' */</span></td></tr>
 <tr name="161" id="161">
-<td>161</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/Stick'</span></td></tr>
+<td>161</td><td>  <span class="ct">/* '&lt;S8&gt;:1:4' */</span></td></tr>
 <tr name="162" id="162">
-<td>162</td><td><span class="ct">   */</span></td></tr>
+<td>162</td><td>  <span class="ct">/* '&lt;S8&gt;:1:6' */</span></td></tr>
 <tr name="163" id="163">
-<td>163</td><td>  <span class="kw">if</span> (<a id="163c7" class="tk">Controllers_U</a>.<a id="163c21" class="tk">Stick</a>[2] &gt; <a id="163c32" class="tk">Controllers_P</a>.<a id="163c46" class="tk">Saturation2_UpperSat</a>) <span class="br">{</span></td></tr>
+<td>163</td><td>  <a id="163c3" class="tk">Sphi</a> = <a id="163c10" class="tk">sin</a>(<a id="163c14" class="tk">Controllers_U</a>.<a id="163c28" class="tk">IMU_Attitude</a>[0]);</td></tr>
 <tr name="164" id="164">
-<td>164</td><td>    <a id="164c5" class="tk">Sphi</a> = <a id="164c12" class="tk">Controllers_P</a>.<a id="164c26" class="tk">Saturation2_UpperSat</a>;</td></tr>
+<td>164</td><td></td></tr>
 <tr name="165" id="165">
-<td>165</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="kw">if</span> (<a id="165c14" class="tk">Controllers_U</a>.<a id="165c28" class="tk">Stick</a>[2] &lt; <a id="165c39" class="tk">Controllers_P</a>.<a id="165c53" class="tk">Saturation2_LowerSat</a>) <span class="br">{</span></td></tr>
+<td>165</td><td>  <span class="ct">/* '&lt;S8&gt;:1:7' */</span></td></tr>
 <tr name="166" id="166">
-<td>166</td><td>    <a id="166c5" class="tk">Sphi</a> = <a id="166c12" class="tk">Controllers_P</a>.<a id="166c26" class="tk">Saturation2_LowerSat</a>;</td></tr>
+<td>166</td><td>  <a id="166c3" class="tk">Cphi</a> = <a id="166c10" class="tk">cos</a>(<a id="166c14" class="tk">Controllers_U</a>.<a id="166c28" class="tk">IMU_Attitude</a>[0]);</td></tr>
 <tr name="167" id="167">
-<td>167</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<td>167</td><td></td></tr>
 <tr name="168" id="168">
-<td>168</td><td>    <a id="168c5" class="tk">Sphi</a> = <a id="168c12" class="tk">Controllers_U</a>.<a id="168c26" class="tk">Stick</a>[2];</td></tr>
+<td>168</td><td>  <span class="ct">/* '&lt;S8&gt;:1:8' */</span></td></tr>
 <tr name="169" id="169">
-<td>169</td><td>  <span class="br">}</span></td></tr>
+<td>169</td><td>  <span class="ct">/* '&lt;S8&gt;:1:9' */</span></td></tr>
 <tr name="170" id="170">
-<td>170</td><td></td></tr>
+<td>170</td><td>  <a id="170c3" class="tk">Ctheta</a> = <a id="170c12" class="tk">cos</a>(<a id="170c16" class="tk">Controllers_U</a>.<a id="170c30" class="tk">IMU_Attitude</a>[1]);</td></tr>
 <tr name="171" id="171">
-<td>171</td><td>  <span class="ct">/* Gain: '&lt;S1&gt;/Yaw-rate' incorporates:</span></td></tr>
+<td>171</td><td></td></tr>
 <tr name="172" id="172">
-<td>172</td><td><span class="ct">   *  Saturate: '&lt;S1&gt;/Saturation2'</span></td></tr>
+<td>172</td><td>  <span class="ct">/* '&lt;S8&gt;:1:11' */</span></td></tr>
 <tr name="173" id="173">
-<td>173</td><td><span class="ct">   */</span></td></tr>
+<td>173</td><td>  <span class="ct">/* '&lt;S8&gt;:1:15' */</span></td></tr>
 <tr name="174" id="174">
-<td>174</td><td>  <a id="174c3" class="tk">Controllers_B</a>.<a id="174c17" class="tk">Yawrate</a> = <a id="174c27" class="tk">Controllers_P</a>.<a id="174c41" class="tk">yawRateMax</a> * <a id="174c54" class="tk">Sphi</a>;</td></tr>
+<td>174</td><td>  <a id="174c3" class="tk">tmp</a>[0] = 1.0;</td></tr>
 <tr name="175" id="175">
-<td>175</td><td></td></tr>
+<td>175</td><td>  <a id="175c3" class="tk">tmp</a>[3] = 0.0;</td></tr>
 <tr name="176" id="176">
-<td>176</td><td>  <span class="ct">/* Sum: '&lt;S1&gt;/Sum2' incorporates:</span></td></tr>
+<td>176</td><td>  <a id="176c3" class="tk">tmp</a>[6] = -<a id="176c13" class="tk">sin</a>(<a id="176c17" class="tk">Controllers_U</a>.<a id="176c31" class="tk">IMU_Attitude</a>[1]);</td></tr>
 <tr name="177" id="177">
-<td>177</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/IMU_Attitude'</span></td></tr>
+<td>177</td><td>  <a id="177c3" class="tk">tmp</a>[1] = 0.0;</td></tr>
 <tr name="178" id="178">
-<td>178</td><td><span class="ct">   *  Integrator: '&lt;S1&gt;/Integrator'</span></td></tr>
+<td>178</td><td>  <a id="178c3" class="tk">tmp</a>[4] = <a id="178c12" class="tk">Cphi</a>;</td></tr>
 <tr name="179" id="179">
-<td>179</td><td><span class="ct">   */</span></td></tr>
+<td>179</td><td>  <a id="179c3" class="tk">tmp</a>[7] = <a id="179c12" class="tk">Sphi</a> * <a id="179c19" class="tk">Ctheta</a>;</td></tr>
 <tr name="180" id="180">
-<td>180</td><td>  <a id="180c3" class="tk">rtb_Sum4</a> = <a id="180c14" class="tk">Controllers_X</a>.<a id="180c28" class="tk">Integrator_CSTATE</a> - <a id="180c48" class="tk">Controllers_U</a>.<a id="180c62" class="tk">IMU_Attitude</a>[2];</td></tr>
+<td>180</td><td>  <a id="180c3" class="tk">tmp</a>[2] = 0.0;</td></tr>
 <tr name="181" id="181">
-<td>181</td><td></td></tr>
+<td>181</td><td>  <a id="181c3" class="tk">tmp</a>[5] = -<a id="181c13" class="tk">Sphi</a>;</td></tr>
 <tr name="182" id="182">
-<td>182</td><td>  <span class="ct">/* Gain: '&lt;S4&gt;/Filter Coefficient' incorporates:</span></td></tr>
+<td>182</td><td>  <a id="182c3" class="tk">tmp</a>[8] = <a id="182c12" class="tk">Cphi</a> * <a id="182c19" class="tk">Ctheta</a>;</td></tr>
 <tr name="183" id="183">
-<td>183</td><td><span class="ct">   *  Gain: '&lt;S4&gt;/Derivative Gain'</span></td></tr>
+<td>183</td><td></td></tr>
 <tr name="184" id="184">
-<td>184</td><td><span class="ct">   *  Integrator: '&lt;S4&gt;/Filter'</span></td></tr>
+<td>184</td><td>  <span class="ct">/* SignalConversion: '&lt;S8&gt;/TmpSignal ConversionAt SFunction Inport2' incorporates:</span></td></tr>
 <tr name="185" id="185">
-<td>185</td><td><span class="ct">   *  Sum: '&lt;S4&gt;/SumD'</span></td></tr>
+<td>185</td><td><span class="ct">   *  Gain: '&lt;S3&gt;/Proportional Gain'</span></td></tr>
 <tr name="186" id="186">
-<td>186</td><td><span class="ct">   */</span></td></tr>
+<td>186</td><td><span class="ct">   *  MATLAB Function: '&lt;S1&gt;/To body from Earth_rates'</span></td></tr>
 <tr name="187" id="187">
-<td>187</td><td>  <a id="187c3" class="tk">Controllers_B</a>.<a id="187c17" class="tk">FilterCoefficient_m</a> = (<a id="187c40" class="tk">Controllers_P</a>.<a id="187c54" class="tk">KYD</a> * <a id="187c60" class="tk">rtb_Sum4</a> -</td></tr>
+<td>187</td><td><span class="ct">   *  Sum: '&lt;S3&gt;/Sum'</span></td></tr>
 <tr name="188" id="188">
-<td>188</td><td>    <a id="188c5" class="tk">Controllers_X</a>.<a id="188c19" class="tk">Filter_CSTATE_i</a>) * <a id="188c38" class="tk">Controllers_P</a>.<a id="188c52" class="tk">N</a>;</td></tr>
+<td>188</td><td><span class="ct">   *  Sum: '&lt;S4&gt;/Sum'</span></td></tr>
 <tr name="189" id="189">
-<td>189</td><td></td></tr>
+<td>189</td><td><span class="ct">   */</span></td></tr>
 <tr name="190" id="190">
-<td>190</td><td>  <span class="ct">/* MATLAB Function: '&lt;S1&gt;/To body from Earth_rates' incorporates:</span></td></tr>
+<td>190</td><td>  <a id="190c3" class="tk">Ctheta</a> = <a id="190c12" class="tk">rtb_ProportionalGain</a> + <a id="190c35" class="tk">Controllers_B</a>.<a id="190c49" class="tk">FilterCoefficient</a>;</td></tr>
 <tr name="191" id="191">
-<td>191</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/IMU_Attitude'</span></td></tr>
+<td>191</td><td>  <a id="191c3" class="tk">Cphi</a> = <a id="191c10" class="tk">Controllers_P</a>.<a id="191c24" class="tk">KPP</a> * <a id="191c30" class="tk">rtb_Sum4</a> + <a id="191c41" class="tk">Controllers_B</a>.<a id="191c55" class="tk">FilterCoefficient_o</a>;</td></tr>
 <tr name="192" id="192">
-<td>192</td><td><span class="ct">   */</span></td></tr>
+<td>192</td><td></td></tr>
 <tr name="193" id="193">
-<td>193</td><td>  <span class="ct">/* MATLAB Function 'Attitude Controller/To body from Earth_rates': '&lt;S8&gt;:1' */</span></td></tr>
+<td>193</td><td>  <span class="ct">/* Gain: '&lt;S2&gt;/Proportional Gain' incorporates:</span></td></tr>
 <tr name="194" id="194">
-<td>194</td><td>  <span class="ct">/* '&lt;S8&gt;:1:3' */</span></td></tr>
+<td>194</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/Stick'</span></td></tr>
 <tr name="195" id="195">
-<td>195</td><td>  <span class="ct">/* '&lt;S8&gt;:1:4' */</span></td></tr>
+<td>195</td><td><span class="ct">   *  Saturate: '&lt;S1&gt;/Saturation2'</span></td></tr>
 <tr name="196" id="196">
-<td>196</td><td>  <span class="ct">/* '&lt;S8&gt;:1:6' */</span></td></tr>
+<td>196</td><td><span class="ct">   */</span></td></tr>
 <tr name="197" id="197">
-<td>197</td><td>  <a id="197c3" class="tk">Sphi</a> = <a id="197c10" class="tk">sin</a>(<a id="197c14" class="tk">Controllers_U</a>.<a id="197c28" class="tk">IMU_Attitude</a>[0]);</td></tr>
+<td>197</td><td>  <span class="kw">if</span> (<a id="197c7" class="tk">Controllers_U</a>.<a id="197c21" class="tk">Stick</a>[2] &gt; <a id="197c32" class="tk">Controllers_P</a>.<a id="197c46" class="tk">Saturation2_UpperSat</a>) <span class="br">{</span></td></tr>
 <tr name="198" id="198">
-<td>198</td><td></td></tr>
+<td>198</td><td>    <a id="198c5" class="tk">Sphi</a> = <a id="198c12" class="tk">Controllers_P</a>.<a id="198c26" class="tk">Saturation2_UpperSat</a>;</td></tr>
 <tr name="199" id="199">
-<td>199</td><td>  <span class="ct">/* '&lt;S8&gt;:1:7' */</span></td></tr>
+<td>199</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="kw">if</span> (<a id="199c14" class="tk">Controllers_U</a>.<a id="199c28" class="tk">Stick</a>[2] &lt; <a id="199c39" class="tk">Controllers_P</a>.<a id="199c53" class="tk">Saturation2_LowerSat</a>) <span class="br">{</span></td></tr>
 <tr name="200" id="200">
-<td>200</td><td>  <a id="200c3" class="tk">Cphi</a> = <a id="200c10" class="tk">cos</a>(<a id="200c14" class="tk">Controllers_U</a>.<a id="200c28" class="tk">IMU_Attitude</a>[0]);</td></tr>
+<td>200</td><td>    <a id="200c5" class="tk">Sphi</a> = <a id="200c12" class="tk">Controllers_P</a>.<a id="200c26" class="tk">Saturation2_LowerSat</a>;</td></tr>
 <tr name="201" id="201">
-<td>201</td><td></td></tr>
+<td>201</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
 <tr name="202" id="202">
-<td>202</td><td>  <span class="ct">/* '&lt;S8&gt;:1:8' */</span></td></tr>
+<td>202</td><td>    <a id="202c5" class="tk">Sphi</a> = <a id="202c12" class="tk">Controllers_U</a>.<a id="202c26" class="tk">Stick</a>[2];</td></tr>
 <tr name="203" id="203">
-<td>203</td><td>  <span class="ct">/* '&lt;S8&gt;:1:9' */</span></td></tr>
+<td>203</td><td>  <span class="br">}</span></td></tr>
 <tr name="204" id="204">
-<td>204</td><td>  <a id="204c3" class="tk">Ctheta</a> = <a id="204c12" class="tk">cos</a>(<a id="204c16" class="tk">Controllers_U</a>.<a id="204c30" class="tk">IMU_Attitude</a>[1]);</td></tr>
+<td>204</td><td></td></tr>
 <tr name="205" id="205">
-<td>205</td><td></td></tr>
+<td>205</td><td>  <span class="ct">/* SignalConversion: '&lt;S8&gt;/TmpSignal ConversionAt SFunction Inport2' incorporates:</span></td></tr>
 <tr name="206" id="206">
-<td>206</td><td>  <span class="ct">/* '&lt;S8&gt;:1:11' */</span></td></tr>
+<td>206</td><td><span class="ct">   *  Gain: '&lt;S1&gt;/Yaw-rate'</span></td></tr>
 <tr name="207" id="207">
-<td>207</td><td>  <span class="ct">/* '&lt;S8&gt;:1:15' */</span></td></tr>
+<td>207</td><td><span class="ct">   *  Gain: '&lt;S2&gt;/Proportional Gain'</span></td></tr>
 <tr name="208" id="208">
-<td>208</td><td>  <a id="208c3" class="tk">tmp</a>[0] = 1.0;</td></tr>
+<td>208</td><td><span class="ct">   *  MATLAB Function: '&lt;S1&gt;/To body from Earth_rates'</span></td></tr>
 <tr name="209" id="209">
-<td>209</td><td>  <a id="209c3" class="tk">tmp</a>[3] = 0.0;</td></tr>
+<td>209</td><td><span class="ct">   *  Saturate: '&lt;S1&gt;/Saturation2'</span></td></tr>
 <tr name="210" id="210">
-<td>210</td><td>  <a id="210c3" class="tk">tmp</a>[6] = -<a id="210c13" class="tk">sin</a>(<a id="210c17" class="tk">Controllers_U</a>.<a id="210c31" class="tk">IMU_Attitude</a>[1]);</td></tr>
+<td>210</td><td><span class="ct">   */</span></td></tr>
 <tr name="211" id="211">
-<td>211</td><td>  <a id="211c3" class="tk">tmp</a>[1] = 0.0;</td></tr>
-<tr name="212" id="212">
-<td>212</td><td>  <a id="212c3" class="tk">tmp</a>[4] = <a id="212c12" class="tk">Cphi</a>;</td></tr>
-<tr name="213" id="213">
-<td>213</td><td>  <a id="213c3" class="tk">tmp</a>[7] = <a id="213c12" class="tk">Sphi</a> * <a id="213c19" class="tk">Ctheta</a>;</td></tr>
-<tr name="214" id="214">
-<td>214</td><td>  <a id="214c3" class="tk">tmp</a>[2] = 0.0;</td></tr>
-<tr name="215" id="215">
-<td>215</td><td>  <a id="215c3" class="tk">tmp</a>[5] = -<a id="215c13" class="tk">Sphi</a>;</td></tr>
-<tr name="216" id="216">
-<td>216</td><td>  <a id="216c3" class="tk">tmp</a>[8] = <a id="216c12" class="tk">Cphi</a> * <a id="216c19" class="tk">Ctheta</a>;</td></tr>
-<tr name="217" id="217">
-<td>217</td><td></td></tr>
-<tr name="218" id="218">
-<td>218</td><td>  <span class="ct">/* SignalConversion: '&lt;S8&gt;/TmpSignal ConversionAt SFunction Inport2' incorporates:</span></td></tr>
-<tr name="219" id="219">
-<td>219</td><td><span class="ct">   *  Gain: '&lt;S4&gt;/Proportional Gain'</span></td></tr>
-<tr name="220" id="220">
-<td>220</td><td><span class="ct">   *  MATLAB Function: '&lt;S1&gt;/To body from Earth_rates'</span></td></tr>
-<tr name="221" id="221">
-<td>221</td><td><span class="ct">   *  Sum: '&lt;S1&gt;/Sum3'</span></td></tr>
-<tr name="222" id="222">
-<td>222</td><td><span class="ct">   *  Sum: '&lt;S2&gt;/Sum'</span></td></tr>
-<tr name="223" id="223">
-<td>223</td><td><span class="ct">   *  Sum: '&lt;S3&gt;/Sum'</span></td></tr>
-<tr name="224" id="224">
-<td>224</td><td><span class="ct">   *  Sum: '&lt;S4&gt;/Sum'</span></td></tr>
-<tr name="225" id="225">
-<td>225</td><td><span class="ct">   */</span></td></tr>
-<tr name="226" id="226">
-<td>226</td><td>  <a id="226c3" class="tk">Ctheta</a> = <a id="226c12" class="tk">rtb_ProportionalGain</a> + <a id="226c35" class="tk">Controllers_B</a>.<a id="226c49" class="tk">FilterCoefficient</a>;</td></tr>
-<tr name="227" id="227">
-<td>227</td><td>  <a id="227c3" class="tk">Cphi</a> = <a id="227c10" class="tk">rtb_ProportionalGain_n</a> + <a id="227c35" class="tk">Controllers_B</a>.<a id="227c49" class="tk">FilterCoefficient_o</a>;</td></tr>
-<tr name="228" id="228">
-<td>228</td><td>  <a id="228c3" class="tk">Sphi</a> = (<a id="228c11" class="tk">Controllers_P</a>.<a id="228c25" class="tk">KYP</a> * <a id="228c31" class="tk">rtb_Sum4</a> + <a id="228c42" class="tk">Controllers_B</a>.<a id="228c56" class="tk">FilterCoefficient_m</a>) +</td></tr>
-<tr name="229" id="229">
-<td>229</td><td>    <a id="229c5" class="tk">Controllers_B</a>.<a id="229c19" class="tk">Yawrate</a>;</td></tr>
-<tr name="230" id="230">
-<td>230</td><td></td></tr>
-<tr name="231" id="231">
-<td>231</td><td>  <span class="ct">/* MATLAB Function: '&lt;S1&gt;/To body from Earth_rates' */</span></td></tr>
-<tr name="232" id="232">
-<td>232</td><td>  <span class="kw">for</span> (<a id="232c8" class="tk">i</a> = 0; <a id="232c15" class="tk">i</a> &lt; 3; <a id="232c22" class="tk">i</a>++) <span class="br">{</span></td></tr>
-<tr name="233" id="233">
-<td>233</td><td>    <a id="233c5" class="tk">rtb_Rates_B</a>[<a id="233c17" class="tk">i</a>] = <a id="233c22" class="tk">tmp</a>[<a id="233c26" class="tk">i</a> + 6] * <a id="233c35" class="tk">Sphi</a> + (<a id="233c43" class="tk">tmp</a>[<a id="233c47" class="tk">i</a> + 3] * <a id="233c56" class="tk">Cphi</a> + <a id="233c63" class="tk">tmp</a>[<a id="233c67" class="tk">i</a>] * <a id="233c72" class="tk">Ctheta</a>);</td></tr>
-<tr name="234" id="234">
-<td>234</td><td>  <span class="br">}</span></td></tr>
-<tr name="235" id="235">
-<td>235</td><td></td></tr>
-<tr name="236" id="236">
-<td>236</td><td>  <span class="ct">/* Sum: '&lt;S1&gt;/Sum4' incorporates:</span></td></tr>
-<tr name="237" id="237">
-<td>237</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/IMU_Rates'</span></td></tr>
-<tr name="238" id="238">
-<td>238</td><td><span class="ct">   */</span></td></tr>
-<tr name="239" id="239">
-<td>239</td><td>  <a id="239c3" class="tk">rtb_Sum4</a> = <a id="239c14" class="tk">rtb_Rates_B</a>[0] - <a id="239c31" class="tk">Controllers_U</a>.<a id="239c45" class="tk">IMU_Rates</a>[0];</td></tr>
-<tr name="240" id="240">
-<td>240</td><td></td></tr>
-<tr name="241" id="241">
-<td>241</td><td>  <span class="ct">/* Gain: '&lt;S6&gt;/Filter Coefficient' incorporates:</span></td></tr>
-<tr name="242" id="242">
-<td>242</td><td><span class="ct">   *  Gain: '&lt;S6&gt;/Derivative Gain'</span></td></tr>
-<tr name="243" id="243">
-<td>243</td><td><span class="ct">   *  Integrator: '&lt;S6&gt;/Filter'</span></td></tr>
-<tr name="244" id="244">
-<td>244</td><td><span class="ct">   *  Sum: '&lt;S6&gt;/SumD'</span></td></tr>
-=======
-<td>160</td><td>  <span class="ct">/* Sum: '&lt;S1&gt;/Sum2' incorporates:</span></td></tr>
-<tr name="161" id="161">
-<td>161</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/IMU_Attitude'</span></td></tr>
-<tr name="162" id="162">
-<td>162</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/Stick'</span></td></tr>
-<tr name="163" id="163">
-<td>163</td><td><span class="ct">   */</span></td></tr>
-<tr name="164" id="164">
-<td>164</td><td>  <a id="164c3" class="tk">rtb_Sum4</a> = <a id="164c14" class="tk">Controllers_U</a>.<a id="164c28" class="tk">Stick</a>[2] - <a id="164c39" class="tk">Controllers_U</a>.<a id="164c53" class="tk">IMU_Attitude</a>[2];</td></tr>
-<tr name="165" id="165">
-<td>165</td><td></td></tr>
-<tr name="166" id="166">
-<td>166</td><td>  <span class="ct">/* Gain: '&lt;S4&gt;/Filter Coefficient' incorporates:</span></td></tr>
-<tr name="167" id="167">
-<td>167</td><td><span class="ct">   *  Gain: '&lt;S4&gt;/Derivative Gain'</span></td></tr>
-<tr name="168" id="168">
-<td>168</td><td><span class="ct">   *  Integrator: '&lt;S4&gt;/Filter'</span></td></tr>
-<tr name="169" id="169">
-<td>169</td><td><span class="ct">   *  Sum: '&lt;S4&gt;/SumD'</span></td></tr>
-<tr name="170" id="170">
-<td>170</td><td><span class="ct">   */</span></td></tr>
-<tr name="171" id="171">
-<td>171</td><td>  <a id="171c3" class="tk">Controllers_B</a>.<a id="171c17" class="tk">FilterCoefficient_m</a> = (<a id="171c40" class="tk">Controllers_P</a>.<a id="171c54" class="tk">KYD</a> * <a id="171c60" class="tk">rtb_Sum4</a> -</td></tr>
-<tr name="172" id="172">
-<td>172</td><td>    <a id="172c5" class="tk">Controllers_X</a>.<a id="172c19" class="tk">Filter_CSTATE_i</a>) * <a id="172c38" class="tk">Controllers_P</a>.<a id="172c52" class="tk">N</a>;</td></tr>
-<tr name="173" id="173">
-<td>173</td><td></td></tr>
-<tr name="174" id="174">
-<td>174</td><td>  <span class="ct">/* MATLAB Function: '&lt;S1&gt;/To body from Earth_rates' incorporates:</span></td></tr>
-<tr name="175" id="175">
-<td>175</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/IMU_Attitude'</span></td></tr>
-<tr name="176" id="176">
-<td>176</td><td><span class="ct">   */</span></td></tr>
-<tr name="177" id="177">
-<td>177</td><td>  <span class="ct">/* MATLAB Function 'Attitude Controller/To body from Earth_rates': '&lt;S8&gt;:1' */</span></td></tr>
-<tr name="178" id="178">
-<td>178</td><td>  <span class="ct">/* '&lt;S8&gt;:1:3' */</span></td></tr>
-<tr name="179" id="179">
-<td>179</td><td>  <span class="ct">/* '&lt;S8&gt;:1:4' */</span></td></tr>
-<tr name="180" id="180">
-<td>180</td><td>  <span class="ct">/* '&lt;S8&gt;:1:6' */</span></td></tr>
-<tr name="181" id="181">
-<td>181</td><td>  <a id="181c3" class="tk">Sphi</a> = <a id="181c10" class="tk">sin</a>(<a id="181c14" class="tk">Controllers_U</a>.<a id="181c28" class="tk">IMU_Attitude</a>[0]);</td></tr>
-<tr name="182" id="182">
-<td>182</td><td></td></tr>
-<tr name="183" id="183">
-<td>183</td><td>  <span class="ct">/* '&lt;S8&gt;:1:7' */</span></td></tr>
-<tr name="184" id="184">
-<td>184</td><td>  <a id="184c3" class="tk">Cphi</a> = <a id="184c10" class="tk">cos</a>(<a id="184c14" class="tk">Controllers_U</a>.<a id="184c28" class="tk">IMU_Attitude</a>[0]);</td></tr>
-<tr name="185" id="185">
-<td>185</td><td></td></tr>
-<tr name="186" id="186">
-<td>186</td><td>  <span class="ct">/* '&lt;S8&gt;:1:8' */</span></td></tr>
-<tr name="187" id="187">
-<td>187</td><td>  <span class="ct">/* '&lt;S8&gt;:1:9' */</span></td></tr>
-<tr name="188" id="188">
-<td>188</td><td>  <a id="188c3" class="tk">Ctheta</a> = <a id="188c12" class="tk">cos</a>(<a id="188c16" class="tk">Controllers_U</a>.<a id="188c30" class="tk">IMU_Attitude</a>[1]);</td></tr>
-<tr name="189" id="189">
-<td>189</td><td></td></tr>
-<tr name="190" id="190">
-<td>190</td><td>  <span class="ct">/* '&lt;S8&gt;:1:11' */</span></td></tr>
-<tr name="191" id="191">
-<td>191</td><td>  <span class="ct">/* '&lt;S8&gt;:1:15' */</span></td></tr>
-<tr name="192" id="192">
-<td>192</td><td>  <a id="192c3" class="tk">tmp</a>[0] = 1.0;</td></tr>
-<tr name="193" id="193">
-<td>193</td><td>  <a id="193c3" class="tk">tmp</a>[3] = 0.0;</td></tr>
-<tr name="194" id="194">
-<td>194</td><td>  <a id="194c3" class="tk">tmp</a>[6] = -<a id="194c13" class="tk">sin</a>(<a id="194c17" class="tk">Controllers_U</a>.<a id="194c31" class="tk">IMU_Attitude</a>[1]);</td></tr>
-<tr name="195" id="195">
-<td>195</td><td>  <a id="195c3" class="tk">tmp</a>[1] = 0.0;</td></tr>
-<tr name="196" id="196">
-<td>196</td><td>  <a id="196c3" class="tk">tmp</a>[4] = <a id="196c12" class="tk">Cphi</a>;</td></tr>
-<tr name="197" id="197">
-<td>197</td><td>  <a id="197c3" class="tk">tmp</a>[7] = <a id="197c12" class="tk">Sphi</a> * <a id="197c19" class="tk">Ctheta</a>;</td></tr>
-<tr name="198" id="198">
-<td>198</td><td>  <a id="198c3" class="tk">tmp</a>[2] = 0.0;</td></tr>
-<tr name="199" id="199">
-<td>199</td><td>  <a id="199c3" class="tk">tmp</a>[5] = -<a id="199c13" class="tk">Sphi</a>;</td></tr>
-<tr name="200" id="200">
-<td>200</td><td>  <a id="200c3" class="tk">tmp</a>[8] = <a id="200c12" class="tk">Cphi</a> * <a id="200c19" class="tk">Ctheta</a>;</td></tr>
-<tr name="201" id="201">
-<td>201</td><td></td></tr>
-<tr name="202" id="202">
-<td>202</td><td>  <span class="ct">/* SignalConversion: '&lt;S8&gt;/TmpSignal ConversionAt SFunction Inport2' incorporates:</span></td></tr>
-<tr name="203" id="203">
-<td>203</td><td><span class="ct">   *  Gain: '&lt;S4&gt;/Proportional Gain'</span></td></tr>
-<tr name="204" id="204">
-<td>204</td><td><span class="ct">   *  MATLAB Function: '&lt;S1&gt;/To body from Earth_rates'</span></td></tr>
-<tr name="205" id="205">
-<td>205</td><td><span class="ct">   *  Sum: '&lt;S2&gt;/Sum'</span></td></tr>
-<tr name="206" id="206">
-<td>206</td><td><span class="ct">   *  Sum: '&lt;S3&gt;/Sum'</span></td></tr>
-<tr name="207" id="207">
-<td>207</td><td><span class="ct">   *  Sum: '&lt;S4&gt;/Sum'</span></td></tr>
-<tr name="208" id="208">
-<td>208</td><td><span class="ct">   */</span></td></tr>
-<tr name="209" id="209">
-<td>209</td><td>  <a id="209c3" class="tk">Ctheta</a> = <a id="209c12" class="tk">rtb_ProportionalGain</a> + <a id="209c35" class="tk">Controllers_B</a>.<a id="209c49" class="tk">FilterCoefficient</a>;</td></tr>
-<tr name="210" id="210">
-<td>210</td><td>  <a id="210c3" class="tk">Cphi</a> = <a id="210c10" class="tk">rtb_ProportionalGain_n</a> + <a id="210c35" class="tk">Controllers_B</a>.<a id="210c49" class="tk">FilterCoefficient_o</a>;</td></tr>
-<tr name="211" id="211">
-<td>211</td><td>  <a id="211c3" class="tk">Sphi</a> = <a id="211c10" class="tk">Controllers_P</a>.<a id="211c24" class="tk">KYP</a> * <a id="211c30" class="tk">rtb_Sum4</a> + <a id="211c41" class="tk">Controllers_B</a>.<a id="211c55" class="tk">FilterCoefficient_m</a>;</td></tr>
+<td>211</td><td>  <a id="211c3" class="tk">Sphi</a> = <a id="211c10" class="tk">Controllers_P</a>.<a id="211c24" class="tk">yawRateMax</a> * <a id="211c37" class="tk">Sphi</a> * <a id="211c44" class="tk">Controllers_P</a>.<a id="211c58" class="tk">KYP</a>;</td></tr>
 <tr name="212" id="212">
 <td>212</td><td></td></tr>
 <tr name="213" id="213">
@@ -646,7 +467,7 @@
 <tr name="228" id="228">
 <td>228</td><td>  <a id="228c3" class="tk">Controllers_B</a>.<a id="228c17" class="tk">FilterCoefficient_g</a> = (<a id="228c40" class="tk">Controllers_P</a>.<a id="228c54" class="tk">Kdp</a> * <a id="228c60" class="tk">rtb_Sum4</a> -</td></tr>
 <tr name="229" id="229">
-<td>229</td><td>    <a id="229c5" class="tk">Controllers_X</a>.<a id="229c19" class="tk">Filter_CSTATE_ib</a>) * <a id="229c39" class="tk">Controllers_P</a>.<a id="229c53" class="tk">N</a>;</td></tr>
+<td>229</td><td>    <a id="229c5" class="tk">Controllers_X</a>.<a id="229c19" class="tk">Filter_CSTATE_i</a>) * <a id="229c38" class="tk">Controllers_P</a>.<a id="229c52" class="tk">N</a>;</td></tr>
 <tr name="230" id="230">
 <td>230</td><td></td></tr>
 <tr name="231" id="231">
@@ -677,38 +498,12 @@
 <td>243</td><td></td></tr>
 <tr name="244" id="244">
 <td>244</td><td>  <span class="ct">/* Sum: '&lt;S1&gt;/Sum6' incorporates:</span></td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
 <tr name="245" id="245">
 <td>245</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/IMU_Rates'</span></td></tr>
 <tr name="246" id="246">
-<<<<<<< HEAD
-<td>246</td><td>  <a id="246c3" class="tk">Controllers_B</a>.<a id="246c17" class="tk">FilterCoefficient_g</a> = (<a id="246c40" class="tk">Controllers_P</a>.<a id="246c54" class="tk">Kdp</a> * <a id="246c60" class="tk">rtb_Sum4</a> -</td></tr>
-<tr name="247" id="247">
-<td>247</td><td>    <a id="247c5" class="tk">Controllers_X</a>.<a id="247c19" class="tk">Filter_CSTATE_ib</a>) * <a id="247c39" class="tk">Controllers_P</a>.<a id="247c53" class="tk">N</a>;</td></tr>
-<tr name="248" id="248">
-<td>248</td><td></td></tr>
-<tr name="249" id="249">
-<td>249</td><td>  <span class="ct">/* Sum: '&lt;S1&gt;/Sum5' incorporates:</span></td></tr>
-<tr name="250" id="250">
-<td>250</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/IMU_Rates'</span></td></tr>
-<tr name="251" id="251">
-<td>251</td><td><span class="ct">   */</span></td></tr>
-<tr name="252" id="252">
-<td>252</td><td>  <a id="252c3" class="tk">rtb_ProportionalGain</a> = <a id="252c26" class="tk">rtb_Rates_B</a>[1] - <a id="252c43" class="tk">Controllers_U</a>.<a id="252c57" class="tk">IMU_Rates</a>[1];</td></tr>
-<tr name="253" id="253">
-<td>253</td><td></td></tr>
-<tr name="254" id="254">
-<td>254</td><td>  <span class="ct">/* Gain: '&lt;S7&gt;/Filter Coefficient' incorporates:</span></td></tr>
-<tr name="255" id="255">
-<td>255</td><td><span class="ct">   *  Gain: '&lt;S7&gt;/Derivative Gain'</span></td></tr>
-<tr name="256" id="256">
-<td>256</td><td><span class="ct">   *  Integrator: '&lt;S7&gt;/Filter'</span></td></tr>
-<tr name="257" id="257">
-<td>257</td><td><span class="ct">   *  Sum: '&lt;S7&gt;/SumD'</span></td></tr>
-=======
 <td>246</td><td><span class="ct">   */</span></td></tr>
 <tr name="247" id="247">
-<td>247</td><td>  <a id="247c3" class="tk">rtb_ProportionalGain_n</a> = <a id="247c28" class="tk">rtb_Rates_B</a>[2] - <a id="247c45" class="tk">Controllers_U</a>.<a id="247c59" class="tk">IMU_Rates</a>[2];</td></tr>
+<td>247</td><td>  <a id="247c3" class="tk">Sphi</a> = <a id="247c10" class="tk">rtb_Rates_B</a>[2] - <a id="247c27" class="tk">Controllers_U</a>.<a id="247c41" class="tk">IMU_Rates</a>[2];</td></tr>
 <tr name="248" id="248">
 <td>248</td><td></td></tr>
 <tr name="249" id="249">
@@ -722,84 +517,16 @@
 <tr name="253" id="253">
 <td>253</td><td><span class="ct">   */</span></td></tr>
 <tr name="254" id="254">
-<td>254</td><td>  <a id="254c3" class="tk">Controllers_B</a>.<a id="254c17" class="tk">FilterCoefficient_d</a> = (<a id="254c40" class="tk">Controllers_P</a>.<a id="254c54" class="tk">Kdr</a> *</td></tr>
+<td>254</td><td>  <a id="254c3" class="tk">Controllers_B</a>.<a id="254c17" class="tk">FilterCoefficient_d</a> = (<a id="254c40" class="tk">Controllers_P</a>.<a id="254c54" class="tk">Kdr</a> * <a id="254c60" class="tk">Sphi</a> -</td></tr>
 <tr name="255" id="255">
-<td>255</td><td>    <a id="255c5" class="tk">rtb_ProportionalGain_n</a> - <a id="255c30" class="tk">Controllers_X</a>.<a id="255c44" class="tk">Filter_CSTATE_l</a>) * <a id="255c63" class="tk">Controllers_P</a>.<a id="255c77" class="tk">N</a>;</td></tr>
+<td>255</td><td>    <a id="255c5" class="tk">Controllers_X</a>.<a id="255c19" class="tk">Filter_CSTATE_l</a>) * <a id="255c38" class="tk">Controllers_P</a>.<a id="255c52" class="tk">N</a>;</td></tr>
 <tr name="256" id="256">
 <td>256</td><td></td></tr>
 <tr name="257" id="257">
 <td>257</td><td>  <span class="ct">/* Outport: '&lt;Root&gt;/Moments' incorporates:</span></td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
 <tr name="258" id="258">
 <td>258</td><td><span class="ct">   *  Gain: '&lt;S5&gt;/Proportional Gain'</span></td></tr>
 <tr name="259" id="259">
-<<<<<<< HEAD
-<td>259</td><td>  <a id="259c3" class="tk">Controllers_B</a>.<a id="259c17" class="tk">FilterCoefficient_oj</a> = (<a id="259c41" class="tk">Controllers_P</a>.<a id="259c55" class="tk">Kdq</a> * <a id="259c61" class="tk">rtb_ProportionalGain</a></td></tr>
-<tr name="260" id="260">
-<td>260</td><td>    - <a id="260c7" class="tk">Controllers_X</a>.<a id="260c21" class="tk">Filter_CSTATE_d</a>) * <a id="260c40" class="tk">Controllers_P</a>.<a id="260c54" class="tk">N</a>;</td></tr>
-<tr name="261" id="261">
-<td>261</td><td></td></tr>
-<tr name="262" id="262">
-<td>262</td><td>  <span class="ct">/* Sum: '&lt;S1&gt;/Sum6' incorporates:</span></td></tr>
-<tr name="263" id="263">
-<td>263</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/IMU_Rates'</span></td></tr>
-<tr name="264" id="264">
-<td>264</td><td><span class="ct">   */</span></td></tr>
-<tr name="265" id="265">
-<td>265</td><td>  <a id="265c3" class="tk">rtb_ProportionalGain_n</a> = <a id="265c28" class="tk">rtb_Rates_B</a>[2] - <a id="265c45" class="tk">Controllers_U</a>.<a id="265c59" class="tk">IMU_Rates</a>[2];</td></tr>
-<tr name="266" id="266">
-<td>266</td><td></td></tr>
-<tr name="267" id="267">
-<td>267</td><td>  <span class="ct">/* Gain: '&lt;S5&gt;/Filter Coefficient' incorporates:</span></td></tr>
-<tr name="268" id="268">
-<td>268</td><td><span class="ct">   *  Gain: '&lt;S5&gt;/Derivative Gain'</span></td></tr>
-<tr name="269" id="269">
-<td>269</td><td><span class="ct">   *  Integrator: '&lt;S5&gt;/Filter'</span></td></tr>
-<tr name="270" id="270">
-<td>270</td><td><span class="ct">   *  Sum: '&lt;S5&gt;/SumD'</span></td></tr>
-<tr name="271" id="271">
-<td>271</td><td><span class="ct">   */</span></td></tr>
-<tr name="272" id="272">
-<td>272</td><td>  <a id="272c3" class="tk">Controllers_B</a>.<a id="272c17" class="tk">FilterCoefficient_d</a> = (<a id="272c40" class="tk">Controllers_P</a>.<a id="272c54" class="tk">Kdr</a> *</td></tr>
-<tr name="273" id="273">
-<td>273</td><td>    <a id="273c5" class="tk">rtb_ProportionalGain_n</a> - <a id="273c30" class="tk">Controllers_X</a>.<a id="273c44" class="tk">Filter_CSTATE_l</a>) * <a id="273c63" class="tk">Controllers_P</a>.<a id="273c77" class="tk">N</a>;</td></tr>
-<tr name="274" id="274">
-<td>274</td><td></td></tr>
-<tr name="275" id="275">
-<td>275</td><td>  <span class="ct">/* Outport: '&lt;Root&gt;/Moments' incorporates:</span></td></tr>
-<tr name="276" id="276">
-<td>276</td><td><span class="ct">   *  Gain: '&lt;S5&gt;/Proportional Gain'</span></td></tr>
-<tr name="277" id="277">
-<td>277</td><td><span class="ct">   *  Gain: '&lt;S6&gt;/Proportional Gain'</span></td></tr>
-<tr name="278" id="278">
-<td>278</td><td><span class="ct">   *  Gain: '&lt;S7&gt;/Proportional Gain'</span></td></tr>
-<tr name="279" id="279">
-<td>279</td><td><span class="ct">   *  Integrator: '&lt;S5&gt;/Integrator'</span></td></tr>
-<tr name="280" id="280">
-<td>280</td><td><span class="ct">   *  Integrator: '&lt;S6&gt;/Integrator'</span></td></tr>
-<tr name="281" id="281">
-<td>281</td><td><span class="ct">   *  Integrator: '&lt;S7&gt;/Integrator'</span></td></tr>
-<tr name="282" id="282">
-<td>282</td><td><span class="ct">   *  Sum: '&lt;S5&gt;/Sum'</span></td></tr>
-<tr name="283" id="283">
-<td>283</td><td><span class="ct">   *  Sum: '&lt;S6&gt;/Sum'</span></td></tr>
-<tr name="284" id="284">
-<td>284</td><td><span class="ct">   *  Sum: '&lt;S7&gt;/Sum'</span></td></tr>
-<tr name="285" id="285">
-<td>285</td><td><span class="ct">   */</span></td></tr>
-<tr name="286" id="286">
-<td>286</td><td>  <a id="286c3" class="tk">Controllers_Y</a>.<a id="286c17" class="tk">Moments</a>[0] = (<a id="286c31" class="tk">Controllers_P</a>.<a id="286c45" class="tk">Kpp</a> * <a id="286c51" class="tk">rtb_Sum4</a> +</td></tr>
-<tr name="287" id="287">
-<td>287</td><td>    <a id="287c5" class="tk">Controllers_X</a>.<a id="287c19" class="tk">Integrator_CSTATE_b</a>) + <a id="287c42" class="tk">Controllers_B</a>.<a id="287c56" class="tk">FilterCoefficient_g</a>;</td></tr>
-<tr name="288" id="288">
-<td>288</td><td>  <a id="288c3" class="tk">Controllers_Y</a>.<a id="288c17" class="tk">Moments</a>[1] = (<a id="288c31" class="tk">Controllers_P</a>.<a id="288c45" class="tk">Kpq</a> * <a id="288c51" class="tk">rtb_ProportionalGain</a> +</td></tr>
-<tr name="289" id="289">
-<td>289</td><td>    <a id="289c5" class="tk">Controllers_X</a>.<a id="289c19" class="tk">Integrator_CSTATE_b3</a>) + <a id="289c43" class="tk">Controllers_B</a>.<a id="289c57" class="tk">FilterCoefficient_oj</a>;</td></tr>
-<tr name="290" id="290">
-<td>290</td><td>  <a id="290c3" class="tk">Controllers_Y</a>.<a id="290c17" class="tk">Moments</a>[2] = (<a id="290c31" class="tk">Controllers_P</a>.<a id="290c45" class="tk">Kpr</a> * <a id="290c51" class="tk">rtb_ProportionalGain_n</a> +</td></tr>
-<tr name="291" id="291">
-<td>291</td><td>    <a id="291c5" class="tk">Controllers_X</a>.<a id="291c19" class="tk">Integrator_CSTATE_a</a>) + <a id="291c42" class="tk">Controllers_B</a>.<a id="291c56" class="tk">FilterCoefficient_d</a>;</td></tr>
-=======
 <td>259</td><td><span class="ct">   *  Gain: '&lt;S6&gt;/Proportional Gain'</span></td></tr>
 <tr name="260" id="260">
 <td>260</td><td><span class="ct">   *  Gain: '&lt;S7&gt;/Proportional Gain'</span></td></tr>
@@ -826,7 +553,7 @@
 <tr name="271" id="271">
 <td>271</td><td>    <a id="271c5" class="tk">Controllers_X</a>.<a id="271c19" class="tk">Integrator_CSTATE_b</a>) + <a id="271c42" class="tk">Controllers_B</a>.<a id="271c56" class="tk">FilterCoefficient_oj</a>;</td></tr>
 <tr name="272" id="272">
-<td>272</td><td>  <a id="272c3" class="tk">Controllers_Y</a>.<a id="272c17" class="tk">Moments</a>[2] = (<a id="272c31" class="tk">Controllers_P</a>.<a id="272c45" class="tk">Kpr</a> * <a id="272c51" class="tk">rtb_ProportionalGain_n</a> +</td></tr>
+<td>272</td><td>  <a id="272c3" class="tk">Controllers_Y</a>.<a id="272c17" class="tk">Moments</a>[2] = (<a id="272c31" class="tk">Controllers_P</a>.<a id="272c45" class="tk">Kpr</a> * <a id="272c51" class="tk">Sphi</a> +</td></tr>
 <tr name="273" id="273">
 <td>273</td><td>    <a id="273c5" class="tk">Controllers_X</a>.<a id="273c19" class="tk">Integrator_CSTATE_a</a>) + <a id="273c42" class="tk">Controllers_B</a>.<a id="273c56" class="tk">FilterCoefficient_d</a>;</td></tr>
 <tr name="274" id="274">
@@ -846,7 +573,7 @@
 <tr name="281" id="281">
 <td>281</td><td>  <span class="ct">/* Gain: '&lt;S7&gt;/Integral Gain' */</span></td></tr>
 <tr name="282" id="282">
-<td>282</td><td>  <a id="282c3" class="tk">Controllers_B</a>.<a id="282c17" class="tk">IntegralGain_h</a> = <a id="282c34" class="tk">Controllers_P</a>.<a id="282c48" class="tk">Kir</a> * <a id="282c54" class="tk">rtb_ProportionalGain_n</a>;</td></tr>
+<td>282</td><td>  <a id="282c3" class="tk">Controllers_B</a>.<a id="282c17" class="tk">IntegralGain_h</a> = <a id="282c34" class="tk">Controllers_P</a>.<a id="282c48" class="tk">Kir</a> * <a id="282c54" class="tk">Sphi</a>;</td></tr>
 <tr name="283" id="283">
 <td>283</td><td>  <span class="kw">if</span> (<a id="283c7" class="tk">rtmIsMajorTimeStep</a>((&amp;<a id="283c28" class="tk">Controllers_M</a>))) <span class="br">{</span></td></tr>
 <tr name="284" id="284">
@@ -865,57 +592,9 @@
 <td>290</td><td><span class="ct">     * overflow during the application lifespan selected.</span></td></tr>
 <tr name="291" id="291">
 <td>291</td><td><span class="ct">     * Timer of this task consists of two 32 bit unsigned integers.</span></td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
 <tr name="292" id="292">
 <td>292</td><td><span class="ct">     * The two integers represent the low bits Timing.clockTick0 and the high bits</span></td></tr>
 <tr name="293" id="293">
-<<<<<<< HEAD
-<td>293</td><td>  <span class="ct">/* Gain: '&lt;S5&gt;/Integral Gain' */</span></td></tr>
-<tr name="294" id="294">
-<td>294</td><td>  <a id="294c3" class="tk">Controllers_B</a>.<a id="294c17" class="tk">IntegralGain</a> = <a id="294c32" class="tk">Controllers_P</a>.<a id="294c46" class="tk">Kir</a> * <a id="294c52" class="tk">rtb_ProportionalGain_n</a>;</td></tr>
-<tr name="295" id="295">
-<td>295</td><td></td></tr>
-<tr name="296" id="296">
-<td>296</td><td>  <span class="ct">/* Gain: '&lt;S6&gt;/Integral Gain' */</span></td></tr>
-<tr name="297" id="297">
-<td>297</td><td>  <a id="297c3" class="tk">Controllers_B</a>.<a id="297c17" class="tk">IntegralGain_e</a> = <a id="297c34" class="tk">Controllers_P</a>.<a id="297c48" class="tk">Kip</a> * <a id="297c54" class="tk">rtb_Sum4</a>;</td></tr>
-<tr name="298" id="298">
-<td>298</td><td></td></tr>
-<tr name="299" id="299">
-<td>299</td><td>  <span class="ct">/* Gain: '&lt;S7&gt;/Integral Gain' */</span></td></tr>
-<tr name="300" id="300">
-<td>300</td><td>  <a id="300c3" class="tk">Controllers_B</a>.<a id="300c17" class="tk">IntegralGain_a</a> = <a id="300c34" class="tk">Controllers_P</a>.<a id="300c48" class="tk">Kiq</a> * <a id="300c54" class="tk">rtb_ProportionalGain</a>;</td></tr>
-<tr name="301" id="301">
-<td>301</td><td>  <span class="kw">if</span> (<a id="301c7" class="tk">rtmIsMajorTimeStep</a>((&amp;<a id="301c28" class="tk">Controllers_M</a>))) <span class="br">{</span></td></tr>
-<tr name="302" id="302">
-<td>302</td><td>    <a id="302c5" class="tk">rt_ertODEUpdateContinuousStates</a>(&amp;(&amp;<a id="302c40" class="tk">Controllers_M</a>)-&gt;<a id="302c56" class="tk">solverInfo</a>);</td></tr>
-<tr name="303" id="303">
-<td>303</td><td></td></tr>
-<tr name="304" id="304">
-<td>304</td><td>    <span class="ct">/* Update absolute time for base rate */</span></td></tr>
-<tr name="305" id="305">
-<td>305</td><td>    <span class="ct">/* The "clockTick0" counts the number of times the code of this task has</span></td></tr>
-<tr name="306" id="306">
-<td>306</td><td><span class="ct">     * been executed. The absolute time is the multiplication of "clockTick0"</span></td></tr>
-<tr name="307" id="307">
-<td>307</td><td><span class="ct">     * and "Timing.stepSize0". Size of "clockTick0" ensures timer will not</span></td></tr>
-<tr name="308" id="308">
-<td>308</td><td><span class="ct">     * overflow during the application lifespan selected.</span></td></tr>
-<tr name="309" id="309">
-<td>309</td><td><span class="ct">     * Timer of this task consists of two 32 bit unsigned integers.</span></td></tr>
-<tr name="310" id="310">
-<td>310</td><td><span class="ct">     * The two integers represent the low bits Timing.clockTick0 and the high bits</span></td></tr>
-<tr name="311" id="311">
-<td>311</td><td><span class="ct">     * Timing.clockTickH0. When the low bit overflows to 0, the high bits increment.</span></td></tr>
-<tr name="312" id="312">
-<td>312</td><td><span class="ct">     */</span></td></tr>
-<tr name="313" id="313">
-<td>313</td><td>    <span class="kw">if</span> (!(++(&amp;<a id="313c15" class="tk">Controllers_M</a>)-&gt;<a id="313c31" class="tk">Timing</a>.<a id="313c38" class="tk">clockTick0</a>)) <span class="br">{</span></td></tr>
-<tr name="314" id="314">
-<td>314</td><td>      ++(&amp;<a id="314c11" class="tk">Controllers_M</a>)-&gt;<a id="314c27" class="tk">Timing</a>.<a id="314c34" class="tk">clockTickH0</a>;</td></tr>
-<tr name="315" id="315">
-<td>315</td><td>    <span class="br">}</span></td></tr>
-=======
 <td>293</td><td><span class="ct">     * Timing.clockTickH0. When the low bit overflows to 0, the high bits increment.</span></td></tr>
 <tr name="294" id="294">
 <td>294</td><td><span class="ct">     */</span></td></tr>
@@ -961,27 +640,9 @@
 <td>314</td><td>        (&amp;<a id="314c11" class="tk">Controllers_M</a>)-&gt;<a id="314c27" class="tk">Timing</a>.<a id="314c34" class="tk">clockTickH1</a>++;</td></tr>
 <tr name="315" id="315">
 <td>315</td><td>      <span class="br">}</span></td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
 <tr name="316" id="316">
 <td>316</td><td>    <span class="br">}</span></td></tr>
 <tr name="317" id="317">
-<<<<<<< HEAD
-<td>317</td><td>    (&amp;<a id="317c7" class="tk">Controllers_M</a>)-&gt;<a id="317c23" class="tk">Timing</a>.<a id="317c30" class="tk">t</a>[0] = <a id="317c37" class="tk">rtsiGetSolverStopTime</a>(&amp;(&amp;<a id="317c62" class="tk">Controllers_M</a>)</td></tr>
-<tr name="318" id="318">
-<td>318</td><td>      -&gt;<a id="318c9" class="tk">solverInfo</a>);</td></tr>
-<tr name="319" id="319">
-<td>319</td><td></td></tr>
-<tr name="320" id="320">
-<td>320</td><td>    <span class="br">{</span></td></tr>
-<tr name="321" id="321">
-<td>321</td><td>      <span class="ct">/* Update absolute timer for sample time: [0.01s, 0.0s] */</span></td></tr>
-<tr name="322" id="322">
-<td>322</td><td>      <span class="ct">/* The "clockTick1" counts the number of times the code of this task has</span></td></tr>
-<tr name="323" id="323">
-<td>323</td><td><span class="ct">       * been executed. The resolution of this integer timer is 0.01, which is the step size</span></td></tr>
-<tr name="324" id="324">
-<td>324</td><td><span class="ct">       * of the task. Size of "clockTick1" ensures timer will not overflow during the</span></td></tr>
-=======
 <td>317</td><td>  <span class="br">}</span>                                    <span class="ct">/* end MajorTimeStep */</span></td></tr>
 <tr name="318" id="318">
 <td>318</td><td><span class="br">}</span></td></tr>
@@ -997,1037 +658,478 @@
 <td>323</td><td>  <a id="323c3" class="tk">XDot_Controllers_T</a> *<a id="323c23" class="tk">_rtXdot</a>;</td></tr>
 <tr name="324" id="324">
 <td>324</td><td>  <a id="324c3" class="tk">_rtXdot</a> = ((<a id="324c15" class="tk">XDot_Controllers_T</a> *) (&amp;<a id="324c39" class="tk">Controllers_M</a>)-&gt;<a id="324c55" class="tk">ModelData</a>.<a id="324c65" class="tk">derivs</a>);</td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
 <tr name="325" id="325">
-<td>325</td><td><span class="ct">       * application lifespan selected.</span></td></tr>
+<td>325</td><td></td></tr>
 <tr name="326" id="326">
-<<<<<<< HEAD
-<td>326</td><td><span class="ct">       * Timer of this task consists of two 32 bit unsigned integers.</span></td></tr>
-<tr name="327" id="327">
-<td>327</td><td><span class="ct">       * The two integers represent the low bits Timing.clockTick1 and the high bits</span></td></tr>
-=======
-<td>326</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S3&gt;/Filter' */</span></td></tr>
+<td>326</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S4&gt;/Filter' */</span></td></tr>
 <tr name="327" id="327">
 <td>327</td><td>  <a id="327c3" class="tk">_rtXdot</a>-&gt;<a id="327c12" class="tk">Filter_CSTATE</a> = <a id="327c28" class="tk">Controllers_B</a>.<a id="327c42" class="tk">FilterCoefficient</a>;</td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
 <tr name="328" id="328">
-<td>328</td><td><span class="ct">       * Timing.clockTickH1. When the low bit overflows to 0, the high bits increment.</span></td></tr>
+<td>328</td><td></td></tr>
 <tr name="329" id="329">
-<<<<<<< HEAD
-<td>329</td><td><span class="ct">       */</span></td></tr>
-<tr name="330" id="330">
-<td>330</td><td>      (&amp;<a id="330c9" class="tk">Controllers_M</a>)-&gt;<a id="330c25" class="tk">Timing</a>.<a id="330c32" class="tk">clockTick1</a>++;</td></tr>
-=======
-<td>329</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S2&gt;/Filter' */</span></td></tr>
+<td>329</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S3&gt;/Filter' */</span></td></tr>
 <tr name="330" id="330">
 <td>330</td><td>  <a id="330c3" class="tk">_rtXdot</a>-&gt;<a id="330c12" class="tk">Filter_CSTATE_m</a> = <a id="330c30" class="tk">Controllers_B</a>.<a id="330c44" class="tk">FilterCoefficient_o</a>;</td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
 <tr name="331" id="331">
-<td>331</td><td>      <span class="kw">if</span> (!(&amp;<a id="331c14" class="tk">Controllers_M</a>)-&gt;<a id="331c30" class="tk">Timing</a>.<a id="331c37" class="tk">clockTick1</a>) <span class="br">{</span></td></tr>
+<td>331</td><td></td></tr>
 <tr name="332" id="332">
-<<<<<<< HEAD
-<td>332</td><td>        (&amp;<a id="332c11" class="tk">Controllers_M</a>)-&gt;<a id="332c27" class="tk">Timing</a>.<a id="332c34" class="tk">clockTickH1</a>++;</td></tr>
+<td>332</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S5&gt;/Integrator' */</span></td></tr>
 <tr name="333" id="333">
-<td>333</td><td>      <span class="br">}</span></td></tr>
-=======
-<td>332</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S4&gt;/Filter' */</span></td></tr>
-<tr name="333" id="333">
-<td>333</td><td>  <a id="333c3" class="tk">_rtXdot</a>-&gt;<a id="333c12" class="tk">Filter_CSTATE_i</a> = <a id="333c30" class="tk">Controllers_B</a>.<a id="333c44" class="tk">FilterCoefficient_m</a>;</td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
+<td>333</td><td>  <a id="333c3" class="tk">_rtXdot</a>-&gt;<a id="333c12" class="tk">Integrator_CSTATE</a> = <a id="333c32" class="tk">Controllers_B</a>.<a id="333c46" class="tk">IntegralGain</a>;</td></tr>
 <tr name="334" id="334">
-<td>334</td><td>    <span class="br">}</span></td></tr>
+<td>334</td><td></td></tr>
 <tr name="335" id="335">
-<<<<<<< HEAD
-<td>335</td><td>  <span class="br">}</span>                                    <span class="ct">/* end MajorTimeStep */</span></td></tr>
+<td>335</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S5&gt;/Filter' */</span></td></tr>
 <tr name="336" id="336">
-<td>336</td><td><span class="br">}</span></td></tr>
+<td>336</td><td>  <a id="336c3" class="tk">_rtXdot</a>-&gt;<a id="336c12" class="tk">Filter_CSTATE_i</a> = <a id="336c30" class="tk">Controllers_B</a>.<a id="336c44" class="tk">FilterCoefficient_g</a>;</td></tr>
 <tr name="337" id="337">
 <td>337</td><td></td></tr>
 <tr name="338" id="338">
-<td>338</td><td><span class="ct">/* Derivatives for root system: '&lt;Root&gt;' */</span></td></tr>
+<td>338</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S6&gt;/Integrator' */</span></td></tr>
 <tr name="339" id="339">
-<td>339</td><td><span class="kw">void</span> <a id="339c6" class="tk">ControllersModelClass</a>::<a id="339c29" class="tk">Controllers_derivatives</a>()</td></tr>
-<tr name="340" id="340">
-<td>340</td><td><span class="br">{</span></td></tr>
-<tr name="341" id="341">
-<td>341</td><td>  <a id="341c3" class="tk">XDot_Controllers_T</a> *<a id="341c23" class="tk">_rtXdot</a>;</td></tr>
-<tr name="342" id="342">
-<td>342</td><td>  <a id="342c3" class="tk">_rtXdot</a> = ((<a id="342c15" class="tk">XDot_Controllers_T</a> *) (&amp;<a id="342c39" class="tk">Controllers_M</a>)-&gt;<a id="342c55" class="tk">ModelData</a>.<a id="342c65" class="tk">derivs</a>);</td></tr>
-<tr name="343" id="343">
-<td>343</td><td></td></tr>
-<tr name="344" id="344">
-<td>344</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S3&gt;/Filter' */</span></td></tr>
-<tr name="345" id="345">
-<td>345</td><td>  <a id="345c3" class="tk">_rtXdot</a>-&gt;<a id="345c12" class="tk">Filter_CSTATE</a> = <a id="345c28" class="tk">Controllers_B</a>.<a id="345c42" class="tk">FilterCoefficient</a>;</td></tr>
-<tr name="346" id="346">
-<td>346</td><td></td></tr>
-<tr name="347" id="347">
-<td>347</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S2&gt;/Filter' */</span></td></tr>
-<tr name="348" id="348">
-<td>348</td><td>  <a id="348c3" class="tk">_rtXdot</a>-&gt;<a id="348c12" class="tk">Filter_CSTATE_m</a> = <a id="348c30" class="tk">Controllers_B</a>.<a id="348c44" class="tk">FilterCoefficient_o</a>;</td></tr>
-<tr name="349" id="349">
-<td>349</td><td></td></tr>
-<tr name="350" id="350">
-<td>350</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S1&gt;/Integrator' */</span></td></tr>
-<tr name="351" id="351">
-<td>351</td><td>  <a id="351c3" class="tk">_rtXdot</a>-&gt;<a id="351c12" class="tk">Integrator_CSTATE</a> = <a id="351c32" class="tk">Controllers_B</a>.<a id="351c46" class="tk">Yawrate</a>;</td></tr>
-<tr name="352" id="352">
-<td>352</td><td></td></tr>
-<tr name="353" id="353">
-<td>353</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S4&gt;/Filter' */</span></td></tr>
-<tr name="354" id="354">
-<td>354</td><td>  <a id="354c3" class="tk">_rtXdot</a>-&gt;<a id="354c12" class="tk">Filter_CSTATE_i</a> = <a id="354c30" class="tk">Controllers_B</a>.<a id="354c44" class="tk">FilterCoefficient_m</a>;</td></tr>
-<tr name="355" id="355">
-<td>355</td><td></td></tr>
-<tr name="356" id="356">
-<td>356</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S6&gt;/Integrator' */</span></td></tr>
-<tr name="357" id="357">
-<td>357</td><td>  <a id="357c3" class="tk">_rtXdot</a>-&gt;<a id="357c12" class="tk">Integrator_CSTATE_b</a> = <a id="357c34" class="tk">Controllers_B</a>.<a id="357c48" class="tk">IntegralGain_e</a>;</td></tr>
-<tr name="358" id="358">
-<td>358</td><td></td></tr>
-<tr name="359" id="359">
-<td>359</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S6&gt;/Filter' */</span></td></tr>
-<tr name="360" id="360">
-<td>360</td><td>  <a id="360c3" class="tk">_rtXdot</a>-&gt;<a id="360c12" class="tk">Filter_CSTATE_ib</a> = <a id="360c31" class="tk">Controllers_B</a>.<a id="360c45" class="tk">FilterCoefficient_g</a>;</td></tr>
-<tr name="361" id="361">
-<td>361</td><td></td></tr>
-<tr name="362" id="362">
-<td>362</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S7&gt;/Integrator' */</span></td></tr>
-<tr name="363" id="363">
-<td>363</td><td>  <a id="363c3" class="tk">_rtXdot</a>-&gt;<a id="363c12" class="tk">Integrator_CSTATE_b3</a> = <a id="363c35" class="tk">Controllers_B</a>.<a id="363c49" class="tk">IntegralGain_a</a>;</td></tr>
-<tr name="364" id="364">
-<td>364</td><td></td></tr>
-<tr name="365" id="365">
-<td>365</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S7&gt;/Filter' */</span></td></tr>
-<tr name="366" id="366">
-<td>366</td><td>  <a id="366c3" class="tk">_rtXdot</a>-&gt;<a id="366c12" class="tk">Filter_CSTATE_d</a> = <a id="366c30" class="tk">Controllers_B</a>.<a id="366c44" class="tk">FilterCoefficient_oj</a>;</td></tr>
-<tr name="367" id="367">
-<td>367</td><td></td></tr>
-<tr name="368" id="368">
-<td>368</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S5&gt;/Integrator' */</span></td></tr>
-<tr name="369" id="369">
-<td>369</td><td>  <a id="369c3" class="tk">_rtXdot</a>-&gt;<a id="369c12" class="tk">Integrator_CSTATE_a</a> = <a id="369c34" class="tk">Controllers_B</a>.<a id="369c48" class="tk">IntegralGain</a>;</td></tr>
-<tr name="370" id="370">
-<td>370</td><td></td></tr>
-<tr name="371" id="371">
-<td>371</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S5&gt;/Filter' */</span></td></tr>
-<tr name="372" id="372">
-<td>372</td><td>  <a id="372c3" class="tk">_rtXdot</a>-&gt;<a id="372c12" class="tk">Filter_CSTATE_l</a> = <a id="372c30" class="tk">Controllers_B</a>.<a id="372c44" class="tk">FilterCoefficient_d</a>;</td></tr>
-<tr name="373" id="373">
-<td>373</td><td><span class="br">}</span></td></tr>
-<tr name="374" id="374">
-<td>374</td><td></td></tr>
-<tr name="375" id="375">
-<td>375</td><td><span class="ct">/* Model initialize function */</span></td></tr>
-<tr name="376" id="376">
-<td>376</td><td><span class="kw">void</span> <a id="376c6" class="tk">ControllersModelClass</a>::<a id="376c29" class="tk">initialize</a>()</td></tr>
-<tr name="377" id="377">
-<td>377</td><td><span class="br">{</span></td></tr>
-<tr name="378" id="378">
-<td>378</td><td>  <span class="ct">/* Registration code */</span></td></tr>
-<tr name="379" id="379">
-<td>379</td><td></td></tr>
-=======
-<td>335</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S5&gt;/Integrator' */</span></td></tr>
-<tr name="336" id="336">
-<td>336</td><td>  <a id="336c3" class="tk">_rtXdot</a>-&gt;<a id="336c12" class="tk">Integrator_CSTATE</a> = <a id="336c32" class="tk">Controllers_B</a>.<a id="336c46" class="tk">IntegralGain</a>;</td></tr>
-<tr name="337" id="337">
-<td>337</td><td></td></tr>
-<tr name="338" id="338">
-<td>338</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S5&gt;/Filter' */</span></td></tr>
-<tr name="339" id="339">
-<td>339</td><td>  <a id="339c3" class="tk">_rtXdot</a>-&gt;<a id="339c12" class="tk">Filter_CSTATE_ib</a> = <a id="339c31" class="tk">Controllers_B</a>.<a id="339c45" class="tk">FilterCoefficient_g</a>;</td></tr>
+<td>339</td><td>  <a id="339c3" class="tk">_rtXdot</a>-&gt;<a id="339c12" class="tk">Integrator_CSTATE_b</a> = <a id="339c34" class="tk">Controllers_B</a>.<a id="339c48" class="tk">IntegralGain_a</a>;</td></tr>
 <tr name="340" id="340">
 <td>340</td><td></td></tr>
 <tr name="341" id="341">
-<td>341</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S6&gt;/Integrator' */</span></td></tr>
+<td>341</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S6&gt;/Filter' */</span></td></tr>
 <tr name="342" id="342">
-<td>342</td><td>  <a id="342c3" class="tk">_rtXdot</a>-&gt;<a id="342c12" class="tk">Integrator_CSTATE_b</a> = <a id="342c34" class="tk">Controllers_B</a>.<a id="342c48" class="tk">IntegralGain_a</a>;</td></tr>
+<td>342</td><td>  <a id="342c3" class="tk">_rtXdot</a>-&gt;<a id="342c12" class="tk">Filter_CSTATE_d</a> = <a id="342c30" class="tk">Controllers_B</a>.<a id="342c44" class="tk">FilterCoefficient_oj</a>;</td></tr>
 <tr name="343" id="343">
 <td>343</td><td></td></tr>
 <tr name="344" id="344">
-<td>344</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S6&gt;/Filter' */</span></td></tr>
+<td>344</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S7&gt;/Integrator' */</span></td></tr>
 <tr name="345" id="345">
-<td>345</td><td>  <a id="345c3" class="tk">_rtXdot</a>-&gt;<a id="345c12" class="tk">Filter_CSTATE_d</a> = <a id="345c30" class="tk">Controllers_B</a>.<a id="345c44" class="tk">FilterCoefficient_oj</a>;</td></tr>
+<td>345</td><td>  <a id="345c3" class="tk">_rtXdot</a>-&gt;<a id="345c12" class="tk">Integrator_CSTATE_a</a> = <a id="345c34" class="tk">Controllers_B</a>.<a id="345c48" class="tk">IntegralGain_h</a>;</td></tr>
 <tr name="346" id="346">
 <td>346</td><td></td></tr>
 <tr name="347" id="347">
-<td>347</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S7&gt;/Integrator' */</span></td></tr>
+<td>347</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S7&gt;/Filter' */</span></td></tr>
 <tr name="348" id="348">
-<td>348</td><td>  <a id="348c3" class="tk">_rtXdot</a>-&gt;<a id="348c12" class="tk">Integrator_CSTATE_a</a> = <a id="348c34" class="tk">Controllers_B</a>.<a id="348c48" class="tk">IntegralGain_h</a>;</td></tr>
+<td>348</td><td>  <a id="348c3" class="tk">_rtXdot</a>-&gt;<a id="348c12" class="tk">Filter_CSTATE_l</a> = <a id="348c30" class="tk">Controllers_B</a>.<a id="348c44" class="tk">FilterCoefficient_d</a>;</td></tr>
 <tr name="349" id="349">
-<td>349</td><td></td></tr>
+<td>349</td><td><span class="br">}</span></td></tr>
 <tr name="350" id="350">
-<td>350</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S7&gt;/Filter' */</span></td></tr>
+<td>350</td><td></td></tr>
 <tr name="351" id="351">
-<td>351</td><td>  <a id="351c3" class="tk">_rtXdot</a>-&gt;<a id="351c12" class="tk">Filter_CSTATE_l</a> = <a id="351c30" class="tk">Controllers_B</a>.<a id="351c44" class="tk">FilterCoefficient_d</a>;</td></tr>
+<td>351</td><td><span class="ct">/* Model initialize function */</span></td></tr>
 <tr name="352" id="352">
-<td>352</td><td><span class="br">}</span></td></tr>
+<td>352</td><td><span class="kw">void</span> <a id="352c6" class="tk">ControllersModelClass</a>::<a id="352c29" class="tk">initialize</a>()</td></tr>
 <tr name="353" id="353">
-<td>353</td><td></td></tr>
+<td>353</td><td><span class="br">{</span></td></tr>
 <tr name="354" id="354">
-<td>354</td><td><span class="ct">/* Model initialize function */</span></td></tr>
+<td>354</td><td>  <span class="ct">/* Registration code */</span></td></tr>
 <tr name="355" id="355">
-<td>355</td><td><span class="kw">void</span> <a id="355c6" class="tk">ControllersModelClass</a>::<a id="355c29" class="tk">initialize</a>()</td></tr>
+<td>355</td><td></td></tr>
 <tr name="356" id="356">
-<td>356</td><td><span class="br">{</span></td></tr>
+<td>356</td><td>  <span class="ct">/* initialize real-time model */</span></td></tr>
 <tr name="357" id="357">
-<td>357</td><td>  <span class="ct">/* Registration code */</span></td></tr>
+<td>357</td><td>  (<span class="kw">void</span>) <a id="357c10" class="tk">memset</a>((<span class="kw">void</span> *)(&amp;<a id="357c27" class="tk">Controllers_M</a>), 0,</td></tr>
 <tr name="358" id="358">
-<td>358</td><td></td></tr>
+<td>358</td><td>                <span class="kw">sizeof</span>(<a id="358c24" class="tk">RT_MODEL_Controllers_T</a>));</td></tr>
 <tr name="359" id="359">
-<td>359</td><td>  <span class="ct">/* initialize real-time model */</span></td></tr>
+<td>359</td><td></td></tr>
 <tr name="360" id="360">
-<td>360</td><td>  (<span class="kw">void</span>) <a id="360c10" class="tk">memset</a>((<span class="kw">void</span> *)(&amp;<a id="360c27" class="tk">Controllers_M</a>), 0,</td></tr>
+<td>360</td><td>  <span class="br">{</span></td></tr>
 <tr name="361" id="361">
-<td>361</td><td>                <span class="kw">sizeof</span>(<a id="361c24" class="tk">RT_MODEL_Controllers_T</a>));</td></tr>
+<td>361</td><td>    <span class="ct">/* Setup solver object */</span></td></tr>
 <tr name="362" id="362">
-<td>362</td><td></td></tr>
+<td>362</td><td>    <a id="362c5" class="tk">rtsiSetSimTimeStepPtr</a>(&amp;(&amp;<a id="362c30" class="tk">Controllers_M</a>)-&gt;<a id="362c46" class="tk">solverInfo</a>, &amp;(&amp;<a id="362c61" class="tk">Controllers_M</a>)</td></tr>
 <tr name="363" id="363">
-<td>363</td><td>  <span class="br">{</span></td></tr>
+<td>363</td><td>                          -&gt;<a id="363c29" class="tk">Timing</a>.<a id="363c36" class="tk">simTimeStep</a>);</td></tr>
 <tr name="364" id="364">
-<td>364</td><td>    <span class="ct">/* Setup solver object */</span></td></tr>
+<td>364</td><td>    <a id="364c5" class="tk">rtsiSetTPtr</a>(&amp;(&amp;<a id="364c20" class="tk">Controllers_M</a>)-&gt;<a id="364c36" class="tk">solverInfo</a>, &amp;<a id="364c49" class="tk">rtmGetTPtr</a>((&amp;<a id="364c62" class="tk">Controllers_M</a>)));</td></tr>
 <tr name="365" id="365">
-<td>365</td><td>    <a id="365c5" class="tk">rtsiSetSimTimeStepPtr</a>(&amp;(&amp;<a id="365c30" class="tk">Controllers_M</a>)-&gt;<a id="365c46" class="tk">solverInfo</a>, &amp;(&amp;<a id="365c61" class="tk">Controllers_M</a>)</td></tr>
+<td>365</td><td>    <a id="365c5" class="tk">rtsiSetStepSizePtr</a>(&amp;(&amp;<a id="365c27" class="tk">Controllers_M</a>)-&gt;<a id="365c43" class="tk">solverInfo</a>, &amp;(&amp;<a id="365c58" class="tk">Controllers_M</a>)</td></tr>
 <tr name="366" id="366">
-<td>366</td><td>                          -&gt;<a id="366c29" class="tk">Timing</a>.<a id="366c36" class="tk">simTimeStep</a>);</td></tr>
+<td>366</td><td>                       -&gt;<a id="366c26" class="tk">Timing</a>.<a id="366c33" class="tk">stepSize0</a>);</td></tr>
 <tr name="367" id="367">
-<td>367</td><td>    <a id="367c5" class="tk">rtsiSetTPtr</a>(&amp;(&amp;<a id="367c20" class="tk">Controllers_M</a>)-&gt;<a id="367c36" class="tk">solverInfo</a>, &amp;<a id="367c49" class="tk">rtmGetTPtr</a>((&amp;<a id="367c62" class="tk">Controllers_M</a>)));</td></tr>
+<td>367</td><td>    <a id="367c5" class="tk">rtsiSetdXPtr</a>(&amp;(&amp;<a id="367c21" class="tk">Controllers_M</a>)-&gt;<a id="367c37" class="tk">solverInfo</a>, &amp;(&amp;<a id="367c52" class="tk">Controllers_M</a>)</td></tr>
 <tr name="368" id="368">
-<td>368</td><td>    <a id="368c5" class="tk">rtsiSetStepSizePtr</a>(&amp;(&amp;<a id="368c27" class="tk">Controllers_M</a>)-&gt;<a id="368c43" class="tk">solverInfo</a>, &amp;(&amp;<a id="368c58" class="tk">Controllers_M</a>)</td></tr>
+<td>368</td><td>                 -&gt;<a id="368c20" class="tk">ModelData</a>.<a id="368c30" class="tk">derivs</a>);</td></tr>
 <tr name="369" id="369">
-<td>369</td><td>                       -&gt;<a id="369c26" class="tk">Timing</a>.<a id="369c33" class="tk">stepSize0</a>);</td></tr>
+<td>369</td><td>    <a id="369c5" class="tk">rtsiSetContStatesPtr</a>(&amp;(&amp;<a id="369c29" class="tk">Controllers_M</a>)-&gt;<a id="369c45" class="tk">solverInfo</a>, (<a id="369c58" class="tk">real_T</a> **)</td></tr>
 <tr name="370" id="370">
-<td>370</td><td>    <a id="370c5" class="tk">rtsiSetdXPtr</a>(&amp;(&amp;<a id="370c21" class="tk">Controllers_M</a>)-&gt;<a id="370c37" class="tk">solverInfo</a>, &amp;(&amp;<a id="370c52" class="tk">Controllers_M</a>)</td></tr>
+<td>370</td><td>                         &amp;(&amp;<a id="370c29" class="tk">Controllers_M</a>)-&gt;<a id="370c45" class="tk">ModelData</a>.<a id="370c55" class="tk">contStates</a>);</td></tr>
 <tr name="371" id="371">
-<td>371</td><td>                 -&gt;<a id="371c20" class="tk">ModelData</a>.<a id="371c30" class="tk">derivs</a>);</td></tr>
+<td>371</td><td>    <a id="371c5" class="tk">rtsiSetNumContStatesPtr</a>(&amp;(&amp;<a id="371c32" class="tk">Controllers_M</a>)-&gt;<a id="371c48" class="tk">solverInfo</a>, &amp;(&amp;<a id="371c63" class="tk">Controllers_M</a>)</td></tr>
 <tr name="372" id="372">
-<td>372</td><td>    <a id="372c5" class="tk">rtsiSetContStatesPtr</a>(&amp;(&amp;<a id="372c29" class="tk">Controllers_M</a>)-&gt;<a id="372c45" class="tk">solverInfo</a>, (<a id="372c58" class="tk">real_T</a> **)</td></tr>
+<td>372</td><td>      -&gt;<a id="372c9" class="tk">Sizes</a>.<a id="372c15" class="tk">numContStates</a>);</td></tr>
 <tr name="373" id="373">
-<td>373</td><td>                         &amp;(&amp;<a id="373c29" class="tk">Controllers_M</a>)-&gt;<a id="373c45" class="tk">ModelData</a>.<a id="373c55" class="tk">contStates</a>);</td></tr>
+<td>373</td><td>    <a id="373c5" class="tk">rtsiSetErrorStatusPtr</a>(&amp;(&amp;<a id="373c30" class="tk">Controllers_M</a>)-&gt;<a id="373c46" class="tk">solverInfo</a>, (&amp;<a id="373c60" class="tk">rtmGetErrorStatus</a></td></tr>
 <tr name="374" id="374">
-<td>374</td><td>    <a id="374c5" class="tk">rtsiSetNumContStatesPtr</a>(&amp;(&amp;<a id="374c32" class="tk">Controllers_M</a>)-&gt;<a id="374c48" class="tk">solverInfo</a>, &amp;(&amp;<a id="374c63" class="tk">Controllers_M</a>)</td></tr>
+<td>374</td><td>      ((&amp;<a id="374c10" class="tk">Controllers_M</a>))));</td></tr>
 <tr name="375" id="375">
-<td>375</td><td>      -&gt;<a id="375c9" class="tk">Sizes</a>.<a id="375c15" class="tk">numContStates</a>);</td></tr>
+<td>375</td><td>    <a id="375c5" class="tk">rtsiSetRTModelPtr</a>(&amp;(&amp;<a id="375c26" class="tk">Controllers_M</a>)-&gt;<a id="375c42" class="tk">solverInfo</a>, (&amp;<a id="375c56" class="tk">Controllers_M</a>));</td></tr>
 <tr name="376" id="376">
-<td>376</td><td>    <a id="376c5" class="tk">rtsiSetErrorStatusPtr</a>(&amp;(&amp;<a id="376c30" class="tk">Controllers_M</a>)-&gt;<a id="376c46" class="tk">solverInfo</a>, (&amp;<a id="376c60" class="tk">rtmGetErrorStatus</a></td></tr>
+<td>376</td><td>  <span class="br">}</span></td></tr>
 <tr name="377" id="377">
-<td>377</td><td>      ((&amp;<a id="377c10" class="tk">Controllers_M</a>))));</td></tr>
+<td>377</td><td></td></tr>
 <tr name="378" id="378">
-<td>378</td><td>    <a id="378c5" class="tk">rtsiSetRTModelPtr</a>(&amp;(&amp;<a id="378c26" class="tk">Controllers_M</a>)-&gt;<a id="378c42" class="tk">solverInfo</a>, (&amp;<a id="378c56" class="tk">Controllers_M</a>));</td></tr>
+<td>378</td><td>  <a id="378c3" class="tk">rtsiSetSimTimeStep</a>(&amp;(&amp;<a id="378c25" class="tk">Controllers_M</a>)-&gt;<a id="378c41" class="tk">solverInfo</a>, <a id="378c53" class="tk">MAJOR_TIME_STEP</a>);</td></tr>
 <tr name="379" id="379">
-<td>379</td><td>  <span class="br">}</span></td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
+<td>379</td><td>  (&amp;<a id="379c5" class="tk">Controllers_M</a>)-&gt;<a id="379c21" class="tk">ModelData</a>.<a id="379c31" class="tk">intgData</a>.<a id="379c40" class="tk">y</a> = (&amp;<a id="379c46" class="tk">Controllers_M</a>)-&gt;<a id="379c62" class="tk">ModelData</a>.<a id="379c72" class="tk">odeY</a>;</td></tr>
 <tr name="380" id="380">
-<td>380</td><td>  <span class="ct">/* initialize real-time model */</span></td></tr>
+<td>380</td><td>  (&amp;<a id="380c5" class="tk">Controllers_M</a>)-&gt;<a id="380c21" class="tk">ModelData</a>.<a id="380c31" class="tk">intgData</a>.<a id="380c40" class="tk">f</a>[0] = (&amp;<a id="380c49" class="tk">Controllers_M</a>)-&gt;<a id="380c65" class="tk">ModelData</a>.<a id="380c75" class="tk">odeF</a>[0];</td></tr>
 <tr name="381" id="381">
-<<<<<<< HEAD
-<td>381</td><td>  (<span class="kw">void</span>) <a id="381c10" class="tk">memset</a>((<span class="kw">void</span> *)(&amp;<a id="381c27" class="tk">Controllers_M</a>), 0,</td></tr>
+<td>381</td><td>  (&amp;<a id="381c5" class="tk">Controllers_M</a>)-&gt;<a id="381c21" class="tk">ModelData</a>.<a id="381c31" class="tk">intgData</a>.<a id="381c40" class="tk">f</a>[1] = (&amp;<a id="381c49" class="tk">Controllers_M</a>)-&gt;<a id="381c65" class="tk">ModelData</a>.<a id="381c75" class="tk">odeF</a>[1];</td></tr>
 <tr name="382" id="382">
-<td>382</td><td>                <span class="kw">sizeof</span>(<a id="382c24" class="tk">RT_MODEL_Controllers_T</a>));</td></tr>
+<td>382</td><td>  (&amp;<a id="382c5" class="tk">Controllers_M</a>)-&gt;<a id="382c21" class="tk">ModelData</a>.<a id="382c31" class="tk">contStates</a> = ((<a id="382c46" class="tk">X_Controllers_T</a> *) &amp;<a id="382c66" class="tk">Controllers_X</a>);</td></tr>
 <tr name="383" id="383">
-<td>383</td><td></td></tr>
+<td>383</td><td>  <a id="383c3" class="tk">rtsiSetSolverData</a>(&amp;(&amp;<a id="383c24" class="tk">Controllers_M</a>)-&gt;<a id="383c40" class="tk">solverInfo</a>, (<span class="kw">void</span> *)&amp;(&amp;<a id="383c63" class="tk">Controllers_M</a>)</td></tr>
 <tr name="384" id="384">
-<td>384</td><td>  <span class="br">{</span></td></tr>
+<td>384</td><td>                    -&gt;<a id="384c23" class="tk">ModelData</a>.<a id="384c33" class="tk">intgData</a>);</td></tr>
 <tr name="385" id="385">
-<td>385</td><td>    <span class="ct">/* Setup solver object */</span></td></tr>
+<td>385</td><td>  <a id="385c3" class="tk">rtsiSetSolverName</a>(&amp;(&amp;<a id="385c24" class="tk">Controllers_M</a>)-&gt;<a id="385c40" class="tk">solverInfo</a>,"ode2");</td></tr>
 <tr name="386" id="386">
-<td>386</td><td>    <a id="386c5" class="tk">rtsiSetSimTimeStepPtr</a>(&amp;(&amp;<a id="386c30" class="tk">Controllers_M</a>)-&gt;<a id="386c46" class="tk">solverInfo</a>, &amp;(&amp;<a id="386c61" class="tk">Controllers_M</a>)</td></tr>
+<td>386</td><td>  <a id="386c3" class="tk">rtmSetTPtr</a>((&amp;<a id="386c16" class="tk">Controllers_M</a>), &amp;(&amp;<a id="386c35" class="tk">Controllers_M</a>)-&gt;<a id="386c51" class="tk">Timing</a>.<a id="386c58" class="tk">tArray</a>[0]);</td></tr>
 <tr name="387" id="387">
-<td>387</td><td>                          -&gt;<a id="387c29" class="tk">Timing</a>.<a id="387c36" class="tk">simTimeStep</a>);</td></tr>
+<td>387</td><td>  (&amp;<a id="387c5" class="tk">Controllers_M</a>)-&gt;<a id="387c21" class="tk">Timing</a>.<a id="387c28" class="tk">stepSize0</a> = 0.01;</td></tr>
 <tr name="388" id="388">
-<td>388</td><td>    <a id="388c5" class="tk">rtsiSetTPtr</a>(&amp;(&amp;<a id="388c20" class="tk">Controllers_M</a>)-&gt;<a id="388c36" class="tk">solverInfo</a>, &amp;<a id="388c49" class="tk">rtmGetTPtr</a>((&amp;<a id="388c62" class="tk">Controllers_M</a>)));</td></tr>
+<td>388</td><td></td></tr>
 <tr name="389" id="389">
-<td>389</td><td>    <a id="389c5" class="tk">rtsiSetStepSizePtr</a>(&amp;(&amp;<a id="389c27" class="tk">Controllers_M</a>)-&gt;<a id="389c43" class="tk">solverInfo</a>, &amp;(&amp;<a id="389c58" class="tk">Controllers_M</a>)</td></tr>
+<td>389</td><td>  <span class="ct">/* block I/O */</span></td></tr>
 <tr name="390" id="390">
-<td>390</td><td>                       -&gt;<a id="390c26" class="tk">Timing</a>.<a id="390c33" class="tk">stepSize0</a>);</td></tr>
+<td>390</td><td>  (<span class="kw">void</span>) <a id="390c10" class="tk">memset</a>(((<span class="kw">void</span> *) &amp;<a id="390c28" class="tk">Controllers_B</a>), 0,</td></tr>
 <tr name="391" id="391">
-<td>391</td><td>    <a id="391c5" class="tk">rtsiSetdXPtr</a>(&amp;(&amp;<a id="391c21" class="tk">Controllers_M</a>)-&gt;<a id="391c37" class="tk">solverInfo</a>, &amp;(&amp;<a id="391c52" class="tk">Controllers_M</a>)</td></tr>
+<td>391</td><td>                <span class="kw">sizeof</span>(<a id="391c24" class="tk">B_Controllers_T</a>));</td></tr>
 <tr name="392" id="392">
-<td>392</td><td>                 -&gt;<a id="392c20" class="tk">ModelData</a>.<a id="392c30" class="tk">derivs</a>);</td></tr>
+<td>392</td><td></td></tr>
 <tr name="393" id="393">
-<td>393</td><td>    <a id="393c5" class="tk">rtsiSetContStatesPtr</a>(&amp;(&amp;<a id="393c29" class="tk">Controllers_M</a>)-&gt;<a id="393c45" class="tk">solverInfo</a>, (<a id="393c58" class="tk">real_T</a> **)</td></tr>
+<td>393</td><td>  <span class="ct">/* states (continuous) */</span></td></tr>
 <tr name="394" id="394">
-<td>394</td><td>                         &amp;(&amp;<a id="394c29" class="tk">Controllers_M</a>)-&gt;<a id="394c45" class="tk">ModelData</a>.<a id="394c55" class="tk">contStates</a>);</td></tr>
+<td>394</td><td>  <span class="br">{</span></td></tr>
 <tr name="395" id="395">
-<td>395</td><td>    <a id="395c5" class="tk">rtsiSetNumContStatesPtr</a>(&amp;(&amp;<a id="395c32" class="tk">Controllers_M</a>)-&gt;<a id="395c48" class="tk">solverInfo</a>, &amp;(&amp;<a id="395c63" class="tk">Controllers_M</a>)</td></tr>
+<td>395</td><td>    (<span class="kw">void</span>) <a id="395c12" class="tk">memset</a>((<span class="kw">void</span> *)&amp;<a id="395c28" class="tk">Controllers_X</a>, 0,</td></tr>
 <tr name="396" id="396">
-<td>396</td><td>      -&gt;<a id="396c9" class="tk">Sizes</a>.<a id="396c15" class="tk">numContStates</a>);</td></tr>
+<td>396</td><td>                  <span class="kw">sizeof</span>(<a id="396c26" class="tk">X_Controllers_T</a>));</td></tr>
 <tr name="397" id="397">
-<td>397</td><td>    <a id="397c5" class="tk">rtsiSetErrorStatusPtr</a>(&amp;(&amp;<a id="397c30" class="tk">Controllers_M</a>)-&gt;<a id="397c46" class="tk">solverInfo</a>, (&amp;<a id="397c60" class="tk">rtmGetErrorStatus</a></td></tr>
+<td>397</td><td>  <span class="br">}</span></td></tr>
 <tr name="398" id="398">
-<td>398</td><td>      ((&amp;<a id="398c10" class="tk">Controllers_M</a>))));</td></tr>
+<td>398</td><td></td></tr>
 <tr name="399" id="399">
-<td>399</td><td>    <a id="399c5" class="tk">rtsiSetRTModelPtr</a>(&amp;(&amp;<a id="399c26" class="tk">Controllers_M</a>)-&gt;<a id="399c42" class="tk">solverInfo</a>, (&amp;<a id="399c56" class="tk">Controllers_M</a>));</td></tr>
-=======
-<td>381</td><td>  <a id="381c3" class="tk">rtsiSetSimTimeStep</a>(&amp;(&amp;<a id="381c25" class="tk">Controllers_M</a>)-&gt;<a id="381c41" class="tk">solverInfo</a>, <a id="381c53" class="tk">MAJOR_TIME_STEP</a>);</td></tr>
-<tr name="382" id="382">
-<td>382</td><td>  (&amp;<a id="382c5" class="tk">Controllers_M</a>)-&gt;<a id="382c21" class="tk">ModelData</a>.<a id="382c31" class="tk">intgData</a>.<a id="382c40" class="tk">y</a> = (&amp;<a id="382c46" class="tk">Controllers_M</a>)-&gt;<a id="382c62" class="tk">ModelData</a>.<a id="382c72" class="tk">odeY</a>;</td></tr>
-<tr name="383" id="383">
-<td>383</td><td>  (&amp;<a id="383c5" class="tk">Controllers_M</a>)-&gt;<a id="383c21" class="tk">ModelData</a>.<a id="383c31" class="tk">intgData</a>.<a id="383c40" class="tk">f</a>[0] = (&amp;<a id="383c49" class="tk">Controllers_M</a>)-&gt;<a id="383c65" class="tk">ModelData</a>.<a id="383c75" class="tk">odeF</a>[0];</td></tr>
-<tr name="384" id="384">
-<td>384</td><td>  (&amp;<a id="384c5" class="tk">Controllers_M</a>)-&gt;<a id="384c21" class="tk">ModelData</a>.<a id="384c31" class="tk">intgData</a>.<a id="384c40" class="tk">f</a>[1] = (&amp;<a id="384c49" class="tk">Controllers_M</a>)-&gt;<a id="384c65" class="tk">ModelData</a>.<a id="384c75" class="tk">odeF</a>[1];</td></tr>
-<tr name="385" id="385">
-<td>385</td><td>  (&amp;<a id="385c5" class="tk">Controllers_M</a>)-&gt;<a id="385c21" class="tk">ModelData</a>.<a id="385c31" class="tk">contStates</a> = ((<a id="385c46" class="tk">X_Controllers_T</a> *) &amp;<a id="385c66" class="tk">Controllers_X</a>);</td></tr>
-<tr name="386" id="386">
-<td>386</td><td>  <a id="386c3" class="tk">rtsiSetSolverData</a>(&amp;(&amp;<a id="386c24" class="tk">Controllers_M</a>)-&gt;<a id="386c40" class="tk">solverInfo</a>, (<span class="kw">void</span> *)&amp;(&amp;<a id="386c63" class="tk">Controllers_M</a>)</td></tr>
-<tr name="387" id="387">
-<td>387</td><td>                    -&gt;<a id="387c23" class="tk">ModelData</a>.<a id="387c33" class="tk">intgData</a>);</td></tr>
-<tr name="388" id="388">
-<td>388</td><td>  <a id="388c3" class="tk">rtsiSetSolverName</a>(&amp;(&amp;<a id="388c24" class="tk">Controllers_M</a>)-&gt;<a id="388c40" class="tk">solverInfo</a>,"ode2");</td></tr>
-<tr name="389" id="389">
-<td>389</td><td>  <a id="389c3" class="tk">rtmSetTPtr</a>((&amp;<a id="389c16" class="tk">Controllers_M</a>), &amp;(&amp;<a id="389c35" class="tk">Controllers_M</a>)-&gt;<a id="389c51" class="tk">Timing</a>.<a id="389c58" class="tk">tArray</a>[0]);</td></tr>
-<tr name="390" id="390">
-<td>390</td><td>  (&amp;<a id="390c5" class="tk">Controllers_M</a>)-&gt;<a id="390c21" class="tk">Timing</a>.<a id="390c28" class="tk">stepSize0</a> = 0.01;</td></tr>
-<tr name="391" id="391">
-<td>391</td><td></td></tr>
-<tr name="392" id="392">
-<td>392</td><td>  <span class="ct">/* block I/O */</span></td></tr>
-<tr name="393" id="393">
-<td>393</td><td>  (<span class="kw">void</span>) <a id="393c10" class="tk">memset</a>(((<span class="kw">void</span> *) &amp;<a id="393c28" class="tk">Controllers_B</a>), 0,</td></tr>
-<tr name="394" id="394">
-<td>394</td><td>                <span class="kw">sizeof</span>(<a id="394c24" class="tk">B_Controllers_T</a>));</td></tr>
-<tr name="395" id="395">
-<td>395</td><td></td></tr>
-<tr name="396" id="396">
-<td>396</td><td>  <span class="ct">/* states (continuous) */</span></td></tr>
-<tr name="397" id="397">
-<td>397</td><td>  <span class="br">{</span></td></tr>
-<tr name="398" id="398">
-<td>398</td><td>    (<span class="kw">void</span>) <a id="398c12" class="tk">memset</a>((<span class="kw">void</span> *)&amp;<a id="398c28" class="tk">Controllers_X</a>, 0,</td></tr>
-<tr name="399" id="399">
-<td>399</td><td>                  <span class="kw">sizeof</span>(<a id="399c26" class="tk">X_Controllers_T</a>));</td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
+<td>399</td><td>  <span class="ct">/* external inputs */</span></td></tr>
 <tr name="400" id="400">
-<td>400</td><td>  <span class="br">}</span></td></tr>
+<td>400</td><td>  (<span class="kw">void</span>) <a id="400c10" class="tk">memset</a>((<span class="kw">void</span> *)&amp;<a id="400c26" class="tk">Controllers_U</a>, 0,</td></tr>
 <tr name="401" id="401">
-<td>401</td><td></td></tr>
+<td>401</td><td>                <span class="kw">sizeof</span>(<a id="401c24" class="tk">ExtU_Controllers_T</a>));</td></tr>
 <tr name="402" id="402">
-<<<<<<< HEAD
-<td>402</td><td>  <a id="402c3" class="tk">rtsiSetSimTimeStep</a>(&amp;(&amp;<a id="402c25" class="tk">Controllers_M</a>)-&gt;<a id="402c41" class="tk">solverInfo</a>, <a id="402c53" class="tk">MAJOR_TIME_STEP</a>);</td></tr>
+<td>402</td><td></td></tr>
 <tr name="403" id="403">
-<td>403</td><td>  (&amp;<a id="403c5" class="tk">Controllers_M</a>)-&gt;<a id="403c21" class="tk">ModelData</a>.<a id="403c31" class="tk">intgData</a>.<a id="403c40" class="tk">y</a> = (&amp;<a id="403c46" class="tk">Controllers_M</a>)-&gt;<a id="403c62" class="tk">ModelData</a>.<a id="403c72" class="tk">odeY</a>;</td></tr>
+<td>403</td><td>  <span class="ct">/* external outputs */</span></td></tr>
 <tr name="404" id="404">
-<td>404</td><td>  (&amp;<a id="404c5" class="tk">Controllers_M</a>)-&gt;<a id="404c21" class="tk">ModelData</a>.<a id="404c31" class="tk">intgData</a>.<a id="404c40" class="tk">f</a>[0] = (&amp;<a id="404c49" class="tk">Controllers_M</a>)-&gt;<a id="404c65" class="tk">ModelData</a>.<a id="404c75" class="tk">odeF</a>[0];</td></tr>
+<td>404</td><td>  (<span class="kw">void</span>) <a id="404c10" class="tk">memset</a>(&amp;<a id="404c18" class="tk">Controllers_Y</a>.<a id="404c32" class="tk">Moments</a>[0], 0,</td></tr>
 <tr name="405" id="405">
-<td>405</td><td>  (&amp;<a id="405c5" class="tk">Controllers_M</a>)-&gt;<a id="405c21" class="tk">ModelData</a>.<a id="405c31" class="tk">intgData</a>.<a id="405c40" class="tk">f</a>[1] = (&amp;<a id="405c49" class="tk">Controllers_M</a>)-&gt;<a id="405c65" class="tk">ModelData</a>.<a id="405c75" class="tk">odeF</a>[1];</td></tr>
+<td>405</td><td>                3U*<span class="kw">sizeof</span>(<a id="405c27" class="tk">real_T</a>));</td></tr>
 <tr name="406" id="406">
-<td>406</td><td>  (&amp;<a id="406c5" class="tk">Controllers_M</a>)-&gt;<a id="406c21" class="tk">ModelData</a>.<a id="406c31" class="tk">contStates</a> = ((<a id="406c46" class="tk">X_Controllers_T</a> *) &amp;<a id="406c66" class="tk">Controllers_X</a>);</td></tr>
+<td>406</td><td></td></tr>
 <tr name="407" id="407">
-<td>407</td><td>  <a id="407c3" class="tk">rtsiSetSolverData</a>(&amp;(&amp;<a id="407c24" class="tk">Controllers_M</a>)-&gt;<a id="407c40" class="tk">solverInfo</a>, (<span class="kw">void</span> *)&amp;(&amp;<a id="407c63" class="tk">Controllers_M</a>)</td></tr>
+<td>407</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S4&gt;/Filter' */</span></td></tr>
 <tr name="408" id="408">
-<td>408</td><td>                    -&gt;<a id="408c23" class="tk">ModelData</a>.<a id="408c33" class="tk">intgData</a>);</td></tr>
-=======
-<td>402</td><td>  <span class="ct">/* external inputs */</span></td></tr>
-<tr name="403" id="403">
-<td>403</td><td>  (<span class="kw">void</span>) <a id="403c10" class="tk">memset</a>((<span class="kw">void</span> *)&amp;<a id="403c26" class="tk">Controllers_U</a>, 0,</td></tr>
-<tr name="404" id="404">
-<td>404</td><td>                <span class="kw">sizeof</span>(<a id="404c24" class="tk">ExtU_Controllers_T</a>));</td></tr>
-<tr name="405" id="405">
-<td>405</td><td></td></tr>
-<tr name="406" id="406">
-<td>406</td><td>  <span class="ct">/* external outputs */</span></td></tr>
-<tr name="407" id="407">
-<td>407</td><td>  (<span class="kw">void</span>) <a id="407c10" class="tk">memset</a>(&amp;<a id="407c18" class="tk">Controllers_Y</a>.<a id="407c32" class="tk">Moments</a>[0], 0,</td></tr>
-<tr name="408" id="408">
-<td>408</td><td>                3U*<span class="kw">sizeof</span>(<a id="408c27" class="tk">real_T</a>));</td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
+<td>408</td><td>  <a id="408c3" class="tk">Controllers_X</a>.<a id="408c17" class="tk">Filter_CSTATE</a> = <a id="408c33" class="tk">Controllers_P</a>.<a id="408c47" class="tk">Filter_IC</a>;</td></tr>
 <tr name="409" id="409">
-<td>409</td><td>  <a id="409c3" class="tk">rtsiSetSolverName</a>(&amp;(&amp;<a id="409c24" class="tk">Controllers_M</a>)-&gt;<a id="409c40" class="tk">solverInfo</a>,"ode2");</td></tr>
+<td>409</td><td></td></tr>
 <tr name="410" id="410">
-<<<<<<< HEAD
-<td>410</td><td>  <a id="410c3" class="tk">rtmSetTPtr</a>((&amp;<a id="410c16" class="tk">Controllers_M</a>), &amp;(&amp;<a id="410c35" class="tk">Controllers_M</a>)-&gt;<a id="410c51" class="tk">Timing</a>.<a id="410c58" class="tk">tArray</a>[0]);</td></tr>
-<tr name="411" id="411">
-<td>411</td><td>  (&amp;<a id="411c5" class="tk">Controllers_M</a>)-&gt;<a id="411c21" class="tk">Timing</a>.<a id="411c28" class="tk">stepSize0</a> = 0.01;</td></tr>
-<tr name="412" id="412">
-<td>412</td><td></td></tr>
-<tr name="413" id="413">
-<td>413</td><td>  <span class="ct">/* block I/O */</span></td></tr>
-<tr name="414" id="414">
-<td>414</td><td>  (<span class="kw">void</span>) <a id="414c10" class="tk">memset</a>(((<span class="kw">void</span> *) &amp;<a id="414c28" class="tk">Controllers_B</a>), 0,</td></tr>
-<tr name="415" id="415">
-<td>415</td><td>                <span class="kw">sizeof</span>(<a id="415c24" class="tk">B_Controllers_T</a>));</td></tr>
-=======
 <td>410</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S3&gt;/Filter' */</span></td></tr>
 <tr name="411" id="411">
-<td>411</td><td>  <a id="411c3" class="tk">Controllers_X</a>.<a id="411c17" class="tk">Filter_CSTATE</a> = <a id="411c33" class="tk">Controllers_P</a>.<a id="411c47" class="tk">Filter_IC</a>;</td></tr>
+<td>411</td><td>  <a id="411c3" class="tk">Controllers_X</a>.<a id="411c17" class="tk">Filter_CSTATE_m</a> = <a id="411c35" class="tk">Controllers_P</a>.<a id="411c49" class="tk">Filter_IC_d</a>;</td></tr>
 <tr name="412" id="412">
 <td>412</td><td></td></tr>
 <tr name="413" id="413">
-<td>413</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S2&gt;/Filter' */</span></td></tr>
+<td>413</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S5&gt;/Integrator' */</span></td></tr>
 <tr name="414" id="414">
-<td>414</td><td>  <a id="414c3" class="tk">Controllers_X</a>.<a id="414c17" class="tk">Filter_CSTATE_m</a> = <a id="414c35" class="tk">Controllers_P</a>.<a id="414c49" class="tk">Filter_IC_d</a>;</td></tr>
+<td>414</td><td>  <a id="414c3" class="tk">Controllers_X</a>.<a id="414c17" class="tk">Integrator_CSTATE</a> = <a id="414c37" class="tk">Controllers_P</a>.<a id="414c51" class="tk">Integrator_IC</a>;</td></tr>
 <tr name="415" id="415">
 <td>415</td><td></td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
 <tr name="416" id="416">
-<td>416</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S4&gt;/Filter' */</span></td></tr>
+<td>416</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S5&gt;/Filter' */</span></td></tr>
 <tr name="417" id="417">
-<<<<<<< HEAD
-<td>417</td><td>  <span class="ct">/* states (continuous) */</span></td></tr>
-<tr name="418" id="418">
-<td>418</td><td>  <span class="br">{</span></td></tr>
-<tr name="419" id="419">
-<td>419</td><td>    (<span class="kw">void</span>) <a id="419c12" class="tk">memset</a>((<span class="kw">void</span> *)&amp;<a id="419c28" class="tk">Controllers_X</a>, 0,</td></tr>
-<tr name="420" id="420">
-<td>420</td><td>                  <span class="kw">sizeof</span>(<a id="420c26" class="tk">X_Controllers_T</a>));</td></tr>
-<tr name="421" id="421">
-<td>421</td><td>  <span class="br">}</span></td></tr>
-=======
 <td>417</td><td>  <a id="417c3" class="tk">Controllers_X</a>.<a id="417c17" class="tk">Filter_CSTATE_i</a> = <a id="417c35" class="tk">Controllers_P</a>.<a id="417c49" class="tk">Filter_IC_i</a>;</td></tr>
 <tr name="418" id="418">
 <td>418</td><td></td></tr>
 <tr name="419" id="419">
-<td>419</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S5&gt;/Integrator' */</span></td></tr>
+<td>419</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S6&gt;/Integrator' */</span></td></tr>
 <tr name="420" id="420">
-<td>420</td><td>  <a id="420c3" class="tk">Controllers_X</a>.<a id="420c17" class="tk">Integrator_CSTATE</a> = <a id="420c37" class="tk">Controllers_P</a>.<a id="420c51" class="tk">Integrator_IC</a>;</td></tr>
+<td>420</td><td>  <a id="420c3" class="tk">Controllers_X</a>.<a id="420c17" class="tk">Integrator_CSTATE_b</a> = <a id="420c39" class="tk">Controllers_P</a>.<a id="420c53" class="tk">Integrator_IC_j</a>;</td></tr>
 <tr name="421" id="421">
 <td>421</td><td></td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
 <tr name="422" id="422">
-<td>422</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S5&gt;/Filter' */</span></td></tr>
+<td>422</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S6&gt;/Filter' */</span></td></tr>
 <tr name="423" id="423">
-<<<<<<< HEAD
-<td>423</td><td>  <span class="ct">/* external inputs */</span></td></tr>
-<tr name="424" id="424">
-<td>424</td><td>  (<span class="kw">void</span>) <a id="424c10" class="tk">memset</a>((<span class="kw">void</span> *)&amp;<a id="424c26" class="tk">Controllers_U</a>, 0,</td></tr>
-<tr name="425" id="425">
-<td>425</td><td>                <span class="kw">sizeof</span>(<a id="425c24" class="tk">ExtU_Controllers_T</a>));</td></tr>
-<tr name="426" id="426">
-<td>426</td><td></td></tr>
-<tr name="427" id="427">
-<td>427</td><td>  <span class="ct">/* external outputs */</span></td></tr>
-<tr name="428" id="428">
-<td>428</td><td>  (<span class="kw">void</span>) <a id="428c10" class="tk">memset</a>(&amp;<a id="428c18" class="tk">Controllers_Y</a>.<a id="428c32" class="tk">Moments</a>[0], 0,</td></tr>
-<tr name="429" id="429">
-<td>429</td><td>                3U*<span class="kw">sizeof</span>(<a id="429c27" class="tk">real_T</a>));</td></tr>
-<tr name="430" id="430">
-<td>430</td><td></td></tr>
-<tr name="431" id="431">
-<td>431</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S3&gt;/Filter' */</span></td></tr>
-<tr name="432" id="432">
-<td>432</td><td>  <a id="432c3" class="tk">Controllers_X</a>.<a id="432c17" class="tk">Filter_CSTATE</a> = <a id="432c33" class="tk">Controllers_P</a>.<a id="432c47" class="tk">Filter_IC</a>;</td></tr>
-<tr name="433" id="433">
-<td>433</td><td></td></tr>
-<tr name="434" id="434">
-<td>434</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S2&gt;/Filter' */</span></td></tr>
-<tr name="435" id="435">
-<td>435</td><td>  <a id="435c3" class="tk">Controllers_X</a>.<a id="435c17" class="tk">Filter_CSTATE_m</a> = <a id="435c35" class="tk">Controllers_P</a>.<a id="435c49" class="tk">Filter_IC_d</a>;</td></tr>
-<tr name="436" id="436">
-<td>436</td><td></td></tr>
-<tr name="437" id="437">
-<td>437</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S1&gt;/Integrator' */</span></td></tr>
-<tr name="438" id="438">
-<td>438</td><td>  <a id="438c3" class="tk">Controllers_X</a>.<a id="438c17" class="tk">Integrator_CSTATE</a> = <a id="438c37" class="tk">Controllers_P</a>.<a id="438c51" class="tk">Integrator_IC</a>;</td></tr>
-<tr name="439" id="439">
-<td>439</td><td></td></tr>
-<tr name="440" id="440">
-<td>440</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S4&gt;/Filter' */</span></td></tr>
-<tr name="441" id="441">
-<td>441</td><td>  <a id="441c3" class="tk">Controllers_X</a>.<a id="441c17" class="tk">Filter_CSTATE_i</a> = <a id="441c35" class="tk">Controllers_P</a>.<a id="441c49" class="tk">Filter_IC_i</a>;</td></tr>
-<tr name="442" id="442">
-<td>442</td><td></td></tr>
-<tr name="443" id="443">
-<td>443</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S6&gt;/Integrator' */</span></td></tr>
-<tr name="444" id="444">
-<td>444</td><td>  <a id="444c3" class="tk">Controllers_X</a>.<a id="444c17" class="tk">Integrator_CSTATE_b</a> = <a id="444c39" class="tk">Controllers_P</a>.<a id="444c53" class="tk">Integrator_IC_f</a>;</td></tr>
-<tr name="445" id="445">
-<td>445</td><td></td></tr>
-<tr name="446" id="446">
-<td>446</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S6&gt;/Filter' */</span></td></tr>
-<tr name="447" id="447">
-<td>447</td><td>  <a id="447c3" class="tk">Controllers_X</a>.<a id="447c17" class="tk">Filter_CSTATE_ib</a> = <a id="447c36" class="tk">Controllers_P</a>.<a id="447c50" class="tk">Filter_IC_is</a>;</td></tr>
-<tr name="448" id="448">
-<td>448</td><td></td></tr>
-<tr name="449" id="449">
-<td>449</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S7&gt;/Integrator' */</span></td></tr>
-=======
-<td>423</td><td>  <a id="423c3" class="tk">Controllers_X</a>.<a id="423c17" class="tk">Filter_CSTATE_ib</a> = <a id="423c36" class="tk">Controllers_P</a>.<a id="423c50" class="tk">Filter_IC_is</a>;</td></tr>
+<td>423</td><td>  <a id="423c3" class="tk">Controllers_X</a>.<a id="423c17" class="tk">Filter_CSTATE_d</a> = <a id="423c35" class="tk">Controllers_P</a>.<a id="423c49" class="tk">Filter_IC_e</a>;</td></tr>
 <tr name="424" id="424">
 <td>424</td><td></td></tr>
 <tr name="425" id="425">
-<td>425</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S6&gt;/Integrator' */</span></td></tr>
+<td>425</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S7&gt;/Integrator' */</span></td></tr>
 <tr name="426" id="426">
-<td>426</td><td>  <a id="426c3" class="tk">Controllers_X</a>.<a id="426c17" class="tk">Integrator_CSTATE_b</a> = <a id="426c39" class="tk">Controllers_P</a>.<a id="426c53" class="tk">Integrator_IC_j</a>;</td></tr>
+<td>426</td><td>  <a id="426c3" class="tk">Controllers_X</a>.<a id="426c17" class="tk">Integrator_CSTATE_a</a> = <a id="426c39" class="tk">Controllers_P</a>.<a id="426c53" class="tk">Integrator_IC_o</a>;</td></tr>
 <tr name="427" id="427">
 <td>427</td><td></td></tr>
 <tr name="428" id="428">
-<td>428</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S6&gt;/Filter' */</span></td></tr>
+<td>428</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S7&gt;/Filter' */</span></td></tr>
 <tr name="429" id="429">
-<td>429</td><td>  <a id="429c3" class="tk">Controllers_X</a>.<a id="429c17" class="tk">Filter_CSTATE_d</a> = <a id="429c35" class="tk">Controllers_P</a>.<a id="429c49" class="tk">Filter_IC_e</a>;</td></tr>
+<td>429</td><td>  <a id="429c3" class="tk">Controllers_X</a>.<a id="429c17" class="tk">Filter_CSTATE_l</a> = <a id="429c35" class="tk">Controllers_P</a>.<a id="429c49" class="tk">Filter_IC_a</a>;</td></tr>
 <tr name="430" id="430">
-<td>430</td><td></td></tr>
+<td>430</td><td><span class="br">}</span></td></tr>
 <tr name="431" id="431">
-<td>431</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S7&gt;/Integrator' */</span></td></tr>
+<td>431</td><td></td></tr>
 <tr name="432" id="432">
-<td>432</td><td>  <a id="432c3" class="tk">Controllers_X</a>.<a id="432c17" class="tk">Integrator_CSTATE_a</a> = <a id="432c39" class="tk">Controllers_P</a>.<a id="432c53" class="tk">Integrator_IC_o</a>;</td></tr>
+<td>432</td><td><span class="ct">/* Model terminate function */</span></td></tr>
 <tr name="433" id="433">
-<td>433</td><td></td></tr>
+<td>433</td><td><span class="kw">void</span> <a id="433c6" class="tk">ControllersModelClass</a>::<a id="433c29" class="tk">terminate</a>()</td></tr>
 <tr name="434" id="434">
-<td>434</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S7&gt;/Filter' */</span></td></tr>
+<td>434</td><td><span class="br">{</span></td></tr>
 <tr name="435" id="435">
-<td>435</td><td>  <a id="435c3" class="tk">Controllers_X</a>.<a id="435c17" class="tk">Filter_CSTATE_l</a> = <a id="435c35" class="tk">Controllers_P</a>.<a id="435c49" class="tk">Filter_IC_a</a>;</td></tr>
+<td>435</td><td>  <span class="ct">/* (no terminate code required) */</span></td></tr>
 <tr name="436" id="436">
 <td>436</td><td><span class="br">}</span></td></tr>
 <tr name="437" id="437">
 <td>437</td><td></td></tr>
 <tr name="438" id="438">
-<td>438</td><td><span class="ct">/* Model terminate function */</span></td></tr>
+<td>438</td><td><span class="ct">/* Constructor */</span></td></tr>
 <tr name="439" id="439">
-<td>439</td><td><span class="kw">void</span> <a id="439c6" class="tk">ControllersModelClass</a>::<a id="439c29" class="tk">terminate</a>()</td></tr>
+<td>439</td><td><a id="439c1" class="tk">ControllersModelClass</a>::<a id="439c24" class="tk">ControllersModelClass</a>()</td></tr>
 <tr name="440" id="440">
 <td>440</td><td><span class="br">{</span></td></tr>
 <tr name="441" id="441">
-<td>441</td><td>  <span class="ct">/* (no terminate code required) */</span></td></tr>
+<td>441</td><td>  <span class="kw">static</span> <span class="kw">const</span> <a id="441c16" class="tk">P_Controllers_T</a> <a id="441c32" class="tk">Controllers_P_temp</a> = <span class="br">{</span></td></tr>
 <tr name="442" id="442">
-<td>442</td><td><span class="br">}</span></td></tr>
+<td>442</td><td>    0.00512,                           <span class="ct">/* Variable: KPD</span></td></tr>
 <tr name="443" id="443">
-<td>443</td><td></td></tr>
+<td>443</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Derivative Gain'</span></td></tr>
 <tr name="444" id="444">
-<td>444</td><td><span class="ct">/* Constructor */</span></td></tr>
+<td>444</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="445" id="445">
-<td>445</td><td><a id="445c1" class="tk">ControllersModelClass</a>::<a id="445c24" class="tk">ControllersModelClass</a>()</td></tr>
+<td>445</td><td>    1.61,                              <span class="ct">/* Variable: KPP</span></td></tr>
 <tr name="446" id="446">
-<td>446</td><td><span class="br">{</span></td></tr>
+<td>446</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Proportional Gain'</span></td></tr>
 <tr name="447" id="447">
-<td>447</td><td>  <span class="kw">static</span> <span class="kw">const</span> <a id="447c16" class="tk">P_Controllers_T</a> <a id="447c32" class="tk">Controllers_P_temp</a> = <span class="br">{</span></td></tr>
+<td>447</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="448" id="448">
-<td>448</td><td>    0.0,                               <span class="ct">/* Variable: KPD</span></td></tr>
+<td>448</td><td>    0.0,                               <span class="ct">/* Variable: KRD</span></td></tr>
 <tr name="449" id="449">
-<td>449</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Derivative Gain'</span></td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
+<td>449</td><td><span class="ct">                                        * Referenced by: '&lt;S4&gt;/Derivative Gain'</span></td></tr>
 <tr name="450" id="450">
-<td>450</td><td>  <a id="450c3" class="tk">Controllers_X</a>.<a id="450c17" class="tk">Integrator_CSTATE_b3</a> = <a id="450c40" class="tk">Controllers_P</a>.<a id="450c54" class="tk">Integrator_IC_j</a>;</td></tr>
+<td>450</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="451" id="451">
-<<<<<<< HEAD
-<td>451</td><td></td></tr>
+<td>451</td><td>    0.0,                               <span class="ct">/* Variable: KRP</span></td></tr>
 <tr name="452" id="452">
-<td>452</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S7&gt;/Filter' */</span></td></tr>
-=======
-<td>451</td><td>    0.0,                               <span class="ct">/* Variable: KPP</span></td></tr>
-<tr name="452" id="452">
-<td>452</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Proportional Gain'</span></td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
+<td>452</td><td><span class="ct">                                        * Referenced by: '&lt;S4&gt;/Proportional Gain'</span></td></tr>
 <tr name="453" id="453">
-<td>453</td><td>  <a id="453c3" class="tk">Controllers_X</a>.<a id="453c17" class="tk">Filter_CSTATE_d</a> = <a id="453c35" class="tk">Controllers_P</a>.<a id="453c49" class="tk">Filter_IC_e</a>;</td></tr>
+<td>453</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="454" id="454">
-<<<<<<< HEAD
-<td>454</td><td></td></tr>
+<td>454</td><td>    0.0,                               <span class="ct">/* Variable: KYP</span></td></tr>
 <tr name="455" id="455">
-<td>455</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S5&gt;/Integrator' */</span></td></tr>
-=======
-<td>454</td><td>    0.0,                               <span class="ct">/* Variable: KRD</span></td></tr>
-<tr name="455" id="455">
-<td>455</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Derivative Gain'</span></td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
+<td>455</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Proportional Gain'</span></td></tr>
 <tr name="456" id="456">
-<td>456</td><td>  <a id="456c3" class="tk">Controllers_X</a>.<a id="456c17" class="tk">Integrator_CSTATE_a</a> = <a id="456c39" class="tk">Controllers_P</a>.<a id="456c53" class="tk">Integrator_IC_o</a>;</td></tr>
+<td>456</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="457" id="457">
-<<<<<<< HEAD
-<td>457</td><td></td></tr>
+<td>457</td><td>    0.0,                               <span class="ct">/* Variable: Kdp</span></td></tr>
 <tr name="458" id="458">
-<td>458</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S5&gt;/Filter' */</span></td></tr>
-=======
-<td>457</td><td>    0.0,                               <span class="ct">/* Variable: KRP</span></td></tr>
-<tr name="458" id="458">
-<td>458</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Proportional Gain'</span></td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
+<td>458</td><td><span class="ct">                                        * Referenced by: '&lt;S5&gt;/Derivative Gain'</span></td></tr>
 <tr name="459" id="459">
-<td>459</td><td>  <a id="459c3" class="tk">Controllers_X</a>.<a id="459c17" class="tk">Filter_CSTATE_l</a> = <a id="459c35" class="tk">Controllers_P</a>.<a id="459c49" class="tk">Filter_IC_a</a>;</td></tr>
+<td>459</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="460" id="460">
-<<<<<<< HEAD
-<td>460</td><td><span class="br">}</span></td></tr>
+<td>460</td><td>    0.0499,                            <span class="ct">/* Variable: Kdq</span></td></tr>
 <tr name="461" id="461">
-<td>461</td><td></td></tr>
-=======
-<td>460</td><td>    0.0125,                            <span class="ct">/* Variable: KYD</span></td></tr>
-<tr name="461" id="461">
-<td>461</td><td><span class="ct">                                        * Referenced by: '&lt;S4&gt;/Derivative Gain'</span></td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
+<td>461</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Derivative Gain'</span></td></tr>
 <tr name="462" id="462">
-<td>462</td><td><span class="ct">/* Model terminate function */</span></td></tr>
+<td>462</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="463" id="463">
-<<<<<<< HEAD
-<td>463</td><td><span class="kw">void</span> <a id="463c6" class="tk">ControllersModelClass</a>::<a id="463c29" class="tk">terminate</a>()</td></tr>
+<td>463</td><td>    0.0,                               <span class="ct">/* Variable: Kdr</span></td></tr>
 <tr name="464" id="464">
-<td>464</td><td><span class="br">{</span></td></tr>
-<tr name="465" id="465">
-<td>465</td><td>  <span class="ct">/* (no terminate code required) */</span></td></tr>
-<tr name="466" id="466">
-<td>466</td><td><span class="br">}</span></td></tr>
-<tr name="467" id="467">
-<td>467</td><td></td></tr>
-<tr name="468" id="468">
-<td>468</td><td><span class="ct">/* Constructor */</span></td></tr>
-<tr name="469" id="469">
-<td>469</td><td><a id="469c1" class="tk">ControllersModelClass</a>::<a id="469c24" class="tk">ControllersModelClass</a>()</td></tr>
-<tr name="470" id="470">
-<td>470</td><td><span class="br">{</span></td></tr>
-<tr name="471" id="471">
-<td>471</td><td>  <span class="kw">static</span> <span class="kw">const</span> <a id="471c16" class="tk">P_Controllers_T</a> <a id="471c32" class="tk">Controllers_P_temp</a> = <span class="br">{</span></td></tr>
-<tr name="472" id="472">
-<td>472</td><td>    0.0,                               <span class="ct">/* Variable: KPD</span></td></tr>
-<tr name="473" id="473">
-<td>473</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Derivative Gain'</span></td></tr>
-<tr name="474" id="474">
-<td>474</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="475" id="475">
-<td>475</td><td>    0.0,                               <span class="ct">/* Variable: KPP</span></td></tr>
-<tr name="476" id="476">
-<td>476</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Proportional Gain'</span></td></tr>
-<tr name="477" id="477">
-<td>477</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="478" id="478">
-<td>478</td><td>    0.0,                               <span class="ct">/* Variable: KRD</span></td></tr>
-<tr name="479" id="479">
-<td>479</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Derivative Gain'</span></td></tr>
-<tr name="480" id="480">
-<td>480</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="481" id="481">
-<td>481</td><td>    0.0,                               <span class="ct">/* Variable: KRP</span></td></tr>
-<tr name="482" id="482">
-<td>482</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Proportional Gain'</span></td></tr>
-<tr name="483" id="483">
-<td>483</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="484" id="484">
-<td>484</td><td>    0.12,                              <span class="ct">/* Variable: KYD</span></td></tr>
-<tr name="485" id="485">
-<td>485</td><td><span class="ct">                                        * Referenced by: '&lt;S4&gt;/Derivative Gain'</span></td></tr>
-<tr name="486" id="486">
-<td>486</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="487" id="487">
-<td>487</td><td>    0.957,                             <span class="ct">/* Variable: KYP</span></td></tr>
-<tr name="488" id="488">
-<td>488</td><td><span class="ct">                                        * Referenced by: '&lt;S4&gt;/Proportional Gain'</span></td></tr>
-<tr name="489" id="489">
-<td>489</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="490" id="490">
-<td>490</td><td>    0.0,                               <span class="ct">/* Variable: Kdp</span></td></tr>
-<tr name="491" id="491">
-<td>491</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Derivative Gain'</span></td></tr>
-<tr name="492" id="492">
-<td>492</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="493" id="493">
-<td>493</td><td>    0.0,                               <span class="ct">/* Variable: Kdq</span></td></tr>
-<tr name="494" id="494">
-<td>494</td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/Derivative Gain'</span></td></tr>
-<tr name="495" id="495">
-<td>495</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="496" id="496">
-<td>496</td><td>    0.0153,                            <span class="ct">/* Variable: Kdr</span></td></tr>
-<tr name="497" id="497">
-<td>497</td><td><span class="ct">                                        * Referenced by: '&lt;S5&gt;/Derivative Gain'</span></td></tr>
-<tr name="498" id="498">
-<td>498</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="499" id="499">
-<td>499</td><td>    0.0,                               <span class="ct">/* Variable: Kip</span></td></tr>
-<tr name="500" id="500">
-<td>500</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Integral Gain'</span></td></tr>
-<tr name="501" id="501">
-<td>501</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="502" id="502">
-<td>502</td><td>    0.0,                               <span class="ct">/* Variable: Kiq</span></td></tr>
-<tr name="503" id="503">
-<td>503</td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/Integral Gain'</span></td></tr>
-<tr name="504" id="504">
-<td>504</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="505" id="505">
-<td>505</td><td>    0.125,                             <span class="ct">/* Variable: Kir</span></td></tr>
-<tr name="506" id="506">
-<td>506</td><td><span class="ct">                                        * Referenced by: '&lt;S5&gt;/Integral Gain'</span></td></tr>
-<tr name="507" id="507">
-<td>507</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="508" id="508">
-<td>508</td><td>    0.0,                               <span class="ct">/* Variable: Kpp</span></td></tr>
-<tr name="509" id="509">
-<td>509</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Proportional Gain'</span></td></tr>
-<tr name="510" id="510">
-<td>510</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="511" id="511">
-<td>511</td><td>    0.0,                               <span class="ct">/* Variable: Kpq</span></td></tr>
-<tr name="512" id="512">
-<td>512</td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/Proportional Gain'</span></td></tr>
-<tr name="513" id="513">
-<td>513</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="514" id="514">
-<td>514</td><td>    0.135,                             <span class="ct">/* Variable: Kpr</span></td></tr>
-<tr name="515" id="515">
-<td>515</td><td><span class="ct">                                        * Referenced by: '&lt;S5&gt;/Proportional Gain'</span></td></tr>
-<tr name="516" id="516">
-<td>516</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="517" id="517">
-<td>517</td><td>    100.0,                             <span class="ct">/* Variable: N</span></td></tr>
-<tr name="518" id="518">
-<td>518</td><td><span class="ct">                                        * Referenced by:</span></td></tr>
-<tr name="519" id="519">
-<td>519</td><td><span class="ct">                                        *   '&lt;S2&gt;/Filter Coefficient'</span></td></tr>
-<tr name="520" id="520">
-<td>520</td><td><span class="ct">                                        *   '&lt;S3&gt;/Filter Coefficient'</span></td></tr>
-<tr name="521" id="521">
-<td>521</td><td><span class="ct">                                        *   '&lt;S4&gt;/Filter Coefficient'</span></td></tr>
-<tr name="522" id="522">
-<td>522</td><td><span class="ct">                                        *   '&lt;S5&gt;/Filter Coefficient'</span></td></tr>
-<tr name="523" id="523">
-<td>523</td><td><span class="ct">                                        *   '&lt;S6&gt;/Filter Coefficient'</span></td></tr>
-<tr name="524" id="524">
-<td>524</td><td><span class="ct">                                        *   '&lt;S7&gt;/Filter Coefficient'</span></td></tr>
-<tr name="525" id="525">
-<td>525</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="526" id="526">
-<td>526</td><td>    0.52359877559829882,               <span class="ct">/* Variable: pitchMax</span></td></tr>
-<tr name="527" id="527">
-<td>527</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Yaw-rate2'</span></td></tr>
-<tr name="528" id="528">
-<td>528</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="529" id="529">
-<td>529</td><td>    0.52359877559829882,               <span class="ct">/* Variable: rollMax</span></td></tr>
-<tr name="530" id="530">
-<td>530</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Yaw-rate1'</span></td></tr>
-<tr name="531" id="531">
-<td>531</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="532" id="532">
-<td>532</td><td>    1.5707963267948966,                <span class="ct">/* Variable: yawRateMax</span></td></tr>
-<tr name="533" id="533">
-<td>533</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Yaw-rate'</span></td></tr>
-<tr name="534" id="534">
-<td>534</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="535" id="535">
-<td>535</td><td>    1.0,                               <span class="ct">/* Expression: 1</span></td></tr>
-<tr name="536" id="536">
-<td>536</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation'</span></td></tr>
-<tr name="537" id="537">
-<td>537</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="538" id="538">
-<td>538</td><td>    -1.0,                              <span class="ct">/* Expression: -1</span></td></tr>
-<tr name="539" id="539">
-<td>539</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation'</span></td></tr>
-<tr name="540" id="540">
-<td>540</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="541" id="541">
-<td>541</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
-<tr name="542" id="542">
-<td>542</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Filter'</span></td></tr>
-<tr name="543" id="543">
-<td>543</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="544" id="544">
-<td>544</td><td>    1.0,                               <span class="ct">/* Expression: 1</span></td></tr>
-<tr name="545" id="545">
-<td>545</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation1'</span></td></tr>
-<tr name="546" id="546">
-<td>546</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="547" id="547">
-<td>547</td><td>    -1.0,                              <span class="ct">/* Expression: -1</span></td></tr>
-<tr name="548" id="548">
-<td>548</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation1'</span></td></tr>
-<tr name="549" id="549">
-<td>549</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="550" id="550">
-<td>550</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
-<tr name="551" id="551">
-<td>551</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Filter'</span></td></tr>
-<tr name="552" id="552">
-<td>552</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="553" id="553">
-<td>553</td><td>    1.0,                               <span class="ct">/* Expression: 1</span></td></tr>
-<tr name="554" id="554">
-<td>554</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation2'</span></td></tr>
-<tr name="555" id="555">
-<td>555</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="556" id="556">
-<td>556</td><td>    -1.0,                              <span class="ct">/* Expression: -1</span></td></tr>
-<tr name="557" id="557">
-<td>557</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation2'</span></td></tr>
-<tr name="558" id="558">
-<td>558</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="559" id="559">
-<td>559</td><td>    0.0,                               <span class="ct">/* Expression: 0</span></td></tr>
-<tr name="560" id="560">
-<td>560</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Integrator'</span></td></tr>
-<tr name="561" id="561">
-<td>561</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="562" id="562">
-<td>562</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
-<tr name="563" id="563">
-<td>563</td><td><span class="ct">                                        * Referenced by: '&lt;S4&gt;/Filter'</span></td></tr>
-<tr name="564" id="564">
-<td>564</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="565" id="565">
-<td>565</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForIntegrator</span></td></tr>
-<tr name="566" id="566">
-<td>566</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Integrator'</span></td></tr>
-<tr name="567" id="567">
-<td>567</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="568" id="568">
-<td>568</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
-<tr name="569" id="569">
-<td>569</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Filter'</span></td></tr>
-<tr name="570" id="570">
-<td>570</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="571" id="571">
-<td>571</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForIntegrator</span></td></tr>
-<tr name="572" id="572">
-<td>572</td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/Integrator'</span></td></tr>
-<tr name="573" id="573">
-<td>573</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="574" id="574">
-<td>574</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
-<tr name="575" id="575">
-<td>575</td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/Filter'</span></td></tr>
-<tr name="576" id="576">
-<td>576</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="577" id="577">
-<td>577</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForIntegrator</span></td></tr>
-<tr name="578" id="578">
-<td>578</td><td><span class="ct">                                        * Referenced by: '&lt;S5&gt;/Integrator'</span></td></tr>
-<tr name="579" id="579">
-<td>579</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="580" id="580">
-<td>580</td><td>    0.0                                <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
-<tr name="581" id="581">
-<td>581</td><td><span class="ct">                                        * Referenced by: '&lt;S5&gt;/Filter'</span></td></tr>
-<tr name="582" id="582">
-<td>582</td><td><span class="ct">                                        */</span></td></tr>
-<tr name="583" id="583">
-<td>583</td><td>  <span class="br">}</span>;                                   <span class="ct">/* Modifiable parameters */</span></td></tr>
-<tr name="584" id="584">
-<td>584</td><td></td></tr>
-<tr name="585" id="585">
-<td>585</td><td>  <span class="ct">/* Initialize tunable parameters */</span></td></tr>
-<tr name="586" id="586">
-<td>586</td><td>  <a id="586c3" class="tk">Controllers_P</a> = <a id="586c19" class="tk">Controllers_P_temp</a>;</td></tr>
-<tr name="587" id="587">
-<td>587</td><td><span class="br">}</span></td></tr>
-<tr name="588" id="588">
-<td>588</td><td></td></tr>
-<tr name="589" id="589">
-<td>589</td><td><span class="ct">/* Destructor */</span></td></tr>
-<tr name="590" id="590">
-<td>590</td><td><a id="590c1" class="tk">ControllersModelClass</a>::~<a id="590c25" class="tk">ControllersModelClass</a>()</td></tr>
-<tr name="591" id="591">
-<td>591</td><td><span class="br">{</span></td></tr>
-<tr name="592" id="592">
-<td>592</td><td>  <span class="ct">/* Currently there is no destructor body generated.*/</span></td></tr>
-<tr name="593" id="593">
-<td>593</td><td><span class="br">}</span></td></tr>
-<tr name="594" id="594">
-<td>594</td><td></td></tr>
-<tr name="595" id="595">
-<td>595</td><td><span class="ct">/* Real-Time Model get method */</span></td></tr>
-<tr name="596" id="596">
-<td>596</td><td><a id="596c1" class="tk">RT_MODEL_Controllers_T</a> * <a id="596c26" class="tk">ControllersModelClass</a>::<a id="596c49" class="tk">getRTM</a>()</td></tr>
-<tr name="597" id="597">
-<td>597</td><td><span class="br">{</span></td></tr>
-<tr name="598" id="598">
-<td>598</td><td>  <span class="kw">return</span> (&amp;<a id="598c12" class="tk">Controllers_M</a>);</td></tr>
-<tr name="599" id="599">
-<td>599</td><td><span class="br">}</span></td></tr>
-<tr name="600" id="600">
-<td>600</td><td></td></tr>
-=======
-<td>463</td><td>    0.972,                             <span class="ct">/* Variable: KYP</span></td></tr>
-<tr name="464" id="464">
-<td>464</td><td><span class="ct">                                        * Referenced by: '&lt;S4&gt;/Proportional Gain'</span></td></tr>
+<td>464</td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/Derivative Gain'</span></td></tr>
 <tr name="465" id="465">
 <td>465</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="466" id="466">
-<td>466</td><td>    0.0,                               <span class="ct">/* Variable: Kdp</span></td></tr>
+<td>466</td><td>    0.0,                               <span class="ct">/* Variable: Kip</span></td></tr>
 <tr name="467" id="467">
-<td>467</td><td><span class="ct">                                        * Referenced by: '&lt;S5&gt;/Derivative Gain'</span></td></tr>
+<td>467</td><td><span class="ct">                                        * Referenced by: '&lt;S5&gt;/Integral Gain'</span></td></tr>
 <tr name="468" id="468">
 <td>468</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="469" id="469">
-<td>469</td><td>    0.0,                               <span class="ct">/* Variable: Kdq</span></td></tr>
+<td>469</td><td>    0.304,                             <span class="ct">/* Variable: Kiq</span></td></tr>
 <tr name="470" id="470">
-<td>470</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Derivative Gain'</span></td></tr>
+<td>470</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Integral Gain'</span></td></tr>
 <tr name="471" id="471">
 <td>471</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="472" id="472">
-<td>472</td><td>    0.0178,                            <span class="ct">/* Variable: Kdr</span></td></tr>
+<td>472</td><td>    0.0,                               <span class="ct">/* Variable: Kir</span></td></tr>
 <tr name="473" id="473">
-<td>473</td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/Derivative Gain'</span></td></tr>
+<td>473</td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/Integral Gain'</span></td></tr>
 <tr name="474" id="474">
 <td>474</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="475" id="475">
-<td>475</td><td>    0.0,                               <span class="ct">/* Variable: Kip</span></td></tr>
+<td>475</td><td>    0.0,                               <span class="ct">/* Variable: Kpp</span></td></tr>
 <tr name="476" id="476">
-<td>476</td><td><span class="ct">                                        * Referenced by: '&lt;S5&gt;/Integral Gain'</span></td></tr>
+<td>476</td><td><span class="ct">                                        * Referenced by: '&lt;S5&gt;/Proportional Gain'</span></td></tr>
 <tr name="477" id="477">
 <td>477</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="478" id="478">
-<td>478</td><td>    0.0,                               <span class="ct">/* Variable: Kiq</span></td></tr>
+<td>478</td><td>    0.298,                             <span class="ct">/* Variable: Kpq</span></td></tr>
 <tr name="479" id="479">
-<td>479</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Integral Gain'</span></td></tr>
+<td>479</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Proportional Gain'</span></td></tr>
 <tr name="480" id="480">
 <td>480</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="481" id="481">
-<td>481</td><td>    0.112,                             <span class="ct">/* Variable: Kir</span></td></tr>
+<td>481</td><td>    0.0,                               <span class="ct">/* Variable: Kpr</span></td></tr>
 <tr name="482" id="482">
-<td>482</td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/Integral Gain'</span></td></tr>
+<td>482</td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/Proportional Gain'</span></td></tr>
 <tr name="483" id="483">
 <td>483</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="484" id="484">
-<td>484</td><td>    0.0,                               <span class="ct">/* Variable: Kpp</span></td></tr>
+<td>484</td><td>    100.0,                             <span class="ct">/* Variable: N</span></td></tr>
 <tr name="485" id="485">
-<td>485</td><td><span class="ct">                                        * Referenced by: '&lt;S5&gt;/Proportional Gain'</span></td></tr>
+<td>485</td><td><span class="ct">                                        * Referenced by:</span></td></tr>
 <tr name="486" id="486">
-<td>486</td><td><span class="ct">                                        */</span></td></tr>
+<td>486</td><td><span class="ct">                                        *   '&lt;S3&gt;/Filter Coefficient'</span></td></tr>
 <tr name="487" id="487">
-<td>487</td><td>    0.0,                               <span class="ct">/* Variable: Kpq</span></td></tr>
+<td>487</td><td><span class="ct">                                        *   '&lt;S4&gt;/Filter Coefficient'</span></td></tr>
 <tr name="488" id="488">
-<td>488</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Proportional Gain'</span></td></tr>
+<td>488</td><td><span class="ct">                                        *   '&lt;S5&gt;/Filter Coefficient'</span></td></tr>
 <tr name="489" id="489">
-<td>489</td><td><span class="ct">                                        */</span></td></tr>
+<td>489</td><td><span class="ct">                                        *   '&lt;S6&gt;/Filter Coefficient'</span></td></tr>
 <tr name="490" id="490">
-<td>490</td><td>    0.113,                             <span class="ct">/* Variable: Kpr</span></td></tr>
+<td>490</td><td><span class="ct">                                        *   '&lt;S7&gt;/Filter Coefficient'</span></td></tr>
 <tr name="491" id="491">
-<td>491</td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/Proportional Gain'</span></td></tr>
+<td>491</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="492" id="492">
-<td>492</td><td><span class="ct">                                        */</span></td></tr>
+<td>492</td><td>    0.52359877559829882,               <span class="ct">/* Variable: pitchMax</span></td></tr>
 <tr name="493" id="493">
-<td>493</td><td>    100.0,                             <span class="ct">/* Variable: N</span></td></tr>
+<td>493</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Yaw-rate2'</span></td></tr>
 <tr name="494" id="494">
-<td>494</td><td><span class="ct">                                        * Referenced by:</span></td></tr>
+<td>494</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="495" id="495">
-<td>495</td><td><span class="ct">                                        *   '&lt;S2&gt;/Filter Coefficient'</span></td></tr>
+<td>495</td><td>    0.52359877559829882,               <span class="ct">/* Variable: rollMax</span></td></tr>
 <tr name="496" id="496">
-<td>496</td><td><span class="ct">                                        *   '&lt;S3&gt;/Filter Coefficient'</span></td></tr>
+<td>496</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Yaw-rate1'</span></td></tr>
 <tr name="497" id="497">
-<td>497</td><td><span class="ct">                                        *   '&lt;S4&gt;/Filter Coefficient'</span></td></tr>
+<td>497</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="498" id="498">
-<td>498</td><td><span class="ct">                                        *   '&lt;S5&gt;/Filter Coefficient'</span></td></tr>
+<td>498</td><td>    1.5707963267948966,                <span class="ct">/* Variable: yawRateMax</span></td></tr>
 <tr name="499" id="499">
-<td>499</td><td><span class="ct">                                        *   '&lt;S6&gt;/Filter Coefficient'</span></td></tr>
+<td>499</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Yaw-rate'</span></td></tr>
 <tr name="500" id="500">
-<td>500</td><td><span class="ct">                                        *   '&lt;S7&gt;/Filter Coefficient'</span></td></tr>
+<td>500</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="501" id="501">
-<td>501</td><td><span class="ct">                                        */</span></td></tr>
+<td>501</td><td>    1.0,                               <span class="ct">/* Expression: 1</span></td></tr>
 <tr name="502" id="502">
-<td>502</td><td>    0.52359877559829882,               <span class="ct">/* Variable: pitchMax</span></td></tr>
+<td>502</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation'</span></td></tr>
 <tr name="503" id="503">
-<td>503</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Yaw-rate2'</span></td></tr>
+<td>503</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="504" id="504">
-<td>504</td><td><span class="ct">                                        */</span></td></tr>
+<td>504</td><td>    -1.0,                              <span class="ct">/* Expression: -1</span></td></tr>
 <tr name="505" id="505">
-<td>505</td><td>    0.52359877559829882,               <span class="ct">/* Variable: rollMax</span></td></tr>
+<td>505</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation'</span></td></tr>
 <tr name="506" id="506">
-<td>506</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Yaw-rate1'</span></td></tr>
+<td>506</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="507" id="507">
-<td>507</td><td><span class="ct">                                        */</span></td></tr>
+<td>507</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
 <tr name="508" id="508">
-<td>508</td><td>    1.0,                               <span class="ct">/* Expression: 1</span></td></tr>
+<td>508</td><td><span class="ct">                                        * Referenced by: '&lt;S4&gt;/Filter'</span></td></tr>
 <tr name="509" id="509">
-<td>509</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation'</span></td></tr>
+<td>509</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="510" id="510">
-<td>510</td><td><span class="ct">                                        */</span></td></tr>
+<td>510</td><td>    1.0,                               <span class="ct">/* Expression: 1</span></td></tr>
 <tr name="511" id="511">
-<td>511</td><td>    -1.0,                              <span class="ct">/* Expression: -1</span></td></tr>
+<td>511</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation1'</span></td></tr>
 <tr name="512" id="512">
-<td>512</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation'</span></td></tr>
+<td>512</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="513" id="513">
-<td>513</td><td><span class="ct">                                        */</span></td></tr>
+<td>513</td><td>    -1.0,                              <span class="ct">/* Expression: -1</span></td></tr>
 <tr name="514" id="514">
-<td>514</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
+<td>514</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation1'</span></td></tr>
 <tr name="515" id="515">
-<td>515</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Filter'</span></td></tr>
+<td>515</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="516" id="516">
-<td>516</td><td><span class="ct">                                        */</span></td></tr>
+<td>516</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
 <tr name="517" id="517">
-<td>517</td><td>    1.0,                               <span class="ct">/* Expression: 1</span></td></tr>
+<td>517</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Filter'</span></td></tr>
 <tr name="518" id="518">
-<td>518</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation1'</span></td></tr>
+<td>518</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="519" id="519">
-<td>519</td><td><span class="ct">                                        */</span></td></tr>
+<td>519</td><td>    1.0,                               <span class="ct">/* Expression: 1</span></td></tr>
 <tr name="520" id="520">
-<td>520</td><td>    -1.0,                              <span class="ct">/* Expression: -1</span></td></tr>
+<td>520</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation2'</span></td></tr>
 <tr name="521" id="521">
-<td>521</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation1'</span></td></tr>
+<td>521</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="522" id="522">
-<td>522</td><td><span class="ct">                                        */</span></td></tr>
+<td>522</td><td>    -1.0,                              <span class="ct">/* Expression: -1</span></td></tr>
 <tr name="523" id="523">
-<td>523</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
+<td>523</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Saturation2'</span></td></tr>
 <tr name="524" id="524">
-<td>524</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Filter'</span></td></tr>
+<td>524</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="525" id="525">
-<td>525</td><td><span class="ct">                                        */</span></td></tr>
+<td>525</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForIntegrator</span></td></tr>
 <tr name="526" id="526">
-<td>526</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
+<td>526</td><td><span class="ct">                                        * Referenced by: '&lt;S5&gt;/Integrator'</span></td></tr>
 <tr name="527" id="527">
-<td>527</td><td><span class="ct">                                        * Referenced by: '&lt;S4&gt;/Filter'</span></td></tr>
+<td>527</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="528" id="528">
-<td>528</td><td><span class="ct">                                        */</span></td></tr>
+<td>528</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
 <tr name="529" id="529">
-<td>529</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForIntegrator</span></td></tr>
+<td>529</td><td><span class="ct">                                        * Referenced by: '&lt;S5&gt;/Filter'</span></td></tr>
 <tr name="530" id="530">
-<td>530</td><td><span class="ct">                                        * Referenced by: '&lt;S5&gt;/Integrator'</span></td></tr>
+<td>530</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="531" id="531">
-<td>531</td><td><span class="ct">                                        */</span></td></tr>
+<td>531</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForIntegrator</span></td></tr>
 <tr name="532" id="532">
-<td>532</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
+<td>532</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Integrator'</span></td></tr>
 <tr name="533" id="533">
-<td>533</td><td><span class="ct">                                        * Referenced by: '&lt;S5&gt;/Filter'</span></td></tr>
+<td>533</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="534" id="534">
-<td>534</td><td><span class="ct">                                        */</span></td></tr>
+<td>534</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
 <tr name="535" id="535">
-<td>535</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForIntegrator</span></td></tr>
+<td>535</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Filter'</span></td></tr>
 <tr name="536" id="536">
-<td>536</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Integrator'</span></td></tr>
+<td>536</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="537" id="537">
-<td>537</td><td><span class="ct">                                        */</span></td></tr>
+<td>537</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForIntegrator</span></td></tr>
 <tr name="538" id="538">
-<td>538</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
+<td>538</td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/Integrator'</span></td></tr>
 <tr name="539" id="539">
-<td>539</td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/Filter'</span></td></tr>
+<td>539</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="540" id="540">
-<td>540</td><td><span class="ct">                                        */</span></td></tr>
+<td>540</td><td>    0.0                                <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
 <tr name="541" id="541">
-<td>541</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForIntegrator</span></td></tr>
+<td>541</td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/Filter'</span></td></tr>
 <tr name="542" id="542">
-<td>542</td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/Integrator'</span></td></tr>
+<td>542</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="543" id="543">
-<td>543</td><td><span class="ct">                                        */</span></td></tr>
+<td>543</td><td>  <span class="br">}</span>;                                   <span class="ct">/* Modifiable parameters */</span></td></tr>
 <tr name="544" id="544">
-<td>544</td><td>    0.0                                <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
+<td>544</td><td></td></tr>
 <tr name="545" id="545">
-<td>545</td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/Filter'</span></td></tr>
+<td>545</td><td>  <span class="ct">/* Initialize tunable parameters */</span></td></tr>
 <tr name="546" id="546">
-<td>546</td><td><span class="ct">                                        */</span></td></tr>
+<td>546</td><td>  <a id="546c3" class="tk">Controllers_P</a> = <a id="546c19" class="tk">Controllers_P_temp</a>;</td></tr>
 <tr name="547" id="547">
-<td>547</td><td>  <span class="br">}</span>;                                   <span class="ct">/* Modifiable parameters */</span></td></tr>
+<td>547</td><td><span class="br">}</span></td></tr>
 <tr name="548" id="548">
 <td>548</td><td></td></tr>
 <tr name="549" id="549">
-<td>549</td><td>  <span class="ct">/* Initialize tunable parameters */</span></td></tr>
+<td>549</td><td><span class="ct">/* Destructor */</span></td></tr>
 <tr name="550" id="550">
-<td>550</td><td>  <a id="550c3" class="tk">Controllers_P</a> = <a id="550c19" class="tk">Controllers_P_temp</a>;</td></tr>
+<td>550</td><td><a id="550c1" class="tk">ControllersModelClass</a>::~<a id="550c25" class="tk">ControllersModelClass</a>()</td></tr>
 <tr name="551" id="551">
-<td>551</td><td><span class="br">}</span></td></tr>
+<td>551</td><td><span class="br">{</span></td></tr>
 <tr name="552" id="552">
-<td>552</td><td></td></tr>
+<td>552</td><td>  <span class="ct">/* Currently there is no destructor body generated.*/</span></td></tr>
 <tr name="553" id="553">
-<td>553</td><td><span class="ct">/* Destructor */</span></td></tr>
+<td>553</td><td><span class="br">}</span></td></tr>
 <tr name="554" id="554">
-<td>554</td><td><a id="554c1" class="tk">ControllersModelClass</a>::~<a id="554c25" class="tk">ControllersModelClass</a>()</td></tr>
+<td>554</td><td></td></tr>
 <tr name="555" id="555">
-<td>555</td><td><span class="br">{</span></td></tr>
+<td>555</td><td><span class="ct">/* Real-Time Model get method */</span></td></tr>
 <tr name="556" id="556">
-<td>556</td><td>  <span class="ct">/* Currently there is no destructor body generated.*/</span></td></tr>
+<td>556</td><td><a id="556c1" class="tk">RT_MODEL_Controllers_T</a> * <a id="556c26" class="tk">ControllersModelClass</a>::<a id="556c49" class="tk">getRTM</a>()</td></tr>
 <tr name="557" id="557">
-<td>557</td><td><span class="br">}</span></td></tr>
+<td>557</td><td><span class="br">{</span></td></tr>
 <tr name="558" id="558">
-<td>558</td><td></td></tr>
+<td>558</td><td>  <span class="kw">return</span> (&amp;<a id="558c12" class="tk">Controllers_M</a>);</td></tr>
 <tr name="559" id="559">
-<td>559</td><td><span class="ct">/* Real-Time Model get method */</span></td></tr>
+<td>559</td><td><span class="br">}</span></td></tr>
 <tr name="560" id="560">
-<td>560</td><td><a id="560c1" class="tk">RT_MODEL_Controllers_T</a> * <a id="560c26" class="tk">ControllersModelClass</a>::<a id="560c49" class="tk">getRTM</a>()</td></tr>
-<tr name="561" id="561">
-<td>561</td><td><span class="br">{</span></td></tr>
-<tr name="562" id="562">
-<td>562</td><td>  <span class="kw">return</span> (&amp;<a id="562c12" class="tk">Controllers_M</a>);</td></tr>
-<tr name="563" id="563">
-<td>563</td><td><span class="br">}</span></td></tr>
-<tr name="564" id="564">
-<td>564</td><td></td></tr>
->>>>>>> 8a271f80cd11d47507d95e30c025829a95f36444
+<td>560</td><td></td></tr>
 </table>
 </pre>
 </body>
