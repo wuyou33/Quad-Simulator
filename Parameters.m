@@ -84,9 +84,9 @@ N = 1/Tf;
 % Kip = 0.3;
 % Kdp = 0.05;
 %H-Infinity
-Kpp = 0*0.298;
-Kip = 0*0.304;
-Kdp = 0*0.0499;
+Kpp = 0.298;
+Kip = 0.304;
+Kdp = 0.0499;
 
 %q PID
 %Guess
@@ -104,9 +104,9 @@ Kdq = 0.0499;
 % Kir = 0.2;
 % Kdr = 0.1;
 %H-Infinity
-Kpr = 0*0.135;
-Kir = 0*0.125;
-Kdr = 0*0.0153;
+Kpr = 0.135;
+Kir = 0.125;
+Kdr = 0.0153;
 
 %% Attitude regulators
 %phi PD
@@ -114,8 +114,8 @@ Kdr = 0*0.0153;
 % KRP = 1.2;
 % KRD = 0.005;
 %H-Infinity
-KRP = 0*1.61;
-KRD = 0*0.00512;
+KRP = 1.61;
+KRD = 0.00512;
 
 %theta PD
 %Guess
@@ -132,7 +132,7 @@ KPD = 0.00512;
 % KYP = 1;
 % KYD = 0.01;
 %H-Infinity
-KYP = 0*0.972;
-KYD = 0*0.0125;
+KYP = 1;
+KYD = 0;
 
  %% End of code
