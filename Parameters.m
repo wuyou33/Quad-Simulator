@@ -9,7 +9,7 @@ g = 9.81;
 degtorad = pi/180;
 
 %Mass and structural informations
-m = 1.478;                       %[kg] Body mass
+m = 1.510;                       %[kg] Body mass
 Mb = diag([m m m]);              %[Kg] Mass matrix
 MbInv = Mb\eye(3);               %[Kg^-1] Inverse of mass matrix
 b = 0.55/2;                      %[m] Arm lenght

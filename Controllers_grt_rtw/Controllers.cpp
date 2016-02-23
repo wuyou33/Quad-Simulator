@@ -7,9 +7,9 @@
  *
  * Code generation for model "Controllers".
  *
- * Model version              : 1.69
+ * Model version              : 1.70
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Fri Feb 12 17:41:17 2016
+ * C++ source code generated on : Wed Feb 17 18:57:24 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -76,6 +76,7 @@ void ControllersModelClass::step()
   real_T Ctheta;
   real_T rtb_Sum4;
   real_T rtb_ProportionalGain;
+  real_T rtb_ProportionalGain_n;
   real_T rtb_Rates_B[3];
   real_T tmp[9];
   int32_T i;
@@ -102,19 +103,31 @@ void ControllersModelClass::step()
    *  Inport: '<Root>/Stick'
    */
   if (Controllers_U.Stick[0] > Controllers_P.Saturation_UpperSat) {
-    Sphi = Controllers_P.Saturation_UpperSat;
+    rtb_Sum4 = Controllers_P.Saturation_UpperSat;
   } else if (Controllers_U.Stick[0] < Controllers_P.Saturation_LowerSat) {
-    Sphi = Controllers_P.Saturation_LowerSat;
+    rtb_Sum4 = Controllers_P.Saturation_LowerSat;
   } else {
-    Sphi = Controllers_U.Stick[0];
+    rtb_Sum4 = Controllers_U.Stick[0];
   }
+
+  /* End of Saturate: '<S1>/Saturation' */
+
+  /* DeadZone: '<S1>/Dead Zone' */
+  if (rtb_Sum4 > Controllers_P.DeadZone_End) {
+    rtb_Sum4 -= Controllers_P.DeadZone_End;
+  } else if (rtb_Sum4 >= Controllers_P.DeadZone_Start) {
+    rtb_Sum4 = 0.0;
+  } else {
+    rtb_Sum4 -= Controllers_P.DeadZone_Start;
+  }
+
+  /* End of DeadZone: '<S1>/Dead Zone' */
 
   /* Sum: '<S1>/Sum' incorporates:
    *  Gain: '<S1>/Yaw-rate1'
    *  Inport: '<Root>/IMU_Attitude'
-   *  Saturate: '<S1>/Saturation'
    */
-  rtb_Sum4 = Controllers_P.rollMax * Sphi - Controllers_U.IMU_Attitude[0];
+  rtb_Sum4 = Controllers_P.rollMax * rtb_Sum4 - Controllers_U.IMU_Attitude[0];
 
   /* Gain: '<S4>/Proportional Gain' */
   rtb_ProportionalGain = Controllers_P.KRP * rtb_Sum4;
@@ -131,19 +144,34 @@ void ControllersModelClass::step()
    *  Inport: '<Root>/Stick'
    */
   if (Controllers_U.Stick[1] > Controllers_P.Saturation1_UpperSat) {
-    Sphi = Controllers_P.Saturation1_UpperSat;
+    rtb_Sum4 = Controllers_P.Saturation1_UpperSat;
   } else if (Controllers_U.Stick[1] < Controllers_P.Saturation1_LowerSat) {
-    Sphi = Controllers_P.Saturation1_LowerSat;
+    rtb_Sum4 = Controllers_P.Saturation1_LowerSat;
   } else {
-    Sphi = Controllers_U.Stick[1];
+    rtb_Sum4 = Controllers_U.Stick[1];
   }
+
+  /* End of Saturate: '<S1>/Saturation1' */
+
+  /* DeadZone: '<S1>/Dead Zone1' */
+  if (rtb_Sum4 > Controllers_P.DeadZone1_End) {
+    rtb_Sum4 -= Controllers_P.DeadZone1_End;
+  } else if (rtb_Sum4 >= Controllers_P.DeadZone1_Start) {
+    rtb_Sum4 = 0.0;
+  } else {
+    rtb_Sum4 -= Controllers_P.DeadZone1_Start;
+  }
+
+  /* End of DeadZone: '<S1>/Dead Zone1' */
 
   /* Sum: '<S1>/Sum1' incorporates:
    *  Gain: '<S1>/Yaw-rate2'
    *  Inport: '<Root>/IMU_Attitude'
-   *  Saturate: '<S1>/Saturation1'
    */
-  rtb_Sum4 = Controllers_P.pitchMax * Sphi - Controllers_U.IMU_Attitude[1];
+  rtb_Sum4 = Controllers_P.pitchMax * rtb_Sum4 - Controllers_U.IMU_Attitude[1];
+
+  /* Gain: '<S3>/Proportional Gain' */
+  rtb_ProportionalGain_n = Controllers_P.KPP * rtb_Sum4;
 
   /* Gain: '<S3>/Filter Coefficient' incorporates:
    *  Gain: '<S3>/Derivative Gain'
@@ -152,6 +180,30 @@ void ControllersModelClass::step()
    */
   Controllers_B.FilterCoefficient_o = (Controllers_P.KPD * rtb_Sum4 -
     Controllers_X.Filter_CSTATE_m) * Controllers_P.N;
+
+  /* Saturate: '<S1>/Saturation2' incorporates:
+   *  Inport: '<Root>/Stick'
+   */
+  if (Controllers_U.Stick[2] > Controllers_P.Saturation2_UpperSat) {
+    rtb_Sum4 = Controllers_P.Saturation2_UpperSat;
+  } else if (Controllers_U.Stick[2] < Controllers_P.Saturation2_LowerSat) {
+    rtb_Sum4 = Controllers_P.Saturation2_LowerSat;
+  } else {
+    rtb_Sum4 = Controllers_U.Stick[2];
+  }
+
+  /* End of Saturate: '<S1>/Saturation2' */
+
+  /* DeadZone: '<S1>/Dead Zone2' */
+  if (rtb_Sum4 > Controllers_P.DeadZone2_End) {
+    rtb_Sum4 -= Controllers_P.DeadZone2_End;
+  } else if (rtb_Sum4 >= Controllers_P.DeadZone2_Start) {
+    rtb_Sum4 = 0.0;
+  } else {
+    rtb_Sum4 -= Controllers_P.DeadZone2_Start;
+  }
+
+  /* End of DeadZone: '<S1>/Dead Zone2' */
 
   /* MATLAB Function: '<S1>/To body from Earth_rates' incorporates:
    *  Inport: '<Root>/IMU_Attitude'
@@ -182,37 +234,20 @@ void ControllersModelClass::step()
   tmp[8] = Cphi * Ctheta;
 
   /* SignalConversion: '<S8>/TmpSignal ConversionAt SFunction Inport2' incorporates:
-   *  Gain: '<S3>/Proportional Gain'
+   *  Gain: '<S1>/Yaw-rate'
+   *  Gain: '<S2>/Proportional Gain'
    *  MATLAB Function: '<S1>/To body from Earth_rates'
    *  Sum: '<S3>/Sum'
    *  Sum: '<S4>/Sum'
    */
-  Ctheta = rtb_ProportionalGain + Controllers_B.FilterCoefficient;
-  Cphi = Controllers_P.KPP * rtb_Sum4 + Controllers_B.FilterCoefficient_o;
-
-  /* Gain: '<S2>/Proportional Gain' incorporates:
-   *  Inport: '<Root>/Stick'
-   *  Saturate: '<S1>/Saturation2'
-   */
-  if (Controllers_U.Stick[2] > Controllers_P.Saturation2_UpperSat) {
-    Sphi = Controllers_P.Saturation2_UpperSat;
-  } else if (Controllers_U.Stick[2] < Controllers_P.Saturation2_LowerSat) {
-    Sphi = Controllers_P.Saturation2_LowerSat;
-  } else {
-    Sphi = Controllers_U.Stick[2];
-  }
-
-  /* SignalConversion: '<S8>/TmpSignal ConversionAt SFunction Inport2' incorporates:
-   *  Gain: '<S1>/Yaw-rate'
-   *  Gain: '<S2>/Proportional Gain'
-   *  MATLAB Function: '<S1>/To body from Earth_rates'
-   *  Saturate: '<S1>/Saturation2'
-   */
-  Sphi = Controllers_P.yawRateMax * Sphi * Controllers_P.KYP;
+  Cphi = rtb_ProportionalGain + Controllers_B.FilterCoefficient;
+  Sphi = rtb_ProportionalGain_n + Controllers_B.FilterCoefficient_o;
+  rtb_ProportionalGain = Controllers_P.yawRateMax * rtb_Sum4 * Controllers_P.KYP;
 
   /* MATLAB Function: '<S1>/To body from Earth_rates' */
   for (i = 0; i < 3; i++) {
-    rtb_Rates_B[i] = tmp[i + 6] * Sphi + (tmp[i + 3] * Cphi + tmp[i] * Ctheta);
+    rtb_Rates_B[i] = tmp[i + 6] * rtb_ProportionalGain + (tmp[i + 3] * Sphi +
+      tmp[i] * Cphi);
   }
 
   /* Sum: '<S1>/Sum4' incorporates:
@@ -244,15 +279,15 @@ void ControllersModelClass::step()
   /* Sum: '<S1>/Sum6' incorporates:
    *  Inport: '<Root>/IMU_Rates'
    */
-  Sphi = rtb_Rates_B[2] - Controllers_U.IMU_Rates[2];
+  rtb_ProportionalGain_n = rtb_Rates_B[2] - Controllers_U.IMU_Rates[2];
 
   /* Gain: '<S7>/Filter Coefficient' incorporates:
    *  Gain: '<S7>/Derivative Gain'
    *  Integrator: '<S7>/Filter'
    *  Sum: '<S7>/SumD'
    */
-  Controllers_B.FilterCoefficient_d = (Controllers_P.Kdr * Sphi -
-    Controllers_X.Filter_CSTATE_l) * Controllers_P.N;
+  Controllers_B.FilterCoefficient_d = (Controllers_P.Kdr *
+    rtb_ProportionalGain_n - Controllers_X.Filter_CSTATE_l) * Controllers_P.N;
 
   /* Outport: '<Root>/Moments' incorporates:
    *  Gain: '<S5>/Proportional Gain'
@@ -269,7 +304,7 @@ void ControllersModelClass::step()
     Controllers_X.Integrator_CSTATE) + Controllers_B.FilterCoefficient_g;
   Controllers_Y.Moments[1] = (Controllers_P.Kpq * rtb_ProportionalGain +
     Controllers_X.Integrator_CSTATE_b) + Controllers_B.FilterCoefficient_oj;
-  Controllers_Y.Moments[2] = (Controllers_P.Kpr * Sphi +
+  Controllers_Y.Moments[2] = (Controllers_P.Kpr * rtb_ProportionalGain_n +
     Controllers_X.Integrator_CSTATE_a) + Controllers_B.FilterCoefficient_d;
 
   /* Gain: '<S5>/Integral Gain' */
@@ -279,7 +314,7 @@ void ControllersModelClass::step()
   Controllers_B.IntegralGain_a = Controllers_P.Kiq * rtb_ProportionalGain;
 
   /* Gain: '<S7>/Integral Gain' */
-  Controllers_B.IntegralGain_h = Controllers_P.Kir * Sphi;
+  Controllers_B.IntegralGain_h = Controllers_P.Kir * rtb_ProportionalGain_n;
   if (rtmIsMajorTimeStep((&Controllers_M))) {
     rt_ertODEUpdateContinuousStates(&(&Controllers_M)->solverInfo);
 
@@ -504,6 +539,12 @@ ControllersModelClass::ControllersModelClass()
     -1.0,                              /* Expression: -1
                                         * Referenced by: '<S1>/Saturation'
                                         */
+    -0.01,                             /* Expression: -0.01
+                                        * Referenced by: '<S1>/Dead Zone'
+                                        */
+    0.01,                              /* Expression: 0.01
+                                        * Referenced by: '<S1>/Dead Zone'
+                                        */
     0.0,                               /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S4>/Filter'
                                         */
@@ -513,6 +554,12 @@ ControllersModelClass::ControllersModelClass()
     -1.0,                              /* Expression: -1
                                         * Referenced by: '<S1>/Saturation1'
                                         */
+    -0.01,                             /* Expression: -0.01
+                                        * Referenced by: '<S1>/Dead Zone1'
+                                        */
+    0.01,                              /* Expression: 0.01
+                                        * Referenced by: '<S1>/Dead Zone1'
+                                        */
     0.0,                               /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S3>/Filter'
                                         */
@@ -521,6 +568,12 @@ ControllersModelClass::ControllersModelClass()
                                         */
     -1.0,                              /* Expression: -1
                                         * Referenced by: '<S1>/Saturation2'
+                                        */
+    -0.01,                             /* Expression: -0.01
+                                        * Referenced by: '<S1>/Dead Zone2'
+                                        */
+    0.01,                              /* Expression: 0.01
+                                        * Referenced by: '<S1>/Dead Zone2'
                                         */
     0.0,                               /* Expression: InitialConditionForIntegrator
                                         * Referenced by: '<S5>/Integrator'
