@@ -83,13 +83,13 @@ N = 1/Tf;
 % Kip = 0.3;
 % Kdp = 0.05;
 %H-Infinity
-Kpp = 0*0.298;
-Kip = 0*0.304;
-Kdp = 0*0.0499;
+Kpp = 0.298;
+Kip = 0.304;
+Kdp = 0.0499;
 %Anti-Windup (Back-calculation)
-Kbp = 0;
-% Kbp = sqrt(Kdp/Kip);
-satp = 0*1.5;
+% Kbp = 0;
+Kbp = sqrt(Kdp/Kip);
+satp = 1.5;
 
 %q PID
 %Guess
@@ -107,17 +107,17 @@ satq = 1.5;
 
 %r PID
 %Guess
-% Kpr = 0.135;
-% Kir = 0.125;
-% Kdr = 0.0153;
+Kpr = 0.135;
+Kir = 0.125;
+Kdr = 0.0153;
 %H-Infinity
-Kpr = 0*0.276;
-Kir = 0*0.101;
-Kdr = 0*0.0151;
+% Kpr = 0.276;
+% Kir = 0.101;
+% Kdr = 0.0151;
 %Anti-Windup (Back-calculation)
-Kbr = 0;
-% Kbr = sqrt(Kdr/Kir);
-satr = 0*1;
+% Kbr = 0;
+Kbr = sqrt(Kdr/Kir);
+satr = 1;
 
 %% Attitude regulators
 %phi PD
@@ -125,8 +125,8 @@ satr = 0*1;
 % KRP = 1.2;
 % KRD = 0.005;
 %H-Infinity
-KRP = 0*1.61;
-KRD = 0*0.00512;
+KRP = 1.61;
+KRD = 0.00512;
 
 %theta PD
 %Guess
