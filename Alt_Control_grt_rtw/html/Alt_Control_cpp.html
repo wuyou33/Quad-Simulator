@@ -29,11 +29,11 @@
 <tr name="9" id="9">
 <td>9</td><td><span class="ct"> *</span></td></tr>
 <tr name="10" id="10">
-<td>10</td><td><span class="ct"> * Model version              : 1.87</span></td></tr>
+<td>10</td><td><span class="ct"> * Model version              : 1.91</span></td></tr>
 <tr name="11" id="11">
 <td>11</td><td><span class="ct"> * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015</span></td></tr>
 <tr name="12" id="12">
-<td>12</td><td><span class="ct"> * C++ source code generated on : Tue Mar 15 18:24:10 2016</span></td></tr>
+<td>12</td><td><span class="ct"> * C++ source code generated on : Thu Mar 31 12:51:21 2016</span></td></tr>
 <tr name="13" id="13">
 <td>13</td><td><span class="ct"> *</span></td></tr>
 <tr name="14" id="14">
@@ -223,9 +223,9 @@
 <tr name="106" id="106">
 <td>106</td><td><span class="ct">   */</span></td></tr>
 <tr name="107" id="107">
-<td>107</td><td>  <a id="107c3" class="tk">Alt_Control_B</a>.<a id="107c17" class="tk">FilterCoefficient</a> = (<a id="107c38" class="tk">Alt_Control_P</a>.<a id="107c52" class="tk">PIDController_D</a> * <a id="107c70" class="tk">rtb_Sum2</a> -</td></tr>
+<td>107</td><td>  <a id="107c3" class="tk">Alt_Control_B</a>.<a id="107c17" class="tk">FilterCoefficient</a> = (<a id="107c38" class="tk">Alt_Control_P</a>.<a id="107c52" class="tk">KaD</a> * <a id="107c58" class="tk">rtb_Sum2</a> -</td></tr>
 <tr name="108" id="108">
-<td>108</td><td>    <a id="108c5" class="tk">Alt_Control_X</a>.<a id="108c19" class="tk">Filter_CSTATE</a>) * <a id="108c36" class="tk">Alt_Control_P</a>.<a id="108c50" class="tk">PIDController_N</a>;</td></tr>
+<td>108</td><td>    <a id="108c5" class="tk">Alt_Control_X</a>.<a id="108c19" class="tk">Filter_CSTATE</a>) * <a id="108c36" class="tk">Alt_Control_P</a>.<a id="108c50" class="tk">KaN</a>;</td></tr>
 <tr name="109" id="109">
 <td>109</td><td></td></tr>
 <tr name="110" id="110">
@@ -237,21 +237,21 @@
 <tr name="113" id="113">
 <td>113</td><td><span class="ct">   */</span></td></tr>
 <tr name="114" id="114">
-<td>114</td><td>  <a id="114c3" class="tk">rtb_Sum</a> = (<a id="114c14" class="tk">Alt_Control_P</a>.<a id="114c28" class="tk">PIDController_P</a> * <a id="114c46" class="tk">rtb_Sum2</a> +</td></tr>
+<td>114</td><td>  <a id="114c3" class="tk">rtb_Sum</a> = (<a id="114c14" class="tk">Alt_Control_P</a>.<a id="114c28" class="tk">KaP</a> * <a id="114c34" class="tk">rtb_Sum2</a> + <a id="114c45" class="tk">Alt_Control_X</a>.<a id="114c59" class="tk">Integrator_CSTATE</a>) +</td></tr>
 <tr name="115" id="115">
-<td>115</td><td>             <a id="115c14" class="tk">Alt_Control_X</a>.<a id="115c28" class="tk">Integrator_CSTATE</a>) + <a id="115c49" class="tk">Alt_Control_B</a>.<a id="115c63" class="tk">FilterCoefficient</a>;</td></tr>
+<td>115</td><td>    <a id="115c5" class="tk">Alt_Control_B</a>.<a id="115c19" class="tk">FilterCoefficient</a>;</td></tr>
 <tr name="116" id="116">
 <td>116</td><td></td></tr>
 <tr name="117" id="117">
 <td>117</td><td>  <span class="ct">/* Saturate: '&lt;S2&gt;/Saturate' */</span></td></tr>
 <tr name="118" id="118">
-<td>118</td><td>  <span class="kw">if</span> (<a id="118c7" class="tk">rtb_Sum</a> &gt; <a id="118c17" class="tk">Alt_Control_P</a>.<a id="118c31" class="tk">PIDController_UpperSaturationLi</a>) <span class="br">{</span></td></tr>
+<td>118</td><td>  <span class="kw">if</span> (<a id="118c7" class="tk">rtb_Sum</a> &gt; <a id="118c17" class="tk">Alt_Control_P</a>.<a id="118c31" class="tk">sata</a>) <span class="br">{</span></td></tr>
 <tr name="119" id="119">
-<td>119</td><td>    <a id="119c5" class="tk">rtb_Saturate</a> = <a id="119c20" class="tk">Alt_Control_P</a>.<a id="119c34" class="tk">PIDController_UpperSaturationLi</a>;</td></tr>
+<td>119</td><td>    <a id="119c5" class="tk">rtb_Saturate</a> = <a id="119c20" class="tk">Alt_Control_P</a>.<a id="119c34" class="tk">sata</a>;</td></tr>
 <tr name="120" id="120">
-<td>120</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="kw">if</span> (<a id="120c14" class="tk">rtb_Sum</a> &lt; <a id="120c24" class="tk">Alt_Control_P</a>.<a id="120c38" class="tk">PIDController_LowerSaturationLi</a>) <span class="br">{</span></td></tr>
+<td>120</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="kw">if</span> (<a id="120c14" class="tk">rtb_Sum</a> &lt; -<a id="120c25" class="tk">Alt_Control_P</a>.<a id="120c39" class="tk">sata</a>) <span class="br">{</span></td></tr>
 <tr name="121" id="121">
-<td>121</td><td>    <a id="121c5" class="tk">rtb_Saturate</a> = <a id="121c20" class="tk">Alt_Control_P</a>.<a id="121c34" class="tk">PIDController_LowerSaturationLi</a>;</td></tr>
+<td>121</td><td>    <a id="121c5" class="tk">rtb_Saturate</a> = -<a id="121c21" class="tk">Alt_Control_P</a>.<a id="121c35" class="tk">sata</a>;</td></tr>
 <tr name="122" id="122">
 <td>122</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
 <tr name="123" id="123">
@@ -281,9 +281,9 @@
 <tr name="135" id="135">
 <td>135</td><td><span class="ct">   */</span></td></tr>
 <tr name="136" id="136">
-<td>136</td><td>  <a id="136c3" class="tk">Alt_Control_B</a>.<a id="136c17" class="tk">SumI1</a> = (<a id="136c26" class="tk">rtb_Saturate</a> - <a id="136c41" class="tk">rtb_Sum</a>) *</td></tr>
+<td>136</td><td>  <a id="136c3" class="tk">Alt_Control_B</a>.<a id="136c17" class="tk">SumI1</a> = (<a id="136c26" class="tk">rtb_Saturate</a> - <a id="136c41" class="tk">rtb_Sum</a>) * <a id="136c52" class="tk">Alt_Control_P</a>.<a id="136c66" class="tk">Kba</a> +</td></tr>
 <tr name="137" id="137">
-<td>137</td><td>    <a id="137c5" class="tk">Alt_Control_P</a>.<a id="137c19" class="tk">PIDController_Kb</a> + <a id="137c38" class="tk">Alt_Control_P</a>.<a id="137c52" class="tk">PIDController_I</a> * <a id="137c70" class="tk">rtb_Sum2</a>;</td></tr>
+<td>137</td><td>    <a id="137c5" class="tk">Alt_Control_P</a>.<a id="137c19" class="tk">KaI</a> * <a id="137c25" class="tk">rtb_Sum2</a>;</td></tr>
 <tr name="138" id="138">
 <td>138</td><td>  <span class="kw">if</span> (<a id="138c7" class="tk">rtmIsMajorTimeStep</a>((&amp;<a id="138c28" class="tk">Alt_Control_M</a>))) <span class="br">{</span></td></tr>
 <tr name="139" id="139">
@@ -529,95 +529,89 @@
 <tr name="259" id="259">
 <td>259</td><td>  <span class="kw">static</span> <span class="kw">const</span> <a id="259c16" class="tk">P_Alt_Control_T</a> <a id="259c32" class="tk">Alt_Control_P_temp</a> = <span class="br">{</span></td></tr>
 <tr name="260" id="260">
-<td>260</td><td>    2.34,                              <span class="ct">/* Mask Parameter: PIDController_D</span></td></tr>
+<td>260</td><td>    2.34,                              <span class="ct">/* Variable: KaD</span></td></tr>
 <tr name="261" id="261">
 <td>261</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Derivative Gain'</span></td></tr>
 <tr name="262" id="262">
 <td>262</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="263" id="263">
-<td>263</td><td>    0.37,                              <span class="ct">/* Mask Parameter: PIDController_I</span></td></tr>
+<td>263</td><td>    0.37,                              <span class="ct">/* Variable: KaI</span></td></tr>
 <tr name="264" id="264">
 <td>264</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Integral Gain'</span></td></tr>
 <tr name="265" id="265">
 <td>265</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="266" id="266">
-<td>266</td><td>    0.3984,                            <span class="ct">/* Mask Parameter: PIDController_Kb</span></td></tr>
+<td>266</td><td>    8.0,                               <span class="ct">/* Variable: KaN</span></td></tr>
 <tr name="267" id="267">
-<td>267</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Kb'</span></td></tr>
+<td>267</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Filter Coefficient'</span></td></tr>
 <tr name="268" id="268">
 <td>268</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="269" id="269">
-<td>269</td><td>    -5.0,                              <span class="ct">/* Mask Parameter: PIDController_LowerSaturationLi</span></td></tr>
+<td>269</td><td>    1.8748,                            <span class="ct">/* Variable: KaP</span></td></tr>
 <tr name="270" id="270">
-<td>270</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Saturate'</span></td></tr>
+<td>270</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Proportional Gain'</span></td></tr>
 <tr name="271" id="271">
 <td>271</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="272" id="272">
-<td>272</td><td>    8.0,                               <span class="ct">/* Mask Parameter: PIDController_N</span></td></tr>
+<td>272</td><td>    0.0,                               <span class="ct">/* Variable: Kba</span></td></tr>
 <tr name="273" id="273">
-<td>273</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Filter Coefficient'</span></td></tr>
+<td>273</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Kb'</span></td></tr>
 <tr name="274" id="274">
 <td>274</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="275" id="275">
-<td>275</td><td>    1.8748,                            <span class="ct">/* Mask Parameter: PIDController_P</span></td></tr>
+<td>275</td><td>    5.0,                               <span class="ct">/* Variable: sata</span></td></tr>
 <tr name="276" id="276">
-<td>276</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Proportional Gain'</span></td></tr>
+<td>276</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Saturate'</span></td></tr>
 <tr name="277" id="277">
 <td>277</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="278" id="278">
-<td>278</td><td>    5.0,                               <span class="ct">/* Mask Parameter: PIDController_UpperSaturationLi</span></td></tr>
+<td>278</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForIntegrator</span></td></tr>
 <tr name="279" id="279">
-<td>279</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Saturate'</span></td></tr>
+<td>279</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Integrator'</span></td></tr>
 <tr name="280" id="280">
 <td>280</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="281" id="281">
-<td>281</td><td>    0.0,                               <span class="ct">/* Expression: InitialConditionForIntegrator</span></td></tr>
+<td>281</td><td>    0.0                                <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
 <tr name="282" id="282">
-<td>282</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Integrator'</span></td></tr>
+<td>282</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Filter'</span></td></tr>
 <tr name="283" id="283">
 <td>283</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="284" id="284">
-<td>284</td><td>    0.0                                <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
+<td>284</td><td>  <span class="br">}</span>;                                   <span class="ct">/* Modifiable parameters */</span></td></tr>
 <tr name="285" id="285">
-<td>285</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Filter'</span></td></tr>
+<td>285</td><td></td></tr>
 <tr name="286" id="286">
-<td>286</td><td><span class="ct">                                        */</span></td></tr>
+<td>286</td><td>  <span class="ct">/* Initialize tunable parameters */</span></td></tr>
 <tr name="287" id="287">
-<td>287</td><td>  <span class="br">}</span>;                                   <span class="ct">/* Modifiable parameters */</span></td></tr>
+<td>287</td><td>  <a id="287c3" class="tk">Alt_Control_P</a> = <a id="287c19" class="tk">Alt_Control_P_temp</a>;</td></tr>
 <tr name="288" id="288">
-<td>288</td><td></td></tr>
+<td>288</td><td><span class="br">}</span></td></tr>
 <tr name="289" id="289">
-<td>289</td><td>  <span class="ct">/* Initialize tunable parameters */</span></td></tr>
+<td>289</td><td></td></tr>
 <tr name="290" id="290">
-<td>290</td><td>  <a id="290c3" class="tk">Alt_Control_P</a> = <a id="290c19" class="tk">Alt_Control_P_temp</a>;</td></tr>
+<td>290</td><td><span class="ct">/* Destructor */</span></td></tr>
 <tr name="291" id="291">
-<td>291</td><td><span class="br">}</span></td></tr>
+<td>291</td><td><a id="291c1" class="tk">Alt_ControlModelClass</a>::~<a id="291c25" class="tk">Alt_ControlModelClass</a>()</td></tr>
 <tr name="292" id="292">
-<td>292</td><td></td></tr>
+<td>292</td><td><span class="br">{</span></td></tr>
 <tr name="293" id="293">
-<td>293</td><td><span class="ct">/* Destructor */</span></td></tr>
+<td>293</td><td>  <span class="ct">/* Currently there is no destructor body generated.*/</span></td></tr>
 <tr name="294" id="294">
-<td>294</td><td><a id="294c1" class="tk">Alt_ControlModelClass</a>::~<a id="294c25" class="tk">Alt_ControlModelClass</a>()</td></tr>
+<td>294</td><td><span class="br">}</span></td></tr>
 <tr name="295" id="295">
-<td>295</td><td><span class="br">{</span></td></tr>
+<td>295</td><td></td></tr>
 <tr name="296" id="296">
-<td>296</td><td>  <span class="ct">/* Currently there is no destructor body generated.*/</span></td></tr>
+<td>296</td><td><span class="ct">/* Real-Time Model get method */</span></td></tr>
 <tr name="297" id="297">
-<td>297</td><td><span class="br">}</span></td></tr>
+<td>297</td><td><a id="297c1" class="tk">RT_MODEL_Alt_Control_T</a> * <a id="297c26" class="tk">Alt_ControlModelClass</a>::<a id="297c49" class="tk">getRTM</a>()</td></tr>
 <tr name="298" id="298">
-<td>298</td><td></td></tr>
+<td>298</td><td><span class="br">{</span></td></tr>
 <tr name="299" id="299">
-<td>299</td><td><span class="ct">/* Real-Time Model get method */</span></td></tr>
+<td>299</td><td>  <span class="kw">return</span> (&amp;<a id="299c12" class="tk">Alt_Control_M</a>);</td></tr>
 <tr name="300" id="300">
-<td>300</td><td><a id="300c1" class="tk">RT_MODEL_Alt_Control_T</a> * <a id="300c26" class="tk">Alt_ControlModelClass</a>::<a id="300c49" class="tk">getRTM</a>()</td></tr>
+<td>300</td><td><span class="br">}</span></td></tr>
 <tr name="301" id="301">
-<td>301</td><td><span class="br">{</span></td></tr>
-<tr name="302" id="302">
-<td>302</td><td>  <span class="kw">return</span> (&amp;<a id="302c12" class="tk">Alt_Control_M</a>);</td></tr>
-<tr name="303" id="303">
-<td>303</td><td><span class="br">}</span></td></tr>
-<tr name="304" id="304">
-<td>304</td><td></td></tr>
+<td>301</td><td></td></tr>
 </table>
 </pre>
 </body>

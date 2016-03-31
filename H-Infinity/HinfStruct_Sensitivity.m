@@ -62,18 +62,18 @@ relerror = error/sysnom;
 %Find the multiplicative uncertainty form
 [Pm,InfoPm] = ucover(parrayg,sysnom);
 Wm = InfoPm.W1;   
-% figure
-% bodemag(relerror,'b--',Wm,'r',om); grid
-% title('Multiplicative Uncertainty')
-% legend('Relative errors', 'Magnitude of W','location','southwest')
+figure
+bodemag(relerror,'b--',Wm,'r',om); grid
+title('Multiplicative Uncertainty')
+legend('Relative errors', 'Magnitude of W','location','southwest')
 
 %Find the additive uncertainty form
 [Pa,InfoPa] = ucover(parrayg,sysnom,1,'additive');
 Wa = InfoPa.W1; 
-% figure
-% bodemag(error, 'b--',Wa,'r',om); grid
-% title('Additive Uncertainty')
-% legend('Errors', 'Magnitude of W','location','southwest')
+figure
+bodemag(error, 'b--',Wa,'r',om); grid
+title('Additive Uncertainty')
+legend('Errors', 'Magnitude of W','location','southwest')
 
 %Final definition of the system with both uncertainty form
 sysmul = sysnom*(1 + Wm*unc);
@@ -125,7 +125,7 @@ CL0.u = 'Theta_0'; CL0.y = 'Theta';
 % grid minor
 
 % Tracking requirements
-wc = 1.98;                 %[rad/s] target crossover frequency
+wc = 1.98;                %[rad/s] target crossover frequency
 responsetime = 2/wc;      %[s]
 dcerror = 0.0001;         %[%]
 peakerror = 1.5;            

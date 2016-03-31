@@ -7,9 +7,9 @@
  *
  * Code generation for model "Alt_Control".
  *
- * Model version              : 1.87
+ * Model version              : 1.91
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Tue Mar 15 18:24:10 2016
+ * C++ source code generated on : Thu Mar 31 12:51:21 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -104,21 +104,21 @@ void Alt_ControlModelClass::step()
    *  Integrator: '<S2>/Filter'
    *  Sum: '<S2>/SumD'
    */
-  Alt_Control_B.FilterCoefficient = (Alt_Control_P.PIDController_D * rtb_Sum2 -
-    Alt_Control_X.Filter_CSTATE) * Alt_Control_P.PIDController_N;
+  Alt_Control_B.FilterCoefficient = (Alt_Control_P.KaD * rtb_Sum2 -
+    Alt_Control_X.Filter_CSTATE) * Alt_Control_P.KaN;
 
   /* Sum: '<S2>/Sum' incorporates:
    *  Gain: '<S2>/Proportional Gain'
    *  Integrator: '<S2>/Integrator'
    */
-  rtb_Sum = (Alt_Control_P.PIDController_P * rtb_Sum2 +
-             Alt_Control_X.Integrator_CSTATE) + Alt_Control_B.FilterCoefficient;
+  rtb_Sum = (Alt_Control_P.KaP * rtb_Sum2 + Alt_Control_X.Integrator_CSTATE) +
+    Alt_Control_B.FilterCoefficient;
 
   /* Saturate: '<S2>/Saturate' */
-  if (rtb_Sum > Alt_Control_P.PIDController_UpperSaturationLi) {
-    rtb_Saturate = Alt_Control_P.PIDController_UpperSaturationLi;
-  } else if (rtb_Sum < Alt_Control_P.PIDController_LowerSaturationLi) {
-    rtb_Saturate = Alt_Control_P.PIDController_LowerSaturationLi;
+  if (rtb_Sum > Alt_Control_P.sata) {
+    rtb_Saturate = Alt_Control_P.sata;
+  } else if (rtb_Sum < -Alt_Control_P.sata) {
+    rtb_Saturate = -Alt_Control_P.sata;
   } else {
     rtb_Saturate = rtb_Sum;
   }
@@ -133,8 +133,8 @@ void Alt_ControlModelClass::step()
    *  Gain: '<S2>/Kb'
    *  Sum: '<S2>/SumI2'
    */
-  Alt_Control_B.SumI1 = (rtb_Saturate - rtb_Sum) *
-    Alt_Control_P.PIDController_Kb + Alt_Control_P.PIDController_I * rtb_Sum2;
+  Alt_Control_B.SumI1 = (rtb_Saturate - rtb_Sum) * Alt_Control_P.Kba +
+    Alt_Control_P.KaI * rtb_Sum2;
   if (rtmIsMajorTimeStep((&Alt_Control_M))) {
     rt_ertODEUpdateContinuousStates(&(&Alt_Control_M)->solverInfo);
 
@@ -257,25 +257,22 @@ void Alt_ControlModelClass::terminate()
 Alt_ControlModelClass::Alt_ControlModelClass()
 {
   static const P_Alt_Control_T Alt_Control_P_temp = {
-    2.34,                              /* Mask Parameter: PIDController_D
+    2.34,                              /* Variable: KaD
                                         * Referenced by: '<S2>/Derivative Gain'
                                         */
-    0.37,                              /* Mask Parameter: PIDController_I
+    0.37,                              /* Variable: KaI
                                         * Referenced by: '<S2>/Integral Gain'
                                         */
-    0.3984,                            /* Mask Parameter: PIDController_Kb
-                                        * Referenced by: '<S2>/Kb'
-                                        */
-    -5.0,                              /* Mask Parameter: PIDController_LowerSaturationLi
-                                        * Referenced by: '<S2>/Saturate'
-                                        */
-    8.0,                               /* Mask Parameter: PIDController_N
+    8.0,                               /* Variable: KaN
                                         * Referenced by: '<S2>/Filter Coefficient'
                                         */
-    1.8748,                            /* Mask Parameter: PIDController_P
+    1.8748,                            /* Variable: KaP
                                         * Referenced by: '<S2>/Proportional Gain'
                                         */
-    5.0,                               /* Mask Parameter: PIDController_UpperSaturationLi
+    0.0,                               /* Variable: Kba
+                                        * Referenced by: '<S2>/Kb'
+                                        */
+    5.0,                               /* Variable: sata
                                         * Referenced by: '<S2>/Saturate'
                                         */
     0.0,                               /* Expression: InitialConditionForIntegrator
