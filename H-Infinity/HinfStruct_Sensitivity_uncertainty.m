@@ -86,7 +86,7 @@ sysadd = sysnom + Wa*unc;
 s = tf('s');
 
 %Plant model
-motor = 1/(1+0.092*s);
+motor = 1/(1+tau*s);
 Gq = sysmul;
 Gtheta = 1/s;
 Gtheta.u = 'q'; Gtheta.y = 'Theta';

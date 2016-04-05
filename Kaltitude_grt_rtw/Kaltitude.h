@@ -7,9 +7,9 @@
  *
  * Code generation for model "Kaltitude".
  *
- * Model version              : 1.91
+ * Model version              : 1.148
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Wed Mar 30 12:44:15 2016
+ * C++ source code generated on : Mon Apr 04 11:48:59 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -56,11 +56,14 @@ typedef struct {
   real_T theta;                        /* '<Root>/theta' */
   real_T az;                           /* '<Root>/az' */
   real_T proxy;                        /* '<Root>/proxy' */
+  real_T scale;                        /* '<Root>/scale' */
 } ExtU_Kaltitude_T;
 
 /* External outputs (root outports fed by signals with auto storage) */
 typedef struct {
-  real_T state[3];                     /* '<Root>/state' */
+  real_T Altitude;                     /* '<Root>/Altitude' */
+  real_T Velocity;                     /* '<Root>/Velocity' */
+  real_T Acceleration;                 /* '<Root>/Acceleration' */
 } ExtY_Kaltitude_T;
 
 /* Parameters (auto storage) */
@@ -68,7 +71,7 @@ struct P_Kaltitude_T_ {
   real_T UnitDelay_InitialCondition[3];/* Expression: zeros(3,1)
                                         * Referenced by: '<S3>/Unit Delay'
                                         */
-  real_T Constant_Value;               /* Expression: 0.05
+  real_T Constant_Value;               /* Expression: 0.01
                                         * Referenced by: '<S3>/Constant'
                                         */
   real_T UnitDelay1_InitialCondition[9];/* Expression: eye(3)*0.001
@@ -76,9 +79,6 @@ struct P_Kaltitude_T_ {
                                          */
   real_T Scalefactor_Gain;             /* Expression: 0.001
                                         * Referenced by: '<S1>/Scale factor'
-                                        */
-  real_T Constant1_Value[2];           /* Expression: [0;10.0675]
-                                        * Referenced by: '<S3>/Constant1'
                                         */
 };
 

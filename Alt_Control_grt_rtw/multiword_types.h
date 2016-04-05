@@ -7,9 +7,9 @@
  *
  * Code generation for model "Alt_Control".
  *
- * Model version              : 1.91
+ * Model version              : 1.92
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Thu Mar 31 12:51:21 2016
+ * C++ source code generated on : Tue Apr 05 14:37:06 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping

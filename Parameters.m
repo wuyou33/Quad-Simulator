@@ -73,6 +73,9 @@ yawRateMax = pi/2;  %[rad/s]
 fc = 100;   %[Hz]
 tc = 1/fc;  %[s]
 
+delay_altitude = 2;
+delay_attitude = 2;
+
 %% Angular-rate regulators
 Tf = .01;
 N = 1/Tf;
@@ -139,15 +142,15 @@ KPD = 0.00512;
 % KPD = 0.00696;
 
 %% Altitude regulator
-KaN = 8;
+KaN = 38;
 
-KaP = 1.8748;
-KaI = 0.37;
-KaD = 2.34;
+KaP = 8.0;
+KaI = 3.6;
+KaD = 5.4;
 
 %Anti-Windup (Back-calculation)
 % Kba = 0;
-Kba = sqrt(Kdp/KaI);
+Kba = sqrt(KaD/KaI);
 sata = 5;
 
  %% End of code

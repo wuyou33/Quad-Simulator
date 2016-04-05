@@ -144,7 +144,7 @@ Output entry point of generated code
 Timing
 </td>
 <td width="75%" align="left" valign="top">
-Must be called periodically, every 0.05 seconds
+Must be called periodically, every 0.01 seconds
 </td>
 
 </tr>
@@ -346,6 +346,24 @@ real_T
 </td>
 
 </tr>
+<tr class="even">
+<td width="42%" align="left" valign="top">
+&lt;Root&gt;/scale
+</td>
+<td width="26%" align="left" valign="top">
+<i>
+Defined externally
+</i>
+
+</td>
+<td width="21%" align="left" valign="top">
+real_T
+</td>
+<td width="10%" align="right" valign="top">
+1
+</td>
+
+</tr>
 
 </table>
 <h3>
@@ -354,7 +372,7 @@ Outports
 </a>
 
 </h3>
-<table width="100%" class="AltRow FirstColumn" cellspacing="0">
+<span title="Click to shrink or expand table" onclick="rtwTableShrink(this)">[-]</span><table width="100%" class="AltRow FirstColumn" cellspacing="0">
 <tr class="heading">
 <th width="42%" align="left" valign="top">
 <b>
@@ -384,7 +402,7 @@ Dimension
 </tr>
 <tr class="even">
 <td width="42%" align="left" valign="top">
-&lt;Root&gt;/state
+&lt;Root&gt;/Altitude
 </td>
 <td width="26%" align="left" valign="top">
 <i>
@@ -396,7 +414,43 @@ Defined externally
 real_T
 </td>
 <td width="10%" align="right" valign="top">
-[3]
+1
+</td>
+
+</tr>
+<tr class="odd">
+<td width="42%" align="left" valign="top">
+&lt;Root&gt;/Velocity
+</td>
+<td width="26%" align="left" valign="top">
+<i>
+Defined externally
+</i>
+
+</td>
+<td width="21%" align="left" valign="top">
+real_T
+</td>
+<td width="10%" align="right" valign="top">
+1
+</td>
+
+</tr>
+<tr class="even">
+<td width="42%" align="left" valign="top">
+&lt;Root&gt;/Acceleration
+</td>
+<td width="26%" align="left" valign="top">
+<i>
+Defined externally
+</i>
+
+</td>
+<td width="21%" align="left" valign="top">
+real_T
+</td>
+<td width="10%" align="right" valign="top">
+1
 </td>
 
 </tr>
@@ -493,24 +547,6 @@ CustomStorage
 <tr class="odd">
 <td width="42%" align="left" valign="top">
 &lt;S1&gt;/Scale factor
-</td>
-<td width="26%" align="left" valign="top">
-<i>
-CustomStorage
-</i>
-
-</td>
-<td width="21%" align="left" valign="top">
--
-</td>
-<td width="10%" align="left" valign="top">
--
-</td>
-
-</tr>
-<tr class="even">
-<td width="42%" align="left" valign="top">
-&lt;S3&gt;/Constant1
 </td>
 <td width="26%" align="left" valign="top">
 <i>

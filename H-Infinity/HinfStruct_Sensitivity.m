@@ -62,18 +62,18 @@ relerror = error/sysnom;
 %Find the multiplicative uncertainty form
 [Pm,InfoPm] = ucover(parrayg,sysnom);
 Wm = InfoPm.W1;   
-figure
-bodemag(relerror,'b--',Wm,'r',om); grid
-title('Multiplicative Uncertainty')
-legend('Relative errors', 'Magnitude of W','location','southwest')
+% figure
+% bodemag(relerror,'b--',Wm,'r',om); grid
+% title('Multiplicative Uncertainty')
+% legend('Relative errors', 'Magnitude of W','location','southwest')
 
 %Find the additive uncertainty form
 [Pa,InfoPa] = ucover(parrayg,sysnom,1,'additive');
 Wa = InfoPa.W1; 
-figure
-bodemag(error, 'b--',Wa,'r',om); grid
-title('Additive Uncertainty')
-legend('Errors', 'Magnitude of W','location','southwest')
+% figure
+% bodemag(error, 'b--',Wa,'r',om); grid
+% title('Additive Uncertainty')
+% legend('Errors', 'Magnitude of W','location','southwest')
 
 %Final definition of the system with both uncertainty form
 sysmul = sysnom*(1 + Wm*unc);
@@ -83,11 +83,14 @@ sysadd = sysnom + Wa*unc;
 s = tf('s');
 
 %Plant model
+motor = 1/(1+tau*s);
 Gq = pit_tf_q;
 Gtheta = 1/s;
 Gtheta.u = 'q'; Gtheta.y = 'Theta';
 mixer = ss(1/(Kt*b*4*sqrt(2)*OMEhov));
 mixer.u = 'deltaM'; mixer.y = 'deltaOmega';
+del = exp(-delay_attitude*tc*s);
+delay = pade(del,1);
 X1 = AnalysisPoint('deltaM');
 X2 = AnalysisPoint('deltaOmega');
 X3 = AnalysisPoint('q');
@@ -112,7 +115,7 @@ Ctheta0.u = 'e_{Theta}'; Ctheta0.y = 'q_0';
 
 %Connect these components to build a model of the entire closed-loop 
 %control system
-InnerLoop0 = feedback(X3*Gq*X2*mixer*X1*Cq0,1);
+InnerLoop0 = feedback(motor*X3*Gq*X2*delay*mixer*X1*Cq0,1);
 InnerLoop0.u = 'q_0';
 CL0 = feedback(Gtheta*InnerLoop0*Ctheta0,X4);
 CL0.u = 'Theta_0'; CL0.y = 'Theta';
@@ -125,10 +128,10 @@ CL0.u = 'Theta_0'; CL0.y = 'Theta';
 % grid minor
 
 % Tracking requirements
-wc = 1.98;                %[rad/s] target crossover frequency
+wc = 3;                 %[rad/s] target crossover frequency
 responsetime = 2/wc;      %[s]
-dcerror = 0.0001;         %[%]
-peakerror = 1.5;            
+dcerror = 0.00001;        %[%]
+peakerror = 1.3;            
 R1 = TuningGoal.Tracking('Theta_0','Theta',responsetime,dcerror,peakerror);
 % Roll-off requirements
 R2 = TuningGoal.MaxLoopGain('Theta',wc/s);
@@ -144,13 +147,23 @@ HardReqs = [R1 R2 R3];
 
 fb = bandwidth(CL)
 
-%%
+%% Plot results
+%Plant model
+motor = 1/(1+tau*s);
+Gq = sysmul;
+Gtheta = 1/s;
+Gtheta.u = 'q'; Gtheta.y = 'Theta';
+mixer = ss(1/(Kt*b*4*sqrt(2)*OMEhov));
+mixer.u = 'deltaM'; mixer.y = 'deltaOmega';
+del = exp(-delay_attitude*tc*s);
+delay = pade(del,1);
+%Control tuned
 Cq = getBlockValue(CL,'Cq0')
 Cq.u = 'e_q'; Cq.y = 'deltaM';
 Ctheta = getBlockValue(CL,'Ctheta0')
 Ctheta.u = 'e_{Theta}'; Ctheta.y = 'q_0';
-
-InnerLoop = feedback(Gq*mixer*Cq,1);
+%Loop and transfer function
+InnerLoop = feedback(motor*Gq*del*mixer*Cq,1);
 L = Gtheta*InnerLoop*Ctheta;
 F = L/(1+L);
 F.u = 'Theta_0';
@@ -165,21 +178,28 @@ F.u = 'Theta_0';
 % stepplot(CLin)
 % grid minor
 % title('Closed-loop response')
-
-figure('name', 'Tracking Requirement')
-viewSpec(R1,CL)
-legend('L','F')
-figure('name', 'Roll-off requirements')
-viewSpec(R2,CL)
-figure('name', 'Disturbance rejection requirements')
-viewSpec(R3,CL)
+% 
+% figure('name', 'Tracking Requirement')
+% viewSpec(R1,CL)
+% figure('name', 'Roll-off requirements')
+% viewSpec(R2,CL)
+% figure('name', 'Disturbance rejection requirements')
+% viewSpec(R3,CL)
  
 %Loop function and sensitivity functions
-InnerLoop = feedback(Gq*mixer*Cq,1);
-loops = loopsens(Gtheta*InnerLoop, Ctheta);
+% loops = loopsens(Gtheta*InnerLoop, Ctheta);
+% figure
+% bodemag(CL,'r',loops.Si,'b',Ctheta/(1+L),'g',{1e-3,1e3})
+% legend('F','S','Q')
+% grid minor
+
+%Loop function and uncertainties
 figure
-bodemag(CL,'r',loops.Si,'b',Ctheta/(1+L),'g',{1e-3,1e3})
-legend('F','S','Q')
+bode(L,'b') 
+hold on
+bode(L.NominalValue, 'r+',{1e-1,1e1})
+hold off
 grid minor
+legend('Uncertain Models','Nominal Model','location','southwest')
 
  %% End of code

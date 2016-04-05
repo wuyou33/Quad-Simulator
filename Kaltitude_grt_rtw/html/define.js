@@ -1,12 +1,12 @@
 function CodeDefine() { 
 this.def = new Array();
 this.def["step"] = {file: "Kaltitude_cpp.html",line:25,type:"fcn"};
-this.def["initialize"] = {file: "Kaltitude_cpp.html",line:267,type:"fcn"};
-this.def["terminate"] = {file: "Kaltitude_cpp.html",line:297,type:"fcn"};
-this.def["getRTM"] = {file: "Kaltitude_cpp.html",line:339,type:"fcn"};
+this.def["initialize"] = {file: "Kaltitude_cpp.html",line:252,type:"fcn"};
+this.def["terminate"] = {file: "Kaltitude_cpp.html",line:282,type:"fcn"};
+this.def["getRTM"] = {file: "Kaltitude_cpp.html",line:319,type:"fcn"};
 this.def["DW_Kaltitude_T"] = {file: "Kaltitude_h.html",line:51,type:"type"};
-this.def["ExtU_Kaltitude_T"] = {file: "Kaltitude_h.html",line:59,type:"type"};
-this.def["ExtY_Kaltitude_T"] = {file: "Kaltitude_h.html",line:64,type:"type"};
+this.def["ExtU_Kaltitude_T"] = {file: "Kaltitude_h.html",line:60,type:"type"};
+this.def["ExtY_Kaltitude_T"] = {file: "Kaltitude_h.html",line:67,type:"type"};
 this.def["Kaltitude_U"] = {file: "Kaltitude_h.html",line:106,type:"var"};
 this.def["P_Kaltitude_T"] = {file: "Kaltitude_types_h.html",line:27,type:"type"};
 this.def["RT_MODEL_Kaltitude_T"] = {file: "Kaltitude_types_h.html",line:30,type:"type"};

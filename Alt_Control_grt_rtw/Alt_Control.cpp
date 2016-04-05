@@ -7,9 +7,9 @@
  *
  * Code generation for model "Alt_Control".
  *
- * Model version              : 1.91
+ * Model version              : 1.92
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Thu Mar 31 12:51:21 2016
+ * C++ source code generated on : Tue Apr 05 14:37:06 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -155,9 +155,9 @@ void Alt_ControlModelClass::step()
       ->solverInfo);
 
     {
-      /* Update absolute timer for sample time: [0.05s, 0.0s] */
+      /* Update absolute timer for sample time: [0.01s, 0.0s] */
       /* The "clockTick1" counts the number of times the code of this task has
-       * been executed. The resolution of this integer timer is 0.05, which is the step size
+       * been executed. The resolution of this integer timer is 0.01, which is the step size
        * of the task. Size of "clockTick1" ensures timer will not overflow during the
        * application lifespan selected.
        * Timer of this task consists of two 32 bit unsigned integers.
@@ -221,7 +221,7 @@ void Alt_ControlModelClass::initialize()
                     ->ModelData.intgData);
   rtsiSetSolverName(&(&Alt_Control_M)->solverInfo,"ode2");
   rtmSetTPtr((&Alt_Control_M), &(&Alt_Control_M)->Timing.tArray[0]);
-  (&Alt_Control_M)->Timing.stepSize0 = 0.05;
+  (&Alt_Control_M)->Timing.stepSize0 = 0.01;
 
   /* block I/O */
   (void) memset(((void *) &Alt_Control_B), 0,
@@ -257,19 +257,19 @@ void Alt_ControlModelClass::terminate()
 Alt_ControlModelClass::Alt_ControlModelClass()
 {
   static const P_Alt_Control_T Alt_Control_P_temp = {
-    2.34,                              /* Variable: KaD
+    5.4,                               /* Variable: KaD
                                         * Referenced by: '<S2>/Derivative Gain'
                                         */
-    0.37,                              /* Variable: KaI
+    3.6,                               /* Variable: KaI
                                         * Referenced by: '<S2>/Integral Gain'
                                         */
-    8.0,                               /* Variable: KaN
+    38.0,                              /* Variable: KaN
                                         * Referenced by: '<S2>/Filter Coefficient'
                                         */
-    1.8748,                            /* Variable: KaP
+    8.0,                               /* Variable: KaP
                                         * Referenced by: '<S2>/Proportional Gain'
                                         */
-    0.0,                               /* Variable: Kba
+    1.2247448713915889,                /* Variable: Kba
                                         * Referenced by: '<S2>/Kb'
                                         */
     5.0,                               /* Variable: sata

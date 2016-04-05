@@ -7,9 +7,9 @@
  *
  * Code generation for model "Kaltitude".
  *
- * Model version              : 1.91
+ * Model version              : 1.148
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Wed Mar 30 12:44:15 2016
+ * C++ source code generated on : Mon Apr 04 11:48:59 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -25,16 +25,17 @@
 void KaltitudeModelClass::step()
 {
   real_T A[9];
-  static const real_T Qn[9] = { 0.001, 0.0, 0.0, 0.0, 0.001, 0.0, 0.0, 0.0,
-    0.001 };
+  static const real_T Qn[9] = { 0.005, 0.0, 0.0, 0.0, 0.005, 0.0, 0.0, 0.0,
+    0.005 };
 
   real_T b_x;
-  real_T Rn[4];
   real_T h[2];
   real_T S;
   int32_T j;
   int8_T I[9];
   int8_T b_I[9];
+  static const real_T Rn[4] = { 0.7, 0.0, 0.0, 1.0 };
+
   static const int8_T H[6] = { 0, 1, 1, 0, 0, 0 };
 
   real_T rtb_TmpSignalConversionAtSFunct[2];
@@ -51,19 +52,14 @@ void KaltitudeModelClass::step()
    *  UnitDelay: '<S3>/Unit Delay'
    */
   /* MATLAB Function 'KALTITUDE/KALTITUDE/Predict ': '<S4>:1' */
-  /* %EKF  state update       % */
+  /* %AKF state update        % */
   /*  Author: Matteo Ferronato% */
   /*  Last review: 2016/02/09 % */
   /* %%%%%%%%%%%%%%%%%%%%%%%%%% */
-  /* % Description */
-  /*  The purpose of this script is to calculate the state update of */
-  /*  Extended Kalman Filter  */
-  /* % */
+  /* % State-noise matrix */
+  /* '<S4>:1:7' */
+  /* % Dynamics matrix */
   /* '<S4>:1:12' */
-  /*  Qn(1,1)=3; */
-  /*  Qn(2,2)=0.01; */
-  /* % Initialize variables */
-  /* '<S4>:1:17' */
   A[0] = 1.0;
   A[3] = Kaltitude_P.Constant_Value * Kaltitude_P.Constant_Value / 2.0;
   A[6] = Kaltitude_P.Constant_Value;
@@ -74,9 +70,9 @@ void KaltitudeModelClass::step()
   A[5] = Kaltitude_P.Constant_Value;
   A[8] = 1.0;
 
-  /* '<S4>:1:21' */
-  /* % Jacobian initialization */
-  /* '<S4>:1:24' */
+  /* '<S4>:1:16' */
+  /* % Covariance propagation */
+  /* '<S4>:1:19' */
   for (i = 0; i < 3; i++) {
     rtb_x_p[i] = A[i + 6] * Kaltitude_DW.UnitDelay_DSTATE[2] + (A[i + 3] *
       Kaltitude_DW.UnitDelay_DSTATE[1] + A[i] * Kaltitude_DW.UnitDelay_DSTATE[0]);
@@ -88,6 +84,7 @@ void KaltitudeModelClass::step()
    */
   /* MATLAB Function 'KALTITUDE/Acceleration Correction': '<S2>:1' */
   /* '<S2>:1:3' */
+  /* '<S2>:1:4' */
   S = sin(Kaltitude_U.phi);
   b_x = sin(Kaltitude_U.theta);
 
@@ -95,44 +92,28 @@ void KaltitudeModelClass::step()
    *  Gain: '<S1>/Scale factor'
    *  Inport: '<Root>/az'
    *  Inport: '<Root>/proxy'
+   *  Inport: '<Root>/scale'
    *  MATLAB Function: '<S1>/Acceleration Correction'
    *  MATLAB Function: '<S3>/Update'
    */
-  rtb_TmpSignalConversionAtSFunct[0] = sqrt(1.0 - (S * S + b_x * b_x)) *
-    (Kaltitude_U.az / 10.06);
+  /* '<S2>:1:6' */
+  rtb_TmpSignalConversionAtSFunct[0] = (Kaltitude_U.az / Kaltitude_U.scale -
+    sqrt(1.0 - (S * S + b_x * b_x))) * 9.81;
   rtb_TmpSignalConversionAtSFunct[1] = Kaltitude_P.Scalefactor_Gain *
     Kaltitude_U.proxy;
 
-  /* MATLAB Function: '<S3>/Update' incorporates:
-   *  Constant: '<S3>/Constant1'
-   */
+  /* MATLAB Function: '<S3>/Update' */
   /* MATLAB Function 'KALTITUDE/KALTITUDE/Update': '<S5>:1' */
-  /* %EKF  state correction       % */
+  /* %A-KF state correction   % */
   /*  Author: Matteo Ferronato% */
   /*  Last review: 2016/02/09 % */
   /* %%%%%%%%%%%%%%%%%%%%%%%%%% */
-  /* % Description */
-  /*  The purpose of this script is to calculate the state update of */
-  /*  Extended Kalman Filter  */
-  /* % */
   /*  Useful Parameters */
-  /* '<S5>:1:14' */
-  Rn[0] = 0.7;
-  Rn[1] = 0.0;
-  Rn[2] = 0.0;
-
-  /* '<S5>:1:15' */
-  Rn[3] = 0.01;
-
-  /* '<S5>:1:17' */
-  /* '<S5>:1:18' */
-  rtb_TmpSignalConversionAtSFunct[0] -= Kaltitude_P.Constant1_Value[1] / fabs
-    (Kaltitude_P.Constant1_Value[1]);
-
+  /* '<S5>:1:7' */
   /* % */
-  /* '<S5>:1:22' */
-  /*  %% */
-  /* '<S5>:1:26' */
+  /* '<S5>:1:10' */
+  /* % */
+  /* '<S5>:1:14' */
   for (i = 0; i < 2; i++) {
     h[i] = (real_T)H[i + 2] * rtb_x_p[1] + (real_T)H[i] * rtb_x_p[0];
   }
@@ -141,7 +122,7 @@ void KaltitudeModelClass::step()
    *  UnitDelay: '<S3>/Unit Delay1'
    */
   /* % */
-  /* '<S5>:1:29' */
+  /* '<S5>:1:17' */
   for (i = 0; i < 3; i++) {
     for (i_0 = 0; i_0 < 3; i_0++) {
       A_0[i + 3 * i_0] = 0.0;
@@ -161,12 +142,12 @@ void KaltitudeModelClass::step()
     }
   }
 
-  /* '<S5>:1:30' */
-  /* '<S5>:1:32' */
+  /* '<S5>:1:18' */
+  /* '<S5>:1:20' */
   for (j = 0; j < 2; j++) {
-    /* '<S5>:1:32' */
+    /* '<S5>:1:20' */
     /*  Innovation covariance */
-    /* '<S5>:1:34' */
+    /* '<S5>:1:22' */
     for (i = 0; i < 3; i++) {
       rtb_K[i] = rtb_P[3 * i + 1] * (real_T)H[j + 2] + rtb_P[3 * i] * (real_T)
         H[j];
@@ -176,20 +157,20 @@ void KaltitudeModelClass::step()
       j];
 
     /*  Kalman gain */
-    /* '<S5>:1:37' */
+    /* '<S5>:1:25' */
     for (i = 0; i < 3; i++) {
       rtb_K[i] = (rtb_P[i + 3] * (real_T)H[j + 2] + rtb_P[i] * (real_T)H[j]) / S;
     }
 
     /*  Updated state estimate */
-    /* '<S5>:1:40' */
+    /* '<S5>:1:28' */
     S = rtb_TmpSignalConversionAtSFunct[j] - h[j];
     rtb_x_p[0] += rtb_K[0] * S;
     rtb_x_p[1] += rtb_K[1] * S;
     rtb_x_p[2] += rtb_K[2] * S;
 
     /*  Updated estimated covariance */
-    /* '<S5>:1:43' */
+    /* '<S5>:1:31' */
     for (i = 0; i < 9; i++) {
       I[i] = 0;
       b_I[i] = 0;
@@ -244,15 +225,19 @@ void KaltitudeModelClass::step()
       rtb_P[2 + 3 * i] = I_0[3 * i + 2] + A[3 * i + 2];
     }
 
-    /* '<S5>:1:32' */
+    /* '<S5>:1:20' */
   }
 
-  /* Outport: '<Root>/state' */
-  /* '<S5>:1:46' */
-  /* '<S5>:1:47' */
-  Kaltitude_Y.state[0] = rtb_x_p[0];
-  Kaltitude_Y.state[1] = rtb_x_p[1];
-  Kaltitude_Y.state[2] = rtb_x_p[2];
+  /* Outport: '<Root>/Altitude' */
+  /* '<S5>:1:34' */
+  /* '<S5>:1:35' */
+  Kaltitude_Y.Altitude = rtb_x_p[0];
+
+  /* Outport: '<Root>/Velocity' */
+  Kaltitude_Y.Velocity = rtb_x_p[2];
+
+  /* Outport: '<Root>/Acceleration' */
+  Kaltitude_Y.Acceleration = rtb_x_p[1];
 
   /* Update for UnitDelay: '<S3>/Unit Delay' */
   Kaltitude_DW.UnitDelay_DSTATE[0] = rtb_x_p[0];
@@ -280,8 +265,8 @@ void KaltitudeModelClass::initialize()
                 sizeof(ExtU_Kaltitude_T));
 
   /* external outputs */
-  (void) memset(&Kaltitude_Y.state[0], 0,
-                3U*sizeof(real_T));
+  (void) memset((void *)&Kaltitude_Y, 0,
+                sizeof(ExtY_Kaltitude_T));
 
   /* InitializeConditions for UnitDelay: '<S3>/Unit Delay' */
   Kaltitude_DW.UnitDelay_DSTATE[0] = Kaltitude_P.UnitDelay_InitialCondition[0];
@@ -307,7 +292,7 @@ KaltitudeModelClass::KaltitudeModelClass()
      * Referenced by: '<S3>/Unit Delay'
      */
     { 0.0, 0.0, 0.0 },
-    0.05,                              /* Expression: 0.05
+    0.01,                              /* Expression: 0.01
                                         * Referenced by: '<S3>/Constant'
                                         */
 
@@ -315,14 +300,9 @@ KaltitudeModelClass::KaltitudeModelClass()
      * Referenced by: '<S3>/Unit Delay1'
      */
     { 0.001, 0.0, 0.0, 0.0, 0.001, 0.0, 0.0, 0.0, 0.001 },
-    0.001,                             /* Expression: 0.001
+    0.001                              /* Expression: 0.001
                                         * Referenced by: '<S1>/Scale factor'
                                         */
-
-    /*  Expression: [0;10.0675]
-     * Referenced by: '<S3>/Constant1'
-     */
-    { 0.0, 10.0675 }
   };                                   /* Modifiable parameters */
 
   /* Initialize tunable parameters */

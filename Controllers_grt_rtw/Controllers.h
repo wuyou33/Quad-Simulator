@@ -7,9 +7,9 @@
  *
  * Code generation for model "Controllers".
  *
- * Model version              : 1.82
+ * Model version              : 1.83
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Thu Mar 31 16:00:06 2016
+ * C++ source code generated on : Sat Apr 02 10:37:09 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -300,12 +300,6 @@ struct P_Controllers_T_ {
   real_T Saturation_LowerSat;          /* Expression: -1
                                         * Referenced by: '<S1>/Saturation'
                                         */
-  real_T DeadZone_Start;               /* Expression: -0.01
-                                        * Referenced by: '<S1>/Dead Zone'
-                                        */
-  real_T DeadZone_End;                 /* Expression: 0.01
-                                        * Referenced by: '<S1>/Dead Zone'
-                                        */
   real_T Filter_IC;                    /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S3>/Filter'
                                         */
@@ -315,12 +309,6 @@ struct P_Controllers_T_ {
   real_T Saturation1_LowerSat;         /* Expression: -1
                                         * Referenced by: '<S1>/Saturation1'
                                         */
-  real_T DeadZone1_Start;              /* Expression: -0.01
-                                        * Referenced by: '<S1>/Dead Zone1'
-                                        */
-  real_T DeadZone1_End;                /* Expression: 0.01
-                                        * Referenced by: '<S1>/Dead Zone1'
-                                        */
   real_T Filter_IC_d;                  /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S2>/Filter'
                                         */
@@ -329,12 +317,6 @@ struct P_Controllers_T_ {
                                         */
   real_T Saturation2_LowerSat;         /* Expression: -1
                                         * Referenced by: '<S1>/Saturation2'
-                                        */
-  real_T DeadZone2_Start;              /* Expression: -0.01
-                                        * Referenced by: '<S1>/Dead Zone2'
-                                        */
-  real_T DeadZone2_End;                /* Expression: 0.01
-                                        * Referenced by: '<S1>/Dead Zone2'
                                         */
   real_T Integrator_IC;                /* Expression: InitialConditionForIntegrator
                                         * Referenced by: '<S4>/Integrator'

@@ -29,11 +29,11 @@
 <tr name="9" id="9">
 <td>9</td><td><span class="ct"> *</span></td></tr>
 <tr name="10" id="10">
-<td>10</td><td><span class="ct"> * Model version              : 1.91</span></td></tr>
+<td>10</td><td><span class="ct"> * Model version              : 1.148</span></td></tr>
 <tr name="11" id="11">
 <td>11</td><td><span class="ct"> * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015</span></td></tr>
 <tr name="12" id="12">
-<td>12</td><td><span class="ct"> * C++ source code generated on : Wed Mar 30 12:44:15 2016</span></td></tr>
+<td>12</td><td><span class="ct"> * C++ source code generated on : Mon Apr 04 11:48:59 2016</span></td></tr>
 <tr name="13" id="13">
 <td>13</td><td><span class="ct"> *</span></td></tr>
 <tr name="14" id="14">
@@ -127,51 +127,51 @@
 <tr name="58" id="58">
 <td>58</td><td>  <a id="58c3" class="tk">real_T</a> <a id="58c10" class="tk">proxy</a>;                        <span class="ct">/* '&lt;Root&gt;/proxy' */</span></td></tr>
 <tr name="59" id="59">
-<td>59</td><td><span class="br">}</span> <a id="59c3" class="tk">ExtU_Kaltitude_T</a>;</td></tr>
+<td>59</td><td>  <a id="59c3" class="tk">real_T</a> <a id="59c10" class="tk">scale</a>;                        <span class="ct">/* '&lt;Root&gt;/scale' */</span></td></tr>
 <tr name="60" id="60">
-<td>60</td><td></td></tr>
+<td>60</td><td><span class="br">}</span> <a id="60c3" class="tk">ExtU_Kaltitude_T</a>;</td></tr>
 <tr name="61" id="61">
-<td>61</td><td><span class="ct">/* External outputs (root outports fed by signals with auto storage) */</span></td></tr>
+<td>61</td><td></td></tr>
 <tr name="62" id="62">
-<td>62</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<td>62</td><td><span class="ct">/* External outputs (root outports fed by signals with auto storage) */</span></td></tr>
 <tr name="63" id="63">
-<td>63</td><td>  <a id="63c3" class="tk">real_T</a> <a id="63c10" class="tk">state</a>[3];                     <span class="ct">/* '&lt;Root&gt;/state' */</span></td></tr>
+<td>63</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
 <tr name="64" id="64">
-<td>64</td><td><span class="br">}</span> <a id="64c3" class="tk">ExtY_Kaltitude_T</a>;</td></tr>
+<td>64</td><td>  <a id="64c3" class="tk">real_T</a> <a id="64c10" class="tk">Altitude</a>;                     <span class="ct">/* '&lt;Root&gt;/Altitude' */</span></td></tr>
 <tr name="65" id="65">
-<td>65</td><td></td></tr>
+<td>65</td><td>  <a id="65c3" class="tk">real_T</a> <a id="65c10" class="tk">Velocity</a>;                     <span class="ct">/* '&lt;Root&gt;/Velocity' */</span></td></tr>
 <tr name="66" id="66">
-<td>66</td><td><span class="ct">/* Parameters (auto storage) */</span></td></tr>
+<td>66</td><td>  <a id="66c3" class="tk">real_T</a> <a id="66c10" class="tk">Acceleration</a>;                 <span class="ct">/* '&lt;Root&gt;/Acceleration' */</span></td></tr>
 <tr name="67" id="67">
-<td>67</td><td><span class="kw">struct</span> <a id="67c8" class="tk">P_Kaltitude_T_</a> <span class="br">{</span></td></tr>
+<td>67</td><td><span class="br">}</span> <a id="67c3" class="tk">ExtY_Kaltitude_T</a>;</td></tr>
 <tr name="68" id="68">
-<td>68</td><td>  <a id="68c3" class="tk">real_T</a> <a id="68c10" class="tk">UnitDelay_InitialCondition</a>[3];<span class="ct">/* Expression: zeros(3,1)</span></td></tr>
+<td>68</td><td></td></tr>
 <tr name="69" id="69">
-<td>69</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Unit Delay'</span></td></tr>
+<td>69</td><td><span class="ct">/* Parameters (auto storage) */</span></td></tr>
 <tr name="70" id="70">
-<td>70</td><td><span class="ct">                                        */</span></td></tr>
+<td>70</td><td><span class="kw">struct</span> <a id="70c8" class="tk">P_Kaltitude_T_</a> <span class="br">{</span></td></tr>
 <tr name="71" id="71">
-<td>71</td><td>  <a id="71c3" class="tk">real_T</a> <a id="71c10" class="tk">Constant_Value</a>;               <span class="ct">/* Expression: 0.05</span></td></tr>
+<td>71</td><td>  <a id="71c3" class="tk">real_T</a> <a id="71c10" class="tk">UnitDelay_InitialCondition</a>[3];<span class="ct">/* Expression: zeros(3,1)</span></td></tr>
 <tr name="72" id="72">
-<td>72</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Constant'</span></td></tr>
+<td>72</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Unit Delay'</span></td></tr>
 <tr name="73" id="73">
 <td>73</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="74" id="74">
-<td>74</td><td>  <a id="74c3" class="tk">real_T</a> <a id="74c10" class="tk">UnitDelay1_InitialCondition</a>[9];<span class="ct">/* Expression: eye(3)*0.001</span></td></tr>
+<td>74</td><td>  <a id="74c3" class="tk">real_T</a> <a id="74c10" class="tk">Constant_Value</a>;               <span class="ct">/* Expression: 0.01</span></td></tr>
 <tr name="75" id="75">
-<td>75</td><td><span class="ct">                                         * Referenced by: '&lt;S3&gt;/Unit Delay1'</span></td></tr>
+<td>75</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Constant'</span></td></tr>
 <tr name="76" id="76">
-<td>76</td><td><span class="ct">                                         */</span></td></tr>
+<td>76</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="77" id="77">
-<td>77</td><td>  <a id="77c3" class="tk">real_T</a> <a id="77c10" class="tk">Scalefactor_Gain</a>;             <span class="ct">/* Expression: 0.001</span></td></tr>
+<td>77</td><td>  <a id="77c3" class="tk">real_T</a> <a id="77c10" class="tk">UnitDelay1_InitialCondition</a>[9];<span class="ct">/* Expression: eye(3)*0.001</span></td></tr>
 <tr name="78" id="78">
-<td>78</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Scale factor'</span></td></tr>
+<td>78</td><td><span class="ct">                                         * Referenced by: '&lt;S3&gt;/Unit Delay1'</span></td></tr>
 <tr name="79" id="79">
-<td>79</td><td><span class="ct">                                        */</span></td></tr>
+<td>79</td><td><span class="ct">                                         */</span></td></tr>
 <tr name="80" id="80">
-<td>80</td><td>  <a id="80c3" class="tk">real_T</a> <a id="80c10" class="tk">Constant1_Value</a>[2];           <span class="ct">/* Expression: [0;10.0675]</span></td></tr>
+<td>80</td><td>  <a id="80c3" class="tk">real_T</a> <a id="80c10" class="tk">Scalefactor_Gain</a>;             <span class="ct">/* Expression: 0.001</span></td></tr>
 <tr name="81" id="81">
-<td>81</td><td><span class="ct">                                        * Referenced by: '&lt;S3&gt;/Constant1'</span></td></tr>
+<td>81</td><td><span class="ct">                                        * Referenced by: '&lt;S1&gt;/Scale factor'</span></td></tr>
 <tr name="82" id="82">
 <td>82</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="83" id="83">
