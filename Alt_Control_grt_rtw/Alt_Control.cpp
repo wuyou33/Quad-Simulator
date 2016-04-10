@@ -7,9 +7,9 @@
  *
  * Code generation for model "Alt_Control".
  *
- * Model version              : 1.92
+ * Model version              : 1.94
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Tue Apr 05 14:37:06 2016
+ * C++ source code generated on : Thu Apr 07 16:56:36 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -257,19 +257,19 @@ void Alt_ControlModelClass::terminate()
 Alt_ControlModelClass::Alt_ControlModelClass()
 {
   static const P_Alt_Control_T Alt_Control_P_temp = {
-    5.4,                               /* Variable: KaD
+    5.53,                              /* Variable: KaD
                                         * Referenced by: '<S2>/Derivative Gain'
                                         */
-    3.6,                               /* Variable: KaI
+    3.7,                               /* Variable: KaI
                                         * Referenced by: '<S2>/Integral Gain'
                                         */
-    38.0,                              /* Variable: KaN
+    10.0,                              /* Variable: KaN
                                         * Referenced by: '<S2>/Filter Coefficient'
                                         */
-    8.0,                               /* Variable: KaP
+    4.1,                               /* Variable: KaP
                                         * Referenced by: '<S2>/Proportional Gain'
                                         */
-    1.2247448713915889,                /* Variable: Kba
+    1.2225361322245631,                /* Variable: Kba
                                         * Referenced by: '<S2>/Kb'
                                         */
     5.0,                               /* Variable: sata

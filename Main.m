@@ -7,10 +7,10 @@ close all
 clc
  
 %% Launch SIMULATOR
-tsim = 5;
+tsim = 15;
 
-%Set point u = [height[m] roll_a[rad] pitch_a[rad] yaw_r[rad/s]]
-U = [1 0 -pi/16 0]';
+%Set point u = [-height[m] roll_a[rad] pitch_a[rad] yaw_r[rad/s]]
+U = [-1 0 pi/6 0]';
 
 sim Simulator
 
@@ -21,11 +21,11 @@ Alpha_e = yout(: ,10:12);
 
 %% Plot OUTPUT
 figure('name','POSITION_EARTH')
-plot(tout, P_e*diag([1 1 -1]));
+plot(tout, P_e);
 grid minor
 xlabel('[s]')
 ylabel('[m]')
-legend('N', 'E', 'Height')
+legend('N', 'E', 'D')
 
 figure('name','VELOCITY_BODY')
 plot(tout, V_b);

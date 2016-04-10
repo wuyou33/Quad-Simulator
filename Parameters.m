@@ -52,17 +52,17 @@ dLMN = [dLdp  0    0   ;
 %% Control variables
 %U = K * OMEsq
 param = diag([Kt b/sqrt(2)*Kt b/sqrt(2)*Kt Kq]);
-sign = [ 1  1  1  1 ;
+sign = [-1 -1 -1 -1 ;
          1 -1 -1  1 ;
          1  1 -1 -1 ;
         -1  1 -1  1];
     
 K = param*sign;
 % Kinv = K\eye(4);
-Kinv = [ 1/(4*Kt)  2^(1/2)/(4*Kt*b)  2^(1/2)/(4*Kt*b) -1/(4*Kq) ;
-         1/(4*Kt) -2^(1/2)/(4*Kt*b)  2^(1/2)/(4*Kt*b)  1/(4*Kq) ;
-         1/(4*Kt) -2^(1/2)/(4*Kt*b) -2^(1/2)/(4*Kt*b) -1/(4*Kq) ;
-         1/(4*Kt)  2^(1/2)/(4*Kt*b) -2^(1/2)/(4*Kt*b)  1/(4*Kq)];
+Kinv = [ -1/(4*Kt)  2^(1/2)/(4*Kt*b)  2^(1/2)/(4*Kt*b) -1/(4*Kq) ;
+         -1/(4*Kt) -2^(1/2)/(4*Kt*b)  2^(1/2)/(4*Kt*b)  1/(4*Kq) ;
+         -1/(4*Kt) -2^(1/2)/(4*Kt*b) -2^(1/2)/(4*Kt*b) -1/(4*Kq) ;
+         -1/(4*Kt)  2^(1/2)/(4*Kt*b) -2^(1/2)/(4*Kt*b)  1/(4*Kq)];
 
 %% Saturations
 rollMax = pi/6;     %[rad]
@@ -142,15 +142,14 @@ KPD = 0.00512;
 % KPD = 0.00696;
 
 %% Altitude regulator
-KaN = 38;
-
-KaP = 8.0;
-KaI = 3.6;
-KaD = 5.4;
-
+KaP = 4.10;
+KaI = 3.70;
+KaD = 5.53;
+KaN = 10;
 %Anti-Windup (Back-calculation)
 % Kba = 0;
 Kba = sqrt(KaD/KaI);
+
 sata = 5;
 
  %% End of code
