@@ -73,8 +73,9 @@ yawRateMax = pi/2;  %[rad/s]
 fc = 100;   %[Hz]
 tc = 1/fc;  %[s]
 
-delay_altitude = 2;
-delay_attitude = 2;
+delay_altitude = 1;
+delay_attitude = 1;
+delay_mixer = 1;
 
 %% Angular-rate regulators
 Tf = .01;
@@ -140,6 +141,10 @@ KPP = 1.61;
 KPD = 0.00512;
 % KPP = 1.33;
 % KPD = 0.00696;
+
+%psi PD
+KYP = 1.61;
+KYD = 0.00512;
 
 %% Altitude regulator
 KaP = 4.10;
