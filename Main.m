@@ -10,7 +10,7 @@ clc
 tsim = 15;
 
 %Set point u = [-height[m] roll_a[rad] pitch_a[rad] yaw_r[rad/s]]
-U = [-1 0 pi/6 0]';
+U = [-1 0 -pi/6 0]';
 
 sim Simulator
 
