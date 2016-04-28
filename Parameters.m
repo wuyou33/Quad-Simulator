@@ -157,4 +157,11 @@ Kba = sqrt(KaD/KaI);
 
 sata = 5;
 
+%% Position regulator
+KP = 0.00456;
+KD = 0.0528;
+KN = 1/0.0781;
+
+sat = rollMax;
+
  %% End of code

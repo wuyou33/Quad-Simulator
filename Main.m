@@ -53,15 +53,15 @@ Alpha_e = yout(: ,10:12);
 
 %% 3D Animation
  
-% global index_view;
-% global old_position;
-% 
-% index_view = 0;
-% old_position = [0 0 0];
-% 
-% for i = 1:length(tout)
-%     draw_mod([P_e(i,:) Alpha_e(i,:)]);
-% end
+global index_view;
+global old_position;
+
+index_view = 0;
+old_position = [0 0 0];
+
+for i = 1:length(tout)
+    draw_mod([P_e(i,:) Alpha_e(i,:)]);
+end
 
 %% 3D Animation and video making
 %If you want to make a short video about the output of the simulaiton just
