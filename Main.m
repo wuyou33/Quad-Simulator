@@ -12,8 +12,8 @@ tsim = 50;
 % %Set point u = [-height[m] roll_a[rad] pitch_a[rad] yaw_r[rad/s]]
 % U = [-1 0 -pi/6 0]';
 
-%Set point u = [No[m] Eo[m] -height[m] head[rad]]
-U = [0 0 -1 pi/6]';
+% %Set point u = [No[m] Eo[m] -height[m] head[rad]]
+% U = [0 0 -1 pi/6]';
 
 sim Simulator
 
