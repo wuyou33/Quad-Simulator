@@ -13,7 +13,7 @@ tsim = 50;
 % U = [-1 0 -pi/6 0]';
 
 % %Set point u = [No[m] Eo[m] -height[m] head[rad]]
-% U = [0 0 -1 pi/6]';
+ U = [0 0 -1 pi/6]';
 
 sim Simulator
 
@@ -72,7 +72,7 @@ cameratoolbar('ResetCameraAndSceneLight');
 for i = 1:length(tout)
    draw_mod([P_e(i,:) Alpha_e(i,:)]);
 end
-
+drawnow;
 %% 3D Animation and video making
 %If you want to make a short video about the output of the simulaiton just
 %uncomment the following code:

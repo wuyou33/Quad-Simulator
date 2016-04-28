@@ -34,22 +34,6 @@ rot = TBE';
 if index_view == 0
     
     % Initialize the figure
-<<<<<<< HEAD
-    screen = get(0,'screensize');
-    visual = figure(1);
-    set(visual,'position',[2 65 screen(3)-4 screen(4)-170]);
-    clf(visual);
-    hold on;
-    cameratoolbar('show');
-    axis vis3d;
-    view(3);
-    zoom(0.6);
-    
-    % The following two lines can be deleted for better performances.
-    set(gcf,'menubar','figure','renderer','opengl');
-    set(gca,'Visible','On','Box','On','XGrid', 'on','YGrid', 'on','ZGrid',...
-        'on','projection','perspective');
-=======
 %     screen = get(0,'screensize');
 %      visual = figure(1);
 %      set(visual,'position',[2 65 screen(3)-4 screen(4)-170]);
@@ -64,7 +48,6 @@ if index_view == 0
 %     set(gcf,'menubar','figure','renderer','opengl');
 %     set(gca,'Visible','On','Box','On','XGrid', 'on','YGrid', 'on','ZGrid',...
 %         'on','projection','perspective');
->>>>>>> 350c35abdc3400446272d537d54a0276d9792517
     
     % Draw fixed frame reference
     %N
@@ -131,17 +114,6 @@ quad.f = line(x+rot(1,:)*points,y+rot(2,:)*points,z+rot(3,:)*points,...
 old_position = [x,y,z];
 
 % Set the camera position and target
-<<<<<<< HEAD
-camtarget_x = x/2;
-camtarget_y = y/2;
-camtarget_z = z/2;
-campos_x = (camtarget_x/2 + camtarget_y)*6 - 2;
-campos_y = (camtarget_y/2 - camtarget_x)*6 - 1;
-campos_z = camtarget_z + sqrt(campos_x^2+campos_y^2)/6 + 3;
-
-camtarget([camtarget_x,camtarget_y,camtarget_z]);
-campos([campos_x,campos_y,campos_z]);
-=======
 % camtarget_x = x/2;
 % camtarget_y = y/2;
 % camtarget_z = z/2;
@@ -151,7 +123,6 @@ campos([campos_x,campos_y,campos_z]);
 %
 % camtarget([camtarget_x,camtarget_y,camtarget_z]);
 % campos([campos_x,campos_y,campos_z]);
->>>>>>> 350c35abdc3400446272d537d54a0276d9792517
 
 % Count the iterations
 index_view = index_view + 1;
