@@ -112,8 +112,8 @@ satq = 1.5;
 %r PID
 %Guess
 Kpr = 0.135;
-Kir = 0.125;
-Kdr = 0.0153;
+Kir = 0.038;
+Kdr = 0.0058;
 %H-Infinity
 % Kpr = 0.276;
 % Kir = 0.101;
@@ -143,8 +143,8 @@ KPD = 0.00512;
 % KPD = 0.00696;
 
 %psi PD
-KYP = 1.61;
-KYD = 0.00512;
+KYP = 1.41;
+KYD = 0.21;
 
 %% Altitude regulator
 KaP = 4.10;

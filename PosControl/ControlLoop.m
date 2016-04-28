@@ -48,7 +48,7 @@ Ctheta = pid(KPP,0,KPD,Tf);
 Ctheta.u = 'e_{Theta}'; Ctheta.y = 'q_0';
 
 %Loop and transfer function
-InnerLoop = feedback(motor*Gq*delay_mix*mixer*delay_att*Cq,1);
+InnerLoop = feedback(Gq*motor*delay_mix*mixer*delay_att*Cq,1);
 L = Gtheta*InnerLoop*Ctheta;
 F = L/(1+L);
 F.u = 'Theta_0';
@@ -61,7 +61,6 @@ G.u = 'Theta';
 G.y = 'y';
 
 %% Position control
-
 
 % pidtune(G*F,'PDF')
 

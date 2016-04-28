@@ -13,7 +13,7 @@ tsim = 10;
 % U = [-1 0 -pi/6 0]';
 
 %Set point u = [No[m] Eo[m] -height[m] head[rad]]
-U = [0 1 -1 0]';
+U = [0 0 -1 pi/6]';
 
 sim Simulator
 
@@ -44,24 +44,24 @@ Alpha_e = yout(: ,10:12);
 % ylabel('[rad/s]')
 % legend('p', 'q', 'r')
 %  
-% figure('name','ATTITUDE_EARTH')
-% plot(tout, Alpha_e);
-% grid minor
-% xlabel('[s]')
-% ylabel('[rad]')
-% legend('phi', 'theta', 'psi')
+figure('name','ATTITUDE_EARTH')
+plot(tout, Alpha_e);
+grid minor
+xlabel('[s]')
+ylabel('[rad]')
+legend('phi', 'theta', 'psi')
 
 %% 3D Animation
  
-global index_view;
-global old_position;
-
-index_view = 0;
-old_position = [0 0 0];
-
-for i = 1:length(tout)
-    draw_mod([P_e(i,:) Alpha_e(i,:)]);
-end
+% global index_view;
+% global old_position;
+% 
+% index_view = 0;
+% old_position = [0 0 0];
+% 
+% for i = 1:length(tout)
+%     draw_mod([P_e(i,:) Alpha_e(i,:)]);
+% end
 
 %% 3D Animation and video making
 %If you want to make a short video about the output of the simulaiton just
