@@ -71,7 +71,7 @@ if index_view == 0
 else
     
     % Delete the quadrotor drawing in the old position
-    drawnow;
+    drawnow limitrate;
     delete(quad.a);
     delete(quad.b);
     delete(quad.c);

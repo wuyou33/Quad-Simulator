@@ -7,7 +7,7 @@ close all
 clc
  
 %% Launch SIMULATOR
-tsim = 15;
+tsim = 50;
 
 % %Set point u = [-height[m] roll_a[rad] pitch_a[rad] yaw_r[rad/s]]
 % U = [-1 0 -pi/6 0]';
@@ -67,15 +67,17 @@ view(3);
 zoom(0.9);
 index_view = 0;
 old_position = [0 0 0];
+cameratoolbar('ResetCameraAndSceneLight');
 
 for i = 1:length(tout)
    draw_mod([P_e(i,:) Alpha_e(i,:)]);
 end
+drawnow;
 
 %% 3D Animation and video making
 %If you want to make a short video about the output of the simulaiton just
 %uncomment the following code:
-
+% 
 % global index_view;
 % global old_position;
 % 
@@ -94,14 +96,16 @@ end
 % old_position = [0 0 0];
 % 
 % quadmovie = VideoWriter('quad.avi');
-% quadmovie.FrameRate = 30;
+% quadmovie.FrameRate = 10;
 % open(quadmovie);
 % 
+% cameratoolbar('ResetCameraAndSceneLight');
 % for i = 1:length(tout)
 %     draw_mod([P_e(i,:), Alpha_e(i,:)]);
 %     F = getframe;
 %     writeVideo(quadmovie,F)
 % end
+% drawnow;
 % close(quadmovie);
 
  %% End of code
