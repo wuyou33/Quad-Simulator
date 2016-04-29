@@ -7,7 +7,7 @@ close all
 clc
  
 %% Launch SIMULATOR
-tsim = 50;
+tsim = 70;
 
 % %Set point u = [-height[m] roll_a[rad] pitch_a[rad] yaw_r[rad/s]]
 % U = [-1 0 -pi/6 0]';
@@ -30,26 +30,26 @@ xlabel('[s]')
 ylabel('[m]')
 legend('N', 'E', 'D')
 
-figure('name','VELOCITY_BODY')
-plot(tout, V_b);
-grid minor
-xlabel('[s]')
-ylabel('[m/s]')
-legend('u', 'v', 'w')
-
-figure('name','ANGULAR SPEED_BODY')
-plot(tout, Ome_b);
-grid minor
-xlabel('[s]')
-ylabel('[rad/s]')
-legend('p', 'q', 'r')
- 
-figure('name','ATTITUDE_EARTH')
-plot(tout, Alpha_e);
-grid minor
-xlabel('[s]')
-ylabel('[rad]')
-legend('phi', 'theta', 'psi')
+% figure('name','VELOCITY_BODY')
+% plot(tout, V_b);
+% grid minor
+% xlabel('[s]')
+% ylabel('[m/s]')
+% legend('u', 'v', 'w')
+% 
+% figure('name','ANGULAR SPEED_BODY')
+% plot(tout, Ome_b);
+% grid minor
+% xlabel('[s]')
+% ylabel('[rad/s]')
+% legend('p', 'q', 'r')
+%  
+% figure('name','ATTITUDE_EARTH')
+% plot(tout, Alpha_e);
+% grid minor
+% xlabel('[s]')
+% ylabel('[rad]')
+% legend('phi', 'theta', 'psi')
 
 %% 3D Animation
 
@@ -73,6 +73,7 @@ for i = 1:length(tout)
    draw_mod([P_e(i,:) Alpha_e(i,:)]);
 end
 drawnow;
+
 %% 3D Animation and video making
 %If you want to make a short video about the output of the simulaiton just
 %uncomment the following code:
