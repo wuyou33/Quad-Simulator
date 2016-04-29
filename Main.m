@@ -9,12 +9,6 @@ clc
 %% Launch SIMULATOR
 tsim = 70;
 
-% %Set point u = [-height[m] roll_a[rad] pitch_a[rad] yaw_r[rad/s]]
-% U = [-1 0 -pi/6 0]';
-
-% %Set point u = [No[m] Eo[m] -height[m] head[rad]]
- U = [0 0 -1 pi/6]';
-
 sim Simulator
 
 P_e = yout(: ,1:3);
@@ -44,12 +38,12 @@ legend('N', 'E', 'D')
 % ylabel('[rad/s]')
 % legend('p', 'q', 'r')
 %  
-% figure('name','ATTITUDE_EARTH')
-% plot(tout, Alpha_e);
-% grid minor
-% xlabel('[s]')
-% ylabel('[rad]')
-% legend('phi', 'theta', 'psi')
+figure('name','ATTITUDE_EARTH')
+plot(tout, Alpha_e);
+grid minor
+xlabel('[s]')
+ylabel('[rad]')
+legend('phi', 'theta', 'psi')
 
 %% 3D Animation
 

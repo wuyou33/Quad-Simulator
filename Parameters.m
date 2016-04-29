@@ -167,6 +167,4 @@ KI = 0.00021;
 KD = 0.0783;
 KN = 1/0.012;
 
-sat = rollMax;
-
  %% End of code
