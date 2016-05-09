@@ -11,10 +11,10 @@ tsim = 70;
 
 sim Simulator
 
-P_e = yout(: ,1:3);
-V_b = yout(: ,4:6);
-Ome_b = yout(: ,7:9);
-Alpha_e = yout(: ,10:12);
+P_e = yout(:, 1:3);
+V_b = yout(:, 4:6);
+Ome_b = yout(:, 7:9);
+Alpha_e = yout(:, 10:12);
 
 %% Plot OUTPUT
 figure('name','POSITION_EARTH')
