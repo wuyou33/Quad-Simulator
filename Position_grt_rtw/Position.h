@@ -9,7 +9,7 @@
  *
  * Model version              : 1.86
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Mon May 09 11:45:39 2016
+ * C++ source code generated on : Mon May 09 12:09:11 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -192,7 +192,7 @@ typedef struct {
 
 /* External inputs (root inport signals with auto storage) */
 typedef struct {
-  real_T IMU_attitude[3];              /* '<Root>/IMU_attitude' */
+  real_T IMU_Attitude[3];              /* '<Root>/IMU_Attitude' */
   real_T PosDes[2];                    /* '<Root>/PosDes' */
   real_T Pos[2];                       /* '<Root>/Pos' */
 } ExtU_Position_T;

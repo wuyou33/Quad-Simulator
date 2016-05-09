@@ -9,7 +9,7 @@
  *
  * Model version              : 1.86
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Mon May 09 11:45:39 2016
+ * C++ source code generated on : Mon May 09 12:09:11 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -96,14 +96,14 @@ void PositionModelClass::step()
   }
 
   /* MATLAB Function: '<S1>/To body from Earth' incorporates:
-   *  Inport: '<Root>/IMU_attitude'
+   *  Inport: '<Root>/IMU_Attitude'
    */
   /* MATLAB Function 'Position Controller/To body from Earth': '<S4>:1' */
   /* '<S4>:1:5' */
-  Spsi = sin(Position_U.IMU_attitude[2]);
+  Spsi = sin(Position_U.IMU_Attitude[2]);
 
   /* '<S4>:1:6' */
-  Cpsi = cos(Position_U.IMU_attitude[2]);
+  Cpsi = cos(Position_U.IMU_Attitude[2]);
 
   /* SignalConversion: '<S4>/TmpSignal ConversionAt SFunction Inport2' incorporates:
    *  Inport: '<Root>/Pos'
