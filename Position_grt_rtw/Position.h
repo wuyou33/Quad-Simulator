@@ -7,9 +7,9 @@
  *
  * Code generation for model "Position".
  *
- * Model version              : 1.86
+ * Model version              : 1.88
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Mon May 09 12:09:11 2016
+ * C++ source code generated on : Mon May 09 12:42:59 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -205,22 +205,22 @@ typedef struct {
 
 /* Parameters (auto storage) */
 struct P_Position_T_ {
-  real_T KD;                           /* Variable: KD
+  real_T KD_pos;                       /* Variable: KD_pos
                                         * Referenced by:
                                         *   '<S2>/Derivative Gain'
                                         *   '<S3>/Derivative Gain'
                                         */
-  real_T KI;                           /* Variable: KI
+  real_T KI_pos;                       /* Variable: KI_pos
                                         * Referenced by:
                                         *   '<S2>/Integral Gain'
                                         *   '<S3>/Integral Gain'
                                         */
-  real_T KN;                           /* Variable: KN
+  real_T KN_pos;                       /* Variable: KN_pos
                                         * Referenced by:
                                         *   '<S2>/Filter Coefficient'
                                         *   '<S3>/Filter Coefficient'
                                         */
-  real_T KP;                           /* Variable: KP
+  real_T KP_pos;                       /* Variable: KP_pos
                                         * Referenced by:
                                         *   '<S2>/Proportional Gain'
                                         *   '<S3>/Proportional Gain'

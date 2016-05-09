@@ -7,9 +7,9 @@
  *
  * Code generation for model "Position".
  *
- * Model version              : 1.86
+ * Model version              : 1.88
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Mon May 09 12:09:11 2016
+ * C++ source code generated on : Mon May 09 12:42:59 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -126,14 +126,14 @@ void PositionModelClass::step()
    *  Integrator: '<S3>/Filter'
    *  Sum: '<S3>/SumD'
    */
-  Position_B.FilterCoefficient = (Position_P.KD * Spsi -
-    Position_X.Filter_CSTATE) * Position_P.KN;
+  Position_B.FilterCoefficient = (Position_P.KD_pos * Spsi -
+    Position_X.Filter_CSTATE) * Position_P.KN_pos;
 
   /* Sum: '<S3>/Sum' incorporates:
    *  Gain: '<S3>/Proportional Gain'
    *  Integrator: '<S3>/Integrator'
    */
-  Cpsi = (Position_P.KP * Spsi + Position_X.Integrator_CSTATE) +
+  Cpsi = (Position_P.KP_pos * Spsi + Position_X.Integrator_CSTATE) +
     Position_B.FilterCoefficient;
 
   /* Saturate: '<S3>/Saturate' */
@@ -155,14 +155,14 @@ void PositionModelClass::step()
    *  Integrator: '<S2>/Filter'
    *  Sum: '<S2>/SumD'
    */
-  Position_B.FilterCoefficient_m = (Position_P.KD * rtb_body_idx_0 -
-    Position_X.Filter_CSTATE_h) * Position_P.KN;
+  Position_B.FilterCoefficient_m = (Position_P.KD_pos * rtb_body_idx_0 -
+    Position_X.Filter_CSTATE_h) * Position_P.KN_pos;
 
   /* Sum: '<S2>/Sum' incorporates:
    *  Gain: '<S2>/Proportional Gain'
    *  Integrator: '<S2>/Integrator'
    */
-  Cpsi = (Position_P.KP * rtb_body_idx_0 + Position_X.Integrator_CSTATE_c) +
+  Cpsi = (Position_P.KP_pos * rtb_body_idx_0 + Position_X.Integrator_CSTATE_c) +
     Position_B.FilterCoefficient_m;
 
   /* Saturate: '<S2>/Saturate' */
@@ -181,10 +181,10 @@ void PositionModelClass::step()
   Position_Y.Po = Position_P.Gain_Gain * Cpsi;
 
   /* Gain: '<S2>/Integral Gain' */
-  Position_B.IntegralGain = Position_P.KI * rtb_body_idx_0;
+  Position_B.IntegralGain = Position_P.KI_pos * rtb_body_idx_0;
 
   /* Gain: '<S3>/Integral Gain' */
-  Position_B.IntegralGain_n = Position_P.KI * Spsi;
+  Position_B.IntegralGain_n = Position_P.KI_pos * Spsi;
   if (rtmIsMajorTimeStep((&Position_M))) {
     rt_ertODEUpdateContinuousStates(&(&Position_M)->solverInfo);
 
@@ -319,22 +319,22 @@ void PositionModelClass::terminate()
 PositionModelClass::PositionModelClass()
 {
   static const P_Position_T Position_P_temp = {
-    0.0783,                            /* Variable: KD
+    0.0783,                            /* Variable: KD_pos
                                         * Referenced by:
                                         *   '<S2>/Derivative Gain'
                                         *   '<S3>/Derivative Gain'
                                         */
-    0.00021,                           /* Variable: KI
+    0.00021,                           /* Variable: KI_pos
                                         * Referenced by:
                                         *   '<S2>/Integral Gain'
                                         *   '<S3>/Integral Gain'
                                         */
-    83.333333333333329,                /* Variable: KN
+    83.333333333333329,                /* Variable: KN_pos
                                         * Referenced by:
                                         *   '<S2>/Filter Coefficient'
                                         *   '<S3>/Filter Coefficient'
                                         */
-    0.0379,                            /* Variable: KP
+    0.0379,                            /* Variable: KP_pos
                                         * Referenced by:
                                         *   '<S2>/Proportional Gain'
                                         *   '<S3>/Proportional Gain'

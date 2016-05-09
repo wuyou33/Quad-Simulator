@@ -29,11 +29,11 @@
 <tr name="9" id="9">
 <td>9</td><td><span class="ct"> *</span></td></tr>
 <tr name="10" id="10">
-<td>10</td><td><span class="ct"> * Model version              : 1.86</span></td></tr>
+<td>10</td><td><span class="ct"> * Model version              : 1.88</span></td></tr>
 <tr name="11" id="11">
 <td>11</td><td><span class="ct"> * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015</span></td></tr>
 <tr name="12" id="12">
-<td>12</td><td><span class="ct"> * C++ source code generated on : Mon May 09 12:09:11 2016</span></td></tr>
+<td>12</td><td><span class="ct"> * C++ source code generated on : Mon May 09 12:42:59 2016</span></td></tr>
 <tr name="13" id="13">
 <td>13</td><td><span class="ct"> *</span></td></tr>
 <tr name="14" id="14">
@@ -267,9 +267,9 @@
 <tr name="128" id="128">
 <td>128</td><td><span class="ct">   */</span></td></tr>
 <tr name="129" id="129">
-<td>129</td><td>  <a id="129c3" class="tk">Position_B</a>.<a id="129c14" class="tk">FilterCoefficient</a> = (<a id="129c35" class="tk">Position_P</a>.<a id="129c46" class="tk">KD</a> * <a id="129c51" class="tk">Spsi</a> -</td></tr>
+<td>129</td><td>  <a id="129c3" class="tk">Position_B</a>.<a id="129c14" class="tk">FilterCoefficient</a> = (<a id="129c35" class="tk">Position_P</a>.<a id="129c46" class="tk">KD_pos</a> * <a id="129c55" class="tk">Spsi</a> -</td></tr>
 <tr name="130" id="130">
-<td>130</td><td>    <a id="130c5" class="tk">Position_X</a>.<a id="130c16" class="tk">Filter_CSTATE</a>) * <a id="130c33" class="tk">Position_P</a>.<a id="130c44" class="tk">KN</a>;</td></tr>
+<td>130</td><td>    <a id="130c5" class="tk">Position_X</a>.<a id="130c16" class="tk">Filter_CSTATE</a>) * <a id="130c33" class="tk">Position_P</a>.<a id="130c44" class="tk">KN_pos</a>;</td></tr>
 <tr name="131" id="131">
 <td>131</td><td></td></tr>
 <tr name="132" id="132">
@@ -281,7 +281,7 @@
 <tr name="135" id="135">
 <td>135</td><td><span class="ct">   */</span></td></tr>
 <tr name="136" id="136">
-<td>136</td><td>  <a id="136c3" class="tk">Cpsi</a> = (<a id="136c11" class="tk">Position_P</a>.<a id="136c22" class="tk">KP</a> * <a id="136c27" class="tk">Spsi</a> + <a id="136c34" class="tk">Position_X</a>.<a id="136c45" class="tk">Integrator_CSTATE</a>) +</td></tr>
+<td>136</td><td>  <a id="136c3" class="tk">Cpsi</a> = (<a id="136c11" class="tk">Position_P</a>.<a id="136c22" class="tk">KP_pos</a> * <a id="136c31" class="tk">Spsi</a> + <a id="136c38" class="tk">Position_X</a>.<a id="136c49" class="tk">Integrator_CSTATE</a>) +</td></tr>
 <tr name="137" id="137">
 <td>137</td><td>    <a id="137c5" class="tk">Position_B</a>.<a id="137c16" class="tk">FilterCoefficient</a>;</td></tr>
 <tr name="138" id="138">
@@ -325,9 +325,9 @@
 <tr name="157" id="157">
 <td>157</td><td><span class="ct">   */</span></td></tr>
 <tr name="158" id="158">
-<td>158</td><td>  <a id="158c3" class="tk">Position_B</a>.<a id="158c14" class="tk">FilterCoefficient_m</a> = (<a id="158c37" class="tk">Position_P</a>.<a id="158c48" class="tk">KD</a> * <a id="158c53" class="tk">rtb_body_idx_0</a> -</td></tr>
+<td>158</td><td>  <a id="158c3" class="tk">Position_B</a>.<a id="158c14" class="tk">FilterCoefficient_m</a> = (<a id="158c37" class="tk">Position_P</a>.<a id="158c48" class="tk">KD_pos</a> * <a id="158c57" class="tk">rtb_body_idx_0</a> -</td></tr>
 <tr name="159" id="159">
-<td>159</td><td>    <a id="159c5" class="tk">Position_X</a>.<a id="159c16" class="tk">Filter_CSTATE_h</a>) * <a id="159c35" class="tk">Position_P</a>.<a id="159c46" class="tk">KN</a>;</td></tr>
+<td>159</td><td>    <a id="159c5" class="tk">Position_X</a>.<a id="159c16" class="tk">Filter_CSTATE_h</a>) * <a id="159c35" class="tk">Position_P</a>.<a id="159c46" class="tk">KN_pos</a>;</td></tr>
 <tr name="160" id="160">
 <td>160</td><td></td></tr>
 <tr name="161" id="161">
@@ -339,7 +339,7 @@
 <tr name="164" id="164">
 <td>164</td><td><span class="ct">   */</span></td></tr>
 <tr name="165" id="165">
-<td>165</td><td>  <a id="165c3" class="tk">Cpsi</a> = (<a id="165c11" class="tk">Position_P</a>.<a id="165c22" class="tk">KP</a> * <a id="165c27" class="tk">rtb_body_idx_0</a> + <a id="165c44" class="tk">Position_X</a>.<a id="165c55" class="tk">Integrator_CSTATE_c</a>) +</td></tr>
+<td>165</td><td>  <a id="165c3" class="tk">Cpsi</a> = (<a id="165c11" class="tk">Position_P</a>.<a id="165c22" class="tk">KP_pos</a> * <a id="165c31" class="tk">rtb_body_idx_0</a> + <a id="165c48" class="tk">Position_X</a>.<a id="165c59" class="tk">Integrator_CSTATE_c</a>) +</td></tr>
 <tr name="166" id="166">
 <td>166</td><td>    <a id="166c5" class="tk">Position_B</a>.<a id="166c16" class="tk">FilterCoefficient_m</a>;</td></tr>
 <tr name="167" id="167">
@@ -377,13 +377,13 @@
 <tr name="183" id="183">
 <td>183</td><td>  <span class="ct">/* Gain: '&lt;S2&gt;/Integral Gain' */</span></td></tr>
 <tr name="184" id="184">
-<td>184</td><td>  <a id="184c3" class="tk">Position_B</a>.<a id="184c14" class="tk">IntegralGain</a> = <a id="184c29" class="tk">Position_P</a>.<a id="184c40" class="tk">KI</a> * <a id="184c45" class="tk">rtb_body_idx_0</a>;</td></tr>
+<td>184</td><td>  <a id="184c3" class="tk">Position_B</a>.<a id="184c14" class="tk">IntegralGain</a> = <a id="184c29" class="tk">Position_P</a>.<a id="184c40" class="tk">KI_pos</a> * <a id="184c49" class="tk">rtb_body_idx_0</a>;</td></tr>
 <tr name="185" id="185">
 <td>185</td><td></td></tr>
 <tr name="186" id="186">
 <td>186</td><td>  <span class="ct">/* Gain: '&lt;S3&gt;/Integral Gain' */</span></td></tr>
 <tr name="187" id="187">
-<td>187</td><td>  <a id="187c3" class="tk">Position_B</a>.<a id="187c14" class="tk">IntegralGain_n</a> = <a id="187c31" class="tk">Position_P</a>.<a id="187c42" class="tk">KI</a> * <a id="187c47" class="tk">Spsi</a>;</td></tr>
+<td>187</td><td>  <a id="187c3" class="tk">Position_B</a>.<a id="187c14" class="tk">IntegralGain_n</a> = <a id="187c31" class="tk">Position_P</a>.<a id="187c42" class="tk">KI_pos</a> * <a id="187c51" class="tk">Spsi</a>;</td></tr>
 <tr name="188" id="188">
 <td>188</td><td>  <span class="kw">if</span> (<a id="188c7" class="tk">rtmIsMajorTimeStep</a>((&amp;<a id="188c28" class="tk">Position_M</a>))) <span class="br">{</span></td></tr>
 <tr name="189" id="189">
@@ -653,7 +653,7 @@
 <tr name="321" id="321">
 <td>321</td><td>  <span class="kw">static</span> <span class="kw">const</span> <a id="321c16" class="tk">P_Position_T</a> <a id="321c29" class="tk">Position_P_temp</a> = <span class="br">{</span></td></tr>
 <tr name="322" id="322">
-<td>322</td><td>    0.0783,                            <span class="ct">/* Variable: KD</span></td></tr>
+<td>322</td><td>    0.0783,                            <span class="ct">/* Variable: KD_pos</span></td></tr>
 <tr name="323" id="323">
 <td>323</td><td><span class="ct">                                        * Referenced by:</span></td></tr>
 <tr name="324" id="324">
@@ -663,7 +663,7 @@
 <tr name="326" id="326">
 <td>326</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="327" id="327">
-<td>327</td><td>    0.00021,                           <span class="ct">/* Variable: KI</span></td></tr>
+<td>327</td><td>    0.00021,                           <span class="ct">/* Variable: KI_pos</span></td></tr>
 <tr name="328" id="328">
 <td>328</td><td><span class="ct">                                        * Referenced by:</span></td></tr>
 <tr name="329" id="329">
@@ -673,7 +673,7 @@
 <tr name="331" id="331">
 <td>331</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="332" id="332">
-<td>332</td><td>    83.333333333333329,                <span class="ct">/* Variable: KN</span></td></tr>
+<td>332</td><td>    83.333333333333329,                <span class="ct">/* Variable: KN_pos</span></td></tr>
 <tr name="333" id="333">
 <td>333</td><td><span class="ct">                                        * Referenced by:</span></td></tr>
 <tr name="334" id="334">
@@ -683,7 +683,7 @@
 <tr name="336" id="336">
 <td>336</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="337" id="337">
-<td>337</td><td>    0.0379,                            <span class="ct">/* Variable: KP</span></td></tr>
+<td>337</td><td>    0.0379,                            <span class="ct">/* Variable: KP_pos</span></td></tr>
 <tr name="338" id="338">
 <td>338</td><td><span class="ct">                                        * Referenced by:</span></td></tr>
 <tr name="339" id="339">
