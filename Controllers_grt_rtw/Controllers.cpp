@@ -7,9 +7,9 @@
  *
  * Code generation for model "Controllers".
  *
- * Model version              : 1.85
+ * Model version              : 1.86
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Thu May 05 17:39:05 2016
+ * C++ source code generated on : Mon May 09 13:20:54 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -76,11 +76,11 @@ void ControllersModelClass::step()
   real_T Ctheta;
   real_T rtb_Sum4;
   real_T rtb_ProportionalGain;
-  real_T rtb_ProportionalGain_k;
+  real_T rtb_ProportionalGain_h;
   real_T rtb_Rates_B[3];
   real_T rtb_Sum6;
-  real_T rtb_Sum_l;
-  real_T rtb_Saturate_d;
+  real_T rtb_Sum_mi;
+  real_T rtb_Saturate_i;
   real_T tmp[9];
   int32_T i;
   if (rtmIsMajorTimeStep((&Controllers_M))) {
@@ -150,29 +150,29 @@ void ControllersModelClass::step()
   rtb_Sum4 = Controllers_P.pitchMax * Sphi - Controllers_U.IMU_Attitude[1];
 
   /* Gain: '<S2>/Proportional Gain' */
-  rtb_ProportionalGain_k = Controllers_P.KPP * rtb_Sum4;
+  rtb_ProportionalGain_h = Controllers_P.KPP * rtb_Sum4;
 
   /* Gain: '<S2>/Filter Coefficient' incorporates:
    *  Gain: '<S2>/Derivative Gain'
    *  Integrator: '<S2>/Filter'
    *  Sum: '<S2>/SumD'
    */
-  Controllers_B.FilterCoefficient_b = (Controllers_P.KPD * rtb_Sum4 -
-    Controllers_X.Filter_CSTATE_c) * Controllers_P.N;
+  Controllers_B.FilterCoefficient_f = (Controllers_P.KPD * rtb_Sum4 -
+    Controllers_X.Filter_CSTATE_e) * Controllers_P.N;
 
   /* Sum: '<S1>/Sum2' incorporates:
    *  Inport: '<Root>/IMU_Attitude'
    *  Inport: '<Root>/Stick'
    */
-  rtb_Sum4 = Controllers_U.Stick[2] - Controllers_U.IMU_Attitude[2];
+  rtb_Sum4 = Controllers_U.Stick[3] - Controllers_U.IMU_Attitude[2];
 
   /* Gain: '<S4>/Filter Coefficient' incorporates:
    *  Gain: '<S4>/Derivative Gain'
    *  Integrator: '<S4>/Filter'
    *  Sum: '<S4>/SumD'
    */
-  Controllers_B.FilterCoefficient_l = (Controllers_P.KYD * rtb_Sum4 -
-    Controllers_X.Filter_CSTATE_h) * Controllers_P.N;
+  Controllers_B.FilterCoefficient_e = (Controllers_P.KYD * rtb_Sum4 -
+    Controllers_X.Filter_CSTATE_b) * Controllers_P.N;
 
   /* MATLAB Function: '<S1>/To body from Earth_rates' incorporates:
    *  Inport: '<Root>/IMU_Attitude'
@@ -203,15 +203,35 @@ void ControllersModelClass::step()
   tmp[8] = Cphi * Ctheta;
 
   /* SignalConversion: '<S8>/TmpSignal ConversionAt SFunction Inport2' incorporates:
-   *  Gain: '<S4>/Proportional Gain'
    *  MATLAB Function: '<S1>/To body from Earth_rates'
    *  Sum: '<S2>/Sum'
    *  Sum: '<S3>/Sum'
-   *  Sum: '<S4>/Sum'
    */
   Ctheta = rtb_ProportionalGain + Controllers_B.FilterCoefficient;
-  Cphi = rtb_ProportionalGain_k + Controllers_B.FilterCoefficient_b;
-  Sphi = Controllers_P.KYP * rtb_Sum4 + Controllers_B.FilterCoefficient_l;
+  Cphi = rtb_ProportionalGain_h + Controllers_B.FilterCoefficient_f;
+
+  /* Sum: '<S1>/Sum3' incorporates:
+   *  Inport: '<Root>/Stick'
+   *  Saturate: '<S1>/Saturation2'
+   */
+  if (Controllers_U.Stick[2] > Controllers_P.Saturation2_UpperSat) {
+    Sphi = Controllers_P.Saturation2_UpperSat;
+  } else if (Controllers_U.Stick[2] < Controllers_P.Saturation2_LowerSat) {
+    Sphi = Controllers_P.Saturation2_LowerSat;
+  } else {
+    Sphi = Controllers_U.Stick[2];
+  }
+
+  /* SignalConversion: '<S8>/TmpSignal ConversionAt SFunction Inport2' incorporates:
+   *  Gain: '<S1>/Yaw-rate3'
+   *  Gain: '<S4>/Proportional Gain'
+   *  MATLAB Function: '<S1>/To body from Earth_rates'
+   *  Saturate: '<S1>/Saturation2'
+   *  Sum: '<S1>/Sum3'
+   *  Sum: '<S4>/Sum'
+   */
+  Sphi = (Controllers_P.KYP * rtb_Sum4 + Controllers_B.FilterCoefficient_e) +
+    Controllers_P.yawRateMax * Sphi;
 
   /* MATLAB Function: '<S1>/To body from Earth_rates' */
   for (i = 0; i < 3; i++) {
@@ -228,23 +248,23 @@ void ControllersModelClass::step()
    *  Integrator: '<S5>/Filter'
    *  Sum: '<S5>/SumD'
    */
-  Controllers_B.FilterCoefficient_a = (Controllers_P.Kdp * rtb_Sum4 -
-    Controllers_X.Filter_CSTATE_cs) * Controllers_P.N;
+  Controllers_B.FilterCoefficient_d = (Controllers_P.Kdp * rtb_Sum4 -
+    Controllers_X.Filter_CSTATE_j) * Controllers_P.N;
 
   /* Sum: '<S5>/Sum' incorporates:
    *  Gain: '<S5>/Proportional Gain'
    *  Integrator: '<S5>/Integrator'
    */
   rtb_ProportionalGain = (Controllers_P.Kpp * rtb_Sum4 +
-    Controllers_X.Integrator_CSTATE) + Controllers_B.FilterCoefficient_a;
+    Controllers_X.Integrator_CSTATE) + Controllers_B.FilterCoefficient_d;
 
   /* Saturate: '<S5>/Saturate' */
   if (rtb_ProportionalGain > Controllers_P.satp) {
-    rtb_ProportionalGain_k = Controllers_P.satp;
+    rtb_ProportionalGain_h = Controllers_P.satp;
   } else if (rtb_ProportionalGain < -Controllers_P.satp) {
-    rtb_ProportionalGain_k = -Controllers_P.satp;
+    rtb_ProportionalGain_h = -Controllers_P.satp;
   } else {
-    rtb_ProportionalGain_k = rtb_ProportionalGain;
+    rtb_ProportionalGain_h = rtb_ProportionalGain;
   }
 
   /* End of Saturate: '<S5>/Saturate' */
@@ -259,15 +279,15 @@ void ControllersModelClass::step()
    *  Integrator: '<S6>/Filter'
    *  Sum: '<S6>/SumD'
    */
-  Controllers_B.FilterCoefficient_g = (Controllers_P.Kdq * Sphi -
+  Controllers_B.FilterCoefficient_p = (Controllers_P.Kdq * Sphi -
     Controllers_X.Filter_CSTATE_l) * Controllers_P.N;
 
   /* Sum: '<S6>/Sum' incorporates:
    *  Gain: '<S6>/Proportional Gain'
    *  Integrator: '<S6>/Integrator'
    */
-  Cphi = (Controllers_P.Kpq * Sphi + Controllers_X.Integrator_CSTATE_k) +
-    Controllers_B.FilterCoefficient_g;
+  Cphi = (Controllers_P.Kpq * Sphi + Controllers_X.Integrator_CSTATE_m) +
+    Controllers_B.FilterCoefficient_p;
 
   /* Saturate: '<S6>/Saturate' */
   if (Cphi > Controllers_P.satq) {
@@ -290,38 +310,38 @@ void ControllersModelClass::step()
    *  Integrator: '<S7>/Filter'
    *  Sum: '<S7>/SumD'
    */
-  Controllers_B.FilterCoefficient_bz = (Controllers_P.Kdr * rtb_Sum6 -
-    Controllers_X.Filter_CSTATE_p) * Controllers_P.N;
+  Controllers_B.FilterCoefficient_g = (Controllers_P.Kdr * rtb_Sum6 -
+    Controllers_X.Filter_CSTATE_f) * Controllers_P.N;
 
   /* Sum: '<S7>/Sum' incorporates:
    *  Gain: '<S7>/Proportional Gain'
    *  Integrator: '<S7>/Integrator'
    */
-  rtb_Sum_l = (Controllers_P.Kpr * rtb_Sum6 + Controllers_X.Integrator_CSTATE_i)
-    + Controllers_B.FilterCoefficient_bz;
+  rtb_Sum_mi = (Controllers_P.Kpr * rtb_Sum6 + Controllers_X.Integrator_CSTATE_j)
+    + Controllers_B.FilterCoefficient_g;
 
   /* Saturate: '<S7>/Saturate' */
-  if (rtb_Sum_l > Controllers_P.satr) {
-    rtb_Saturate_d = Controllers_P.satr;
-  } else if (rtb_Sum_l < -Controllers_P.satr) {
-    rtb_Saturate_d = -Controllers_P.satr;
+  if (rtb_Sum_mi > Controllers_P.satr) {
+    rtb_Saturate_i = Controllers_P.satr;
+  } else if (rtb_Sum_mi < -Controllers_P.satr) {
+    rtb_Saturate_i = -Controllers_P.satr;
   } else {
-    rtb_Saturate_d = rtb_Sum_l;
+    rtb_Saturate_i = rtb_Sum_mi;
   }
 
   /* End of Saturate: '<S7>/Saturate' */
 
   /* Outport: '<Root>/Moments' */
-  Controllers_Y.Moments[0] = rtb_ProportionalGain_k;
+  Controllers_Y.Moments[0] = rtb_ProportionalGain_h;
   Controllers_Y.Moments[1] = Ctheta;
-  Controllers_Y.Moments[2] = rtb_Saturate_d;
+  Controllers_Y.Moments[2] = rtb_Saturate_i;
 
   /* Sum: '<S5>/SumI1' incorporates:
    *  Gain: '<S5>/Integral Gain'
    *  Gain: '<S5>/Kb'
    *  Sum: '<S5>/SumI2'
    */
-  Controllers_B.SumI1 = (rtb_ProportionalGain_k - rtb_ProportionalGain) *
+  Controllers_B.SumI1 = (rtb_ProportionalGain_h - rtb_ProportionalGain) *
     Controllers_P.Kbp + Controllers_P.Kip * rtb_Sum4;
 
   /* Sum: '<S6>/SumI1' incorporates:
@@ -329,7 +349,7 @@ void ControllersModelClass::step()
    *  Gain: '<S6>/Kb'
    *  Sum: '<S6>/SumI2'
    */
-  Controllers_B.SumI1_l = (Ctheta - Cphi) * Controllers_P.Kbq +
+  Controllers_B.SumI1_h = (Ctheta - Cphi) * Controllers_P.Kbq +
     Controllers_P.Kiq * Sphi;
 
   /* Sum: '<S7>/SumI1' incorporates:
@@ -337,7 +357,7 @@ void ControllersModelClass::step()
    *  Gain: '<S7>/Kb'
    *  Sum: '<S7>/SumI2'
    */
-  Controllers_B.SumI1_i = (rtb_Saturate_d - rtb_Sum_l) * Controllers_P.Kbr +
+  Controllers_B.SumI1_k = (rtb_Saturate_i - rtb_Sum_mi) * Controllers_P.Kbr +
     Controllers_P.Kir * rtb_Sum6;
   if (rtmIsMajorTimeStep((&Controllers_M))) {
     rt_ertODEUpdateContinuousStates(&(&Controllers_M)->solverInfo);
@@ -386,28 +406,28 @@ void ControllersModelClass::Controllers_derivatives()
   _rtXdot->Filter_CSTATE = Controllers_B.FilterCoefficient;
 
   /* Derivatives for Integrator: '<S2>/Filter' */
-  _rtXdot->Filter_CSTATE_c = Controllers_B.FilterCoefficient_b;
+  _rtXdot->Filter_CSTATE_e = Controllers_B.FilterCoefficient_f;
 
   /* Derivatives for Integrator: '<S4>/Filter' */
-  _rtXdot->Filter_CSTATE_h = Controllers_B.FilterCoefficient_l;
+  _rtXdot->Filter_CSTATE_b = Controllers_B.FilterCoefficient_e;
 
   /* Derivatives for Integrator: '<S5>/Integrator' */
   _rtXdot->Integrator_CSTATE = Controllers_B.SumI1;
 
   /* Derivatives for Integrator: '<S5>/Filter' */
-  _rtXdot->Filter_CSTATE_cs = Controllers_B.FilterCoefficient_a;
+  _rtXdot->Filter_CSTATE_j = Controllers_B.FilterCoefficient_d;
 
   /* Derivatives for Integrator: '<S6>/Integrator' */
-  _rtXdot->Integrator_CSTATE_k = Controllers_B.SumI1_l;
+  _rtXdot->Integrator_CSTATE_m = Controllers_B.SumI1_h;
 
   /* Derivatives for Integrator: '<S6>/Filter' */
-  _rtXdot->Filter_CSTATE_l = Controllers_B.FilterCoefficient_g;
+  _rtXdot->Filter_CSTATE_l = Controllers_B.FilterCoefficient_p;
 
   /* Derivatives for Integrator: '<S7>/Integrator' */
-  _rtXdot->Integrator_CSTATE_i = Controllers_B.SumI1_i;
+  _rtXdot->Integrator_CSTATE_j = Controllers_B.SumI1_k;
 
   /* Derivatives for Integrator: '<S7>/Filter' */
-  _rtXdot->Filter_CSTATE_p = Controllers_B.FilterCoefficient_bz;
+  _rtXdot->Filter_CSTATE_f = Controllers_B.FilterCoefficient_g;
 }
 
 /* Model initialize function */
@@ -470,28 +490,28 @@ void ControllersModelClass::initialize()
   Controllers_X.Filter_CSTATE = Controllers_P.Filter_IC;
 
   /* InitializeConditions for Integrator: '<S2>/Filter' */
-  Controllers_X.Filter_CSTATE_c = Controllers_P.Filter_IC_h;
+  Controllers_X.Filter_CSTATE_e = Controllers_P.Filter_IC_l;
 
   /* InitializeConditions for Integrator: '<S4>/Filter' */
-  Controllers_X.Filter_CSTATE_h = Controllers_P.Filter_IC_o;
+  Controllers_X.Filter_CSTATE_b = Controllers_P.Filter_IC_i;
 
   /* InitializeConditions for Integrator: '<S5>/Integrator' */
   Controllers_X.Integrator_CSTATE = Controllers_P.Integrator_IC;
 
   /* InitializeConditions for Integrator: '<S5>/Filter' */
-  Controllers_X.Filter_CSTATE_cs = Controllers_P.Filter_IC_g;
+  Controllers_X.Filter_CSTATE_j = Controllers_P.Filter_IC_m;
 
   /* InitializeConditions for Integrator: '<S6>/Integrator' */
-  Controllers_X.Integrator_CSTATE_k = Controllers_P.Integrator_IC_k;
+  Controllers_X.Integrator_CSTATE_m = Controllers_P.Integrator_IC_j;
 
   /* InitializeConditions for Integrator: '<S6>/Filter' */
-  Controllers_X.Filter_CSTATE_l = Controllers_P.Filter_IC_n;
+  Controllers_X.Filter_CSTATE_l = Controllers_P.Filter_IC_d;
 
   /* InitializeConditions for Integrator: '<S7>/Integrator' */
-  Controllers_X.Integrator_CSTATE_i = Controllers_P.Integrator_IC_n;
+  Controllers_X.Integrator_CSTATE_j = Controllers_P.Integrator_IC_e;
 
   /* InitializeConditions for Integrator: '<S7>/Filter' */
-  Controllers_X.Filter_CSTATE_p = Controllers_P.Filter_IC_j;
+  Controllers_X.Filter_CSTATE_f = Controllers_P.Filter_IC_b;
 }
 
 /* Model terminate function */
@@ -516,7 +536,7 @@ ControllersModelClass::ControllersModelClass()
     1.61,                              /* Variable: KRP
                                         * Referenced by: '<S3>/Proportional Gain'
                                         */
-    0.21,                              /* Variable: KYD
+    0.216,                             /* Variable: KYD
                                         * Referenced by: '<S4>/Derivative Gain'
                                         */
     1.41,                              /* Variable: KYP
@@ -528,7 +548,7 @@ ControllersModelClass::ControllersModelClass()
     0.40514779629427244,               /* Variable: Kbq
                                         * Referenced by: '<S6>/Kb'
                                         */
-    0.39068091705043445,               /* Variable: Kbr
+    0.38746423667787738,               /* Variable: Kbr
                                         * Referenced by: '<S7>/Kb'
                                         */
     0.0499,                            /* Variable: Kdp
@@ -537,7 +557,7 @@ ControllersModelClass::ControllersModelClass()
     0.0499,                            /* Variable: Kdq
                                         * Referenced by: '<S6>/Derivative Gain'
                                         */
-    0.0058,                            /* Variable: Kdr
+    0.00584,                           /* Variable: Kdr
                                         * Referenced by: '<S7>/Derivative Gain'
                                         */
     0.304,                             /* Variable: Kip
@@ -546,7 +566,7 @@ ControllersModelClass::ControllersModelClass()
     0.304,                             /* Variable: Kiq
                                         * Referenced by: '<S6>/Integral Gain'
                                         */
-    0.038,                             /* Variable: Kir
+    0.0389,                            /* Variable: Kir
                                         * Referenced by: '<S7>/Integral Gain'
                                         */
     0.298,                             /* Variable: Kpp
@@ -582,6 +602,9 @@ ControllersModelClass::ControllersModelClass()
     1.0,                               /* Variable: satr
                                         * Referenced by: '<S7>/Saturate'
                                         */
+    1.5707963267948966,                /* Variable: yawRateMax
+                                        * Referenced by: '<S1>/Yaw-rate3'
+                                        */
     1.0,                               /* Expression: 1
                                         * Referenced by: '<S1>/Saturation'
                                         */
@@ -599,6 +622,12 @@ ControllersModelClass::ControllersModelClass()
                                         */
     0.0,                               /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S2>/Filter'
+                                        */
+    1.0,                               /* Expression: 1
+                                        * Referenced by: '<S1>/Saturation2'
+                                        */
+    -1.0,                              /* Expression: -1
+                                        * Referenced by: '<S1>/Saturation2'
                                         */
     0.0,                               /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S4>/Filter'

@@ -12,11 +12,12 @@ m = 1.510;                       %[kg] Body mass
 Mb = diag([m m m]);              %[Kg] Mass matrix
 MbInv = Mb\eye(3);               %[Kg^-1] Inverse of mass matrix
 b = 0.55/2;                      %[m] Arm lenght
-Ixx = 0.034736;                  %[kg*m^2] Inertia around Xbody axes
-Ixx_sigma = 0.0011563;           %[kg*m^2] Uncertainty of Inertia around Xbody axes
+Ixx = 0.035;                     %[kg*m^2] Inertia around Xbody axes
+Ixx_sigma = 0.0012;              %[kg*m^2] Uncertainty of Inertia around Xbody axes
 Iyy = Ixx;                       %[kg*m^2] Inertia around Ybody axes
 Iyy_sigma = Ixx_sigma;           %[kg*m^2] Uncertainty of Inertia around Ybody axes
 Izz = 0.05;                      %[kg*m^2] Inertia around Zbody axes
+Izz_sigma = 0.0013;              %[kg*m^2] Uncertainty of Inertia around Zbody axes
 In = diag([Ixx Iyy Izz]);        %[kg*m^2] Inertia tensor
 InInv = In\eye(3);               %[kg^-1*m^-2] Inverse of inertia tensor
 
@@ -111,13 +112,13 @@ satq = 1.5;
 
 %r PID
 %Guess
-Kpr = 0.135;
-Kir = 0.038;
-Kdr = 0.0058;
+% Kpr = 0.135;
+% Kir = 0.135;
+% Kdr = 0.0153;
 %H-Infinity
-% Kpr = 0.276;
-% Kir = 0.101;
-% Kdr = 0.0151;
+Kpr = 0.135;
+Kir = 0.0389;
+Kdr = 0.00584;
 %Anti-Windup (Back-calculation)
 % Kbr = 0;
 Kbr = sqrt(Kdr/Kir);
@@ -139,12 +140,14 @@ KRD = 0.00512;
 %H-Infinity
 KPP = 1.61;
 KPD = 0.00512;
-% KPP = 1.33;
-% KPD = 0.00696;
 
 %psi PD
+%Guess
+% KYP = 0.93;
+% KYD = 0.01;
+%H-Infinity
 KYP = 1.41;
-KYD = 0.21;
+KYD = 0.216;
 
 %% Altitude regulator
 KaP = 4.10;

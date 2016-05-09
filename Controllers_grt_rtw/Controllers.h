@@ -7,9 +7,9 @@
  *
  * Code generation for model "Controllers".
  *
- * Model version              : 1.85
+ * Model version              : 1.86
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Thu May 05 17:39:05 2016
+ * C++ source code generated on : Mon May 09 13:20:54 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -150,53 +150,53 @@
 /* Block signals (auto storage) */
 typedef struct {
   real_T FilterCoefficient;            /* '<S3>/Filter Coefficient' */
-  real_T FilterCoefficient_b;          /* '<S2>/Filter Coefficient' */
-  real_T FilterCoefficient_l;          /* '<S4>/Filter Coefficient' */
-  real_T FilterCoefficient_a;          /* '<S5>/Filter Coefficient' */
-  real_T FilterCoefficient_g;          /* '<S6>/Filter Coefficient' */
-  real_T FilterCoefficient_bz;         /* '<S7>/Filter Coefficient' */
+  real_T FilterCoefficient_f;          /* '<S2>/Filter Coefficient' */
+  real_T FilterCoefficient_e;          /* '<S4>/Filter Coefficient' */
+  real_T FilterCoefficient_d;          /* '<S5>/Filter Coefficient' */
+  real_T FilterCoefficient_p;          /* '<S6>/Filter Coefficient' */
+  real_T FilterCoefficient_g;          /* '<S7>/Filter Coefficient' */
   real_T SumI1;                        /* '<S5>/SumI1' */
-  real_T SumI1_l;                      /* '<S6>/SumI1' */
-  real_T SumI1_i;                      /* '<S7>/SumI1' */
+  real_T SumI1_h;                      /* '<S6>/SumI1' */
+  real_T SumI1_k;                      /* '<S7>/SumI1' */
 } B_Controllers_T;
 
 /* Continuous states (auto storage) */
 typedef struct {
   real_T Filter_CSTATE;                /* '<S3>/Filter' */
-  real_T Filter_CSTATE_c;              /* '<S2>/Filter' */
-  real_T Filter_CSTATE_h;              /* '<S4>/Filter' */
+  real_T Filter_CSTATE_e;              /* '<S2>/Filter' */
+  real_T Filter_CSTATE_b;              /* '<S4>/Filter' */
   real_T Integrator_CSTATE;            /* '<S5>/Integrator' */
-  real_T Filter_CSTATE_cs;             /* '<S5>/Filter' */
-  real_T Integrator_CSTATE_k;          /* '<S6>/Integrator' */
+  real_T Filter_CSTATE_j;              /* '<S5>/Filter' */
+  real_T Integrator_CSTATE_m;          /* '<S6>/Integrator' */
   real_T Filter_CSTATE_l;              /* '<S6>/Filter' */
-  real_T Integrator_CSTATE_i;          /* '<S7>/Integrator' */
-  real_T Filter_CSTATE_p;              /* '<S7>/Filter' */
+  real_T Integrator_CSTATE_j;          /* '<S7>/Integrator' */
+  real_T Filter_CSTATE_f;              /* '<S7>/Filter' */
 } X_Controllers_T;
 
 /* State derivatives (auto storage) */
 typedef struct {
   real_T Filter_CSTATE;                /* '<S3>/Filter' */
-  real_T Filter_CSTATE_c;              /* '<S2>/Filter' */
-  real_T Filter_CSTATE_h;              /* '<S4>/Filter' */
+  real_T Filter_CSTATE_e;              /* '<S2>/Filter' */
+  real_T Filter_CSTATE_b;              /* '<S4>/Filter' */
   real_T Integrator_CSTATE;            /* '<S5>/Integrator' */
-  real_T Filter_CSTATE_cs;             /* '<S5>/Filter' */
-  real_T Integrator_CSTATE_k;          /* '<S6>/Integrator' */
+  real_T Filter_CSTATE_j;              /* '<S5>/Filter' */
+  real_T Integrator_CSTATE_m;          /* '<S6>/Integrator' */
   real_T Filter_CSTATE_l;              /* '<S6>/Filter' */
-  real_T Integrator_CSTATE_i;          /* '<S7>/Integrator' */
-  real_T Filter_CSTATE_p;              /* '<S7>/Filter' */
+  real_T Integrator_CSTATE_j;          /* '<S7>/Integrator' */
+  real_T Filter_CSTATE_f;              /* '<S7>/Filter' */
 } XDot_Controllers_T;
 
 /* State disabled  */
 typedef struct {
   boolean_T Filter_CSTATE;             /* '<S3>/Filter' */
-  boolean_T Filter_CSTATE_c;           /* '<S2>/Filter' */
-  boolean_T Filter_CSTATE_h;           /* '<S4>/Filter' */
+  boolean_T Filter_CSTATE_e;           /* '<S2>/Filter' */
+  boolean_T Filter_CSTATE_b;           /* '<S4>/Filter' */
   boolean_T Integrator_CSTATE;         /* '<S5>/Integrator' */
-  boolean_T Filter_CSTATE_cs;          /* '<S5>/Filter' */
-  boolean_T Integrator_CSTATE_k;       /* '<S6>/Integrator' */
+  boolean_T Filter_CSTATE_j;           /* '<S5>/Filter' */
+  boolean_T Integrator_CSTATE_m;       /* '<S6>/Integrator' */
   boolean_T Filter_CSTATE_l;           /* '<S6>/Filter' */
-  boolean_T Integrator_CSTATE_i;       /* '<S7>/Integrator' */
-  boolean_T Filter_CSTATE_p;           /* '<S7>/Filter' */
+  boolean_T Integrator_CSTATE_j;       /* '<S7>/Integrator' */
+  boolean_T Filter_CSTATE_f;           /* '<S7>/Filter' */
 } XDis_Controllers_T;
 
 #ifndef ODE2_INTG
@@ -212,7 +212,7 @@ typedef struct {
 
 /* External inputs (root inport signals with auto storage) */
 typedef struct {
-  real_T Stick[3];                     /* '<Root>/Stick' */
+  real_T Stick[4];                     /* '<Root>/Stick' */
   real_T IMU_Attitude[3];              /* '<Root>/IMU_Attitude' */
   real_T IMU_Rates[3];                 /* '<Root>/IMU_Rates' */
 } ExtU_Controllers_T;
@@ -302,6 +302,9 @@ struct P_Controllers_T_ {
   real_T satr;                         /* Variable: satr
                                         * Referenced by: '<S7>/Saturate'
                                         */
+  real_T yawRateMax;                   /* Variable: yawRateMax
+                                        * Referenced by: '<S1>/Yaw-rate3'
+                                        */
   real_T Saturation_UpperSat;          /* Expression: 1
                                         * Referenced by: '<S1>/Saturation'
                                         */
@@ -317,28 +320,34 @@ struct P_Controllers_T_ {
   real_T Saturation1_LowerSat;         /* Expression: -1
                                         * Referenced by: '<S1>/Saturation1'
                                         */
-  real_T Filter_IC_h;                  /* Expression: InitialConditionForFilter
+  real_T Filter_IC_l;                  /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S2>/Filter'
                                         */
-  real_T Filter_IC_o;                  /* Expression: InitialConditionForFilter
+  real_T Saturation2_UpperSat;         /* Expression: 1
+                                        * Referenced by: '<S1>/Saturation2'
+                                        */
+  real_T Saturation2_LowerSat;         /* Expression: -1
+                                        * Referenced by: '<S1>/Saturation2'
+                                        */
+  real_T Filter_IC_i;                  /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S4>/Filter'
                                         */
   real_T Integrator_IC;                /* Expression: InitialConditionForIntegrator
                                         * Referenced by: '<S5>/Integrator'
                                         */
-  real_T Filter_IC_g;                  /* Expression: InitialConditionForFilter
+  real_T Filter_IC_m;                  /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S5>/Filter'
                                         */
-  real_T Integrator_IC_k;              /* Expression: InitialConditionForIntegrator
+  real_T Integrator_IC_j;              /* Expression: InitialConditionForIntegrator
                                         * Referenced by: '<S6>/Integrator'
                                         */
-  real_T Filter_IC_n;                  /* Expression: InitialConditionForFilter
+  real_T Filter_IC_d;                  /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S6>/Filter'
                                         */
-  real_T Integrator_IC_n;              /* Expression: InitialConditionForIntegrator
+  real_T Integrator_IC_e;              /* Expression: InitialConditionForIntegrator
                                         * Referenced by: '<S7>/Integrator'
                                         */
-  real_T Filter_IC_j;                  /* Expression: InitialConditionForFilter
+  real_T Filter_IC_b;                  /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S7>/Filter'
                                         */
 };

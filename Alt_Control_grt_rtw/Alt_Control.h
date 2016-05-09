@@ -7,9 +7,9 @@
  *
  * Code generation for model "Alt_Control".
  *
- * Model version              : 1.94
+ * Model version              : 1.95
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Wed Apr 20 12:11:12 2016
+ * C++ source code generated on : Mon May 09 13:22:11 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -349,7 +349,7 @@ class Alt_ControlModelClass {
  * Here is the system hierarchy for this model
  *
  * '<Root>' : 'Alt_Control'
- * '<S1>'   : 'Alt_Control/Alt_Control'
- * '<S2>'   : 'Alt_Control/Alt_Control/PID Controller'
+ * '<S1>'   : 'Alt_Control/Altitude Controller'
+ * '<S2>'   : 'Alt_Control/Altitude Controller/PID Controller'
  */
 #endif                                 /* RTW_HEADER_Alt_Control_h_ */

@@ -29,11 +29,11 @@
 <tr name="9" id="9">
 <td>9</td><td><span class="ct"> *</span></td></tr>
 <tr name="10" id="10">
-<td>10</td><td><span class="ct"> * Model version              : 1.88</span></td></tr>
+<td>10</td><td><span class="ct"> * Model version              : 1.89</span></td></tr>
 <tr name="11" id="11">
 <td>11</td><td><span class="ct"> * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015</span></td></tr>
 <tr name="12" id="12">
-<td>12</td><td><span class="ct"> * C++ source code generated on : Mon May 09 12:42:59 2016</span></td></tr>
+<td>12</td><td><span class="ct"> * C++ source code generated on : Mon May 09 13:21:35 2016</span></td></tr>
 <tr name="13" id="13">
 <td>13</td><td><span class="ct"> *</span></td></tr>
 <tr name="14" id="14">
@@ -207,7 +207,7 @@
 <tr name="98" id="98">
 <td>98</td><td>  <span class="ct">/* MATLAB Function: '&lt;S1&gt;/To body from Earth' incorporates:</span></td></tr>
 <tr name="99" id="99">
-<td>99</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/IMU_Attitude'</span></td></tr>
+<td>99</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/Pos'</span></td></tr>
 <tr name="100" id="100">
 <td>100</td><td><span class="ct">   */</span></td></tr>
 <tr name="101" id="101">
@@ -215,19 +215,19 @@
 <tr name="102" id="102">
 <td>102</td><td>  <span class="ct">/* '&lt;S4&gt;:1:5' */</span></td></tr>
 <tr name="103" id="103">
-<td>103</td><td>  <a id="103c3" class="tk">Spsi</a> = <a id="103c10" class="tk">sin</a>(<a id="103c14" class="tk">Position_U</a>.<a id="103c25" class="tk">IMU_Attitude</a>[2]);</td></tr>
+<td>103</td><td>  <a id="103c3" class="tk">Spsi</a> = <a id="103c10" class="tk">sin</a>(<a id="103c14" class="tk">Position_U</a>.<a id="103c25" class="tk">Pos</a>[2]);</td></tr>
 <tr name="104" id="104">
 <td>104</td><td></td></tr>
 <tr name="105" id="105">
 <td>105</td><td>  <span class="ct">/* '&lt;S4&gt;:1:6' */</span></td></tr>
 <tr name="106" id="106">
-<td>106</td><td>  <a id="106c3" class="tk">Cpsi</a> = <a id="106c10" class="tk">cos</a>(<a id="106c14" class="tk">Position_U</a>.<a id="106c25" class="tk">IMU_Attitude</a>[2]);</td></tr>
+<td>106</td><td>  <a id="106c3" class="tk">Cpsi</a> = <a id="106c10" class="tk">cos</a>(<a id="106c14" class="tk">Position_U</a>.<a id="106c25" class="tk">Pos</a>[2]);</td></tr>
 <tr name="107" id="107">
 <td>107</td><td></td></tr>
 <tr name="108" id="108">
 <td>108</td><td>  <span class="ct">/* SignalConversion: '&lt;S4&gt;/TmpSignal ConversionAt SFunction Inport2' incorporates:</span></td></tr>
 <tr name="109" id="109">
-<td>109</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/Pos'</span></td></tr>
+<td>109</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/IMU_Attitude'</span></td></tr>
 <tr name="110" id="110">
 <td>110</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/PosDes'</span></td></tr>
 <tr name="111" id="111">
@@ -243,9 +243,9 @@
 <tr name="116" id="116">
 <td>116</td><td>  <span class="ct">/* '&lt;S4&gt;:1:11' */</span></td></tr>
 <tr name="117" id="117">
-<td>117</td><td>  <a id="117c3" class="tk">tmp</a> = <a id="117c9" class="tk">Position_U</a>.<a id="117c20" class="tk">PosDes</a>[0] - <a id="117c32" class="tk">Position_U</a>.<a id="117c43" class="tk">Pos</a>[0];</td></tr>
+<td>117</td><td>  <a id="117c3" class="tk">tmp</a> = <a id="117c9" class="tk">Position_U</a>.<a id="117c20" class="tk">IMU_Attitude</a>[0] - <a id="117c38" class="tk">Position_U</a>.<a id="117c49" class="tk">PosDes</a>[0];</td></tr>
 <tr name="118" id="118">
-<td>118</td><td>  <a id="118c3" class="tk">tmp_0</a> = <a id="118c11" class="tk">Position_U</a>.<a id="118c22" class="tk">PosDes</a>[1] - <a id="118c34" class="tk">Position_U</a>.<a id="118c45" class="tk">Pos</a>[1];</td></tr>
+<td>118</td><td>  <a id="118c3" class="tk">tmp_0</a> = <a id="118c11" class="tk">Position_U</a>.<a id="118c22" class="tk">IMU_Attitude</a>[1] - <a id="118c40" class="tk">Position_U</a>.<a id="118c51" class="tk">PosDes</a>[1];</td></tr>
 <tr name="119" id="119">
 <td>119</td><td></td></tr>
 <tr name="120" id="120">
@@ -325,9 +325,9 @@
 <tr name="157" id="157">
 <td>157</td><td><span class="ct">   */</span></td></tr>
 <tr name="158" id="158">
-<td>158</td><td>  <a id="158c3" class="tk">Position_B</a>.<a id="158c14" class="tk">FilterCoefficient_m</a> = (<a id="158c37" class="tk">Position_P</a>.<a id="158c48" class="tk">KD_pos</a> * <a id="158c57" class="tk">rtb_body_idx_0</a> -</td></tr>
+<td>158</td><td>  <a id="158c3" class="tk">Position_B</a>.<a id="158c14" class="tk">FilterCoefficient_p</a> = (<a id="158c37" class="tk">Position_P</a>.<a id="158c48" class="tk">KD_pos</a> * <a id="158c57" class="tk">rtb_body_idx_0</a> -</td></tr>
 <tr name="159" id="159">
-<td>159</td><td>    <a id="159c5" class="tk">Position_X</a>.<a id="159c16" class="tk">Filter_CSTATE_h</a>) * <a id="159c35" class="tk">Position_P</a>.<a id="159c46" class="tk">KN_pos</a>;</td></tr>
+<td>159</td><td>    <a id="159c5" class="tk">Position_X</a>.<a id="159c16" class="tk">Filter_CSTATE_c</a>) * <a id="159c35" class="tk">Position_P</a>.<a id="159c46" class="tk">KN_pos</a>;</td></tr>
 <tr name="160" id="160">
 <td>160</td><td></td></tr>
 <tr name="161" id="161">
@@ -339,9 +339,9 @@
 <tr name="164" id="164">
 <td>164</td><td><span class="ct">   */</span></td></tr>
 <tr name="165" id="165">
-<td>165</td><td>  <a id="165c3" class="tk">Cpsi</a> = (<a id="165c11" class="tk">Position_P</a>.<a id="165c22" class="tk">KP_pos</a> * <a id="165c31" class="tk">rtb_body_idx_0</a> + <a id="165c48" class="tk">Position_X</a>.<a id="165c59" class="tk">Integrator_CSTATE_c</a>) +</td></tr>
+<td>165</td><td>  <a id="165c3" class="tk">Cpsi</a> = (<a id="165c11" class="tk">Position_P</a>.<a id="165c22" class="tk">KP_pos</a> * <a id="165c31" class="tk">rtb_body_idx_0</a> + <a id="165c48" class="tk">Position_X</a>.<a id="165c59" class="tk">Integrator_CSTATE_h</a>) +</td></tr>
 <tr name="166" id="166">
-<td>166</td><td>    <a id="166c5" class="tk">Position_B</a>.<a id="166c16" class="tk">FilterCoefficient_m</a>;</td></tr>
+<td>166</td><td>    <a id="166c5" class="tk">Position_B</a>.<a id="166c16" class="tk">FilterCoefficient_p</a>;</td></tr>
 <tr name="167" id="167">
 <td>167</td><td></td></tr>
 <tr name="168" id="168">
@@ -383,7 +383,7 @@
 <tr name="186" id="186">
 <td>186</td><td>  <span class="ct">/* Gain: '&lt;S3&gt;/Integral Gain' */</span></td></tr>
 <tr name="187" id="187">
-<td>187</td><td>  <a id="187c3" class="tk">Position_B</a>.<a id="187c14" class="tk">IntegralGain_n</a> = <a id="187c31" class="tk">Position_P</a>.<a id="187c42" class="tk">KI_pos</a> * <a id="187c51" class="tk">Spsi</a>;</td></tr>
+<td>187</td><td>  <a id="187c3" class="tk">Position_B</a>.<a id="187c14" class="tk">IntegralGain_a</a> = <a id="187c31" class="tk">Position_P</a>.<a id="187c42" class="tk">KI_pos</a> * <a id="187c51" class="tk">Spsi</a>;</td></tr>
 <tr name="188" id="188">
 <td>188</td><td>  <span class="kw">if</span> (<a id="188c7" class="tk">rtmIsMajorTimeStep</a>((&amp;<a id="188c28" class="tk">Position_M</a>))) <span class="br">{</span></td></tr>
 <tr name="189" id="189">
@@ -473,7 +473,7 @@
 <tr name="231" id="231">
 <td>231</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S3&gt;/Integrator' */</span></td></tr>
 <tr name="232" id="232">
-<td>232</td><td>  <a id="232c3" class="tk">_rtXdot</a>-&gt;<a id="232c12" class="tk">Integrator_CSTATE</a> = <a id="232c32" class="tk">Position_B</a>.<a id="232c43" class="tk">IntegralGain_n</a>;</td></tr>
+<td>232</td><td>  <a id="232c3" class="tk">_rtXdot</a>-&gt;<a id="232c12" class="tk">Integrator_CSTATE</a> = <a id="232c32" class="tk">Position_B</a>.<a id="232c43" class="tk">IntegralGain_a</a>;</td></tr>
 <tr name="233" id="233">
 <td>233</td><td></td></tr>
 <tr name="234" id="234">
@@ -485,13 +485,13 @@
 <tr name="237" id="237">
 <td>237</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S2&gt;/Integrator' */</span></td></tr>
 <tr name="238" id="238">
-<td>238</td><td>  <a id="238c3" class="tk">_rtXdot</a>-&gt;<a id="238c12" class="tk">Integrator_CSTATE_c</a> = <a id="238c34" class="tk">Position_B</a>.<a id="238c45" class="tk">IntegralGain</a>;</td></tr>
+<td>238</td><td>  <a id="238c3" class="tk">_rtXdot</a>-&gt;<a id="238c12" class="tk">Integrator_CSTATE_h</a> = <a id="238c34" class="tk">Position_B</a>.<a id="238c45" class="tk">IntegralGain</a>;</td></tr>
 <tr name="239" id="239">
 <td>239</td><td></td></tr>
 <tr name="240" id="240">
 <td>240</td><td>  <span class="ct">/* Derivatives for Integrator: '&lt;S2&gt;/Filter' */</span></td></tr>
 <tr name="241" id="241">
-<td>241</td><td>  <a id="241c3" class="tk">_rtXdot</a>-&gt;<a id="241c12" class="tk">Filter_CSTATE_h</a> = <a id="241c30" class="tk">Position_B</a>.<a id="241c41" class="tk">FilterCoefficient_m</a>;</td></tr>
+<td>241</td><td>  <a id="241c3" class="tk">_rtXdot</a>-&gt;<a id="241c12" class="tk">Filter_CSTATE_c</a> = <a id="241c30" class="tk">Position_B</a>.<a id="241c41" class="tk">FilterCoefficient_p</a>;</td></tr>
 <tr name="242" id="242">
 <td>242</td><td><span class="br">}</span></td></tr>
 <tr name="243" id="243">
@@ -621,13 +621,13 @@
 <tr name="305" id="305">
 <td>305</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S2&gt;/Integrator' */</span></td></tr>
 <tr name="306" id="306">
-<td>306</td><td>  <a id="306c3" class="tk">Position_X</a>.<a id="306c14" class="tk">Integrator_CSTATE_c</a> = <a id="306c36" class="tk">Position_P</a>.<a id="306c47" class="tk">Integrator_IC_c</a>;</td></tr>
+<td>306</td><td>  <a id="306c3" class="tk">Position_X</a>.<a id="306c14" class="tk">Integrator_CSTATE_h</a> = <a id="306c36" class="tk">Position_P</a>.<a id="306c47" class="tk">Integrator_IC_j</a>;</td></tr>
 <tr name="307" id="307">
 <td>307</td><td></td></tr>
 <tr name="308" id="308">
 <td>308</td><td>  <span class="ct">/* InitializeConditions for Integrator: '&lt;S2&gt;/Filter' */</span></td></tr>
 <tr name="309" id="309">
-<td>309</td><td>  <a id="309c3" class="tk">Position_X</a>.<a id="309c14" class="tk">Filter_CSTATE_h</a> = <a id="309c32" class="tk">Position_P</a>.<a id="309c43" class="tk">Filter_IC_n</a>;</td></tr>
+<td>309</td><td>  <a id="309c3" class="tk">Position_X</a>.<a id="309c14" class="tk">Filter_CSTATE_c</a> = <a id="309c32" class="tk">Position_P</a>.<a id="309c43" class="tk">Filter_IC_i</a>;</td></tr>
 <tr name="310" id="310">
 <td>310</td><td><span class="br">}</span></td></tr>
 <tr name="311" id="311">

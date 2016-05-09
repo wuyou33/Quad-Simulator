@@ -7,9 +7,9 @@
  *
  * Code generation for model "Position".
  *
- * Model version              : 1.88
+ * Model version              : 1.89
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Mon May 09 12:42:59 2016
+ * C++ source code generated on : Mon May 09 13:21:35 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -96,17 +96,17 @@ void PositionModelClass::step()
   }
 
   /* MATLAB Function: '<S1>/To body from Earth' incorporates:
-   *  Inport: '<Root>/IMU_Attitude'
+   *  Inport: '<Root>/Pos'
    */
   /* MATLAB Function 'Position Controller/To body from Earth': '<S4>:1' */
   /* '<S4>:1:5' */
-  Spsi = sin(Position_U.IMU_Attitude[2]);
+  Spsi = sin(Position_U.Pos[2]);
 
   /* '<S4>:1:6' */
-  Cpsi = cos(Position_U.IMU_Attitude[2]);
+  Cpsi = cos(Position_U.Pos[2]);
 
   /* SignalConversion: '<S4>/TmpSignal ConversionAt SFunction Inport2' incorporates:
-   *  Inport: '<Root>/Pos'
+   *  Inport: '<Root>/IMU_Attitude'
    *  Inport: '<Root>/PosDes'
    *  MATLAB Function: '<S1>/To body from Earth'
    *  Sum: '<S1>/Sum'
@@ -114,8 +114,8 @@ void PositionModelClass::step()
    */
   /* '<S4>:1:8' */
   /* '<S4>:1:11' */
-  tmp = Position_U.PosDes[0] - Position_U.Pos[0];
-  tmp_0 = Position_U.PosDes[1] - Position_U.Pos[1];
+  tmp = Position_U.IMU_Attitude[0] - Position_U.PosDes[0];
+  tmp_0 = Position_U.IMU_Attitude[1] - Position_U.PosDes[1];
 
   /* MATLAB Function: '<S1>/To body from Earth' */
   rtb_body_idx_0 = Cpsi * tmp + Spsi * tmp_0;
@@ -155,15 +155,15 @@ void PositionModelClass::step()
    *  Integrator: '<S2>/Filter'
    *  Sum: '<S2>/SumD'
    */
-  Position_B.FilterCoefficient_m = (Position_P.KD_pos * rtb_body_idx_0 -
-    Position_X.Filter_CSTATE_h) * Position_P.KN_pos;
+  Position_B.FilterCoefficient_p = (Position_P.KD_pos * rtb_body_idx_0 -
+    Position_X.Filter_CSTATE_c) * Position_P.KN_pos;
 
   /* Sum: '<S2>/Sum' incorporates:
    *  Gain: '<S2>/Proportional Gain'
    *  Integrator: '<S2>/Integrator'
    */
-  Cpsi = (Position_P.KP_pos * rtb_body_idx_0 + Position_X.Integrator_CSTATE_c) +
-    Position_B.FilterCoefficient_m;
+  Cpsi = (Position_P.KP_pos * rtb_body_idx_0 + Position_X.Integrator_CSTATE_h) +
+    Position_B.FilterCoefficient_p;
 
   /* Saturate: '<S2>/Saturate' */
   if (Cpsi > Position_P.pitchMax) {
@@ -184,7 +184,7 @@ void PositionModelClass::step()
   Position_B.IntegralGain = Position_P.KI_pos * rtb_body_idx_0;
 
   /* Gain: '<S3>/Integral Gain' */
-  Position_B.IntegralGain_n = Position_P.KI_pos * Spsi;
+  Position_B.IntegralGain_a = Position_P.KI_pos * Spsi;
   if (rtmIsMajorTimeStep((&Position_M))) {
     rt_ertODEUpdateContinuousStates(&(&Position_M)->solverInfo);
 
@@ -229,16 +229,16 @@ void PositionModelClass::Position_derivatives()
   _rtXdot = ((XDot_Position_T *) (&Position_M)->ModelData.derivs);
 
   /* Derivatives for Integrator: '<S3>/Integrator' */
-  _rtXdot->Integrator_CSTATE = Position_B.IntegralGain_n;
+  _rtXdot->Integrator_CSTATE = Position_B.IntegralGain_a;
 
   /* Derivatives for Integrator: '<S3>/Filter' */
   _rtXdot->Filter_CSTATE = Position_B.FilterCoefficient;
 
   /* Derivatives for Integrator: '<S2>/Integrator' */
-  _rtXdot->Integrator_CSTATE_c = Position_B.IntegralGain;
+  _rtXdot->Integrator_CSTATE_h = Position_B.IntegralGain;
 
   /* Derivatives for Integrator: '<S2>/Filter' */
-  _rtXdot->Filter_CSTATE_h = Position_B.FilterCoefficient_m;
+  _rtXdot->Filter_CSTATE_c = Position_B.FilterCoefficient_p;
 }
 
 /* Model initialize function */
@@ -303,10 +303,10 @@ void PositionModelClass::initialize()
   Position_X.Filter_CSTATE = Position_P.Filter_IC;
 
   /* InitializeConditions for Integrator: '<S2>/Integrator' */
-  Position_X.Integrator_CSTATE_c = Position_P.Integrator_IC_c;
+  Position_X.Integrator_CSTATE_h = Position_P.Integrator_IC_j;
 
   /* InitializeConditions for Integrator: '<S2>/Filter' */
-  Position_X.Filter_CSTATE_h = Position_P.Filter_IC_n;
+  Position_X.Filter_CSTATE_c = Position_P.Filter_IC_i;
 }
 
 /* Model terminate function */

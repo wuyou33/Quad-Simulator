@@ -7,9 +7,9 @@
  *
  * Code generation for model "Position".
  *
- * Model version              : 1.88
+ * Model version              : 1.89
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Mon May 09 12:42:59 2016
+ * C++ source code generated on : Mon May 09 13:21:35 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -150,33 +150,33 @@
 /* Block signals (auto storage) */
 typedef struct {
   real_T FilterCoefficient;            /* '<S3>/Filter Coefficient' */
-  real_T FilterCoefficient_m;          /* '<S2>/Filter Coefficient' */
+  real_T FilterCoefficient_p;          /* '<S2>/Filter Coefficient' */
   real_T IntegralGain;                 /* '<S2>/Integral Gain' */
-  real_T IntegralGain_n;               /* '<S3>/Integral Gain' */
+  real_T IntegralGain_a;               /* '<S3>/Integral Gain' */
 } B_Position_T;
 
 /* Continuous states (auto storage) */
 typedef struct {
   real_T Integrator_CSTATE;            /* '<S3>/Integrator' */
   real_T Filter_CSTATE;                /* '<S3>/Filter' */
-  real_T Integrator_CSTATE_c;          /* '<S2>/Integrator' */
-  real_T Filter_CSTATE_h;              /* '<S2>/Filter' */
+  real_T Integrator_CSTATE_h;          /* '<S2>/Integrator' */
+  real_T Filter_CSTATE_c;              /* '<S2>/Filter' */
 } X_Position_T;
 
 /* State derivatives (auto storage) */
 typedef struct {
   real_T Integrator_CSTATE;            /* '<S3>/Integrator' */
   real_T Filter_CSTATE;                /* '<S3>/Filter' */
-  real_T Integrator_CSTATE_c;          /* '<S2>/Integrator' */
-  real_T Filter_CSTATE_h;              /* '<S2>/Filter' */
+  real_T Integrator_CSTATE_h;          /* '<S2>/Integrator' */
+  real_T Filter_CSTATE_c;              /* '<S2>/Filter' */
 } XDot_Position_T;
 
 /* State disabled  */
 typedef struct {
   boolean_T Integrator_CSTATE;         /* '<S3>/Integrator' */
   boolean_T Filter_CSTATE;             /* '<S3>/Filter' */
-  boolean_T Integrator_CSTATE_c;       /* '<S2>/Integrator' */
-  boolean_T Filter_CSTATE_h;           /* '<S2>/Filter' */
+  boolean_T Integrator_CSTATE_h;       /* '<S2>/Integrator' */
+  boolean_T Filter_CSTATE_c;           /* '<S2>/Filter' */
 } XDis_Position_T;
 
 #ifndef ODE2_INTG
@@ -192,9 +192,9 @@ typedef struct {
 
 /* External inputs (root inport signals with auto storage) */
 typedef struct {
-  real_T IMU_Attitude[3];              /* '<Root>/IMU_Attitude' */
+  real_T IMU_Attitude[2];              /* '<Root>/IMU_Attitude' */
   real_T PosDes[2];                    /* '<Root>/PosDes' */
-  real_T Pos[2];                       /* '<Root>/Pos' */
+  real_T Pos[3];                       /* '<Root>/Pos' */
 } ExtU_Position_T;
 
 /* External outputs (root outports fed by signals with auto storage) */
@@ -237,10 +237,10 @@ struct P_Position_T_ {
   real_T Filter_IC;                    /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S3>/Filter'
                                         */
-  real_T Integrator_IC_c;              /* Expression: InitialConditionForIntegrator
+  real_T Integrator_IC_j;              /* Expression: InitialConditionForIntegrator
                                         * Referenced by: '<S2>/Integrator'
                                         */
-  real_T Filter_IC_n;                  /* Expression: InitialConditionForFilter
+  real_T Filter_IC_i;                  /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S2>/Filter'
                                         */
   real_T Gain_Gain;                    /* Expression: -1

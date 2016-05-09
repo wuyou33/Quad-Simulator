@@ -29,11 +29,11 @@
 <tr name="9" id="9">
 <td>9</td><td><span class="ct"> *</span></td></tr>
 <tr name="10" id="10">
-<td>10</td><td><span class="ct"> * Model version              : 1.88</span></td></tr>
+<td>10</td><td><span class="ct"> * Model version              : 1.89</span></td></tr>
 <tr name="11" id="11">
 <td>11</td><td><span class="ct"> * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015</span></td></tr>
 <tr name="12" id="12">
-<td>12</td><td><span class="ct"> * C++ source code generated on : Mon May 09 12:42:59 2016</span></td></tr>
+<td>12</td><td><span class="ct"> * C++ source code generated on : Mon May 09 13:21:35 2016</span></td></tr>
 <tr name="13" id="13">
 <td>13</td><td><span class="ct"> *</span></td></tr>
 <tr name="14" id="14">
@@ -315,11 +315,11 @@
 <tr name="152" id="152">
 <td>152</td><td>  <a id="152c3" class="tk">real_T</a> <a id="152c10" class="tk">FilterCoefficient</a>;            <span class="ct">/* '&lt;S3&gt;/Filter Coefficient' */</span></td></tr>
 <tr name="153" id="153">
-<td>153</td><td>  <a id="153c3" class="tk">real_T</a> <a id="153c10" class="tk">FilterCoefficient_m</a>;          <span class="ct">/* '&lt;S2&gt;/Filter Coefficient' */</span></td></tr>
+<td>153</td><td>  <a id="153c3" class="tk">real_T</a> <a id="153c10" class="tk">FilterCoefficient_p</a>;          <span class="ct">/* '&lt;S2&gt;/Filter Coefficient' */</span></td></tr>
 <tr name="154" id="154">
 <td>154</td><td>  <a id="154c3" class="tk">real_T</a> <a id="154c10" class="tk">IntegralGain</a>;                 <span class="ct">/* '&lt;S2&gt;/Integral Gain' */</span></td></tr>
 <tr name="155" id="155">
-<td>155</td><td>  <a id="155c3" class="tk">real_T</a> <a id="155c10" class="tk">IntegralGain_n</a>;               <span class="ct">/* '&lt;S3&gt;/Integral Gain' */</span></td></tr>
+<td>155</td><td>  <a id="155c3" class="tk">real_T</a> <a id="155c10" class="tk">IntegralGain_a</a>;               <span class="ct">/* '&lt;S3&gt;/Integral Gain' */</span></td></tr>
 <tr name="156" id="156">
 <td>156</td><td><span class="br">}</span> <a id="156c3" class="tk">B_Position_T</a>;</td></tr>
 <tr name="157" id="157">
@@ -333,9 +333,9 @@
 <tr name="161" id="161">
 <td>161</td><td>  <a id="161c3" class="tk">real_T</a> <a id="161c10" class="tk">Filter_CSTATE</a>;                <span class="ct">/* '&lt;S3&gt;/Filter' */</span></td></tr>
 <tr name="162" id="162">
-<td>162</td><td>  <a id="162c3" class="tk">real_T</a> <a id="162c10" class="tk">Integrator_CSTATE_c</a>;          <span class="ct">/* '&lt;S2&gt;/Integrator' */</span></td></tr>
+<td>162</td><td>  <a id="162c3" class="tk">real_T</a> <a id="162c10" class="tk">Integrator_CSTATE_h</a>;          <span class="ct">/* '&lt;S2&gt;/Integrator' */</span></td></tr>
 <tr name="163" id="163">
-<td>163</td><td>  <a id="163c3" class="tk">real_T</a> <a id="163c10" class="tk">Filter_CSTATE_h</a>;              <span class="ct">/* '&lt;S2&gt;/Filter' */</span></td></tr>
+<td>163</td><td>  <a id="163c3" class="tk">real_T</a> <a id="163c10" class="tk">Filter_CSTATE_c</a>;              <span class="ct">/* '&lt;S2&gt;/Filter' */</span></td></tr>
 <tr name="164" id="164">
 <td>164</td><td><span class="br">}</span> <a id="164c3" class="tk">X_Position_T</a>;</td></tr>
 <tr name="165" id="165">
@@ -349,9 +349,9 @@
 <tr name="169" id="169">
 <td>169</td><td>  <a id="169c3" class="tk">real_T</a> <a id="169c10" class="tk">Filter_CSTATE</a>;                <span class="ct">/* '&lt;S3&gt;/Filter' */</span></td></tr>
 <tr name="170" id="170">
-<td>170</td><td>  <a id="170c3" class="tk">real_T</a> <a id="170c10" class="tk">Integrator_CSTATE_c</a>;          <span class="ct">/* '&lt;S2&gt;/Integrator' */</span></td></tr>
+<td>170</td><td>  <a id="170c3" class="tk">real_T</a> <a id="170c10" class="tk">Integrator_CSTATE_h</a>;          <span class="ct">/* '&lt;S2&gt;/Integrator' */</span></td></tr>
 <tr name="171" id="171">
-<td>171</td><td>  <a id="171c3" class="tk">real_T</a> <a id="171c10" class="tk">Filter_CSTATE_h</a>;              <span class="ct">/* '&lt;S2&gt;/Filter' */</span></td></tr>
+<td>171</td><td>  <a id="171c3" class="tk">real_T</a> <a id="171c10" class="tk">Filter_CSTATE_c</a>;              <span class="ct">/* '&lt;S2&gt;/Filter' */</span></td></tr>
 <tr name="172" id="172">
 <td>172</td><td><span class="br">}</span> <a id="172c3" class="tk">XDot_Position_T</a>;</td></tr>
 <tr name="173" id="173">
@@ -365,9 +365,9 @@
 <tr name="177" id="177">
 <td>177</td><td>  <a id="177c3" class="tk">boolean_T</a> <a id="177c13" class="tk">Filter_CSTATE</a>;             <span class="ct">/* '&lt;S3&gt;/Filter' */</span></td></tr>
 <tr name="178" id="178">
-<td>178</td><td>  <a id="178c3" class="tk">boolean_T</a> <a id="178c13" class="tk">Integrator_CSTATE_c</a>;       <span class="ct">/* '&lt;S2&gt;/Integrator' */</span></td></tr>
+<td>178</td><td>  <a id="178c3" class="tk">boolean_T</a> <a id="178c13" class="tk">Integrator_CSTATE_h</a>;       <span class="ct">/* '&lt;S2&gt;/Integrator' */</span></td></tr>
 <tr name="179" id="179">
-<td>179</td><td>  <a id="179c3" class="tk">boolean_T</a> <a id="179c13" class="tk">Filter_CSTATE_h</a>;           <span class="ct">/* '&lt;S2&gt;/Filter' */</span></td></tr>
+<td>179</td><td>  <a id="179c3" class="tk">boolean_T</a> <a id="179c13" class="tk">Filter_CSTATE_c</a>;           <span class="ct">/* '&lt;S2&gt;/Filter' */</span></td></tr>
 <tr name="180" id="180">
 <td>180</td><td><span class="br">}</span> <a id="180c3" class="tk">XDis_Position_T</a>;</td></tr>
 <tr name="181" id="181">
@@ -399,11 +399,11 @@
 <tr name="194" id="194">
 <td>194</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
 <tr name="195" id="195">
-<td>195</td><td>  <a id="195c3" class="tk">real_T</a> <a id="195c10" class="tk">IMU_Attitude</a>[3];              <span class="ct">/* '&lt;Root&gt;/IMU_Attitude' */</span></td></tr>
+<td>195</td><td>  <a id="195c3" class="tk">real_T</a> <a id="195c10" class="tk">IMU_Attitude</a>[2];              <span class="ct">/* '&lt;Root&gt;/IMU_Attitude' */</span></td></tr>
 <tr name="196" id="196">
 <td>196</td><td>  <a id="196c3" class="tk">real_T</a> <a id="196c10" class="tk">PosDes</a>[2];                    <span class="ct">/* '&lt;Root&gt;/PosDes' */</span></td></tr>
 <tr name="197" id="197">
-<td>197</td><td>  <a id="197c3" class="tk">real_T</a> <a id="197c10" class="tk">Pos</a>[2];                       <span class="ct">/* '&lt;Root&gt;/Pos' */</span></td></tr>
+<td>197</td><td>  <a id="197c3" class="tk">real_T</a> <a id="197c10" class="tk">Pos</a>[3];                       <span class="ct">/* '&lt;Root&gt;/Pos' */</span></td></tr>
 <tr name="198" id="198">
 <td>198</td><td><span class="br">}</span> <a id="198c3" class="tk">ExtU_Position_T</a>;</td></tr>
 <tr name="199" id="199">
@@ -489,13 +489,13 @@
 <tr name="239" id="239">
 <td>239</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="240" id="240">
-<td>240</td><td>  <a id="240c3" class="tk">real_T</a> <a id="240c10" class="tk">Integrator_IC_c</a>;              <span class="ct">/* Expression: InitialConditionForIntegrator</span></td></tr>
+<td>240</td><td>  <a id="240c3" class="tk">real_T</a> <a id="240c10" class="tk">Integrator_IC_j</a>;              <span class="ct">/* Expression: InitialConditionForIntegrator</span></td></tr>
 <tr name="241" id="241">
 <td>241</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Integrator'</span></td></tr>
 <tr name="242" id="242">
 <td>242</td><td><span class="ct">                                        */</span></td></tr>
 <tr name="243" id="243">
-<td>243</td><td>  <a id="243c3" class="tk">real_T</a> <a id="243c10" class="tk">Filter_IC_n</a>;                  <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
+<td>243</td><td>  <a id="243c3" class="tk">real_T</a> <a id="243c10" class="tk">Filter_IC_i</a>;                  <span class="ct">/* Expression: InitialConditionForFilter</span></td></tr>
 <tr name="244" id="244">
 <td>244</td><td><span class="ct">                                        * Referenced by: '&lt;S2&gt;/Filter'</span></td></tr>
 <tr name="245" id="245">
