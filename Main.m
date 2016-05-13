@@ -24,20 +24,20 @@ xlabel('[s]')
 ylabel('[m]')
 legend('N', 'E', 'D')
 
-% figure('name','VELOCITY_BODY')
-% plot(tout, V_b);
-% grid minor
-% xlabel('[s]')
-% ylabel('[m/s]')
-% legend('u', 'v', 'w')
-% 
-% figure('name','ANGULAR SPEED_BODY')
-% plot(tout, Ome_b);
-% grid minor
-% xlabel('[s]')
-% ylabel('[rad/s]')
-% legend('p', 'q', 'r')
-%  
+figure('name','VELOCITY_BODY')
+plot(tout, V_b);
+grid minor
+xlabel('[s]')
+ylabel('[m/s]')
+legend('u', 'v', 'w')
+
+figure('name','ANGULAR SPEED_BODY')
+plot(tout, Ome_b);
+grid minor
+xlabel('[s]')
+ylabel('[rad/s]')
+legend('p', 'q', 'r')
+ 
 figure('name','ATTITUDE_EARTH')
 plot(tout, Alpha_e);
 grid minor

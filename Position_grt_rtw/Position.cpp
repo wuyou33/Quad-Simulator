@@ -7,9 +7,9 @@
  *
  * Code generation for model "Position".
  *
- * Model version              : 1.89
+ * Model version              : 1.90
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Mon May 09 13:21:35 2016
+ * C++ source code generated on : Fri May 13 11:54:38 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -138,32 +138,33 @@ void PositionModelClass::step()
 
   /* Saturate: '<S3>/Saturate' */
   if (Cpsi > Position_P.rollMax) {
-    /* Outport: '<Root>/Ro' */
-    Position_Y.Ro = Position_P.rollMax;
-  } else if (Cpsi < -Position_P.rollMax) {
-    /* Outport: '<Root>/Ro' */
-    Position_Y.Ro = -Position_P.rollMax;
+    Cpsi = Position_P.rollMax;
   } else {
-    /* Outport: '<Root>/Ro' */
-    Position_Y.Ro = Cpsi;
+    if (Cpsi < -Position_P.rollMax) {
+      Cpsi = -Position_P.rollMax;
+    }
   }
 
-  /* End of Saturate: '<S3>/Saturate' */
+  /* Outport: '<Root>/Ro' incorporates:
+   *  Gain: '<S1>/NormalizeRoll'
+   *  Saturate: '<S3>/Saturate'
+   */
+  Position_Y.Ro = 1.0 / Position_P.rollMax * Cpsi;
 
   /* Gain: '<S2>/Filter Coefficient' incorporates:
    *  Gain: '<S2>/Derivative Gain'
    *  Integrator: '<S2>/Filter'
    *  Sum: '<S2>/SumD'
    */
-  Position_B.FilterCoefficient_p = (Position_P.KD_pos * rtb_body_idx_0 -
-    Position_X.Filter_CSTATE_c) * Position_P.KN_pos;
+  Position_B.FilterCoefficient_d = (Position_P.KD_pos * rtb_body_idx_0 -
+    Position_X.Filter_CSTATE_i) * Position_P.KN_pos;
 
   /* Sum: '<S2>/Sum' incorporates:
    *  Gain: '<S2>/Proportional Gain'
    *  Integrator: '<S2>/Integrator'
    */
-  Cpsi = (Position_P.KP_pos * rtb_body_idx_0 + Position_X.Integrator_CSTATE_h) +
-    Position_B.FilterCoefficient_p;
+  Cpsi = (Position_P.KP_pos * rtb_body_idx_0 + Position_X.Integrator_CSTATE_d) +
+    Position_B.FilterCoefficient_d;
 
   /* Saturate: '<S2>/Saturate' */
   if (Cpsi > Position_P.pitchMax) {
@@ -175,16 +176,16 @@ void PositionModelClass::step()
   }
 
   /* Outport: '<Root>/Po' incorporates:
-   *  Gain: '<S1>/Gain'
+   *  Gain: '<S1>/NormalizePitch'
    *  Saturate: '<S2>/Saturate'
    */
-  Position_Y.Po = Position_P.Gain_Gain * Cpsi;
+  Position_Y.Po = -1.0 / Position_P.pitchMax * Cpsi;
 
   /* Gain: '<S2>/Integral Gain' */
   Position_B.IntegralGain = Position_P.KI_pos * rtb_body_idx_0;
 
   /* Gain: '<S3>/Integral Gain' */
-  Position_B.IntegralGain_a = Position_P.KI_pos * Spsi;
+  Position_B.IntegralGain_p = Position_P.KI_pos * Spsi;
   if (rtmIsMajorTimeStep((&Position_M))) {
     rt_ertODEUpdateContinuousStates(&(&Position_M)->solverInfo);
 
@@ -229,16 +230,16 @@ void PositionModelClass::Position_derivatives()
   _rtXdot = ((XDot_Position_T *) (&Position_M)->ModelData.derivs);
 
   /* Derivatives for Integrator: '<S3>/Integrator' */
-  _rtXdot->Integrator_CSTATE = Position_B.IntegralGain_a;
+  _rtXdot->Integrator_CSTATE = Position_B.IntegralGain_p;
 
   /* Derivatives for Integrator: '<S3>/Filter' */
   _rtXdot->Filter_CSTATE = Position_B.FilterCoefficient;
 
   /* Derivatives for Integrator: '<S2>/Integrator' */
-  _rtXdot->Integrator_CSTATE_h = Position_B.IntegralGain;
+  _rtXdot->Integrator_CSTATE_d = Position_B.IntegralGain;
 
   /* Derivatives for Integrator: '<S2>/Filter' */
-  _rtXdot->Filter_CSTATE_c = Position_B.FilterCoefficient_p;
+  _rtXdot->Filter_CSTATE_i = Position_B.FilterCoefficient_d;
 }
 
 /* Model initialize function */
@@ -303,10 +304,10 @@ void PositionModelClass::initialize()
   Position_X.Filter_CSTATE = Position_P.Filter_IC;
 
   /* InitializeConditions for Integrator: '<S2>/Integrator' */
-  Position_X.Integrator_CSTATE_h = Position_P.Integrator_IC_j;
+  Position_X.Integrator_CSTATE_d = Position_P.Integrator_IC_a;
 
   /* InitializeConditions for Integrator: '<S2>/Filter' */
-  Position_X.Filter_CSTATE_c = Position_P.Filter_IC_i;
+  Position_X.Filter_CSTATE_i = Position_P.Filter_IC_h;
 }
 
 /* Model terminate function */
@@ -340,10 +341,14 @@ PositionModelClass::PositionModelClass()
                                         *   '<S3>/Proportional Gain'
                                         */
     0.52359877559829882,               /* Variable: pitchMax
-                                        * Referenced by: '<S2>/Saturate'
+                                        * Referenced by:
+                                        *   '<S1>/NormalizePitch'
+                                        *   '<S2>/Saturate'
                                         */
     0.52359877559829882,               /* Variable: rollMax
-                                        * Referenced by: '<S3>/Saturate'
+                                        * Referenced by:
+                                        *   '<S1>/NormalizeRoll'
+                                        *   '<S3>/Saturate'
                                         */
     0.0,                               /* Expression: InitialConditionForIntegrator
                                         * Referenced by: '<S3>/Integrator'
@@ -354,11 +359,8 @@ PositionModelClass::PositionModelClass()
     0.0,                               /* Expression: InitialConditionForIntegrator
                                         * Referenced by: '<S2>/Integrator'
                                         */
-    0.0,                               /* Expression: InitialConditionForFilter
+    0.0                                /* Expression: InitialConditionForFilter
                                         * Referenced by: '<S2>/Filter'
-                                        */
-    -1.0                               /* Expression: -1
-                                        * Referenced by: '<S1>/Gain'
                                         */
   };                                   /* Modifiable parameters */
 
