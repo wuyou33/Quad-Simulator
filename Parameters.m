@@ -161,13 +161,15 @@ Kba = sqrt(KaD/KaI);
 sata = 5;
 
 %% Position regulator
-%KP = 0.00456;
-%KD = 0.0528;
-%KN = 1/0.0781;
 
-KP_pos = 0.0379;
-KI_pos = 0.00021;
-KD_pos = 0.0783;
-KN_pos = 1/0.012;
+% KP_pos = 0.0379;
+% KI_pos = 0.00021;
+% KD_pos = 0.0783;
+% KN_pos = 1/0.012;
+
+KP_pos = 0.0873;
+KI_pos = 0;
+KD_pos = 0;
+KN_pos = 0;
 
  %% End of code
