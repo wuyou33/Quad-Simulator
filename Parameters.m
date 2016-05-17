@@ -77,6 +77,9 @@ tc = 1/fc;  %[s]
 delay_altitude = 1;
 delay_attitude = 1;
 delay_mixer = 1;
+delay_OptiTrack = 0;
+delay_IMU = 1;
+delay_Kaltitude = 1;
 
 %% Angular-rate regulators
 Tf = .01;
@@ -162,14 +165,9 @@ sata = 5;
 
 %% Position regulator
 
-% KP_pos = 0.0379;
-% KI_pos = 0.00021;
-% KD_pos = 0.0783;
-% KN_pos = 1/0.012;
-
-KP_pos = 0.0873;
-KI_pos = 0;
-KD_pos = 0;
-KN_pos = 0;
+KP_pos = 0.0379;
+KI_pos = 0.00021*10;
+KD_pos = 0.0783;
+KN_pos = 1/0.012;
 
  %% End of code

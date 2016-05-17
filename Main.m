@@ -38,15 +38,15 @@ legend('N', 'E', 'D')
 % ylabel('[rad/s]')
 % legend('p', 'q', 'r')
 %  
-% figure('name','ATTITUDE_EARTH')
-% plot(tout, Alpha_e);
-% grid minor
-% xlabel('[s]')
-% ylabel('[rad]')
-% legend('phi', 'theta', 'psi')
+figure('name','ATTITUDE_EARTH')
+plot(tout, Alpha_e);
+grid minor
+xlabel('[s]')
+ylabel('[rad]')
+legend('phi', 'theta', 'psi')
 
 %% 3D Animation
-% 
+
 % global index_view;
 % global old_position;
 % droneFigure = figure('name','Plot Trajectory');

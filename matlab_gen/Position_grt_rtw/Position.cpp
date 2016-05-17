@@ -9,7 +9,7 @@
  *
  * Model version              : 1.91
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Tue May 17 12:12:34 2016
+ * C++ source code generated on : Tue May 17 12:31:32 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -320,22 +320,22 @@ void PositionModelClass::terminate()
 PositionModelClass::PositionModelClass()
 {
   static const P_Position_T Position_P_temp = {
-    0.0,                               /* Variable: KD_pos
+    0.0783,                            /* Variable: KD_pos
                                         * Referenced by:
                                         *   '<S2>/Derivative Gain'
                                         *   '<S3>/Derivative Gain'
                                         */
-    0.0,                               /* Variable: KI_pos
+    0.0021000000000000003,             /* Variable: KI_pos
                                         * Referenced by:
                                         *   '<S2>/Integral Gain'
                                         *   '<S3>/Integral Gain'
                                         */
-    0.0,                               /* Variable: KN_pos
+    83.333333333333329,                /* Variable: KN_pos
                                         * Referenced by:
                                         *   '<S2>/Filter Coefficient'
                                         *   '<S3>/Filter Coefficient'
                                         */
-    0.0873,                            /* Variable: KP_pos
+    0.0379,                            /* Variable: KP_pos
                                         * Referenced by:
                                         *   '<S2>/Proportional Gain'
                                         *   '<S3>/Proportional Gain'
