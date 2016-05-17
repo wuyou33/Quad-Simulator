@@ -7,9 +7,9 @@
  *
  * Code generation for model "Position".
  *
- * Model version              : 1.90
+ * Model version              : 1.91
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Mon May 16 15:25:42 2016
+ * C++ source code generated on : Tue May 17 12:12:34 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -192,9 +192,9 @@ typedef struct {
 
 /* External inputs (root inport signals with auto storage) */
 typedef struct {
-  real_T IMU_Attitude[2];              /* '<Root>/IMU_Attitude' */
   real_T PosDes[2];                    /* '<Root>/PosDes' */
-  real_T Pos[3];                       /* '<Root>/Pos' */
+  real_T Pos[2];                       /* '<Root>/Pos' */
+  real_T IMU_Attitude[3];              /* '<Root>/IMU_Attitude' */
 } ExtU_Position_T;
 
 /* External outputs (root outports fed by signals with auto storage) */

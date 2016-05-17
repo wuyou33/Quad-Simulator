@@ -7,9 +7,9 @@
  *
  * Code generation for model "Position".
  *
- * Model version              : 1.90
+ * Model version              : 1.91
  * Simulink Coder version : 8.8.1 (R2015aSP1) 04-Sep-2015
- * C++ source code generated on : Mon May 16 15:25:42 2016
+ * C++ source code generated on : Tue May 17 12:12:34 2016
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -96,17 +96,17 @@ void PositionModelClass::step()
   }
 
   /* MATLAB Function: '<S1>/To body from Earth' incorporates:
-   *  Inport: '<Root>/Pos'
+   *  Inport: '<Root>/IMU_Attitude'
    */
   /* MATLAB Function 'Position Controller/To body from Earth': '<S4>:1' */
   /* '<S4>:1:5' */
-  Spsi = sin(Position_U.Pos[2]);
+  Spsi = sin(Position_U.IMU_Attitude[2]);
 
   /* '<S4>:1:6' */
-  Cpsi = cos(Position_U.Pos[2]);
+  Cpsi = cos(Position_U.IMU_Attitude[2]);
 
   /* SignalConversion: '<S4>/TmpSignal ConversionAt SFunction Inport2' incorporates:
-   *  Inport: '<Root>/IMU_Attitude'
+   *  Inport: '<Root>/Pos'
    *  Inport: '<Root>/PosDes'
    *  MATLAB Function: '<S1>/To body from Earth'
    *  Sum: '<S1>/Sum'
@@ -114,8 +114,8 @@ void PositionModelClass::step()
    */
   /* '<S4>:1:8' */
   /* '<S4>:1:11' */
-  tmp = Position_U.IMU_Attitude[0] - Position_U.PosDes[0];
-  tmp_0 = Position_U.IMU_Attitude[1] - Position_U.PosDes[1];
+  tmp = Position_U.PosDes[0] - Position_U.Pos[0];
+  tmp_0 = Position_U.PosDes[1] - Position_U.Pos[1];
 
   /* MATLAB Function: '<S1>/To body from Earth' */
   rtb_body_idx_0 = Cpsi * tmp + Spsi * tmp_0;
