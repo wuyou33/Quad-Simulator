@@ -33,7 +33,7 @@ sigma = Ab/A;                    %[1] Solid ratio
 Ct = 0.011859;                   %[1] Thrust coefficent
 Cq = 0.00091322;                 %[1] Torque coefficent
 tau = 0.055257;                  %[s] Motor+Propeller time constant
-x1 = [6.0312 80.4859];           %RPM vs THROTTLE: Y = m*X + q; x1 = [m q]
+x1 = [6.0312 80.4859];           %rad/s vs THROTTLE: Y = m*X + q; x1 = [m q]
 Kt = Ct*ro*A*R^2;
 Kt_sigma = 1.0832e-07;
 Kq = Cq*ro*A*R^3;
