@@ -3,15 +3,15 @@
 close all
 clear all
 clc
-%% Load data
+%%% Load data
 load fly7_tuning.mat
 
 ts = 0.01;
 t = 0:ts:(length(acc)-1)*ts;
-Tsim = 40;
-% Tsim = max(t);
+% Tsim = 40;
+Tsim = max(t);
 
-%% Variables
+%%% Variables
 
 acc_bias = mean(acc(1:100,1:2));
 bias_x= acc_bias(1);
@@ -20,11 +20,11 @@ bias_y= acc_bias(2);
 acc_scale = mean(acc(1:100,3));
 
 Q = diag([0.005 0.005 0.005]);
-sigma_acc = 1;
-sigma_opti = 1;
+sigma_acc = 0.5;
+sigma_opti = 0.5;
 R = diag([sigma_acc^2 sigma_opti^2]);
 
-%% Create Signal Block
+%%% Create Signal Block
 
 % % Accelerometer
 ax = timeseries(acc(:,1),t,'Name','ax');
@@ -40,10 +40,12 @@ psi = timeseries(OPTI_RPY(:,3),t,'Name','psi');
 pos_n = timeseries(Ned(:,1),t,'Name','pos_n');
 pos_e = timeseries(Ned(:,2),t,'Name','pos_e');
 
-%% Simulate
-k_err=1;
-k_disc=1;
+%%% Simulate 
 
+   sim Kalition_Test
+
+
+%%% generate fixed pos
 fix_pos_n = pos_n;
 
 for x=3:1:Tsim*100-1
@@ -71,9 +73,6 @@ d1 = designfilt('lowpassiir','FilterOrder',12, ...
     'HalfPowerFrequency',0.15,'DesignMethod','butter');
 new_pos_n_filt = filtfilt(d1,fix_pos_n.data);
 
-% [b,a] = butter(12,0.15,'low');
-% new_pos_n_filt=filtfilt(b,a,fix_pos_n.data);
-
 new_pos_n = timeseries(new_pos_n_filt,t,'Name','new_pos_n');
 
 % figure('name','position')
@@ -92,6 +91,29 @@ new_pos_n = timeseries(new_pos_n_filt,t,'Name','new_pos_n');
 % legend('Optitrack','Kalman','location','northeast')
 % ylabel('East [m]')
 % xlabel('time [s]')
+
+%%% Plot Result
+
+figure('name','position')
+subplot(211)
+hold on
+plot(pos_n)
+    plot(new_pos_n)
+plot(n_dist)
+grid minor
+ylabel('North [m]')
+subplot(212)
+hold on
+plot(pos_e)
+plot(e_dist)
+grid minor
+legend('Optitrack','Kalman','location','northeast')
+ylabel('East [m]')
+xlabel('time [s]')
+
+%% Simulate
+k_err=1;
+k_disc=1;
 
 best_q=[inf inf inf inf inf ];
 best_a=[inf inf inf inf inf ];
@@ -178,6 +200,7 @@ for i=1:1:5
     hold on
     plot(pos_n)
     plot(n_dist)
+    plot(new_pos_n)
     grid minor
     ylabel('North [m]')
     subplot(212)
@@ -192,33 +215,33 @@ for i=1:1:5
 end
 
 
-   n_dist_var=n_dist.data;
- 
-   tempo=0:1:4000;
-   
-   q=best_q(1);
-    sigma_acc=best_a(1);
-    sigma_opti=best_o(1);
-    
-    Q = diag([q q q]);
-    R = diag([sigma_acc^2 sigma_opti^2]);
-    
-    sim Kalition_Test
-    
-    n_dist_1 = n_dist.data;
-    
-   
-    q=best_q(5);
-    sigma_acc=best_a(5);
-    sigma_opti=best_o(5);
-    
-    Q = diag([q q q]);
-    R = diag([sigma_acc^2 sigma_opti^2]);
-    
-    sim Kalition_Test
-    
-    n_dist_5 = n_dist.data;
-    
+%    n_dist_var=n_dist.data;
+%  
+%    tempo=0:1:4000;
+%    
+%    q=best_q(1);
+%     sigma_acc=best_a(1);
+%     sigma_opti=best_o(1);
+%     
+%     Q = diag([q q q]);
+%     R = diag([sigma_acc^2 sigma_opti^2]);
+%     
+%     sim Kalition_Test
+%     
+%     n_dist_1 = n_dist.data;
+%     
+%    
+%     q=best_q(5);
+%     sigma_acc=best_a(5);
+%     sigma_opti=best_o(5);
+%     
+%     Q = diag([q q q]);
+%     R = diag([sigma_acc^2 sigma_opti^2]);
+%     
+%     sim Kalition_Test
+%     
+%     n_dist_5 = n_dist.data;
+%     
    
  
    
@@ -228,21 +251,22 @@ end
 
 %% Plot Result
 
-% figure('name','position')
-% subplot(211)
-% hold on
-% plot(pos_n)
-% plot(n_dist)
-% grid minor
-% ylabel('North [m]')
-% subplot(212)
-% hold on
-% plot(pos_e)
-% plot(e_dist)
-% grid minor
-% legend('Optitrack','Kalman','location','northeast')
-% ylabel('East [m]')
-% xlabel('time [s]')
+figure('name','position')
+subplot(211)
+hold on
+plot(pos_n)
+    plot(new_pos_n)
+plot(n_dist)
+grid minor
+ylabel('North [m]')
+subplot(212)
+hold on
+plot(pos_e)
+plot(e_dist)
+grid minor
+legend('Optitrack','Kalman','location','northeast')
+ylabel('East [m]')
+xlabel('time [s]')
 
 % namefigure = strcat('NorthDistance','_q',num2str(q,4),'_i',num2str(i,3),'_j',num2str(j,3));
 % distancefigure = figure('name',namefigure);
