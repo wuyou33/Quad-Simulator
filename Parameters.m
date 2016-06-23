@@ -1,7 +1,8 @@
-%% Quadcopter Simulator: Main Definitions %
-% Author: Mattia Giurato                  %
-% Last review: 2016/02/03                 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Quadcopter parameters  %
+% Author: Mattia Giurato %
+% Date: 07/06/2016       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Parameters definition
 g = 9.81;
@@ -50,7 +51,7 @@ dLMN = [dLdp  0    0   ;
          0   dMdq  0   ;
          0    0   dNdr];
 
-%% Control variables
+%% Mixer matrix - X configuration
 %U = K * OMEsq
 param = diag([Kt b/sqrt(2)*Kt b/sqrt(2)*Kt Kq]);
 sign = [-1 -1 -1 -1 ;
@@ -169,4 +170,4 @@ KI_pos = 0.00021*10;
 KD_pos = 0.0783;
 KN_pos = 1/0.012;
 
- %% End of code
+%% END OF CODE

@@ -1,7 +1,8 @@
-%% Quadcopter Simulator   %
-% Author: Mattia Giurato  %
-% Last review: 2015/07/12 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Quadcopter Simulator   %
+% Author: Mattia Giurato %
+% Date: 07/06/2016       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear all
 close all 
 clc
