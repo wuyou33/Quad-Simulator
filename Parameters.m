@@ -9,44 +9,44 @@ g = 9.81;
 degtorad = pi/180;
 
 %Mass and structural informations
-m = 1.510;                       %[kg] Body mass
-Mb = diag([m m m]);              %[Kg] Mass matrix
-MbInv = Mb\eye(3);               %[Kg^-1] Inverse of mass matrix
-b = 0.55/2;                      %[m] Arm lenght
-Ixx = 0.035;                     %[kg*m^2] Inertia around Xbody axes
-Ixx_sigma = 0.0012;              %[kg*m^2] Uncertainty of Inertia around Xbody axes
-Iyy = Ixx;                       %[kg*m^2] Inertia around Ybody axes
-Iyy_sigma = Ixx_sigma;           %[kg*m^2] Uncertainty of Inertia around Ybody axes
-Izz = 0.05;                      %[kg*m^2] Inertia around Zbody axes
-Izz_sigma = 0.0013;              %[kg*m^2] Uncertainty of Inertia around Zbody axes
-In = diag([Ixx Iyy Izz]);        %[kg*m^2] Inertia tensor
-InInv = In\eye(3);               %[kg^-1*m^-2] Inverse of inertia tensor
+m = 1.510;                          %[kg] Body mass
+Mb = diag([m m m]);                 %[Kg] Mass matrix
+MbInv = Mb\eye(3);                  %[Kg^-1] Inverse of mass matrix
+b = 0.55/2;                         %[m] Arm lenght
+Ixx = 0.035;                        %[kg*m^2] Inertia around Xbody axes
+Ixx_sigma = 0.0012;                 %[kg*m^2] Uncertainty of Inertia around Xbody axes
+Iyy = Ixx;                          %[kg*m^2] Inertia around Ybody axes
+Iyy_sigma = Ixx_sigma;              %[kg*m^2] Uncertainty of Inertia around Ybody axes
+Izz = 0.05;                         %[kg*m^2] Inertia around Zbody axes
+Izz_sigma = 0.0013;                 %[kg*m^2] Uncertainty of Inertia around Zbody axes
+In = diag([Ixx Iyy Izz]);           %[kg*m^2] Inertia tensor
+InInv = In\eye(3);                  %[kg^-1*m^-2] Inverse of inertia tensor
 
 %Propellers information
-D = 12*(0.0254);                 %[m] Propeller diameter
-R = D/2;                         %[m] Propeller radius
-A = pi*R^2;                      %[m^2] Disk area
-ro = 1.225;                      %[kg*m^-3] Air density
-nb = 2;                          %[1] Number of blades
-ChordAv = .01;                   %[m] Average chord length
-Ab = nb*R*ChordAv;               %[m] Blade area
-sigma = Ab/A;                    %[1] Solid ratio
-Ct = 0.011859;                   %[1] Thrust coefficent
-Cq = 0.00091322;                 %[1] Torque coefficent
-tau = 0.055257;                  %[s] Motor+Propeller time constant
-x1 = [6.0312 80.4859];           %rad/s vs THROTTLE: Y = m*X + q; x1 = [m q]
+ro = 1.225;                         %[kg*m^-3] Air density
+nb = 2;                             %[1] Number of blades
+D = 12*(0.0254);                    %[m] Propeller diameter
+R = D/2;                            %[m] Propeller radius
+A = pi*R^2;                         %[m^2] Disk area
+ChordAv = .01;                      %[m] Average chord length
+Ab = nb*R*ChordAv;                  %[m] Blade area
+sigma = Ab/A;                       %[1] Solid ratio
+Ct = 0.011859;                      %[1] Thrust coefficent
+Cq = 0.00091322;                    %[1] Torque coefficent
+tau = 0.055257;                     %[s] Motor+Propeller time constant
 Kt = Ct*ro*A*R^2;
 Kt_sigma = 1.0832e-07;
 Kq = Cq*ro*A*R^3;
-OMEhov = sqrt((m*g/Kt)/4);
-dMdu = 4*sqrt(2)*Kt*b*OMEhov;    %[Nm*s] Control derivative
-dMdu_sigma = (4*sqrt(2)*b*OMEhov)*Kt_sigma;
+omega_hover = sqrt((m*g/Kt)/4);     %[rad/s]
+dMdu = 4*sqrt(2)*Kt*b*omega_hover;  %[Nm*s] Control derivative
+dMdu_sigma = (4*sqrt(2)*b*omega_hover)*Kt_sigma;
+x1 = [6.0312 80.4859];              %Actuator characteristic, rad/s vs throttle%: Y = m*X + q; x1 = [m q]
 
 %Aerodynamic damping
-dMdq = -0.046271;                %[Nm*s] Stability derivative of the vehicle pitch
-dMdq_sigma = 0.0024164;          %[Nm*s] Uncertainty of stability derivative of the vehicle pitch
+dMdq = -0.046271;                   %[Nm*s] Stability derivative of the vehicle pitch
+dMdq_sigma = 0.0024164;             %[Nm*s] Uncertainty of stability derivative of the vehicle pitch
 dLdp = dMdq;
-dNdr = -0.0185;                  %[Nm*s] Stability derivative of the vehicle yaw
+dNdr = -0.0185;                     %[Nm*s] Stability derivative of the vehicle yaw
 dLMN = [dLdp  0    0   ;
          0   dMdq  0   ;
          0    0   dNdr];

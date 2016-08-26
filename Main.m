@@ -48,26 +48,26 @@ legend('phi', 'theta', 'psi')
 
 %% 3D Animation
 
-% global index_view;
-% global old_position;
-% droneFigure = figure('name','Plot Trajectory');
-% ha = axes('Parent',droneFigure);
-%     set(droneFigure,'menubar','figure','renderer','opengl');
-%     set(ha,'Visible','On','Box','On','XGrid', 'on','YGrid', 'on','ZGrid',...
-%         'on','projection','perspective');
-% hold on;
-% cameratoolbar('show');
-% axis vis3d;
-% view(3);
-% zoom(0.9);
-% index_view = 0;
-% old_position = [0 0 0];
-% cameratoolbar('ResetCameraAndSceneLight');
-% 
-% for i = 1:length(tout)
-%    draw_mod([P_e(i,:) Alpha_e(i,:)]);
-% end
-% drawnow;
+global index_view;
+global old_position;
+droneFigure = figure('name','Plot Trajectory');
+ha = axes('Parent',droneFigure);
+    set(droneFigure,'menubar','figure','renderer','opengl');
+    set(ha,'Visible','On','Box','On','XGrid', 'on','YGrid', 'on','ZGrid',...
+        'on','projection','perspective');
+hold on;
+cameratoolbar('show');
+axis vis3d;
+view(3);
+zoom(0.9);
+index_view = 0;
+old_position = [0 0 0];
+cameratoolbar('ResetCameraAndSceneLight');
+
+for i = 1:length(tout)
+   draw_mod([P_e(i,:) Alpha_e(i,:)]);
+end
+drawnow;
 
 %% 3D Animation and video making
 %If you want to make a short video about the output of the simulaiton just
