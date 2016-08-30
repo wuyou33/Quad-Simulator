@@ -1,0 +1,100 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>Release Notes</title><meta name="generator" content="MATLAB 7.9.1"><meta name="date" content="2010-12-12"><meta name="m-file" content="pbsid_releasenotes"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1>Release Notes</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Predictor-Based Subspace IDentification Toolbox</a></li></ul></div><h2>Predictor-Based Subspace IDentification Toolbox<a name="1"></a></h2><p>V0.4 (December 2010)</p><div><ul><li>added functions to estimate the asymptoic variance of the PBSIDopt (VARX) estimates</li><li>added functions for plotting the bode and eigenvalues with error bounds</li></ul></div><p>V0.3 (Oktober 2010)</p><div><ul><li>regularisation parameter can be now be given by user</li><li>added the recursive function <tt>rpbsid</tt></li><li>added the simulink blocks for real-time recursive identification</li><li>added examples with the recursive function <tt>rpbsid</tt></li></ul></div><p>V0.2 (Augustus 2010)</p><div><ul><li>improved and new functions (<tt>pem</tt>, <tt>pe</tt>, etc) for IDAFFLPV object</li><li>new functions to convert to IDSS object</li><li>batch updating of <tt>dordfir</tt>, <tt>dordvarx</tt>, and <tt>dordvarmax</tt> improved</li><li>new function <tt>idmultisine</tt> to generate multi sine excitation signals</li><li>add stability option in <tt>dx2abcdk.m</tt></li><li>corrected bugs in <tt>lordvarx</tt> and <tt>lx2abcdk</tt></li><li>added more documentation</li></ul></div><p>V0.1 (December 2009)</p><div><ul><li>first release of the PBSID Toolbox</li></ul></div><p class="footer"><br>
+      Published with MATLAB&reg; 7.9.1<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Release Notes
+
+%% Predictor-Based Subspace IDentification Toolbox
+%
+% V0.4 (December 2010)
+%
+% * added functions to estimate the asymptoic variance of the PBSIDopt
+% (VARX) estimates
+% * added functions for plotting the bode and eigenvalues with error bounds
+%
+% V0.3 (Oktober 2010)
+%
+% * regularisation parameter can be now be given by user
+% * added the recursive function |rpbsid|
+% * added the simulink blocks for real-time recursive identification
+% * added examples with the recursive function |rpbsid|
+%
+% V0.2 (Augustus 2010)
+%
+% * improved and new functions (|pem|, |pe|, etc) for IDAFFLPV object
+% * new functions to convert to IDSS object
+% * batch updating of |dordfir|, |dordvarx|, and |dordvarmax| improved
+% * new function |idmultisine| to generate multi sine excitation signals
+% * add stability option in |dx2abcdk.m|
+% * corrected bugs in |lordvarx| and |lx2abcdk|
+% * added more documentation
+%
+% V0.1 (December 2009)
+%
+% * first release of the PBSID Toolbox
+
+##### SOURCE END #####
+--></body></html>

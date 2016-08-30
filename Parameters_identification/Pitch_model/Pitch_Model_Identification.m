@@ -4,7 +4,7 @@
 % Last review: 2016/08/24      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clearvars
-close all 
+close all
 clc
 
 %% Parameters definition
@@ -26,7 +26,7 @@ ChordAv = .01;                      %[m] Average chord length
 Ab = nb*R*ChordAv;                  %[m] Blade area
 sigma = Ab/A;                       %[1] Solid ratio
 Ct = 0.011859;                      %[1] Thrust coefficent
-Kt = Ct*ro*A*R^2;                   %[N/(rad/s)^2] 
+Kt = Ct*ro*A*R^2;                   %[N/(rad/s)^2]
 omega_hover = sqrt((m*g/Kt)/4);     %[rad/s]
 dMdu = 4*sqrt(2)*Kt*b*omega_hover;  %[Nm*s] Control derivative
 
@@ -35,22 +35,22 @@ x1 = [6.0312 80.4859];              %Actuator characteristic, rad/s vs throttle%
 %Aerodynamic damping
 Cl_alpha = 2*pi;
 dCt_dp = Cl_alpha/8 *sigma/(R * omega_hover) * b/sqrt(2);
-dMdq_g = -4 * ro * A * R^2 *omega_hover^2 * dCt_dp * b/sqrt(2);               
-                                    %[Nm*s] Stability derivative of the vehicle pitch
+dMdq_g = -4 * ro * A * R^2 *omega_hover^2 * dCt_dp * b/sqrt(2);
+%[Nm*s] Stability derivative of the vehicle pitch
 
 %% Import data logged
 ts = 0.01;                          %[s] Sample time
 
 filename = 'dati_id_ol';
 load([pwd filesep 'Logs' filesep filename])
-u_ol = u*x1(1);                     %[rad/s] deltaOmega 
+u_ol = u*x1(1);                     %[rad/s] deltaOmega
 y_ol = y*degtorad;                  %[rad/s] q
 t_ol = t;                           %[s] time vector
 
 filename = 'dati_id_cl';
 load([pwd filesep 'Logs' filesep filename])
-u_cl = u;                           %[Nm] M
-y_cl = y*degtorad;                  %[rad/s] q               
+u_cl = u;                           %[rad/s] deltaOmega
+y_cl = y*degtorad;                  %[rad/s] q
 t_cl = t;                           %[s] time vector
 
 clear filename t u y
@@ -66,8 +66,8 @@ data.TimeUnit = 's';
 odefun = 'Pitch';
 
 parameters = {dMdq_g, ...
-              dMdu, ...
-              Iyy_g};
+    dMdu, ...
+    Iyy_g};
 
 fcn_type = 'c';
 init_sys = idgrey(odefun,parameters,fcn_type);
@@ -100,13 +100,34 @@ Msrivc = tdsrivc(data,nn);
 ye_srivc = lsim(Msrivc, u_ol, t_ol);
 
 [pvec, pvec_sd] = getpvec(Msrivc);
-Iyy_srivc = dMdu/pvec(1);
-dMdq_srivc = -Iyy_srivc*pvec(2);
-Iyy_srivc_sd = pvec_sd(1);
-dMdq_srivc_sd = sqrt(pvec_sd(2)^2 - Iyy_srivc_sd^2);
+Aa = pvec(1);
+Bb = pvec(2);
+sigma_a = pvec_sd(1);
+sigma_b = pvec_sd(2);
+
+Iyy_srivc = dMdu/Aa;
+dMdq_srivc = -Iyy_srivc*Bb;
+% Iyy_srivc_sd = pvec_sd(1)/(dMdu/pvec(1)^2);
+% dMdq_srivc_sd = sqrt((pvec_sd(2)^2 - (dMdq_srivc/pvec(1)^2)^2 * Iyy_srivc_sd^2) / (1/Iyy_srivc)^2);
+Iyy_srivc_sd = sqrt((dMdu * 1/Aa^2)^2 * sigma_a^2);
+dMdq_srivc_sd = sqrt(Bb^2 * Iyy_srivc_sd^2 + Iyy_srivc^2 * sigma_b^2);
 
 VAF_srivc = max([1 - var(y_ol - ye_srivc)/var(y_ol), 0])*100;
- 
+
+%% Model identification - PBSID (Closed Loop)
+xx = 1;
+f = 20;
+p = f;
+
+if xx == 0
+    [S,X] = dordvarx(u_cl,y_cl,f,p,'tikh','gcv');
+else
+    [S,X] = dordvarmax(u_cl,y_cl,f,p,'els',1e-6,'tikh','gcv');
+end
+%   figure, semilogy(S,'*');
+x = dmodx(X,n);
+[Ai,Bi,Ci,Di,Ki] = dx2abcdk(x,u,y,f,p);
+
 %% Plot results
 figure('name', 'Open Loop','units','normalized','outerposition',[0 0 1 1])
 subplot(2,1,1)
@@ -124,7 +145,7 @@ hold off
 legend(['Grey-Box, V.A.F. = ', num2str(VAF_gb,4), ' %'] ,['SRIVC, V.A.F. = ', num2str(VAF_srivc,4), ' %'] , 'Logged data','location','southeast')
 grid minor
 ylabel('[rad/s]')
-xlabel('Time [s]')  
+xlabel('Time [s]')
 title('q')
 
 disp('The identified model with the Grey Box method V.A.F. equals to:')
@@ -134,4 +155,12 @@ disp(['    ', num2str(dMdq_gb,4), ' ± ', num2str(dMdq_gb_sd,4), ' [Nm*s]'])
 disp('The estimated inertia around pitch axis (Iyy) equals to:')
 disp(['     ', num2str(Iyy_gb,4), ' ± ', num2str(Iyy_gb_sd,4), ' [Kgm^2]'])
 
- %% End of code
+
+disp('The identified model with the SRIVC method V.A.F. equals to:')
+disp(['     ', num2str(VAF_gb,4), ' %'])
+disp('The estimated stability derivative of the vehicle pitch moment (dM/dq) equals to:')
+disp(['    ', num2str(dMdq_srivc,4), ' ± ', num2str(dMdq_srivc_sd,4), ' [Nm*s]'])
+disp('The estimated inertia around pitch axis (Iyy) equals to:')
+disp(['     ', num2str(Iyy_srivc,4), ' ± ', num2str(Iyy_srivc_sd,4), ' [Kgm^2]'])
+
+%% End of code
