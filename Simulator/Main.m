@@ -7,7 +7,7 @@ close all
 clc
 
 %% Launch SIMULATOR
-simulation_time = 40;
+simulation_time = 50;
 
 sim Simulator
 
