@@ -1,0 +1,41 @@
+Contsid Toolbox version  7.1 for Matlab
+Version 7.1  05-February-2016
+
+Note that the CONTSID toolbox can be considered as an add-on to the System
+Identification (SID) toolbox and requires the presence of the SID and 
+Control toolboxes in order to run
+
+------------------------
+Updates for version v7.1 
+------------------------
+- Several bugs have been fixed for MISO transfer function model identification
+- Model order selection by using srivcstruc and selcstruc has been improved
+- Minor typos in some routine helps have been corrected
+
+------------------------
+Updates for version v7.0 
+------------------------
+
+The toolbox is now compatible with the latest version of Matlab.
+
+Version 7.0 can now identify linear transfer function model from frequency 
+domain data: see SRIVC
+
+It includes new SRIVC-based parameter estimation schemes for identifying:
+- simple process models: PROCSRIVC
+- time-delay models: TDSRIVC
+- time-varying parameter (TVP) models: see RSRIVC
+- heat diffusion PDE models: see PDESRIVC4HEATDIFFUSION
+
+The demonstration programs have been entirely rewritten: 
+- run IDCDEMO in the command window
+
+
+-----------------------------------------------------------------------
+ Copyright (c) 2016 by the Centre de Recherche en Automatique de Nancy (CRAN) 
+ France.
+-----------------------------------------------------------------------
+ Hugues GARNIER & Marion Gilson & Vincent Laurain & Arturo Padilla
+ e-mail : 	hugues.garnier@univ-lorraine.fr
+	
+-----------------------------------------------------------------------
